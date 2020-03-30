@@ -1,0 +1,26 @@
+@import '../../styles/theme.less';
+
+.root {
+  box-shadow: @box-shadow;
+  z-index: 10;
+  min-height: 100%;
+  .logo {
+    min-height: 64px;
+    .flex-center();
+    img {
+      width: 100%;
+      min-width: 80px;
+      max-width: 120px;
+      transition: @transition;
+    }
+  }
+
+  .content {
+    .menu {
+      border: none;
+      .title {
+        padding-left: @space - 2;
+      }
+    }
+  }
+}

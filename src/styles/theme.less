@@ -1,0 +1,49 @@
+// base colors
+@primary-color: #3751ff;
+@light-color: #f6f8fc;
+@white: #fff;
+@black: #000;
+
+// background
+@background-color: @white;
+@layout-body-background: @light-color;
+
+// text
+@text-color: fade(@black, 65%);
+@text-color-secondary: fade(@black, 45%);
+@text-color-active: fade(@black, 75%);
+@text-color-inverse: @white;
+
+// shadow
+@shadow-color: fade(@black, 6%);
+@shadow-color-2: fade(@black, 30%);
+@box-shadow: 0 2px 8px @shadow-color;
+@box-shadow-2: 2px 0 6px @shadow-color-2;
+
+// space
+@space: 12px;
+@space-2: 24px;
+@space-3: 36px;
+
+// transition
+@transition: all 0.3s ease;
+
+// flex
+.flex {
+  display: flex;
+}
+.flex-center {
+  .flex();
+  justify-content: center;
+  align-items: center;
+}
+.flex-between {
+  .flex();
+  justify-content: space-between;
+  align-items: center;
+}
+.flex-around {
+  .flex();
+  justify-content: space-around;
+  align-items: center;
+}

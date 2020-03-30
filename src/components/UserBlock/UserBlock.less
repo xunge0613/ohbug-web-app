@@ -1,0 +1,19 @@
+@import '../../styles/theme.less';
+
+.root {
+  height: 100%;
+}
+
+.inner, .user {
+  height: 100%;
+  padding: 10px 12px 12px;
+  .flex-center();
+
+  .info {
+    .flex();
+    flex-direction: column;
+    flex: 1;
+    line-height: 20px;
+    padding-left: @space;
+  }
+}

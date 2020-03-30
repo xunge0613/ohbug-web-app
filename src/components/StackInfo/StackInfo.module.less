@@ -1,0 +1,26 @@
+@import '../../styles/theme.less';
+
+.root {
+  .toggle {}
+
+  .playground {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-top: @space;
+    .line {
+      &.highlight {
+        background-color: @primary-color;
+        & > .code {
+          color: @white;
+        }
+      }
+      .number {
+        color: @text-color-secondary;
+      }
+      .code {
+        color: @text-color;
+        padding-left: @space;
+      }
+    }
+  }
+}

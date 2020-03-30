@@ -1,0 +1,37 @@
+@import '../../styles/theme.less';
+
+.root {
+  background-color: @white;
+  box-shadow: @box-shadow;
+  padding: 0;
+  z-index: 10;
+  .flex-between();
+
+  .title {
+    height: 100%;
+    font-size: 20px;
+    font-weight: 600;
+
+    .trigger {
+      height: 64px;
+      line-height: 64px;
+      padding: 0 @space-2;
+    }
+  }
+
+  .extra {
+    height: 100%;
+    padding-right: @space;
+    
+    .item {
+      cursor: pointer;
+      height: 100%;
+      padding: 0 @space/2;
+      transition: @transition;
+      .flex-center();
+      &:hover {
+        background: @light-color;
+      }
+    }
+  }
+}
