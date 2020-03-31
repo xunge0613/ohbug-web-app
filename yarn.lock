@@ -1422,14 +1422,6 @@
   resolved "https://registry.npm.taobao.org/@csstools/convert-colors/download/@csstools/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha1-rUldxBsS511YjG24uYNPCPoTHrc=
 
-"@fluent-windows/hooks@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/@fluent-windows/hooks/download/@fluent-windows/hooks-1.0.0.tgz#d6620e0b730988a2b15a72326c1a8c687a65fed9"
-  integrity sha1-1mIOC3MJiKKxWnIybBqMaHpl/tk=
-  dependencies:
-    json2mq "^0.2.0"
-    popper.js "^1.15.0"
-
 "@formatjs/intl-displaynames@^1.2.0":
   version "1.2.2"
   resolved "https://registry.npm.taobao.org/@formatjs/intl-displaynames/download/@formatjs/intl-displaynames-1.2.2.tgz#d0f0edebad96660196d282f609a1169a88a27d4a"
@@ -10617,11 +10609,6 @@ point-at-length@^1.0.2:
     abs-svg-path "~0.1.1"
     isarray "~0.0.1"
     parse-svg-path "~0.1.1"
-
-popper.js@^1.15.0:
-  version "1.16.1"
-  resolved "https://registry.npm.taobao.org/popper.js/download/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
-  integrity sha1-KiI8s9x7YhPXQOQDcr5A3kPmWxs=
 
 portfinder@1.0.25:
   version "1.0.25"
