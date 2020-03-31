@@ -1,5 +1,4 @@
 import React from 'react'
-import { RouteComponentProps } from '@reach/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { Drawer, Form, Input, Button, Select } from 'antd'
 
@@ -8,9 +7,7 @@ import { ProjectState } from '../../models'
 
 import styles from './CreateProject.module.less'
 
-type CreateProjectProps = RouteComponentProps
-
-const CreateProject: React.FC<CreateProjectProps> = () => {
+const CreateProject: React.FC = () => {
   const dispatch = useDispatch()
 
   const handleFinish = React.useCallback(

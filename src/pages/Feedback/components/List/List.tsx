@@ -18,7 +18,7 @@ const List: React.FC = () => {
   const count = useSelector<RootState, FeedbackState['count']>(
     state => state.feedback.count,
   )
-  const { query } = useLocation()
+  const { query } = useLocation() as any
 
   const feedbacksLoading = !feedbacks
 

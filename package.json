@@ -3,20 +3,10 @@
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
+    "build:analyze": "ANALYZE=1 umi build",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,less,md,json}": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "prettier --parser=typescript --write"
-    ]
   },
   "dependencies": {
     "@antv/data-set": "^0.11.1",
@@ -26,6 +16,7 @@
     "@rematch/persist": "^1.1.6",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.0.14",
+    "antd": "^4.1.0",
     "axios": "^0.19.2",
     "clsx": "^1.1.0",
     "js-cookie": "^2.2.1",
@@ -44,7 +35,21 @@
     "@ohbug/core": "^0.0.7",
     "@types/js-cookie": "^2.2.5",
     "@types/react-timeago": "^4.1.1",
-    "cz-conventional-changelog": "3.1.0"
+    "@types/redux-logger": "^3.0.7",
+    "antd-dayjs-webpack-plugin": "^1.0.0",
+    "cz-conventional-changelog": "3.1.0",
+    "source-map-trace": "^0.0.1"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
   },
   "config": {
     "commitizen": {

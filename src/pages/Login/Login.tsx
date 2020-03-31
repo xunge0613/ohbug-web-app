@@ -17,7 +17,7 @@ const href = `https://github.com/login/oauth/authorize?client_id=${clientId}`
 
 function useLoginRedirect(): void {
   const dispatch = useDispatch()
-  const { query } = useLocation()
+  const { query } = useLocation() as any
 
   React.useEffect(() => {
     if (query) {

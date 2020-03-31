@@ -11,7 +11,7 @@ interface DetailPageProps {
 
 const Detail: React.FC<DetailPageProps> = () => {
   const dispatch = useDispatch()
-  const { query } = useLocation()
+  const { query } = useLocation() as any
   const { target } = useParams()
 
   React.useEffect(() => {

@@ -18,7 +18,7 @@ const List: React.FC = () => {
   const count = useSelector<RootState, EventState['count']>(
     state => state.event.count,
   )
-  const { query } = useLocation()
+  const { query } = useLocation() as any
 
   const eventsLoading = !events
 
