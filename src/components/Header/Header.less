@@ -1,21 +1,21 @@
 @import '../../styles/theme.less';
 
 .root {
+  z-index: 10;
+  padding: 0;
   background-color: @white;
   box-shadow: @box-shadow;
-  padding: 0;
-  z-index: 10;
   .flex-between();
 
   .title {
     height: 100%;
-    font-size: 20px;
     font-weight: 600;
+    font-size: 20px;
 
     .trigger {
       height: 64px;
-      line-height: 64px;
       padding: 0 @space-2;
+      line-height: 64px;
     }
   }
 
@@ -24,9 +24,9 @@
     padding-right: @space;
 
     .item {
-      cursor: pointer;
       height: 100%;
       padding: 0 @space / 2;
+      cursor: pointer;
       transition: @transition;
       .flex-center();
       &:hover {

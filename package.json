@@ -63,6 +63,10 @@
       "eslint --fix",
       "prettier --parser=typescript --write",
       "git add"
+    ],
+    "*.less": [
+      "stylelint --fix",
+      "git add"
     ]
   },
   "husky": {

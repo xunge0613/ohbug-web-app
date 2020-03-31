@@ -3,7 +3,7 @@ import { Radio } from 'antd';
 import { SourceMapTraceCode } from 'source-map-trace/dist/source-map-trace';
 import clsx from 'clsx';
 
-import styles from './StackInfo.module.less';
+import styles from './StackInfo.less';
 
 interface StackInfoProps {
   stack: string;

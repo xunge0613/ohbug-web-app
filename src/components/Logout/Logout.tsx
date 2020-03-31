@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import styles from './Logout.module.less';
+import styles from './Logout.less';
 
 const Logout: React.FC = () => {
   const dispatch = useDispatch();

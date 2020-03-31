@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import { useLocation, Link } from 'umi';
 
-import styles from './SideMenu.module.less';
+import styles from './SideMenu.less';
 
 interface SideMenuProps {
   collapsed: boolean;

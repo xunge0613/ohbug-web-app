@@ -5,7 +5,7 @@ import { Drawer, Form, Input, Button, Select } from 'antd';
 import { RootState } from '../../store';
 import { ProjectState } from '../../models';
 
-import styles from './CreateProject.module.less';
+import styles from './CreateProject.less';
 
 const CreateProject: React.FC = () => {
   const dispatch = useDispatch();

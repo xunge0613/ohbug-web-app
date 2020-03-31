@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import Sider from '../../components/Sider';
 
-import styles from './Basic.module.less';
+import styles from './Basic.less';
 
 const { Content, Footer } = Layout;
 
