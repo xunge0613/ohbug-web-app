@@ -1,7 +1,7 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Drawer, Form, Input, Button, Select } from 'antd';
 
+import { useDispatch, useSelector } from '@/hooks';
 import { RootState } from '@/store';
 import { ProjectState } from '@/models';
 

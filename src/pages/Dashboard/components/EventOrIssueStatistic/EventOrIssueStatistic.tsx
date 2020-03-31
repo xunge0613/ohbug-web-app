@@ -1,8 +1,8 @@
 import React from 'react';
 import { Statistic, Tooltip, Skeleton } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
 
+import { useDispatch, useSelector } from '@/hooks';
 import { RootState } from '@/store';
 import { AnalysisState } from '@/models';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'umi';
 import { Card, Typography, Form, Input, Button, Divider } from 'antd';
-import { useDispatch } from 'react-redux';
 
+import { useDispatch } from '@/hooks';
 import Logout from '@/components/Logout';
 import BasicLayout from '@/layouts/Basic';
 

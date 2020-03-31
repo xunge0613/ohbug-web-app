@@ -3,9 +3,9 @@ import { Card, Table, Button, Typography } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { TableRowSelection } from 'antd/lib/table/interface';
 import { Link } from 'umi';
-import { useDispatch, useSelector } from 'react-redux';
 import TimeAgo from 'react-timeago';
 
+import { useDispatch, useSelector } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import Header from '@/components/Header';
 import { RootState } from '@/store';

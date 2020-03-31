@@ -2,8 +2,8 @@ import React from 'react';
 import { history } from 'umi';
 import { PageHeader, Row, Col, Button, Skeleton, Card, Avatar } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
 
+import { useDispatch, useSelector } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import Header from '@/components/Header';
 import { RootState } from '@/store';

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, Table } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
 import Timeago from 'react-timeago';
 import { history, useLocation } from 'umi';
 
+import { useSelector, useDispatch } from '@/hooks';
 import { RootState } from '@/store';
 import { EventState, Event as EventType } from '@/models';
 

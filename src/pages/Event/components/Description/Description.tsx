@@ -7,13 +7,13 @@ import {
   WarningOutlined,
   CodeOutlined,
 } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
 import Timeago from 'react-timeago';
 import dayjs from 'dayjs';
 import { Action } from '@ohbug/types';
 import RrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
 
+import { useSelector } from '@/hooks';
 import StackInfo from '@/components/StackInfo';
 import { RootState } from '@/store';
 import { EventState } from '@/models';

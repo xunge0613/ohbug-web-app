@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Menu, Dropdown, Typography, Tooltip } from 'antd';
 import { QuestionCircleOutlined, DownOutlined } from '@ant-design/icons';
-import { useSelector, useDispatch } from 'react-redux';
 
+import { useSelector, useDispatch } from '@/hooks';
 import { RootState } from '@/store';
 import { AnalysisState } from '@/models';
 import Chart from './Chart';

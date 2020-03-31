@@ -1,8 +1,8 @@
 import React from 'react';
 import { Drawer } from 'antd';
 import { useMedia } from '@fluent-windows/hooks';
-import { useSelector, useDispatch } from 'react-redux';
 
+import { useSelector, useDispatch } from '@/hooks';
 import { RootState } from '@/store';
 import { AppState } from '@/models';
 import SideMenu from './SideMenu';

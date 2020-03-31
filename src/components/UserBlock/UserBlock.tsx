@@ -1,7 +1,7 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Menu, Avatar, Dropdown, Typography, Divider } from 'antd';
 
+import { useSelector, useDispatch } from '@/hooks';
 import { RootState } from '@/store';
 import { ProjectState, UserState } from '@/models';
 import getPlatformLogo from '@/utils/getPlatformLogo';

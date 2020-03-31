@@ -1,9 +1,9 @@
 import React from 'react';
 import { Typography, Button } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
 import { useLocation } from 'umi';
 
+import { useDispatch } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 
 import styles from './Login.less';

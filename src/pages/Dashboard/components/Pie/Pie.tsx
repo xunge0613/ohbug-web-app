@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, Typography } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
 import { Chart } from '@antv/g2';
 import DataSet from '@antv/data-set';
 
+import { useDispatch, useSelector } from '@/hooks';
 import { RootState } from '@/store';
 
 type Type = 'browser' | 'os' | 'type' | 'device';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useParams } from 'umi';
-import { useDispatch } from 'react-redux';
 
+import { useDispatch } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import Header from '@/components/Header';
 import Description from './components/Description';

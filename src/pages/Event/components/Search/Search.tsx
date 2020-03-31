@@ -1,7 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 
+import { useDispatch } from '@/hooks';
 import DatePicker from '@/components/DatePicker';
 
 import styles from './Search.less';

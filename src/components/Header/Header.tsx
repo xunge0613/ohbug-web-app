@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout } from 'antd';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
 
+import { useDispatch, useSelector } from '@/hooks';
 import { RootState } from '@/store';
 import { AppState } from '@/models';
 import UserBlock from '../UserBlock';

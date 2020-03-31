@@ -1,9 +1,9 @@
 import React from 'react';
 import { Statistic, Tooltip, Skeleton } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 
+import { useDispatch, useSelector } from '@/hooks';
 import { RootState } from '@/store';
 
 import styles from './View.less';

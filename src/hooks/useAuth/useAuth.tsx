@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, history } from 'umi';
-import { useDispatch, useSelector } from 'react-redux';
 
+import { useDispatch, useSelector } from '@/hooks';
 import { getGithub } from '@/utils';
 import { RootState } from '@/store';
 import { UserState } from '@/models';
