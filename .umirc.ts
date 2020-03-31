@@ -1,5 +1,6 @@
-import { defineConfig } from 'umi'
-import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin'
+import path from 'path';
+import { defineConfig } from 'umi';
+import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
 
 export default defineConfig({
   routes: [
@@ -69,7 +70,16 @@ export default defineConfig({
 
   chainWebpack(memo) {
     // 使用 dayjs 替换 moment.js
-    memo.plugin('antd-dayjs').use(AntdDayjsWebpackPlugin)
+    memo.plugin('antd-dayjs').use(AntdDayjsWebpackPlugin);
+
+    memo.module
+      .rule('lint')
+      .test(/\.(ts|tsx)$/)
+      .pre()
+      .include.add(path.resolve(__dirname, 'src'))
+      .end()
+      .use('eslint')
+      .loader(require.resolve('eslint-loader'));
   },
 
   // 开启 TypeScript 编译时类型检查
@@ -91,4 +101,4 @@ export default defineConfig({
 
   // 配置是否让生成的文件包含 hash 后缀
   hash: true,
-})
+});

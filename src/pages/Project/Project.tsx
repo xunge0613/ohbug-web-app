@@ -1,35 +1,31 @@
-import React from 'react'
-import { history } from 'umi'
-import { PageHeader, Row, Col, Button, Skeleton, Card, Avatar } from 'antd'
-import { PlusCircleOutlined } from '@ant-design/icons'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react';
+import { history } from 'umi';
+import { PageHeader, Row, Col, Button, Skeleton, Card, Avatar } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
 
-import BasicLayout from '../../layouts/Basic'
-import Header from '../../components/Header'
-import { RootState } from '../../store'
-import { ProjectState, OrganizationState } from '../../models'
-import { getPlatformLogo } from '../../utils'
+import BasicLayout from '../../layouts/Basic';
+import Header from '../../components/Header';
+import { RootState } from '../../store';
+import { ProjectState, OrganizationState } from '../../models';
+import { getPlatformLogo } from '../../utils';
 
-import styles from './Project.less'
+import styles from './Project.less';
 
 interface ProjectPageProps {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 const Project: React.FC<ProjectPageProps> = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const organization = useSelector<RootState, OrganizationState>(
-    state => state.organization,
-  )
-  const project = useSelector<RootState, ProjectState['data']>(
-    state => state.project.data,
-  )
-  const loading = !project.length
+  const organization = useSelector<RootState, OrganizationState>(state => state.organization);
+  const project = useSelector<RootState, ProjectState['data']>(state => state.project.data);
+  const loading = !project.length;
 
   const handleCreateProject = React.useCallback(() => {
-    dispatch({ type: 'project/handleCreateProjectVisible', payload: true })
-  }, [dispatch])
+    dispatch({ type: 'project/handleCreateProjectVisible', payload: true });
+  }, [dispatch]);
 
   return (
     <BasicLayout
@@ -43,13 +39,13 @@ const Project: React.FC<ProjectPageProps> = () => {
               {organization.name}
             </span>
           }
-          ghost={true}
+          ghost
           extra={
             <Button icon={<PlusCircleOutlined />} onClick={handleCreateProject}>
               Create Project
             </Button>
           }
-        ></PageHeader>
+        />
       }
     >
       <Row gutter={[16, 16]}>
@@ -68,8 +64,8 @@ const Project: React.FC<ProjectPageProps> = () => {
                 dispatch({
                   type: 'project/setCurrentProject',
                   payload: project,
-                })
-                history.push('/issue')
+                });
+                history.push('/issue');
               }}
             >
               <Skeleton loading={loading}>
@@ -80,7 +76,7 @@ const Project: React.FC<ProjectPageProps> = () => {
         ))}
       </Row>
     </BasicLayout>
-  )
-}
+  );
+};
 
-export default Project
+export default Project;

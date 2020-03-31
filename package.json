@@ -9,6 +9,7 @@
     "test:coverage": "umi-test --coverage"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.0.5",
     "@antv/data-set": "^0.11.1",
     "@antv/g2": "^4.0.3",
     "@fluent-windows/hooks": "^1.0.0",
@@ -25,19 +26,27 @@
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-redux": "^7.2.0",
     "react-timeago": "^4.4.0",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "rrweb-player": "^0.4.3",
     "umi": "^3.0.16",
     "yorkie": "^2.0.0"
   },
   "devDependencies": {
     "@ohbug/core": "^0.0.7",
+    "@ohbug/types": "^0.0.3",
     "@types/js-cookie": "^2.2.5",
     "@types/react-timeago": "^4.1.1",
     "@types/redux-logger": "^3.0.7",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "@umijs/fabric": "^2.0.6",
     "antd-dayjs-webpack-plugin": "^1.0.0",
     "cz-conventional-changelog": "3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-loader": "^3.0.3",
     "source-map-trace": "^0.0.1"
   },
   "gitHooks": {
@@ -45,10 +54,14 @@
   },
   "lint-staged": {
     "*.{js,jsx,less,md,json}": [
-      "prettier --write"
+      "eslint --fix",
+      "prettier --write",
+      "git add"
     ],
     "*.ts?(x)": [
-      "prettier --parser=typescript --write"
+      "eslint --fix",
+      "prettier --parser=typescript --write",
+      "git add"
     ]
   },
   "config": {
