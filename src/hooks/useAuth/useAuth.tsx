@@ -2,9 +2,9 @@ import React from 'react';
 import { useLocation, history } from 'umi';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getGithub } from '../../utils';
-import { RootState } from '../../store';
-import { UserState } from '../../models';
+import { getGithub } from '@/utils';
+import { RootState } from '@/store';
+import { UserState } from '@/models';
 
 interface UseAuth {
   isLogin: boolean;

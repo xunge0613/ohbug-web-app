@@ -1,5 +1,6 @@
 import axios from 'axios';
-import store from '../../store';
+
+import store from '@/store';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,

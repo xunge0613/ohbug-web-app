@@ -1,6 +1,6 @@
-import { request } from '../utils';
-import { ProjectType } from '../interfaces';
-import { ProjectState, Project } from '../models';
+import { request } from '@/utils';
+import { ProjectType } from '@/interfaces';
+import { ProjectState, Project } from '@/models';
 
 interface Create {
   name: string;

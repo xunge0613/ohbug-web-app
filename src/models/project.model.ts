@@ -1,8 +1,9 @@
 import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core';
 import { history } from 'umi';
-import { RootState } from '../store';
-import api from '../api';
-import { ProjectType } from '../interfaces';
+
+import { RootState } from '@/store';
+import api from '@/api';
+import { ProjectType } from '@/interfaces';
 
 export interface Project {
   app_id: string;

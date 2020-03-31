@@ -2,8 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Drawer, Form, Input, Button, Select } from 'antd';
 
-import { RootState } from '../../store';
-import { ProjectState } from '../../models';
+import { RootState } from '@/store';
+import { ProjectState } from '@/models';
 
 import styles from './CreateProject.less';
 

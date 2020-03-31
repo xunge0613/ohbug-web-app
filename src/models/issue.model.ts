@@ -1,7 +1,8 @@
 import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core';
 import { Platform, Event } from '@ohbug/types';
-import { RootState } from '../store';
-import api from '../api';
+
+import { RootState } from '@/store';
+import api from '@/api';
 
 interface Intro {
   type: string;

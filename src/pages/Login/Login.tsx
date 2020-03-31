@@ -4,7 +4,7 @@ import { GithubOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'umi';
 
-import BasicLayout from '../../layouts/Basic';
+import BasicLayout from '@/layouts/Basic';
 
 import styles from './Login.less';
 

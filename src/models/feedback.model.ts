@@ -1,7 +1,8 @@
 import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core';
-import { RootState } from '../store';
+
+import { RootState } from '@/store';
+import api from '@/api';
 import { Event } from './event.model';
-import api from '../api';
 
 export interface FeedbackState {
   data?: Event<any>[];

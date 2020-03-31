@@ -1,6 +1,7 @@
 import { ModelConfig, ModelEffects } from '@rematch/core';
 import { history } from 'umi';
-import api from '../api';
+
+import api from '@/api';
 
 export interface LoginModel extends ModelConfig {
   effects: ModelEffects<any>;

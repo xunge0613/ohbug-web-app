@@ -13,8 +13,8 @@ import {
   IssueModel,
   AnalysisModel,
   ViewModel,
-} from '../models';
-import * as models from '../models';
+} from '@/models';
+import * as models from '@/models';
 
 const persistPlugin = createRematchPersist({
   key: 'root',

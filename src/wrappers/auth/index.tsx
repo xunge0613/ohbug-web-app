@@ -1,5 +1,6 @@
 import React from 'react';
-import useAuth from '../../hooks/useAuth';
+
+import { useAuth } from '@/hooks';
 import Loading from './Loading';
 
 export default ({ children }: any) => {

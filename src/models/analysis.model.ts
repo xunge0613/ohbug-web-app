@@ -1,8 +1,8 @@
 import { ModelConfig, ModelReducers } from '@rematch/core';
 import dayjs from 'dayjs';
 
-import { RootState } from '../store';
-import api from '../api';
+import { RootState } from '@/store';
+import api from '@/api';
 
 export interface Item {
   item: string;

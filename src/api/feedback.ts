@@ -1,6 +1,7 @@
 import { Event } from '@ohbug/types';
-import { request } from '../utils';
-import { SearchFeedbacks } from '../models';
+
+import { request } from '@/utils';
+import { SearchFeedbacks } from '@/models';
 
 interface GetMany extends SearchFeedbacks {
   project_id: number;

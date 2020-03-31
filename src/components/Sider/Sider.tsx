@@ -1,10 +1,10 @@
 import React from 'react';
 import { Drawer } from 'antd';
 import { useMedia } from '@fluent-windows/hooks';
-
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
-import { AppState } from '../../models';
+
+import { RootState } from '@/store';
+import { AppState } from '@/models';
 import SideMenu from './SideMenu';
 
 const Sider: React.FC = () => {

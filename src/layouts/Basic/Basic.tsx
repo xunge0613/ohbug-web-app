@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import clsx from 'clsx';
 
-import Sider from '../../components/Sider';
+import Sider from '@/components/Sider';
 
 import styles from './Basic.less';
 

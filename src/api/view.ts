@@ -1,5 +1,5 @@
-import { request } from '../utils';
-import { GetPV, GetUV } from '../models';
+import { request } from '@/utils';
+import { GetPV, GetUV } from '@/models';
 
 const view = {
   getPV: async (data: GetPV): Promise<number | void> => {

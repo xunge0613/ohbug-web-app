@@ -3,9 +3,9 @@ import { Card, Menu, Dropdown, Typography, Tooltip } from 'antd';
 import { QuestionCircleOutlined, DownOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { RootState } from '@/store';
+import { AnalysisState } from '@/models';
 import Chart from './Chart';
-import { RootState } from '../../../../store';
-import { AnalysisState } from '../../../../models';
 
 import styles from './Chart.less';
 

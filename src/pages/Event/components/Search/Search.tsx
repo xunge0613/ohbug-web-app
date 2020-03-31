@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 
-import DatePicker from '../../../../components/DatePicker';
+import DatePicker from '@/components/DatePicker';
 
 import styles from './Search.less';
 

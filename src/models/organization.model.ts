@@ -1,7 +1,8 @@
 import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core';
 import { history } from 'umi';
-import { RootState } from '../store';
-import api from '../api';
+
+import { RootState } from '@/store';
+import api from '@/api';
 
 export interface OrganizationState {
   id?: number;

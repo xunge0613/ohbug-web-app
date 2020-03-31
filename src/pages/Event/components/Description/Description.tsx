@@ -14,9 +14,9 @@ import { Action } from '@ohbug/types';
 import RrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
 
-import StackInfo from '../../../../components/StackInfo';
-import { RootState } from '../../../../store';
-import { EventState } from '../../../../models';
+import StackInfo from '@/components/StackInfo';
+import { RootState } from '@/store';
+import { EventState } from '@/models';
 
 import styles from './Description.less';
 

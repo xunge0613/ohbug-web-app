@@ -2,10 +2,11 @@ import React from 'react';
 import { Statistic, Tooltip, Skeleton } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../store';
+
+import { RootState } from '@/store';
+import { AnalysisState } from '@/models';
 
 import styles from './EventOrIssueStatistic.less';
-import { AnalysisState } from '../../../../models';
 
 type Type = 'event' | 'issue';
 interface EventOrIssueStatisticProps {

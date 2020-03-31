@@ -5,9 +5,8 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { getPersistor } from '@rematch/persist';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import './styles';
-
 import store from './store';
+import './styles';
 
 const persistor = getPersistor();
 const Loading = <Spin indicator={<LoadingOutlined spin />} />;

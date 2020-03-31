@@ -3,9 +3,9 @@ import { Layout } from 'antd';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { RootState } from '@/store';
+import { AppState } from '@/models';
 import UserBlock from '../UserBlock';
-import { RootState } from '../../store';
-import { AppState } from '../../models';
 
 import styles from './Header.less';
 

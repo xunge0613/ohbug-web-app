@@ -1,5 +1,5 @@
-import { request } from '../utils';
-import { OrganizationState } from '../models';
+import { request } from '@/utils';
+import { OrganizationState } from '@/models';
 
 interface Create {
   name: string;

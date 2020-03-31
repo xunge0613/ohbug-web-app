@@ -1,8 +1,8 @@
 import React from 'react';
 import { Row, Col, Card } from 'antd';
 
-import BasicLayout from '../../layouts/Basic';
-import Header from '../../components/Header';
+import BasicLayout from '@/layouts/Basic';
+import Header from '@/components/Header';
 import Pie from './components/Pie';
 import EventOrIssueStatistic from './components/EventOrIssueStatistic';
 import View from './components/View';

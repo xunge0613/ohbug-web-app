@@ -1,5 +1,5 @@
-import { request } from '../utils';
-import { UserState, OrganizationState } from '../models';
+import { request } from '@/utils';
+import { UserState, OrganizationState } from '@/models';
 
 interface User extends UserState {
   organization?: OrganizationState;

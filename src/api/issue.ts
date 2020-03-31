@@ -1,5 +1,5 @@
-import { request } from '../utils';
-import { Issue } from '../models';
+import { request } from '@/utils';
+import { Issue } from '@/models';
 
 interface GetMany {
   project_id: number;

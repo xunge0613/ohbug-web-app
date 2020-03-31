@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Chart } from '@antv/g2';
 import DataSet from '@antv/data-set';
 
-import { RootState } from '../../../../store';
+import { RootState } from '@/store';
 
 type Type = 'browser' | 'os' | 'type' | 'device';
 interface StatisticsProps {

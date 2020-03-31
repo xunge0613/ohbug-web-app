@@ -1,8 +1,9 @@
 import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core';
 import { Event as EventBase, Platform } from '@ohbug/types';
 import { SourceMapTraceCode } from 'source-map-trace/dist/source-map-trace';
-import { RootState } from '../store';
-import api from '../api';
+
+import { RootState } from '@/store';
+import api from '@/api';
 
 interface User {
   ip_address: string;

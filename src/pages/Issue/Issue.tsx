@@ -6,10 +6,10 @@ import { Link } from 'umi';
 import { useDispatch, useSelector } from 'react-redux';
 import TimeAgo from 'react-timeago';
 
-import BasicLayout from '../../layouts/Basic';
-import Header from '../../components/Header';
-import { RootState } from '../../store';
-import { IssueState, Issue as IssueType } from '../../models/issue.model';
+import BasicLayout from '@/layouts/Basic';
+import Header from '@/components/Header';
+import { RootState } from '@/store';
+import { IssueState, Issue as IssueType } from '@/models';
 
 import styles from './Issue.less';
 

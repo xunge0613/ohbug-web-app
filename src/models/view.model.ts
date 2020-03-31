@@ -1,6 +1,7 @@
 import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core';
-import { RootState } from '../store';
-import api from '../api';
+
+import { RootState } from '@/store';
+import api from '@/api';
 
 export interface ViewState {
   PV?: number;

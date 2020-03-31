@@ -4,9 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Timeago from 'react-timeago';
 import { useLocation } from 'umi';
 
-import { RootState } from '../../../../store';
-import { FeedbackState } from '../../../../models';
-import { Event as EventType } from '../../../../models/event.model';
+import { RootState } from '@/store';
+import { FeedbackState, Event as EventType } from '@/models';
 
 import styles from './List.less';
 

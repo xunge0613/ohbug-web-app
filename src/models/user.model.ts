@@ -1,9 +1,9 @@
 import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core';
 import { history } from 'umi';
 
-import { getGithub } from '../utils';
-import store, { RootState } from '../store';
-import api from '../api';
+import { getGithub } from '@/utils';
+import store, { RootState } from '@/store';
+import api from '@/api';
 
 export interface UserState {
   id?: number;

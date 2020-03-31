@@ -3,8 +3,8 @@ import { Link } from 'umi';
 import { Card, Typography, Form, Input, Button, Divider } from 'antd';
 import { useDispatch } from 'react-redux';
 
-import Logout from '../../components/Logout';
-import BasicLayout from '../../layouts/Basic';
+import Logout from '@/components/Logout';
+import BasicLayout from '@/layouts/Basic';
 
 import styles from './CreateOrganization.less';
 

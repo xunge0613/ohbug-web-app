@@ -2,13 +2,13 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Menu, Avatar, Dropdown, Typography, Divider } from 'antd';
 
+import { RootState } from '@/store';
+import { ProjectState, UserState } from '@/models';
+import getPlatformLogo from '@/utils/getPlatformLogo';
 import Logout from '../Logout';
 import CreateProject from '../CreateProject';
-import { RootState } from '../../store';
-import { ProjectState, UserState } from '../../models';
 
 import styles from './UserBlock.less';
-import getPlatformLogo from '../../utils/getPlatformLogo';
 
 const createMenu = (user: UserState, project: ProjectState): React.ReactElement => {
   const { current } = project;

@@ -1,5 +1,5 @@
-import { request } from '../utils';
-import { Item } from '../models';
+import { request } from '@/utils';
+import { Item } from '@/models';
 
 interface Get {
   project_id: string | number;
