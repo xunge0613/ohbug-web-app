@@ -4,6 +4,8 @@ interface Data {
   message: string;
 }
 
+// eslint-disable-next-line
+import axios from 'axios';
 declare module 'axios' {
   export interface AxiosInstance {
     request<T = Data>(config: AxiosRequestConfig): Promise<T>;

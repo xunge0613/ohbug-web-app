@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import Timeago from 'react-timeago';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { Action } from '@ohbug/types';
 import RrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
@@ -241,7 +241,7 @@ const Description: React.FC = () => {
                           <div className={styles.type}>{action.type}</div>
                           <div className={styles.data}>{message}</div>
                           <div className={styles.time}>
-                            {moment(action.timestamp).format('HH:mm:ss')}
+                            {dayjs(action.timestamp).format('HH:mm:ss')}
                           </div>
                         </div>
                       </Timeline.Item>
@@ -251,7 +251,7 @@ const Description: React.FC = () => {
                     <div className={styles.action}>
                       <div className={styles.type}>exception</div>
                       <div className={styles.data}>{event.detail.message}</div>
-                      <div className={styles.time}>{moment(event.time).format('HH:mm:ss')}</div>
+                      <div className={styles.time}>{dayjs(event.time).format('HH:mm:ss')}</div>
                     </div>
                   </Timeline.Item>
                 </Timeline>

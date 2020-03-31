@@ -2,7 +2,7 @@ import React from 'react';
 import { Statistic, Tooltip, Skeleton } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { RootState } from '../../../../store';
 
 import styles from './View.less';
@@ -17,10 +17,10 @@ const View: React.FC<ViewProps> = ({ title, type }) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    const start = moment()
-      .subtract(1, 'days')
+    const start = dayjs()
+      .subtract(1, 'day')
       .toISOString();
-    const end = moment()
+    const end = dayjs()
       .startOf('hour')
       .toISOString();
     dispatch({ type: `view/get${type}`, payload: { start, end } });

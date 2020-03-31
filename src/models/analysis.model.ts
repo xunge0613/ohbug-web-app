@@ -1,5 +1,5 @@
 import { ModelConfig, ModelReducers } from '@rematch/core';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import { RootState } from '../store';
 import api from '../api';
@@ -65,8 +65,8 @@ export const analysis: AnalysisModel = {
       if (rootState.project.current) {
         const project_id = rootState.project.current.id;
         // 取当天 event 总数
-        const start = moment(moment().format('YYYY-MM-DD')).toISOString();
-        const end = moment().toISOString();
+        const start = dayjs(dayjs().format('YYYY-MM-DD')).toISOString();
+        const end = dayjs().toISOString();
 
         const data = await api.analysis.get({
           type,
@@ -87,8 +87,8 @@ export const analysis: AnalysisModel = {
       if (rootState.project.current) {
         const project_id = rootState.project.current.id;
         // 取当天 event 总数
-        const start = moment(moment().format('YYYY-MM-DD')).toISOString();
-        const end = moment().toISOString();
+        const start = dayjs(dayjs().format('YYYY-MM-DD')).toISOString();
+        const end = dayjs().toISOString();
 
         api.analysis
           .get({
