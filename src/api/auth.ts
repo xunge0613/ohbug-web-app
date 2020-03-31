@@ -1,24 +1,24 @@
-import { request } from '../utils'
+import { request } from '../utils';
 
 interface Github {
-  code: string
+  code: string;
 }
 
 const auth = {
   github: async (data: Github): Promise<boolean> => {
-    const res = await request.post('/auth/github', data)
+    const res = await request.post('/auth/github', data);
     if (res.code === 0) {
-      return true
+      return true;
     }
-    return false
+    return false;
   },
   logout: async (): Promise<boolean> => {
-    const res = await request.post('/auth/logout')
+    const res = await request.post('/auth/logout');
     if (res.code === 0) {
-      return true
+      return true;
     }
-    return false
-  }
-}
+    return false;
+  },
+};
 
-export default auth
+export default auth;

@@ -1,25 +1,25 @@
-import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core'
-import { RootState } from '../store'
-import api from '../api'
+import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core';
+import { RootState } from '../store';
+import api from '../api';
 
 export interface ViewState {
-  PV?: number
-  UV?: number
+  PV?: number;
+  UV?: number;
 }
 export interface ViewModel extends ModelConfig<ViewState> {
-  reducers: ModelReducers<ViewState>
-  effects: ModelEffects<any>
+  reducers: ModelReducers<ViewState>;
+  effects: ModelEffects<any>;
 }
 
 export interface GetPV {
-  project_id: number
-  start?: number | string
-  end?: number | string
+  project_id: number;
+  start?: number | string;
+  end?: number | string;
 }
-export type GetUV = GetPV
+export type GetUV = GetPV;
 export interface GetPayload {
-  start?: number | string
-  end?: number | string
+  start?: number | string;
+  end?: number | string;
 }
 
 export const view: ViewModel = {
@@ -28,50 +28,50 @@ export const view: ViewModel = {
     setPV(state, payload): ViewState {
       return {
         ...state,
-        PV: payload
-      }
+        PV: payload,
+      };
     },
     setUV(state, payload): ViewState {
       return {
         ...state,
-        UV: payload
-      }
-    }
+        UV: payload,
+      };
+    },
   },
   effects: {
     getPV({ start, end }: GetPayload, rootState: RootState): void {
       if (rootState.project.current) {
-        const project_id = rootState.project.current.id
+        const project_id = rootState.project.current.id;
 
         api.view
           .getPV({
             project_id,
             start,
-            end
+            end,
           })
           .then(data => {
             if (typeof data !== 'undefined') {
-              this.setPV(data)
+              this.setPV(data);
             }
-          })
+          });
       }
     },
     getUV({ start, end }: GetPayload, rootState: RootState): void {
       if (rootState.project.current) {
-        const project_id = rootState.project.current.id
+        const project_id = rootState.project.current.id;
 
         api.view
           .getUV({
             project_id,
             start,
-            end
+            end,
           })
           .then(data => {
             if (typeof data !== 'undefined') {
-              this.setUV(data)
+              this.setUV(data);
             }
-          })
+          });
       }
-    }
-  }
-}
+    },
+  },
+};

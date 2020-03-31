@@ -1,30 +1,30 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Drawer, Form, Input, Button, Select } from 'antd'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Drawer, Form, Input, Button, Select } from 'antd';
 
-import { RootState } from '../../store'
-import { ProjectState } from '../../models'
+import { RootState } from '../../store';
+import { ProjectState } from '../../models';
 
-import styles from './CreateProject.module.less'
+import styles from './CreateProject.module.less';
 
 const CreateProject: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleFinish = React.useCallback(
     async values => {
-      dispatch({ type: 'project/create', payload: values })
-      dispatch({ type: 'project/handleCreateProjectVisible', payload: false })
+      dispatch({ type: 'project/create', payload: values });
+      dispatch({ type: 'project/handleCreateProjectVisible', payload: false });
     },
     [dispatch],
-  )
+  );
 
-  const project = useSelector<RootState, ProjectState>(state => state.project)
-  const visible = project.createProjectVisible
+  const project = useSelector<RootState, ProjectState>(state => state.project);
+  const visible = project.createProjectVisible;
   const handleClose = React.useCallback(() => {
     if (project.current && project.current.id) {
-      dispatch({ type: 'project/handleCreateProjectVisible', payload: false })
+      dispatch({ type: 'project/handleCreateProjectVisible', payload: false });
     }
-  }, [dispatch, project])
+  }, [dispatch, project]);
 
   return (
     <Drawer
@@ -69,7 +69,7 @@ const CreateProject: React.FC = () => {
         <Button htmlType="submit">创建 Project</Button>
       </Form>
     </Drawer>
-  )
-}
+  );
+};
 
-export default CreateProject
+export default CreateProject;

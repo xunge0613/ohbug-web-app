@@ -1,55 +1,51 @@
-import React from 'react'
-import { Link } from 'umi'
-import { Card, Typography, Form, Input, Button, Divider } from 'antd'
-import { useDispatch } from 'react-redux'
+import React from 'react';
+import { Link } from 'umi';
+import { Card, Typography, Form, Input, Button, Divider } from 'antd';
+import { useDispatch } from 'react-redux';
 
-import Logout from '../../components/Logout'
-import BasicLayout from '../../layouts/Basic'
+import Logout from '../../components/Logout';
+import BasicLayout from '../../layouts/Basic';
 
-import styles from './CreateOrganization.less'
+import styles from './CreateOrganization.less';
 
 const CreateOrganization: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [verified, setVerified] = React.useState(false)
+  const [verified, setVerified] = React.useState(false);
 
-  const [form] = Form.useForm()
+  const [form] = Form.useForm();
 
   const handleFinish = React.useCallback(
     values => {
-      dispatch({ type: 'organization/create', payload: values })
-      setVerified(true)
+      dispatch({ type: 'organization/create', payload: values });
+      setVerified(true);
     },
     [dispatch, setVerified],
-  )
+  );
   const handleFinishFailed = React.useCallback(() => {
-    setVerified(false)
-  }, [setVerified])
+    setVerified(false);
+  }, [setVerified]);
 
   const handleInputChange = React.useCallback(
     e => {
       form.setFieldsValue({
         name: e.target.value,
-      })
+      });
       form
         .validateFields()
         .then(() => {
-          setVerified(true)
+          setVerified(true);
         })
         .catch(() => {
-          setVerified(false)
-        })
+          setVerified(false);
+        });
     },
     [form],
-  )
+  );
 
   return (
     <BasicLayout>
-      <Card
-        className={styles.root}
-        title={<Link to="/">LOGO</Link>}
-        extra={<Logout />}
-      >
+      <Card className={styles.root} title={<Link to="/">LOGO</Link>} extra={<Logout />}>
         <Typography.Title level={3}>创建 Organization</Typography.Title>
         <Typography.Paragraph>
           <Typography.Text code>Organization</Typography.Text>
@@ -58,11 +54,7 @@ const CreateOrganization: React.FC = () => {
           <Typography.Text code>Issue</Typography.Text> 和 团队成员等。
         </Typography.Paragraph>
 
-        <Form
-          onFinish={handleFinish}
-          onFinishFailed={handleFinishFailed}
-          hideRequiredMark
-        >
+        <Form onFinish={handleFinish} onFinishFailed={handleFinishFailed} hideRequiredMark>
           <Form.Item
             label="Organization Name"
             name="name"
@@ -78,17 +70,13 @@ const CreateOrganization: React.FC = () => {
 
           <Divider dashed />
 
-          <Button
-            className={styles.submit}
-            htmlType="submit"
-            disabled={!verified}
-          >
+          <Button className={styles.submit} htmlType="submit" disabled={!verified}>
             创建 Organization
           </Button>
         </Form>
       </Card>
     </BasicLayout>
-  )
-}
+  );
+};
 
-export default CreateOrganization
+export default CreateOrganization;

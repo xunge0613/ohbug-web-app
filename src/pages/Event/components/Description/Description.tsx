@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import Timeago from 'react-timeago';
 import moment from 'moment';
 import { Action } from '@ohbug/types';
-import rrwebPlayer from 'rrweb-player';
+import RrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
 
 import StackInfo from '../../../../components/StackInfo';
@@ -98,7 +98,7 @@ const Description: React.FC = () => {
 
   React.useEffect(() => {
     if (event && event.replay) {
-      new rrwebPlayer({
+      new RrwebPlayer({
         target: replayRef.current, // 可以自定义 DOM 元素
         data: {
           events: event.replay.data,

@@ -1,1 +1,1 @@
-export { default } from './PerformanceStatistic'
+export { default } from './PerformanceStatistic';

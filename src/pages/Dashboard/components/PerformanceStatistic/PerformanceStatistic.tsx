@@ -1,13 +1,13 @@
-import React from 'react'
-import { Card, Menu, Dropdown, Typography, Tooltip } from 'antd'
-import { QuestionCircleOutlined, DownOutlined } from '@ant-design/icons'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react';
+import { Card, Menu, Dropdown, Typography, Tooltip } from 'antd';
+import { QuestionCircleOutlined, DownOutlined } from '@ant-design/icons';
+import { useSelector, useDispatch } from 'react-redux';
 
-import Chart from './Chart'
-import { RootState } from '../../../../store'
-import { AnalysisState } from '../../../../models'
+import Chart from './Chart';
+import { RootState } from '../../../../store';
+import { AnalysisState } from '../../../../models';
 
-import styles from './Chart.less'
+import styles from './Chart.less';
 
 const tabListData = [
   {
@@ -27,20 +27,9 @@ const tabListData = [
   },
   {
     key: 'dataConsumption',
-    extra: [
-      'css',
-      'img',
-      'link',
-      'fetch',
-      'other',
-      'total',
-      'beacon',
-      'script',
-      'xmlhttprequest',
-    ],
+    extra: ['css', 'img', 'link', 'fetch', 'other', 'total', 'beacon', 'script', 'xmlhttprequest'],
     alias: 'dataConsumption',
-    desc:
-      'dataConsumption 收集与文档相关的资源的性能指标 比如css、script、图像等等',
+    desc: 'dataConsumption 收集与文档相关的资源的性能指标 比如css、script、图像等等',
   },
   {
     key: 'networkInformation',
@@ -77,46 +66,43 @@ const tabListData = [
     4. 一个有background-image:url样式的元素
     5. 块级元素包括 text节点或者其他内联元素 的元素`,
   },
-]
+];
 
 const PerformanceStatistic: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState<{
-    tab: string
-    extra: string
+    tab: string;
+    extra: string;
   }>({
     tab: 'firstPaint',
     extra: '',
-  })
+  });
   const handleTabChange = React.useCallback(
     key => {
       setActiveTab(() => {
-        const current = tabListData.find(tab => tab.key === key)
+        const current = tabListData.find(tab => tab.key === key);
         return {
           tab: key,
           extra: current?.extra ? current.extra[0] : '',
-        }
-      })
+        };
+      });
     },
     [setActiveTab],
-  )
+  );
 
   const tabList = React.useMemo(() => {
     const handleExtraMenuSelect = (e: any) => {
       setActiveTab(state => ({
         ...state,
         extra: e.key,
-      }))
-    }
+      }));
+    };
     return tabListData.map(tab => {
       return {
         key: tab.key,
         tab: tab.extra ? (
           <Dropdown
             overlay={
-              <Menu
-                selectedKeys={[activeTab.extra]}
-                onClick={handleExtraMenuSelect}
-              >
+              <Menu selectedKeys={[activeTab.extra]} onClick={handleExtraMenuSelect}>
                 {tab.extra.map(ex => (
                   <Menu.Item key={ex}>{ex}</Menu.Item>
                 ))}
@@ -126,9 +112,7 @@ const PerformanceStatistic: React.FC = () => {
           >
             <div className={styles.tab}>
               <div className={styles.tabTitle}>
-                <Typography.Text className={styles.tabTitleText}>
-                  {tab.alias}
-                </Typography.Text>
+                <Typography.Text className={styles.tabTitleText}>{tab.alias}</Typography.Text>
                 <Tooltip title={tab.desc}>
                   <QuestionCircleOutlined />
                 </Tooltip>
@@ -141,9 +125,7 @@ const PerformanceStatistic: React.FC = () => {
         ) : (
           <div className={styles.tab}>
             <div className={styles.tabTitle}>
-              <Typography.Text className={styles.tabTitleText}>
-                {tab.alias}
-              </Typography.Text>
+              <Typography.Text className={styles.tabTitleText}>{tab.alias}</Typography.Text>
               <Tooltip title={tab.desc}>
                 <QuestionCircleOutlined />
               </Tooltip>
@@ -151,25 +133,25 @@ const PerformanceStatistic: React.FC = () => {
             <Typography.Text type="secondary">{tab.key}</Typography.Text>
           </div>
         ),
-      }
-    })
-  }, [activeTab])
+      };
+    });
+  }, [activeTab]);
 
-  const field = activeTab.extra || activeTab.tab
-  const dispatch = useDispatch()
+  const field = activeTab.extra || activeTab.tab;
+  const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch({
       type: 'analysis/getPerformanceStatistics',
       payload: {
         type: activeTab.tab,
       },
-    })
-  }, [dispatch, activeTab.tab])
-  const _data = useSelector<RootState, AnalysisState['performance']>(
+    });
+  }, [dispatch, activeTab.tab]);
+  const performance = useSelector<RootState, AnalysisState['performance']>(
     state => state.analysis.performance,
-  )
-  const data = activeTab.extra ? _data?.map(d => d[activeTab.tab] || d) : _data
-  const loading = typeof data === 'undefined'
+  );
+  const data = activeTab.extra ? performance?.map(d => d[activeTab.tab] || d) : performance;
+  const loading = typeof data === 'undefined';
 
   return (
     <Card
@@ -181,7 +163,7 @@ const PerformanceStatistic: React.FC = () => {
     >
       <Chart field={field} data={data} />
     </Card>
-  )
-}
+  );
+};
 
-export default PerformanceStatistic
+export default PerformanceStatistic;

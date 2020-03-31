@@ -1,21 +1,21 @@
-import React from 'react'
-import { DatePicker } from 'antd'
-import { useDispatch } from 'react-redux'
-import moment from 'moment'
+import React from 'react';
+import { DatePicker } from 'antd';
+import { useDispatch } from 'react-redux';
+import moment from 'moment';
 
-import styles from './Search.less'
+import styles from './Search.less';
 
 const Search: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleDatePickerChange = React.useCallback((_, dateStrings) => {
-    const start = moment(dateStrings[0]).toISOString()
-    const end = moment(dateStrings[1]).toISOString()
+    const start = moment(dateStrings[0]).toISOString();
+    const end = moment(dateStrings[1]).toISOString();
     dispatch({
       type: 'event/searchEvents',
       payload: { page: 0, start, end },
-    })
-  }, []) //eslint-disable-line
+    });
+  }, []); //eslint-disable-line
 
   return (
     <div className={styles.root}>
@@ -30,7 +30,7 @@ const Search: React.FC = () => {
         onChange={handleDatePickerChange}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

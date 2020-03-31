@@ -1,1 +1,1 @@
-export { default } from './EventOrIssueStatistic'
+export { default } from './EventOrIssueStatistic';

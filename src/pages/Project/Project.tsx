@@ -49,17 +49,11 @@ const Project: React.FC<ProjectPageProps> = () => {
       }
     >
       <Row gutter={[16, 16]}>
-        {project.map(project => (
-          <Col key={project.id} xs={8} sm={8} md={6} lg={6} xl={4}>
+        {project.map(p => (
+          <Col key={p.id} xs={8} sm={8} md={6} lg={6} xl={4}>
             <Card
               hoverable
-              cover={
-                <img
-                  className={styles.cover}
-                  src={getPlatformLogo(project.type)}
-                  alt={project.type}
-                />
-              }
+              cover={<img className={styles.cover} src={getPlatformLogo(p.type)} alt={p.type} />}
               onClick={(): void => {
                 dispatch({
                   type: 'project/setCurrentProject',
@@ -69,7 +63,7 @@ const Project: React.FC<ProjectPageProps> = () => {
               }}
             >
               <Skeleton loading={loading}>
-                <Card.Meta title={project.name} description={project.type} />
+                <Card.Meta title={p.name} description={p.type} />
               </Skeleton>
             </Card>
           </Col>

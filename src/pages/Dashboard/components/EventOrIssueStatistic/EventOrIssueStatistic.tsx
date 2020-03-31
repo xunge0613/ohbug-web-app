@@ -1,32 +1,27 @@
-import React from 'react'
-import { Statistic, Tooltip, Skeleton } from 'antd'
-import { InfoCircleOutlined } from '@ant-design/icons'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../../store'
+import React from 'react';
+import { Statistic, Tooltip, Skeleton } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../store';
 
-import styles from './EventOrIssueStatistic.less'
-import { AnalysisState } from '../../../../models'
+import styles from './EventOrIssueStatistic.less';
+import { AnalysisState } from '../../../../models';
 
-type Type = 'event' | 'issue'
+type Type = 'event' | 'issue';
 interface EventOrIssueStatisticProps {
-  title: React.ReactNode
-  type: Type
+  title: React.ReactNode;
+  type: Type;
 }
 
-const EventOrIssueStatistic: React.FC<EventOrIssueStatisticProps> = ({
-  title,
-  type,
-}) => {
-  const dispatch = useDispatch()
+const EventOrIssueStatistic: React.FC<EventOrIssueStatisticProps> = ({ title, type }) => {
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch({ type: 'analysis/getEventOrIssueStatistics', payload: { type } })
-  }, [dispatch, type])
+    dispatch({ type: 'analysis/getEventOrIssueStatistics', payload: { type } });
+  }, [dispatch, type]);
 
-  const data = useSelector<RootState, AnalysisState['event']>(
-    state => state.analysis[type],
-  )
-  const loading = typeof data === 'undefined'
+  const data = useSelector<RootState, AnalysisState['event']>(state => state.analysis[type]);
+  const loading = typeof data === 'undefined';
 
   return (
     <div className={styles.root}>
@@ -45,7 +40,7 @@ const EventOrIssueStatistic: React.FC<EventOrIssueStatisticProps> = ({
         />
       </Skeleton>
     </div>
-  )
-}
+  );
+};
 
-export default EventOrIssueStatistic
+export default EventOrIssueStatistic;

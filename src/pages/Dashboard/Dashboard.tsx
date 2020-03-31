@@ -1,15 +1,15 @@
-import React from 'react'
-import { Row, Col, Card } from 'antd'
+import React from 'react';
+import { Row, Col, Card } from 'antd';
 
-import BasicLayout from '../../layouts/Basic'
-import Header from '../../components/Header'
-import Pie from './components/Pie'
-import EventOrIssueStatistic from './components/EventOrIssueStatistic'
-import View from './components/View'
-import PerformanceStatistic from './components/PerformanceStatistic'
+import BasicLayout from '../../layouts/Basic';
+import Header from '../../components/Header';
+import Pie from './components/Pie';
+import EventOrIssueStatistic from './components/EventOrIssueStatistic';
+import View from './components/View';
+import PerformanceStatistic from './components/PerformanceStatistic';
 
 interface DashboardPageProps {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 const Dashboard: React.FC<DashboardPageProps> = () => {
@@ -59,7 +59,7 @@ const Dashboard: React.FC<DashboardPageProps> = () => {
         </Col>
       </Row>
     </BasicLayout>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

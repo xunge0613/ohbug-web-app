@@ -31,6 +31,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "rrweb-player": "^0.4.3",
+    "source-map-trace": "^0.0.1",
     "umi": "^3.0.16",
     "yorkie": "^2.0.0"
   },
@@ -47,14 +48,14 @@
     "cz-conventional-changelog": "3.1.0",
     "eslint": "^6.8.0",
     "eslint-loader": "^3.0.3",
-    "source-map-trace": "^0.0.1"
+    "husky": "^4.2.3",
+    "typescript": "^3.8.3"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,less,md,json}": [
-      "eslint --fix",
       "prettier --write",
       "git add"
     ],
@@ -63,6 +64,11 @@
       "prettier --parser=typescript --write",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "config": {
     "commitizen": {

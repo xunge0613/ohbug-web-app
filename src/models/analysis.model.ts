@@ -1,31 +1,31 @@
-import { ModelConfig, ModelReducers } from '@rematch/core'
-import moment from 'moment'
+import { ModelConfig, ModelReducers } from '@rematch/core';
+import moment from 'moment';
 
-import { RootState } from '../store'
-import api from '../api'
+import { RootState } from '../store';
+import api from '../api';
 
 export interface Item {
-  item: string
-  count: number
+  item: string;
+  count: number;
 }
 
 export interface AnalysisState {
-  type?: Item[]
-  device?: Item[]
-  os?: Item[]
-  browser?: Item[]
-  event?: number
-  issue?: number
+  type?: Item[];
+  device?: Item[];
+  os?: Item[];
+  browser?: Item[];
+  event?: number;
+  issue?: number;
   performance?: {
-    [key: string]: number
-  }[]
+    [key: string]: number;
+  }[];
 }
 export interface AnalysisModel extends ModelConfig {
-  reducers: ModelReducers<AnalysisState>
+  reducers: ModelReducers<AnalysisState>;
 }
 
 interface GetStatisticsPayload {
-  type: string
+  type: string;
 }
 
 export const analysis: AnalysisModel = {
@@ -34,61 +34,61 @@ export const analysis: AnalysisModel = {
     setData(state, payload): AnalysisState {
       return {
         ...state,
-        ...payload
-      }
-    }
+        ...payload,
+      };
+    },
   },
   effects: {
     getStatistics({ type }: GetStatisticsPayload, rootState: RootState): void {
       if (rootState.project.current) {
-        const project_id = rootState.project.current.id
+        const project_id = rootState.project.current.id;
 
         api.analysis
           .get({
             type,
-            project_id
+            project_id,
           })
           .then(data => {
             if (typeof data !== 'undefined') {
               this.setData({
-                [type]: data
-              })
+                [type]: data,
+              });
             }
-          })
+          });
       }
     },
 
     async getEventOrIssueStatistics(
       { type }: GetStatisticsPayload,
-      rootState: RootState
+      rootState: RootState,
     ): Promise<void> {
       if (rootState.project.current) {
-        const project_id = rootState.project.current.id
+        const project_id = rootState.project.current.id;
         // 取当天 event 总数
-        const start = moment(moment().format('YYYY-MM-DD')).toISOString()
-        const end = moment().toISOString()
+        const start = moment(moment().format('YYYY-MM-DD')).toISOString();
+        const end = moment().toISOString();
 
         const data = await api.analysis.get({
           type,
           project_id,
           start,
-          end
-        })
+          end,
+        });
 
         if (typeof data !== 'undefined') {
           this.setData({
-            [type]: data
-          })
+            [type]: data,
+          });
         }
       }
     },
 
     getPerformanceStatistics({ type }: GetStatisticsPayload, rootState: RootState): void {
       if (rootState.project.current) {
-        const project_id = rootState.project.current.id
+        const project_id = rootState.project.current.id;
         // 取当天 event 总数
-        const start = moment(moment().format('YYYY-MM-DD')).toISOString()
-        const end = moment().toISOString()
+        const start = moment(moment().format('YYYY-MM-DD')).toISOString();
+        const end = moment().toISOString();
 
         api.analysis
           .get({
@@ -96,16 +96,16 @@ export const analysis: AnalysisModel = {
             start,
             end,
             type: 'performance',
-            performanceType: type
+            performanceType: type,
           })
           .then(data => {
             if (data) {
               this.setData({
-                performance: data
-              })
+                performance: data,
+              });
             }
-          })
+          });
       }
-    }
-  }
-}
+    },
+  },
+};

@@ -1,15 +1,15 @@
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
 interface Github {
-  id: string
+  id: string;
 }
 
 function getGithub(): Github {
-  const id = Cookies.get('id') as string
+  const id = Cookies.get('id') as string;
 
   return {
-    id
-  }
+    id,
+  };
 }
 
-export default getGithub
+export default getGithub;

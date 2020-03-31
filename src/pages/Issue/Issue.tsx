@@ -1,20 +1,20 @@
-import React from 'react'
-import { Card, Table, Button, Typography } from 'antd'
-import { EllipsisOutlined } from '@ant-design/icons'
-import { TableRowSelection } from 'antd/lib/table/interface'
-import { Link } from 'umi'
-import { useDispatch, useSelector } from 'react-redux'
-import TimeAgo from 'react-timeago'
+import React from 'react';
+import { Card, Table, Button, Typography } from 'antd';
+import { EllipsisOutlined } from '@ant-design/icons';
+import { TableRowSelection } from 'antd/lib/table/interface';
+import { Link } from 'umi';
+import { useDispatch, useSelector } from 'react-redux';
+import TimeAgo from 'react-timeago';
 
-import BasicLayout from '../../layouts/Basic'
-import Header from '../../components/Header'
-import { RootState } from '../../store'
-import { IssueState, Issue as IssueType } from '../../models/issue.model'
+import BasicLayout from '../../layouts/Basic';
+import Header from '../../components/Header';
+import { RootState } from '../../store';
+import { IssueState, Issue as IssueType } from '../../models/issue.model';
 
-import styles from './Issue.less'
+import styles from './Issue.less';
 
 interface IssueDashPageProps {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 // const switchItem = (type: string) => {
@@ -33,13 +33,9 @@ interface IssueDashPageProps {
 // }
 
 const Issue: React.FC<IssueDashPageProps> = () => {
-  const dispatch = useDispatch()
-  const issue = useSelector<RootState, IssueState['data']>(
-    state => state.issue.data,
-  )
-  const count = useSelector<RootState, IssueState['count']>(
-    state => state.issue.count,
-  )
+  const dispatch = useDispatch();
+  const issue = useSelector<RootState, IssueState['data']>(state => state.issue.data);
+  const count = useSelector<RootState, IssueState['count']>(state => state.issue.count);
 
   React.useEffect(() => {
     dispatch({
@@ -47,31 +43,25 @@ const Issue: React.FC<IssueDashPageProps> = () => {
       payload: {
         page: 0,
       },
-    })
-  }, [dispatch])
+    });
+  }, [dispatch]);
 
   const handleTablePaginationChange = React.useCallback(
     current => {
       dispatch({
         type: 'issue/searchIssues',
         payload: { page: current - 1 },
-      })
+      });
     },
     [dispatch],
-  )
+  );
 
-  const loading = typeof issue === 'undefined'
+  const loading = typeof issue === 'undefined';
 
   const rowSelection: TableRowSelection<IssueType> = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        'selectedRows: ',
-        selectedRows,
-      )
-    },
-    getCheckboxProps: _ => ({}),
-  }
+    onChange: () => {},
+    getCheckboxProps: () => ({}),
+  };
 
   return (
     <BasicLayout className={styles.root} header={<Header title="Issue" />}>
@@ -94,7 +84,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
             ellipsis
             width={400}
             dataIndex="latest"
-            title={<Button icon={<EllipsisOutlined />}></Button>}
+            title={<Button icon={<EllipsisOutlined />} />}
             render={(_, record: IssueType): React.ReactElement => (
               <div className={styles.desc}>
                 {/* 获取此 issue 所对应的最新 event */}
@@ -103,9 +93,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                     {record.type}
                   </Typography.Text>
                   {record.intro.filename && (
-                    <Typography.Text type="secondary">
-                      {record.intro.filename}
-                    </Typography.Text>
+                    <Typography.Text type="secondary">{record.intro.filename}</Typography.Text>
                   )}
                 </Link>
                 <Typography.Paragraph className={styles.message} ellipsis>
@@ -139,7 +127,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
         </Table>
       </Card>
     </BasicLayout>
-  )
-}
+  );
+};
 
-export default Issue
+export default Issue;

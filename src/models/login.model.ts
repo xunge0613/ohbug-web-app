@@ -1,15 +1,15 @@
-import { ModelConfig, ModelEffects } from '@rematch/core'
-import { history } from 'umi'
-import api from '../api'
+import { ModelConfig, ModelEffects } from '@rematch/core';
+import { history } from 'umi';
+import api from '../api';
 
 export interface LoginModel extends ModelConfig {
-  effects: ModelEffects<any>
+  effects: ModelEffects<any>;
 }
 
 export interface LoginPayload {
   query: {
-    code: string
-  }
+    code: string;
+  };
 }
 
 export const login: LoginModel = {
@@ -22,17 +22,17 @@ export const login: LoginModel = {
         })
         .then(data => {
           if (data) {
-            history.push('/project')
+            history.push('/project');
           }
-        })
+        });
     },
 
     logout(): void {
       api.auth.logout().then(data => {
         if (data) {
-          history.push('/')
+          history.push('/');
         }
-      })
+      });
     },
   },
-}
+};

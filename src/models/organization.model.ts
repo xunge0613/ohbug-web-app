@@ -1,20 +1,20 @@
-import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core'
-import { history } from 'umi'
-import { RootState } from '../store'
-import api from '../api'
+import { ModelConfig, ModelReducers, ModelEffects } from '@rematch/core';
+import { history } from 'umi';
+import { RootState } from '../store';
+import api from '../api';
 
 export interface OrganizationState {
-  id?: number
-  name?: string
-  avatar?: string
+  id?: number;
+  name?: string;
+  avatar?: string;
 }
 export interface OrganizationModel extends ModelConfig<OrganizationState> {
-  reducers: ModelReducers<OrganizationState>
-  effects: ModelEffects<any>
+  reducers: ModelReducers<OrganizationState>;
+  effects: ModelEffects<any>;
 }
 
 interface NewPayload {
-  name: string
+  name: string;
 }
 
 export const organization: OrganizationModel = {
@@ -24,13 +24,13 @@ export const organization: OrganizationModel = {
       return {
         ...state,
         ...payload,
-      }
+      };
     },
   },
   effects: {
     create(payload: NewPayload, rootState: RootState): void {
-      const { name } = payload
-      const admin_id = rootState.user.id
+      const { name } = payload;
+      const admin_id = rootState.user.id;
 
       if (name && admin_id) {
         api.organization
@@ -40,10 +40,10 @@ export const organization: OrganizationModel = {
           })
           .then(data => {
             if (data) {
-              history.push('/')
+              history.push('/');
             }
-          })
+          });
       }
     },
   },
-}
+};

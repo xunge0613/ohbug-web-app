@@ -1,1 +1,1 @@
-export { default } from './StackInfo'
+export { default } from './StackInfo';

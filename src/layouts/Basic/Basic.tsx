@@ -1,18 +1,18 @@
-import React from 'react'
-import { Layout } from 'antd'
-import clsx from 'clsx'
+import React from 'react';
+import { Layout } from 'antd';
+import clsx from 'clsx';
 
-import Sider from '../../components/Sider'
+import Sider from '../../components/Sider';
 
-import styles from './Basic.module.less'
+import styles from './Basic.module.less';
 
-const { Content, Footer } = Layout
+const { Content, Footer } = Layout;
 
 interface BasicLayoutProps {
-  className?: string
-  header?: React.ReactNode
-  pageHeader?: React.ReactNode
-  enableSider?: boolean
+  className?: string;
+  header?: React.ReactNode;
+  pageHeader?: React.ReactNode;
+  enableSider?: boolean;
 }
 
 const BasicLayout: React.FC<BasicLayoutProps> = ({
@@ -20,9 +20,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({
   header,
   pageHeader,
   enableSider = true,
-  className
+  className,
 }) => {
-  const classes = clsx(styles.content, className)
+  const classes = clsx(styles.content, className);
   return (
     <Layout className={styles.root}>
       {enableSider && <Sider />}
@@ -33,7 +33,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({
         <Footer>Footer LOGO</Footer>
       </Layout>
     </Layout>
-  )
-}
+  );
+};
 
-export default BasicLayout
+export default BasicLayout;

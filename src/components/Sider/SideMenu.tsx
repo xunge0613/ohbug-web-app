@@ -1,40 +1,30 @@
-import React from 'react'
-import { Layout, Menu } from 'antd'
+import React from 'react';
+import { Layout, Menu } from 'antd';
 import {
   ProjectOutlined,
   DashboardOutlined,
   IssuesCloseOutlined,
   QuestionCircleOutlined,
-} from '@ant-design/icons'
-import { useLocation, Link } from 'umi'
+} from '@ant-design/icons';
+import { useLocation, Link } from 'umi';
 
-import styles from './SideMenu.module.less'
+import styles from './SideMenu.module.less';
 
 interface SideMenuProps {
-  collapsed: boolean
+  collapsed: boolean;
 }
 const SideMenu: React.FC<SideMenuProps> = ({ collapsed }) => {
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
-  const selectedKey = pathname.split('/')[1]
+  const selectedKey = pathname.split('/')[1];
 
   return (
-    <Layout.Sider
-      className={styles.root}
-      width={240}
-      theme="dark"
-      collapsed={collapsed}
-    >
+    <Layout.Sider className={styles.root} width={240} theme="dark" collapsed={collapsed}>
       <Link className={styles.logo} to="/">
         <img src="/logo.svg" alt="ohbug" />
       </Link>
       <div className={styles.content}>
-        <Menu
-          className={styles.menu}
-          theme="dark"
-          mode="inline"
-          selectedKeys={[selectedKey]}
-        >
+        <Menu className={styles.menu} theme="dark" mode="inline" selectedKeys={[selectedKey]}>
           <Menu.Item key="project">
             <Link to="/project">
               <ProjectOutlined />
@@ -74,7 +64,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ collapsed }) => {
         </Menu>
       </div>
     </Layout.Sider>
-  )
-}
+  );
+};
 
-export default SideMenu
+export default SideMenu;

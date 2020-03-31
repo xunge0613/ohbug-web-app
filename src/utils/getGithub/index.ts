@@ -1,1 +1,1 @@
-export { default } from './getGithub'
+export { default } from './getGithub';

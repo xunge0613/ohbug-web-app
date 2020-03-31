@@ -14,6 +14,7 @@ const feedback = {
     if (res.code === 0 && res.data) {
       return res.data;
     }
+    return undefined;
   },
 };
 

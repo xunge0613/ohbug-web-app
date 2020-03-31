@@ -1,35 +1,33 @@
-import React from 'react'
-import { Statistic, Tooltip, Skeleton } from 'antd'
-import { InfoCircleOutlined } from '@ant-design/icons'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../../store'
+import React from 'react';
+import { Statistic, Tooltip, Skeleton } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import { RootState } from '../../../../store';
 
-import styles from './View.less'
-import moment from 'moment'
+import styles from './View.less';
 
-type Type = 'PV' | 'UV'
+type Type = 'PV' | 'UV';
 interface ViewProps {
-  title: React.ReactNode
-  type: Type
+  title: React.ReactNode;
+  type: Type;
 }
 
 const View: React.FC<ViewProps> = ({ title, type }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     const start = moment()
       .subtract(1, 'days')
-      .toISOString()
+      .toISOString();
     const end = moment()
       .startOf('hour')
-      .toISOString()
-    dispatch({ type: `view/get${type}`, payload: { start, end } })
-  }, [dispatch, type])
+      .toISOString();
+    dispatch({ type: `view/get${type}`, payload: { start, end } });
+  }, [dispatch, type]);
 
-  const data = useSelector<RootState, number | undefined>(
-    state => state.view[type],
-  )
-  const loading = typeof data === 'undefined'
+  const data = useSelector<RootState, number | undefined>(state => state.view[type]);
+  const loading = typeof data === 'undefined';
 
   return (
     <div className={styles.root}>
@@ -48,7 +46,7 @@ const View: React.FC<ViewProps> = ({ title, type }) => {
         />
       </Skeleton>
     </div>
-  )
-}
+  );
+};
 
-export default View
+export default View;
