@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col, Card } from 'antd';
 
 import BasicLayout from '@/layouts/Basic';
-import Header from '@/components/Header';
 import Pie from './components/Pie';
 import EventOrIssueStatistic from './components/EventOrIssueStatistic';
 import View from './components/View';
@@ -14,7 +13,7 @@ interface DashboardPageProps {
 
 const Dashboard: React.FC<DashboardPageProps> = () => {
   return (
-    <BasicLayout header={<Header title="Dashboard" />}>
+    <BasicLayout>
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={6}>
           <Card>

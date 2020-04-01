@@ -7,7 +7,6 @@ import TimeAgo from 'react-timeago';
 
 import { useDispatch, useSelector } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
-import Header from '@/components/Header';
 import { RootState } from '@/store';
 import { IssueState, Issue as IssueType } from '@/models';
 
@@ -34,8 +33,8 @@ interface IssueDashPageProps {
 
 const Issue: React.FC<IssueDashPageProps> = () => {
   const dispatch = useDispatch();
-  const issue = useSelector<RootState, IssueState['data']>(state => state.issue.data);
-  const count = useSelector<RootState, IssueState['count']>(state => state.issue.count);
+  const issue = useSelector<RootState, IssueState['data']>((state) => state.issue.data);
+  const count = useSelector<RootState, IssueState['count']>((state) => state.issue.count);
 
   React.useEffect(() => {
     dispatch({
@@ -47,7 +46,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
   }, [dispatch]);
 
   const handleTablePaginationChange = React.useCallback(
-    current => {
+    (current) => {
       dispatch({
         type: 'issue/searchIssues',
         payload: { page: current - 1 },
@@ -64,7 +63,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
   };
 
   return (
-    <BasicLayout className={styles.root} header={<Header title="Issue" />}>
+    <BasicLayout className={styles.root}>
       <Card bordered={false}>
         Count: {Array.isArray(issue) && issue.length}
         <Table<IssueType>

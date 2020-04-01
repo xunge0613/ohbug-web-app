@@ -2,27 +2,47 @@ export default [
   { exact: true, path: '/', redirect: '/project' },
   {
     exact: true,
-    path: '/dashboard',
-    component: '@/pages/Dashboard',
-    wrappers: ['@/wrappers/auth'],
-  },
-  {
-    exact: true,
     path: '/project',
     component: '@/pages/Project',
     wrappers: ['@/wrappers/auth'],
+    // layout
+    menu: {
+      name: '项目 Project',
+      icon: 'project',
+    },
+  },
+  {
+    exact: true,
+    path: '/dashboard',
+    component: '@/pages/Dashboard',
+    wrappers: ['@/wrappers/auth'],
+    // layout
+    menu: {
+      name: '仪表盘 Dashboard',
+      icon: 'dashboard',
+    },
   },
   {
     exact: true,
     path: '/issue',
     component: '@/pages/Issue',
     wrappers: ['@/wrappers/auth'],
+    // layout
+    menu: {
+      name: '问题 Issue',
+      icon: 'issues-close',
+    },
   },
   {
     exact: true,
     path: '/event',
     component: '@/pages/Event',
     wrappers: ['@/wrappers/auth'],
+    // layout
+    menu: {
+      name: '事件 Event',
+      icon: 'question-circle',
+    },
   },
   {
     exact: true,
@@ -35,12 +55,20 @@ export default [
     path: '/feedback',
     component: '@/pages/Feedback',
     wrappers: ['@/wrappers/auth'],
+    // layout
+    menu: {
+      name: '反馈 Feedback',
+      icon: 'coffee',
+    },
   },
   {
     exact: true,
     path: '/login',
     component: '@/pages/Login',
-    // wrappers: ['@/wrappers/auth'],
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+    },
   },
   {
     exact: true,

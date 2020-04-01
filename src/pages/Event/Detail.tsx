@@ -3,7 +3,6 @@ import { useLocation, useParams } from 'umi';
 
 import { useDispatch } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
-import Header from '@/components/Header';
 import Description from './components/Description';
 
 interface DetailPageProps {
@@ -31,7 +30,7 @@ const Detail: React.FC<DetailPageProps> = () => {
   }, []); // eslint-disable-line
 
   return (
-    <BasicLayout header={<Header title="Event Detail" />}>
+    <BasicLayout>
       <Description />
     </BasicLayout>
   );

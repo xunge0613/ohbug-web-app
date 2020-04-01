@@ -30,7 +30,7 @@ const Login: React.FC<LoginPageProps> = ({ children }) => {
   useLoginRedirect();
 
   return (
-    <BasicLayout className={styles.root} enableSider={false}>
+    <BasicLayout className={styles.root}>
       <div>
         <Typography.Title>Join in</Typography.Title>
         <Button type="primary" size="large" shape="round" href={href}>

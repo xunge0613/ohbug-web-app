@@ -5,7 +5,6 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 
 import { useDispatch, useSelector } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
-import Header from '@/components/Header';
 import { RootState } from '@/store';
 import { ProjectState, OrganizationState } from '@/models';
 import { getPlatformLogo } from '@/utils';
@@ -19,8 +18,8 @@ interface ProjectPageProps {
 const Project: React.FC<ProjectPageProps> = () => {
   const dispatch = useDispatch();
 
-  const organization = useSelector<RootState, OrganizationState>(state => state.organization);
-  const project = useSelector<RootState, ProjectState['data']>(state => state.project.data);
+  const organization = useSelector<RootState, OrganizationState>((state) => state.organization);
+  const project = useSelector<RootState, ProjectState['data']>((state) => state.project.data);
   const loading = !project.length;
 
   const handleCreateProject = React.useCallback(() => {
@@ -30,7 +29,6 @@ const Project: React.FC<ProjectPageProps> = () => {
   return (
     <BasicLayout
       className={styles.root}
-      header={<Header title="Project" />}
       pageHeader={
         <PageHeader
           title={
@@ -49,7 +47,7 @@ const Project: React.FC<ProjectPageProps> = () => {
       }
     >
       <Row gutter={[16, 16]}>
-        {project.map(p => (
+        {project.map((p) => (
           <Col key={p.id} xs={8} sm={8} md={6} lg={6} xl={4}>
             <Card
               hoverable
