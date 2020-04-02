@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, history } from 'umi';
 
-import { useDispatch, useSelector } from '@/hooks';
+import { useDispatch, useSelector, useMount } from '@/hooks';
 import { getGithub } from '@/utils';
 import { RootState } from '@/store';
 import { UserState } from '@/models';
@@ -25,9 +25,9 @@ const useAuth = (): UseAuth => {
   // 根据 cookie 内是否含有 id 判断登录态
   const auth = Boolean(github.id);
   const [isLogin, setLogin] = React.useState(false);
-  const user = useSelector<RootState, UserState>(state => state.user);
+  const user = useSelector<RootState, UserState>((state) => state.user);
 
-  React.useEffect(() => {
+  useMount(() => {
     async function getAllProjectInfo(): Promise<any> {
       // 根据 Organization id 获取对应所有的 Project
       await dispatch({ type: 'project/getAllProjectByOrganizationId' });
@@ -64,7 +64,7 @@ const useAuth = (): UseAuth => {
     }
 
     run();
-  }, []); // eslint-disable-line
+  });
 
   return { isLogin };
 };

@@ -3,7 +3,7 @@ import { Card, Table } from 'antd';
 import Timeago from 'react-timeago';
 import { history, useLocation } from 'umi';
 
-import { useSelector, useDispatch } from '@/hooks';
+import { useSelector, useDispatch, useMount } from '@/hooks';
 import { RootState } from '@/store';
 import { EventState, Event as EventType } from '@/models';
 
@@ -11,14 +11,14 @@ import styles from './List.less';
 
 const List: React.FC = () => {
   const dispatch = useDispatch();
-  const events = useSelector<RootState, EventState['data']>(state => state.event.data);
-  const count = useSelector<RootState, EventState['count']>(state => state.event.count);
+  const events = useSelector<RootState, EventState['data']>((state) => state.event.data);
+  const count = useSelector<RootState, EventState['count']>((state) => state.event.count);
   const { query } = useLocation() as any;
 
   const eventsLoading = !events;
 
   const handleTablePaginationChange = React.useCallback(
-    current => {
+    (current) => {
       dispatch({
         type: 'event/searchEvents',
         payload: { page: current - 1 },
@@ -27,13 +27,13 @@ const List: React.FC = () => {
     [dispatch],
   );
 
-  React.useEffect(() => {
+  useMount(() => {
     const { issue_id } = query;
     dispatch({
       type: 'event/searchEvents',
       payload: { page: 0, issue_id },
     });
-  }, []); // eslint-disable-line
+  });
 
   return (
     <Card className={styles.root}>
@@ -49,7 +49,7 @@ const List: React.FC = () => {
             total: count,
           }}
           loading={eventsLoading}
-          onRow={record => ({
+          onRow={(record) => ({
             onClick: (): void => {
               history.push(`/event/${record.id}`);
             },

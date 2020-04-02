@@ -3,7 +3,7 @@ import { Card, Typography } from 'antd';
 import { Chart } from '@antv/g2';
 import DataSet from '@antv/data-set';
 
-import { useDispatch, useSelector } from '@/hooks';
+import { useDispatch, useSelector, useMount } from '@/hooks';
 import { RootState } from '@/store';
 
 type Type = 'browser' | 'os' | 'type' | 'device';
@@ -19,12 +19,12 @@ const Pie: React.FC<StatisticsProps> = ({ title, type }) => {
     dispatch({ type: 'analysis/getStatistics', payload: { type } });
   }, [dispatch, type]);
 
-  const data = useSelector<RootState, any>(state => state.analysis[type]);
+  const data = useSelector<RootState, any>((state) => state.analysis[type]);
   const loading = typeof data === 'undefined';
 
   const container = React.useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  useMount(() => {
     if (data && data.length) {
       const ds = new DataSet();
       const dv = ds.createView().source(data);
@@ -45,7 +45,7 @@ const Pie: React.FC<StatisticsProps> = ({ title, type }) => {
         radius: 0.75,
       });
       chart.scale('percent', {
-        formatter: val => `${(val * 100).toFixed(2)}%`,
+        formatter: (val) => `${(val * 100).toFixed(2)}%`,
       });
       chart.tooltip({
         showTitle: false,
@@ -70,7 +70,7 @@ const Pie: React.FC<StatisticsProps> = ({ title, type }) => {
       };
     }
     return () => {};
-  }, []); // eslint-disable-line
+  });
 
   return (
     <Card

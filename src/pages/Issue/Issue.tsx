@@ -5,7 +5,7 @@ import { TableRowSelection } from 'antd/lib/table/interface';
 import { Link } from 'umi';
 import TimeAgo from 'react-timeago';
 
-import { useDispatch, useSelector } from '@/hooks';
+import { useDispatch, useSelector, useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import { RootState } from '@/store';
 import { IssueState, Issue as IssueType } from '@/models';
@@ -36,14 +36,14 @@ const Issue: React.FC<IssueDashPageProps> = () => {
   const issue = useSelector<RootState, IssueState['data']>((state) => state.issue.data);
   const count = useSelector<RootState, IssueState['count']>((state) => state.issue.count);
 
-  React.useEffect(() => {
+  useMount(() => {
     dispatch({
       type: 'issue/searchIssues',
       payload: {
         page: 0,
       },
     });
-  }, [dispatch]);
+  });
 
   const handleTablePaginationChange = React.useCallback(
     (current) => {

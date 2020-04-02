@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Avatar, Dropdown, Typography, Divider } from 'antd';
 
-import { useSelector, useDispatch } from '@/hooks';
+import { useSelector, useDispatch, useMount } from '@/hooks';
 import { RootState } from '@/store';
 import { ProjectState, UserState } from '@/models';
 import getPlatformLogo from '@/utils/getPlatformLogo';
@@ -49,15 +49,16 @@ const createMenu = (user: UserState, project: ProjectState): React.ReactElement 
 };
 
 const UserBlock: React.FC = () => {
-  const project = useSelector<RootState, ProjectState>(state => state.project);
-  const user = useSelector<RootState, UserState>(state => state.user);
-  const { current } = project;
   const dispatch = useDispatch();
-  React.useEffect(() => {
+  const project = useSelector<RootState, ProjectState>((state) => state.project);
+  const user = useSelector<RootState, UserState>((state) => state.user);
+  const { current } = project;
+
+  useMount(() => {
     if (!project.current || !project.current.id) {
       dispatch({ type: 'project/handleCreateProjectVisible', payload: true });
     }
-  }, []);
+  });
 
   return (
     <div className={styles.root}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useParams } from 'umi';
 
-import { useDispatch } from '@/hooks';
+import { useDispatch, useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import Description from './components/Description';
 
@@ -14,7 +14,7 @@ const Detail: React.FC<DetailPageProps> = () => {
   const { query } = useLocation() as any;
   const { target } = useParams();
 
-  React.useEffect(() => {
+  useMount(() => {
     const { issue_id } = query;
 
     if (target === 'latest' && issue_id) {
@@ -27,7 +27,7 @@ const Detail: React.FC<DetailPageProps> = () => {
         },
       });
     }
-  }, []); // eslint-disable-line
+  });
 
   return (
     <BasicLayout>

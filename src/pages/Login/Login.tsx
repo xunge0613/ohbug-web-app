@@ -3,7 +3,7 @@ import { Typography, Button } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import { useLocation } from 'umi';
 
-import { useDispatch } from '@/hooks';
+import { useDispatch, useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 
 import styles from './Login.less';
@@ -22,11 +22,11 @@ function useLoginRedirect(): void {
   const dispatch = useDispatch();
   const { query } = useLocation() as any;
 
-  React.useEffect(() => {
+  useMount(() => {
     if (query && Object.keys(query).length) {
       dispatch({ type: 'login/login', payload: { query } });
     }
-  }, [dispatch]);
+  });
 }
 
 const Login: React.FC<LoginPageProps> = ({ children }) => {

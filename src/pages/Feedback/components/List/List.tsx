@@ -3,7 +3,7 @@ import { Card, Table } from 'antd';
 import Timeago from 'react-timeago';
 import { useLocation } from 'umi';
 
-import { useSelector, useDispatch } from '@/hooks';
+import { useSelector, useDispatch, useMount } from '@/hooks';
 import { RootState } from '@/store';
 import { FeedbackState, Event as EventType } from '@/models';
 
@@ -11,14 +11,14 @@ import styles from './List.less';
 
 const List: React.FC = () => {
   const dispatch = useDispatch();
-  const feedbacks = useSelector<RootState, FeedbackState['data']>(state => state.feedback.data);
-  const count = useSelector<RootState, FeedbackState['count']>(state => state.feedback.count);
+  const feedbacks = useSelector<RootState, FeedbackState['data']>((state) => state.feedback.data);
+  const count = useSelector<RootState, FeedbackState['count']>((state) => state.feedback.count);
   const { query } = useLocation() as any;
 
   const feedbacksLoading = !feedbacks;
 
   const handleTablePaginationChange = React.useCallback(
-    current => {
+    (current) => {
       dispatch({
         type: 'feedback/searchFeedbacks',
         payload: { page: current - 1 },
@@ -27,13 +27,13 @@ const List: React.FC = () => {
     [dispatch],
   );
 
-  React.useEffect(() => {
+  useMount(() => {
     const { issue_id } = query;
     dispatch({
       type: 'feedback/searchFeedbacks',
       payload: { page: 0, issue_id },
     });
-  }, []); // eslint-disable-line
+  });
 
   return (
     <Card className={styles.root}>
