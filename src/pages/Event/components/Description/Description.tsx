@@ -12,11 +12,10 @@ import dayjs from 'dayjs';
 import { Action } from '@ohbug/types';
 import RrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
+import { useSelector, EventModelState } from 'umi';
 
-import { useSelector } from '@/hooks';
 import StackInfo from '@/components/StackInfo';
-import { RootState } from '@/store';
-import { EventState } from '@/models';
+import { RootState } from '@/interfaces';
 
 import styles from './Description.less';
 
@@ -86,7 +85,7 @@ interface ContentList {
 }
 
 const Description: React.FC = () => {
-  const event = useSelector<RootState, EventState['current']>(state => state.event.current);
+  const event = useSelector<RootState, EventModelState['current']>((state) => state.event.current);
   const [activeTab, setActiveTab] = React.useState<keyof ContentList>('detail');
 
   const replayRef = React.useRef<HTMLDivElement>(null);

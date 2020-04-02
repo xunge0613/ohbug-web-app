@@ -1,9 +1,8 @@
 import React from 'react';
 import { Drawer, Form, Input, Button, Select } from 'antd';
+import { useDispatch, useSelector, ProjectModelState } from 'umi';
 
-import { useDispatch, useSelector } from '@/hooks';
-import { RootState } from '@/store';
-import { ProjectState } from '@/models';
+import { RootState } from '@/interfaces';
 
 import styles from './CreateProject.less';
 
@@ -11,14 +10,14 @@ const CreateProject: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleFinish = React.useCallback(
-    async values => {
+    async (values) => {
       dispatch({ type: 'project/create', payload: values });
       dispatch({ type: 'project/handleCreateProjectVisible', payload: false });
     },
     [dispatch],
   );
 
-  const project = useSelector<RootState, ProjectState>(state => state.project);
+  const project = useSelector<RootState, ProjectModelState>((state) => state.project);
   const visible = project.createProjectVisible;
   const handleClose = React.useCallback(() => {
     if (project.current && project.current.id) {

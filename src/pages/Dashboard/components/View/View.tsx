@@ -2,9 +2,9 @@ import React from 'react';
 import { Statistic, Tooltip, Skeleton } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
+import { useDispatch, useSelector } from 'umi';
 
-import { useDispatch, useSelector } from '@/hooks';
-import { RootState } from '@/store';
+import { RootState } from '@/interfaces';
 
 import styles from './View.less';
 
@@ -18,16 +18,12 @@ const View: React.FC<ViewProps> = ({ title, type }) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    const start = dayjs()
-      .subtract(1, 'day')
-      .toISOString();
-    const end = dayjs()
-      .startOf('hour')
-      .toISOString();
+    const start = dayjs().subtract(1, 'day').toISOString();
+    const end = dayjs().startOf('hour').toISOString();
     dispatch({ type: `view/get${type}`, payload: { start, end } });
   }, [dispatch, type]);
 
-  const data = useSelector<RootState, number | undefined>(state => state.view[type]);
+  const data = useSelector<RootState, number | undefined>((state) => state.view[type]);
   const loading = typeof data === 'undefined';
 
   return (

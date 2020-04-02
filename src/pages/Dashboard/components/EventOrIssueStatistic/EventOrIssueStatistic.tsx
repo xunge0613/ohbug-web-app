@@ -1,10 +1,9 @@
 import React from 'react';
 import { Statistic, Tooltip, Skeleton } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector, AnalysisModelState } from 'umi';
 
-import { useDispatch, useSelector } from '@/hooks';
-import { RootState } from '@/store';
-import { AnalysisState } from '@/models';
+import { RootState } from '@/interfaces';
 
 import styles from './EventOrIssueStatistic.less';
 
@@ -21,7 +20,7 @@ const EventOrIssueStatistic: React.FC<EventOrIssueStatisticProps> = ({ title, ty
     dispatch({ type: 'analysis/getEventOrIssueStatistics', payload: { type } });
   }, [dispatch, type]);
 
-  const data = useSelector<RootState, AnalysisState['event']>(state => state.analysis[type]);
+  const data = useSelector<RootState, AnalysisModelState['event']>((state) => state.analysis[type]);
   const loading = typeof data === 'undefined';
 
   return (

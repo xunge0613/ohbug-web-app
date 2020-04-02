@@ -5,11 +5,7 @@ import BasicLayout from '@/layouts/Basic';
 import Search from './components/Search';
 import List from './components/List';
 
-interface FeedbackPageProps {
-  children?: React.ReactNode;
-}
-
-const Feedback: React.FC<FeedbackPageProps> = () => {
+const Feedback: React.FC = () => {
   return (
     <BasicLayout pageHeader={<PageHeader title="" ghost extra={<Search />} />}>
       <List />

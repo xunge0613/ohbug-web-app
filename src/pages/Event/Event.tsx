@@ -5,11 +5,7 @@ import BasicLayout from '@/layouts/Basic';
 import Search from './components/Search';
 import List from './components/List';
 
-interface EventPageProps {
-  children?: React.ReactNode;
-}
-
-const Event: React.FC<EventPageProps> = () => {
+const Event: React.FC = () => {
   return (
     <BasicLayout pageHeader={<PageHeader title="" ghost extra={<Search />} />}>
       <List />

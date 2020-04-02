@@ -1,18 +1,21 @@
 import React from 'react';
 import { Card, Table } from 'antd';
 import Timeago from 'react-timeago';
-import { useLocation } from 'umi';
+import { useLocation, useSelector, useDispatch, Event as EventType, FeedbackModelState } from 'umi';
 
-import { useSelector, useDispatch, useMount } from '@/hooks';
-import { RootState } from '@/store';
-import { FeedbackState, Event as EventType } from '@/models';
+import { useMount } from '@/hooks';
+import { RootState } from '@/interfaces';
 
 import styles from './List.less';
 
 const List: React.FC = () => {
   const dispatch = useDispatch();
-  const feedbacks = useSelector<RootState, FeedbackState['data']>((state) => state.feedback.data);
-  const count = useSelector<RootState, FeedbackState['count']>((state) => state.feedback.count);
+  const feedbacks = useSelector<RootState, FeedbackModelState['data']>(
+    (state) => state.feedback.data,
+  );
+  const count = useSelector<RootState, FeedbackModelState['count']>(
+    (state) => state.feedback.count,
+  );
   const { query } = useLocation() as any;
 
   const feedbacksLoading = !feedbacks;

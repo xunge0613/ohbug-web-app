@@ -1,10 +1,15 @@
-import { Event } from '@ohbug/types';
+import { Event } from 'umi';
 
 import { request } from '@/utils';
-import { SearchFeedbacks } from '@/models';
 
-interface GetMany extends SearchFeedbacks {
+interface GetMany {
   project_id: number;
+  page: number;
+  issue_id: string;
+  type?: string;
+  user?: string;
+  start?: number | string;
+  end?: number | string;
 }
 
 const feedback = {

@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { useDispatch } from '@/hooks';
+import { useDispatch } from 'umi';
 
 import styles from './Logout.less';
 
@@ -9,6 +8,7 @@ const Logout: React.FC = () => {
   const handleLogout = React.useCallback(() => {
     dispatch({ type: 'login/logout' });
   }, [dispatch]);
+
   return (
     <div className={styles.root} onClick={handleLogout}>
       Logout

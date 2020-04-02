@@ -1,15 +1,11 @@
 import React from 'react';
-import { useLocation, useParams } from 'umi';
+import { useDispatch, useLocation, useParams } from 'umi';
 
-import { useDispatch, useMount } from '@/hooks';
+import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import Description from './components/Description';
 
-interface DetailPageProps {
-  children?: React.ReactNode;
-}
-
-const Detail: React.FC<DetailPageProps> = () => {
+const Detail: React.FC = () => {
   const dispatch = useDispatch();
   const { query } = useLocation() as any;
   const { target } = useParams();

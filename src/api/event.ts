@@ -1,7 +1,6 @@
-import { Event } from '@ohbug/types';
+import { SearchEvents, Event } from 'umi';
 
 import { request } from '@/utils';
-import { SearchEvents } from '@/models';
 
 interface Get {
   event_id: string | number;

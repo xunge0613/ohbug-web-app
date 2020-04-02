@@ -1,6 +1,7 @@
-import axios from 'axios';
+/* eslint-disable no-underscore-dangle */
 
-import store from '@/store';
+import axios from 'axios';
+import { getDvaApp } from 'umi';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
@@ -8,17 +9,18 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  response => response,
-  error => {
+  (response) => response,
+  (error) => {
+    const store = getDvaApp()._store;
     store.dispatch({ type: 'app/error', payload: error.message });
     return Promise.reject(error);
   },
 );
 
 instance.interceptors.response.use(
-  response => {
+  (response) => {
     if (response.data) return response.data;
-
+    const store = getDvaApp()._store;
     const message = 'unknown error';
     store.dispatch({ type: 'app/error', payload: message });
     return {
@@ -26,7 +28,8 @@ instance.interceptors.response.use(
       message,
     };
   },
-  error => {
+  (error) => {
+    const store = getDvaApp()._store;
     store.dispatch({ type: 'app/error', payload: error.message });
     return Promise.reject(error);
   },

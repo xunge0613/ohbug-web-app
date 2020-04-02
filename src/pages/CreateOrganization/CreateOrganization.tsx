@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'umi';
+import { Link, useDispatch } from 'umi';
 import { Card, Typography, Form, Input, Button, Divider } from 'antd';
 
-import { useDispatch } from '@/hooks';
 import Logout from '@/components/Logout';
 import BasicLayout from '@/layouts/Basic';
 
@@ -16,7 +15,7 @@ const CreateOrganization: React.FC = () => {
   const [form] = Form.useForm();
 
   const handleFinish = React.useCallback(
-    values => {
+    (values) => {
       dispatch({ type: 'organization/create', payload: values });
       setVerified(true);
     },
@@ -27,7 +26,7 @@ const CreateOrganization: React.FC = () => {
   }, [setVerified]);
 
   const handleInputChange = React.useCallback(
-    e => {
+    (e) => {
       form.setFieldsValue({
         name: e.target.value,
       });

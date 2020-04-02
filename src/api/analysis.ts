@@ -1,5 +1,5 @@
+import { AnalysisItem } from 'umi';
 import { request } from '@/utils';
-import { Item } from '@/models';
 
 interface Get {
   project_id: string | number;
@@ -10,7 +10,7 @@ interface Get {
 }
 
 const analysis = {
-  get: async (data: Get): Promise<Item[] | void> => {
+  get: async (data: Get): Promise<AnalysisItem[] | void> => {
     const { type, project_id, start, end, performanceType } = data;
     const res = await request.get(`/analysis/${type}`, {
       params: {

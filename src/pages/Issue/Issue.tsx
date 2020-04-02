@@ -2,13 +2,12 @@ import React from 'react';
 import { Card, Table, Button, Typography } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { TableRowSelection } from 'antd/lib/table/interface';
-import { Link } from 'umi';
 import TimeAgo from 'react-timeago';
+import { Link, useDispatch, useSelector, IssueModelState, Issue as IssueType } from 'umi';
 
-import { useDispatch, useSelector, useMount } from '@/hooks';
+import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
-import { RootState } from '@/store';
-import { IssueState, Issue as IssueType } from '@/models';
+import { RootState } from '@/interfaces';
 
 import styles from './Issue.less';
 
@@ -33,8 +32,8 @@ interface IssueDashPageProps {
 
 const Issue: React.FC<IssueDashPageProps> = () => {
   const dispatch = useDispatch();
-  const issue = useSelector<RootState, IssueState['data']>((state) => state.issue.data);
-  const count = useSelector<RootState, IssueState['count']>((state) => state.issue.count);
+  const issue = useSelector<RootState, IssueModelState['data']>((state) => state.issue.data);
+  const count = useSelector<RootState, IssueModelState['count']>((state) => state.issue.count);
 
   useMount(() => {
     dispatch({

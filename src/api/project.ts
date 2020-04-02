@@ -1,6 +1,6 @@
+import { ProjectModelState, Project } from 'umi';
 import { request } from '@/utils';
 import { ProjectType } from '@/interfaces';
-import { ProjectState, Project } from '@/models';
 
 interface Create {
   name: string;
@@ -20,7 +20,7 @@ const project = {
     }
     return undefined;
   },
-  getAll: async (data: GetAll): Promise<ProjectState['data'] | void> => {
+  getAll: async (data: GetAll): Promise<ProjectModelState['data'] | void> => {
     const res = await request.get('/project', { params: data });
     if (res.code === 0) {
       return res.data;

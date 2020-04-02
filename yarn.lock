@@ -1810,20 +1810,6 @@
     node-machine-id "^1.1.12"
     uuid "^7.0.2"
 
-"@rematch/core@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.npm.taobao.org/@rematch/core/download/@rematch/core-1.4.0.tgz#686ce814e1cf125029c5e9fba23ef3ab7c3eb2a7"
-  integrity sha1-aGzoFOHPElApxen7oj7zq3w+sqc=
-  dependencies:
-    redux "^4.0.5"
-
-"@rematch/persist@^1.1.6":
-  version "1.1.6"
-  resolved "https://registry.npm.taobao.org/@rematch/persist/download/@rematch/persist-1.1.6.tgz#6eba5e11cd6cac92d745a43f842866620c7a0880"
-  integrity sha1-brpeEc1srJLXRaQ/hChmYgx6CIA=
-  dependencies:
-    redux-persist "^5.10.0"
-
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.npm.taobao.org/@samverschueren/stream-to-observable/download/@samverschueren/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -12126,7 +12112,7 @@ react-native-swipeout@^2.2.2:
     prop-types "^15.5.10"
     react-tween-state "^0.1.5"
 
-react-redux@^7.1.0, react-redux@^7.2.0:
+react-redux@^7.1.0:
   version "7.2.0"
   resolved "https://registry.npm.taobao.org/react-redux/download/react-redux-7.2.0.tgz#f970f62192b3981642fec46fd0db18a074fe879d"
   integrity sha1-+XD2IZKzmBZC/sRv0NsYoHT+h50=
@@ -12363,16 +12349,6 @@ redux-logger@^3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
-redux-persist@^5.10.0:
-  version "5.10.0"
-  resolved "https://registry.npm.taobao.org/redux-persist/download/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
-  integrity sha1-XY2ALFVx5Vkk78HDqbI1dSg75is=
-
-redux-persist@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npm.taobao.org/redux-persist/download/redux-persist-6.0.0.tgz#b4d2972f9859597c130d40d4b146fecdab51b3a8"
-  integrity sha1-tNKXL5hZWXwTDUDUsUb+zatRs6g=
-
 redux-saga@^0.16.0:
   version "0.16.2"
   resolved "https://registry.npm.taobao.org/redux-saga/download/redux-saga-0.16.2.tgz#993662e86bc945d8509ac2b8daba3a8c615cc971"
@@ -12388,7 +12364,7 @@ redux@^3.6.0:
     loose-envify "^1.1.0"
     symbol-observable "^1.0.3"
 
-redux@^4.0.0, redux@^4.0.1, redux@^4.0.5:
+redux@^4.0.0, redux@^4.0.1:
   version "4.0.5"
   resolved "https://registry.npm.taobao.org/redux/download/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
   integrity sha1-TbXeWBbheJHeioDEJCMtBvBR2T8=

@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import { useDispatch } from 'umi';
 
-import { useDispatch } from '@/hooks';
 import DatePicker from '@/components/DatePicker';
 
 import styles from './Search.less';

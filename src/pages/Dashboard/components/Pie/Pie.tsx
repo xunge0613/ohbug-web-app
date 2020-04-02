@@ -2,9 +2,10 @@ import React from 'react';
 import { Card, Typography } from 'antd';
 import { Chart } from '@antv/g2';
 import DataSet from '@antv/data-set';
+import { useDispatch, useSelector } from 'umi';
 
-import { useDispatch, useSelector, useMount } from '@/hooks';
-import { RootState } from '@/store';
+import { useMount } from '@/hooks';
+import { RootState } from '@/interfaces';
 
 type Type = 'browser' | 'os' | 'type' | 'device';
 interface StatisticsProps {

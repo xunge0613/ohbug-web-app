@@ -7,11 +7,7 @@ import EventOrIssueStatistic from './components/EventOrIssueStatistic';
 import View from './components/View';
 import PerformanceStatistic from './components/PerformanceStatistic';
 
-interface DashboardPageProps {
-  children?: React.ReactNode;
-}
-
-const Dashboard: React.FC<DashboardPageProps> = () => {
+const Dashboard: React.FC = () => {
   return (
     <BasicLayout>
       <Row gutter={[24, 24]}>

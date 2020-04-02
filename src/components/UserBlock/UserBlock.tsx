@@ -1,16 +1,16 @@
 import React from 'react';
 import { Menu, Avatar, Dropdown, Typography, Divider } from 'antd';
+import { useSelector, useDispatch, ProjectModelState, UserModelState } from 'umi';
 
-import { useSelector, useDispatch, useMount } from '@/hooks';
-import { RootState } from '@/store';
-import { ProjectState, UserState } from '@/models';
+import { useMount } from '@/hooks';
+import { RootState } from '@/interfaces';
 import getPlatformLogo from '@/utils/getPlatformLogo';
 import Logout from '../Logout';
 import CreateProject from '../CreateProject';
 
 import styles from './UserBlock.less';
 
-const createMenu = (user: UserState, project: ProjectState): React.ReactElement => {
+const createMenu = (user: UserModelState, project: ProjectModelState): React.ReactElement => {
   const { current } = project;
 
   return (
@@ -50,8 +50,8 @@ const createMenu = (user: UserState, project: ProjectState): React.ReactElement 
 
 const UserBlock: React.FC = () => {
   const dispatch = useDispatch();
-  const project = useSelector<RootState, ProjectState>((state) => state.project);
-  const user = useSelector<RootState, UserState>((state) => state.user);
+  const project = useSelector<RootState, ProjectModelState>((state) => state.project);
+  const user = useSelector<RootState, UserModelState>((state) => state.user);
   const { current } = project;
 
   useMount(() => {

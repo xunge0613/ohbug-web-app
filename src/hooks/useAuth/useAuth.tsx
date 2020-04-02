@@ -1,10 +1,9 @@
 import React from 'react';
-import { useLocation, history } from 'umi';
+import { useLocation, useDispatch, useSelector, history, UserModelState } from 'umi';
 
-import { useDispatch, useSelector, useMount } from '@/hooks';
+import { useMount } from '@/hooks';
 import { getGithub } from '@/utils';
-import { RootState } from '@/store';
-import { UserState } from '@/models';
+import { RootState } from '@/interfaces';
 
 interface UseAuth {
   isLogin: boolean;
@@ -25,7 +24,7 @@ const useAuth = (): UseAuth => {
   // 根据 cookie 内是否含有 id 判断登录态
   const auth = Boolean(github.id);
   const [isLogin, setLogin] = React.useState(false);
-  const user = useSelector<RootState, UserState>((state) => state.user);
+  const user = useSelector<RootState, UserModelState>((state) => state.user);
 
   useMount(() => {
     async function getAllProjectInfo(): Promise<any> {

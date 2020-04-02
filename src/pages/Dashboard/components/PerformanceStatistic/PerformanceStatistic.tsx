@@ -1,10 +1,9 @@
 import React from 'react';
 import { Card, Menu, Dropdown, Typography, Tooltip } from 'antd';
 import { QuestionCircleOutlined, DownOutlined } from '@ant-design/icons';
+import { useSelector, useDispatch, AnalysisModelState } from 'umi';
 
-import { useSelector, useDispatch } from '@/hooks';
-import { RootState } from '@/store';
-import { AnalysisState } from '@/models';
+import { RootState } from '@/interfaces';
 import Chart from './Chart';
 
 import styles from './Chart.less';
@@ -77,9 +76,9 @@ const PerformanceStatistic: React.FC = () => {
     extra: '',
   });
   const handleTabChange = React.useCallback(
-    key => {
+    (key) => {
       setActiveTab(() => {
-        const current = tabListData.find(tab => tab.key === key);
+        const current = tabListData.find((tab) => tab.key === key);
         return {
           tab: key,
           extra: current?.extra ? current.extra[0] : '',
@@ -91,19 +90,19 @@ const PerformanceStatistic: React.FC = () => {
 
   const tabList = React.useMemo(() => {
     const handleExtraMenuSelect = (e: any) => {
-      setActiveTab(state => ({
+      setActiveTab((state) => ({
         ...state,
         extra: e.key,
       }));
     };
-    return tabListData.map(tab => {
+    return tabListData.map((tab) => {
       return {
         key: tab.key,
         tab: tab.extra ? (
           <Dropdown
             overlay={
               <Menu selectedKeys={[activeTab.extra]} onClick={handleExtraMenuSelect}>
-                {tab.extra.map(ex => (
+                {tab.extra.map((ex) => (
                   <Menu.Item key={ex}>{ex}</Menu.Item>
                 ))}
               </Menu>
@@ -147,10 +146,10 @@ const PerformanceStatistic: React.FC = () => {
       },
     });
   }, [dispatch, activeTab.tab]);
-  const performance = useSelector<RootState, AnalysisState['performance']>(
-    state => state.analysis.performance,
+  const performance = useSelector<RootState, AnalysisModelState['performance']>(
+    (state) => state.analysis.performance,
   );
-  const data = activeTab.extra ? performance?.map(d => d[activeTab.tab] || d) : performance;
+  const data = activeTab.extra ? performance?.map((d) => d[activeTab.tab] || d) : performance;
   const loading = typeof data === 'undefined';
 
   return (

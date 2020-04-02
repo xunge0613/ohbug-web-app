@@ -1,8 +1,13 @@
 import { request } from '@/utils';
-import { UserState, OrganizationState } from '@/models';
+import { OrganizationModelState } from 'umi';
 
-interface User extends UserState {
-  organization?: OrganizationState;
+interface User {
+  id?: number;
+  name?: string;
+  email?: string;
+  avatar?: string;
+  from?: string;
+  organization?: OrganizationModelState;
 }
 
 const user = {

@@ -1,12 +1,10 @@
 import React from 'react';
-import { history } from 'umi';
 import { PageHeader, Row, Col, Button, Skeleton, Card, Avatar } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
+import { history, useDispatch, useSelector, ProjectModelState, OrganizationModelState } from 'umi';
 
-import { useDispatch, useSelector } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
-import { RootState } from '@/store';
-import { ProjectState, OrganizationState } from '@/models';
+import { RootState } from '@/interfaces';
 import { getPlatformLogo } from '@/utils';
 
 import styles from './Project.less';
@@ -18,8 +16,10 @@ interface ProjectPageProps {
 const Project: React.FC<ProjectPageProps> = () => {
   const dispatch = useDispatch();
 
-  const organization = useSelector<RootState, OrganizationState>((state) => state.organization);
-  const project = useSelector<RootState, ProjectState['data']>((state) => state.project.data);
+  const organization = useSelector<RootState, OrganizationModelState>(
+    (state) => state.organization,
+  );
+  const project = useSelector<RootState, ProjectModelState['data']>((state) => state.project.data);
   const loading = !project.length;
 
   const handleCreateProject = React.useCallback(() => {

@@ -1,18 +1,24 @@
 import React from 'react';
 import { Card, Table } from 'antd';
 import Timeago from 'react-timeago';
-import { history, useLocation } from 'umi';
+import {
+  history,
+  useLocation,
+  useSelector,
+  useDispatch,
+  EventModelState,
+  Event as EventType,
+} from 'umi';
 
-import { useSelector, useDispatch, useMount } from '@/hooks';
-import { RootState } from '@/store';
-import { EventState, Event as EventType } from '@/models';
+import { useMount } from '@/hooks';
+import { RootState } from '@/interfaces';
 
 import styles from './List.less';
 
 const List: React.FC = () => {
   const dispatch = useDispatch();
-  const events = useSelector<RootState, EventState['data']>((state) => state.event.data);
-  const count = useSelector<RootState, EventState['count']>((state) => state.event.count);
+  const events = useSelector<RootState, EventModelState['data']>((state) => state.event.data);
+  const count = useSelector<RootState, EventModelState['count']>((state) => state.event.count);
   const { query } = useLocation() as any;
 
   const eventsLoading = !events;
