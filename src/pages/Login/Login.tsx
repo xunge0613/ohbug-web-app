@@ -12,7 +12,10 @@ interface LoginPageProps {
   children?: React.ReactNode;
 }
 
-const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+const clientId =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_GITHUB_CLIENT_ID
+    : process.env.REACT_APP_GITHUB_CLIENT_ID_DEV;
 const href = `https://github.com/login/oauth/authorize?client_id=${clientId}`;
 
 function useLoginRedirect(): void {
@@ -20,7 +23,7 @@ function useLoginRedirect(): void {
   const { query } = useLocation() as any;
 
   React.useEffect(() => {
-    if (query) {
+    if (query && Object.keys(query).length) {
       dispatch({ type: 'login/login', payload: { query } });
     }
   }, [dispatch]);
