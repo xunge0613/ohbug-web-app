@@ -21,7 +21,9 @@ const List: React.FC = () => {
   const count = useSelector<RootState, EventModelState['count']>((state) => state.event.count);
   const { query } = useLocation() as any;
 
-  const eventsLoading = !events;
+  const loading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects['event/searchEvents']!,
+  );
 
   const handleTablePaginationChange = React.useCallback(
     (current) => {
@@ -54,7 +56,7 @@ const List: React.FC = () => {
             pageSize: 20,
             total: count,
           }}
-          loading={eventsLoading}
+          loading={loading}
           onRow={(record) => ({
             onClick: (): void => {
               history.push(`/event/${record.id}`);

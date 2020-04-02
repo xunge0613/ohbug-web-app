@@ -54,7 +54,9 @@ const Issue: React.FC<IssueDashPageProps> = () => {
     [dispatch],
   );
 
-  const loading = typeof issue === 'undefined';
+  const loading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects['issue/searchIssues']!,
+  );
 
   const rowSelection: TableRowSelection<IssueType> = {
     onChange: () => {},

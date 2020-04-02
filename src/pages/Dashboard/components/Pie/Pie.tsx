@@ -21,7 +21,9 @@ const Pie: React.FC<StatisticsProps> = ({ title, type }) => {
   }, [dispatch, type]);
 
   const data = useSelector<RootState, any>((state) => state.analysis[type]);
-  const loading = typeof data === 'undefined';
+  const loading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects['analysis/getStatistics']!,
+  );
 
   const container = React.useRef<HTMLDivElement>(null);
 

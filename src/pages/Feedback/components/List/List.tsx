@@ -18,7 +18,9 @@ const List: React.FC = () => {
   );
   const { query } = useLocation() as any;
 
-  const feedbacksLoading = !feedbacks;
+  const loading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects['feedback/searchFeedbacks']!,
+  );
 
   const handleTablePaginationChange = React.useCallback(
     (current) => {
@@ -50,7 +52,7 @@ const List: React.FC = () => {
             pageSize: 20,
             total: count,
           }}
-          loading={feedbacksLoading}
+          loading={loading}
         >
           <Table.Column<EventType<any>> title="name" dataIndex={['detail', 'name']} />
           <Table.Column<EventType<any>> title="email" dataIndex={['detail', 'email']} />

@@ -24,7 +24,9 @@ const View: React.FC<ViewProps> = ({ title, type }) => {
   }, [dispatch, type]);
 
   const data = useSelector<RootState, number | undefined>((state) => state.view[type]);
-  const loading = typeof data === 'undefined';
+  const loading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects[`view/get${type}`]!,
+  );
 
   return (
     <div className={styles.root}>

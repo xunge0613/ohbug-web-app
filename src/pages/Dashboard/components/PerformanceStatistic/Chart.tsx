@@ -12,15 +12,18 @@ interface PerformanceStatisticProps {
 
 const Charts: React.FC<PerformanceStatisticProps> = ({ data, field }) => {
   const dataSource = React.useMemo(() => {
-    const ds = new DataSet();
-    const dv = ds.createView().source(data);
-    dv.transform({
-      type: 'bin.histogram',
-      field,
-      binWidth: 100,
-      as: ['value', 'count'],
-    });
-    return dv.rows;
+    if (data) {
+      const ds = new DataSet();
+      const dv = ds.createView().source(data);
+      dv.transform({
+        type: 'bin.histogram',
+        field,
+        binWidth: 100,
+        as: ['value', 'count'],
+      });
+      return dv.rows;
+    }
+    return [];
   }, [data, field]);
 
   const container = React.useRef<HTMLDivElement>(null);

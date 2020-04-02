@@ -150,7 +150,9 @@ const PerformanceStatistic: React.FC = () => {
     (state) => state.analysis.performance,
   );
   const data = activeTab.extra ? performance?.map((d) => d[activeTab.tab] || d) : performance;
-  const loading = typeof data === 'undefined';
+  const loading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects['analysis/getPerformanceStatistics']!,
+  );
 
   return (
     <Card

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageHeader, Row, Col, Button, Skeleton, Card, Avatar } from 'antd';
+import { PageHeader, Row, Col, Button, Card, Avatar } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { history, useDispatch, useSelector, ProjectModelState, OrganizationModelState } from 'umi';
 
@@ -20,7 +20,6 @@ const Project: React.FC<ProjectPageProps> = () => {
     (state) => state.organization,
   );
   const project = useSelector<RootState, ProjectModelState['data']>((state) => state.project.data);
-  const loading = !project.length;
 
   const handleCreateProject = React.useCallback(() => {
     dispatch({ type: 'project/handleCreateProjectVisible', payload: true });
@@ -60,9 +59,7 @@ const Project: React.FC<ProjectPageProps> = () => {
                 history.push('/issue');
               }}
             >
-              <Skeleton loading={loading}>
-                <Card.Meta title={p.name} description={p.type} />
-              </Skeleton>
+              <Card.Meta title={p.name} description={p.type} />
             </Card>
           </Col>
         ))}

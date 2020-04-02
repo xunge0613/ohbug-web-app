@@ -21,7 +21,9 @@ const EventOrIssueStatistic: React.FC<EventOrIssueStatisticProps> = ({ title, ty
   }, [dispatch, type]);
 
   const data = useSelector<RootState, AnalysisModelState['event']>((state) => state.analysis[type]);
-  const loading = typeof data === 'undefined';
+  const loading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects['analysis/getEventOrIssueStatistics']!,
+  );
 
   return (
     <div className={styles.root}>

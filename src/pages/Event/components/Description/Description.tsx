@@ -93,7 +93,7 @@ const Description: React.FC = () => {
     setActiveTab(key);
   }, []);
 
-  const eventLoading = !event;
+  const loading = useSelector<RootState, boolean>((state) => state.loading.effects['event/get']!);
 
   React.useEffect(() => {
     if (event && event.replay) {
@@ -111,7 +111,7 @@ const Description: React.FC = () => {
       detail: (
         <Row className={styles.root} gutter={36}>
           <Col span={16}>
-            <Skeleton loading={eventLoading}>
+            <Skeleton loading={loading}>
               <Row className={styles.group} gutter={36}>
                 <Col span={12}>
                   <Typography.Paragraph>
@@ -130,7 +130,7 @@ const Description: React.FC = () => {
                 </Col>
               </Row>
             </Skeleton>
-            <Skeleton loading={eventLoading}>
+            <Skeleton loading={loading}>
               {/* all */}
               {event.detail.message && (
                 <Descriptions
@@ -259,7 +259,7 @@ const Description: React.FC = () => {
           </Col>
 
           <Col span={8}>
-            <Skeleton loading={eventLoading}>
+            <Skeleton loading={loading}>
               {/* all */}
               <Descriptions
                 className={styles.descriptions}
