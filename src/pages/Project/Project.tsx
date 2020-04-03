@@ -53,8 +53,10 @@ const Project: React.FC<ProjectPageProps> = () => {
               cover={<img className={styles.cover} src={getPlatformLogo(p.type)} alt={p.type} />}
               onClick={(): void => {
                 dispatch({
-                  type: 'project/setCurrentProject',
-                  payload: project,
+                  type: 'project/setState',
+                  payload: {
+                    current: project,
+                  },
                 });
                 history.push('/issue');
               }}

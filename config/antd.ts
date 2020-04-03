@@ -1,3 +1,3 @@
 export default {
-  dark: true,
+  dark: false,
 };

@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "umi": "UMI_UI=1 umi dev",
     "start": "umi dev",
     "build": "umi build",
     "build:analyze": "ANALYZE=1 umi build",
@@ -37,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "@umijs/fabric": "^2.0.6",
+    "@umijs/preset-ui": "^2.1.9",
     "antd-dayjs-webpack-plugin": "^1.0.0",
     "cz-conventional-changelog": "3.1.0",
     "eslint": "^6.8.0",
