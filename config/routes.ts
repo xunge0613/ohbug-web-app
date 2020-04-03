@@ -76,4 +76,16 @@ export default [
     component: '@/pages/CreateOrganization',
     wrappers: ['@/wrappers/auth'],
   },
+  {
+    exact: true,
+    path: '/404',
+    component: '@/pages/NotFound',
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+    },
+  },
+  {
+    redirect: '/404',
+  },
 ];
