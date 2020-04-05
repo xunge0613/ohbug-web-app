@@ -21,7 +21,7 @@ const analysis = {
       },
     });
 
-    if (res.code === 0) {
+    if (res.success) {
       return res.data;
     }
     return undefined;

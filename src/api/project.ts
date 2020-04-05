@@ -15,14 +15,14 @@ interface GetAll {
 const project = {
   create: async (data: Create): Promise<Project | void> => {
     const res = await request.post('/project/create', data);
-    if (res.code === 0) {
+    if (res.success) {
       return res.data;
     }
     return undefined;
   },
   getAll: async (data: GetAll): Promise<ProjectModelState['data'] | void> => {
     const res = await request.get('/project', { params: data });
-    if (res.code === 0) {
+    if (res.success) {
       return res.data;
     }
     return undefined;

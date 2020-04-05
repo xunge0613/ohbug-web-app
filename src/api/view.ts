@@ -6,7 +6,7 @@ const view = {
     const res = await request.get('/view/pv', {
       params: data,
     });
-    if (res.code === 0) {
+    if (res.success) {
       return res.data;
     }
     return undefined;
@@ -15,7 +15,7 @@ const view = {
     const res = await request.get('/view/uv', {
       params: data,
     });
-    if (res.code === 0) {
+    if (res.success) {
       return res.data;
     }
     return undefined;

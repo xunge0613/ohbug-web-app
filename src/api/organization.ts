@@ -9,7 +9,7 @@ interface Create {
 const organization = {
   create: async (data: Create): Promise<OrganizationModelState | void> => {
     const res = await request.post('/organization/create', data);
-    if (res.code === 0) {
+    if (res.success) {
       return res.data;
     }
     return undefined;

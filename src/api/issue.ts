@@ -14,7 +14,7 @@ const issue = {
       params: data,
     });
 
-    if (res.code === 0 && res.data) {
+    if (res.success && res.data) {
       return res.data;
     }
     return undefined;

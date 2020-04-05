@@ -13,7 +13,7 @@ interface User {
 const user = {
   get: async (id: string): Promise<User | void> => {
     const res = await request.get(`/user/${id}`);
-    if (res.code === 0) {
+    if (res.success) {
       return res.data;
     }
     return undefined;

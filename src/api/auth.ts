@@ -7,14 +7,14 @@ interface Github {
 const auth = {
   github: async (data: Github): Promise<boolean> => {
     const res = await request.post('/auth/github', data);
-    if (res.code === 0) {
+    if (res.success) {
       return true;
     }
     return false;
   },
   logout: async (): Promise<boolean> => {
     const res = await request.post('/auth/logout');
-    if (res.code === 0) {
+    if (res.success) {
       return true;
     }
     return false;

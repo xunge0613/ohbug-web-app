@@ -22,7 +22,7 @@ const event = {
         project_id,
       },
     });
-    if (res.code === 0 && res.data) {
+    if (res.success && res.data) {
       return res.data;
     }
     return undefined;
@@ -35,7 +35,7 @@ const event = {
         project_id,
       },
     });
-    if (res.code === 0 && res.data) {
+    if (res.success && res.data) {
       return res.data;
     }
     return undefined;
@@ -44,7 +44,7 @@ const event = {
     const res = await request.get('/event', {
       params: data,
     });
-    if (res.code === 0 && res.data) {
+    if (res.success && res.data) {
       return res.data;
     }
     return undefined;
