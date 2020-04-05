@@ -1,6 +1,4 @@
-import { SearchEvents, Event } from 'umi';
-
-import { request } from '@/utils';
+import { SearchEvents, Event, request } from 'umi';
 
 interface Get {
   event_id: string | number;
@@ -17,37 +15,31 @@ interface GetMany extends SearchEvents {
 const event = {
   get: async (data: Get): Promise<Event<any> | void> => {
     const { event_id, project_id } = data;
-    const res = await request.get(`/event/${event_id}`, {
+    const res = await request(`/event/${event_id}`, {
+      method: 'get',
       params: {
         project_id,
       },
     });
-    if (res.success && res.data) {
-      return res.data;
-    }
-    return undefined;
+    return res;
   },
   getLatest: async (data: GetLatest): Promise<Event<any> | void> => {
     const { issue_id, project_id } = data;
-    const res = await request.get('/event/latest', {
+    const res = await request('/event/latest', {
+      method: 'get',
       params: {
         issue_id,
         project_id,
       },
     });
-    if (res.success && res.data) {
-      return res.data;
-    }
-    return undefined;
+    return res;
   },
   getMany: async (data: GetMany): Promise<Event<any>[] | void> => {
-    const res = await request.get('/event', {
+    const res = await request('/event', {
+      method: 'get',
       params: data,
     });
-    if (res.success && res.data) {
-      return res.data;
-    }
-    return undefined;
+    return res;
   },
 };
 

@@ -1,5 +1,4 @@
-import { request } from '@/utils';
-import { OrganizationModelState } from 'umi';
+import { OrganizationModelState, request } from 'umi';
 
 interface User {
   id?: number;
@@ -12,11 +11,8 @@ interface User {
 
 const user = {
   get: async (id: string): Promise<User | void> => {
-    const res = await request.get(`/user/${id}`);
-    if (res.success) {
-      return res.data;
-    }
-    return undefined;
+    const res = await request(`/user/${id}`, { method: 'get' });
+    return res;
   },
 };
 

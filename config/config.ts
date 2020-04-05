@@ -5,6 +5,7 @@ import antd from './antd';
 import routes from './routes';
 import layout from './layout';
 import dva from './dva';
+import request from './request';
 import build from './build';
 
 export default defineConfig({
@@ -13,5 +14,6 @@ export default defineConfig({
   routes,
   layout,
   dva,
+  request,
   ...build,
 });

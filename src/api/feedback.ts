@@ -1,6 +1,4 @@
-import { Event } from 'umi';
-
-import { request } from '@/utils';
+import { Event, request } from 'umi';
 
 interface GetMany {
   project_id: number;
@@ -14,13 +12,11 @@ interface GetMany {
 
 const feedback = {
   getMany: async (data: GetMany): Promise<[Event<any>[], number] | void> => {
-    const res = await request.get('/feedback', {
+    const res = await request('/feedback', {
+      method: 'get',
       params: data,
     });
-    if (res.success && res.data) {
-      return res.data;
-    }
-    return undefined;
+    return res;
   },
 };
 

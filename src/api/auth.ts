@@ -1,4 +1,4 @@
-import { request } from '@/utils';
+import { request } from 'umi';
 
 interface Github {
   code: string;
@@ -6,18 +6,12 @@ interface Github {
 
 const auth = {
   github: async (data: Github): Promise<boolean> => {
-    const res = await request.post('/auth/github', data);
-    if (res.success) {
-      return true;
-    }
-    return false;
+    const res = await request('/auth/github', { method: 'post', data });
+    return res;
   },
   logout: async (): Promise<boolean> => {
-    const res = await request.post('/auth/logout');
-    if (res.success) {
-      return true;
-    }
-    return false;
+    const res = await request('/auth/logout', { method: 'post' });
+    return res;
   },
 };
 

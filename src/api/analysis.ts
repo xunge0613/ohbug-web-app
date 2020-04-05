@@ -1,5 +1,4 @@
-import { AnalysisItem } from 'umi';
-import { request } from '@/utils';
+import { AnalysisItem, request } from 'umi';
 
 interface Get {
   project_id: string | number;
@@ -12,7 +11,8 @@ interface Get {
 const analysis = {
   get: async (data: Get): Promise<AnalysisItem[] | void> => {
     const { type, project_id, start, end, performanceType } = data;
-    const res = await request.get(`/analysis/${type}`, {
+    const res = await request(`/analysis/${type}`, {
+      method: 'get',
       params: {
         project_id,
         start,
@@ -20,11 +20,7 @@ const analysis = {
         type: performanceType,
       },
     });
-
-    if (res.success) {
-      return res.data;
-    }
-    return undefined;
+    return res;
   },
 };
 

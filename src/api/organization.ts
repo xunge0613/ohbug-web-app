@@ -1,5 +1,4 @@
-import { OrganizationModelState } from 'umi';
-import { request } from '@/utils';
+import { OrganizationModelState, request } from 'umi';
 
 interface Create {
   name: string;
@@ -8,11 +7,8 @@ interface Create {
 
 const organization = {
   create: async (data: Create): Promise<OrganizationModelState | void> => {
-    const res = await request.post('/organization/create', data);
-    if (res.success) {
-      return res.data;
-    }
-    return undefined;
+    const res = await request('/organization/create', { method: 'post', data });
+    return res;
   },
 };
 

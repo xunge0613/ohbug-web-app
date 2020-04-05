@@ -1,24 +1,19 @@
-import { GetPV, GetUV } from 'umi';
-import { request } from '@/utils';
+import { GetPV, GetUV, request } from 'umi';
 
 const view = {
   getPV: async (data: GetPV): Promise<number | void> => {
-    const res = await request.get('/view/pv', {
+    const res = await request('/view/pv', {
+      method: 'get',
       params: data,
     });
-    if (res.success) {
-      return res.data;
-    }
-    return undefined;
+    return res;
   },
   getUV: async (data: GetUV): Promise<number | void> => {
-    const res = await request.get('/view/uv', {
+    const res = await request('/view/uv', {
+      method: 'get',
       params: data,
     });
-    if (res.success) {
-      return res.data;
-    }
-    return undefined;
+    return res;
   },
 };
 

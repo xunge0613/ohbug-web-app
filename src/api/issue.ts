@@ -1,5 +1,4 @@
-import { Issue } from 'umi';
-import { request } from '@/utils';
+import { Issue, request } from 'umi';
 
 interface GetMany {
   project_id: number;
@@ -10,14 +9,11 @@ interface GetMany {
 
 const issue = {
   getMany: async (data: GetMany): Promise<Issue[] | void> => {
-    const res = await request.get('/issue', {
+    const res = await request('/issue', {
+      method: 'get',
       params: data,
     });
-
-    if (res.success && res.data) {
-      return res.data;
-    }
-    return undefined;
+    return res;
   },
 };
 
