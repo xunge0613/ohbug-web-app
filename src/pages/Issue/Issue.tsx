@@ -1,13 +1,14 @@
 import React from 'react';
 import { Card, Table, Button, Typography } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { TableRowSelection } from 'antd/lib/table/interface';
 import TimeAgo from 'react-timeago';
-import { Link, useDispatch, useSelector, IssueModelState, Issue as IssueType } from 'umi';
+import type { TableRowSelection } from 'antd/lib/table/interface';
+import { Link, useDispatch, useSelector } from 'umi';
+import type { IssueModelState, Issue as IssueType } from 'umi';
 
 import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
-import { RootState } from '@/interfaces';
+import type { RootState } from '@/interfaces';
 
 import styles from './Issue.less';
 

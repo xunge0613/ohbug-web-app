@@ -9,18 +9,19 @@ import {
 } from '@ant-design/icons';
 import Timeago from 'react-timeago';
 import dayjs from 'dayjs';
-import { Action } from '@ohbug/types';
 import RrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
-import { useSelector, EventModelState } from 'umi';
+import { useSelector } from 'umi';
+import type { EventModelState } from 'umi';
+import type { OhbugAction } from '@ohbug/types';
 
 import StackInfo from '@/components/StackInfo';
-import { RootState } from '@/interfaces';
+import type { RootState } from '@/interfaces';
 
 import styles from './Description.less';
 
 function getMessageAndIconByActionType(
-  action: Action,
+  action: OhbugAction,
 ): {
   message: React.ReactNode;
   icon: React.ReactNode;

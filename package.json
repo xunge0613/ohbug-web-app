@@ -29,8 +29,7 @@
     "umi": "^3.0.16"
   },
   "devDependencies": {
-    "@ohbug/core": "^0.0.7",
-    "@ohbug/types": "^0.0.3",
+    "@ohbug/types": "^0.0.4",
     "@types/js-cookie": "^2.2.5",
     "@types/react-timeago": "^4.1.1",
     "@types/redux-logger": "^3.0.7",
@@ -44,7 +43,7 @@
     "eslint-loader": "^3.0.3",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.1",
-    "prettier": "^2.0.2",
+    "prettier": "^2.0.4",
     "typescript": "^3.8.3"
   },
   "lint-staged": {

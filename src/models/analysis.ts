@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { Model, RootState } from '@/interfaces';
+import type { Model, RootState } from '@/interfaces';
 import api from '@/api';
 
 export interface AnalysisItem {

@@ -1,10 +1,11 @@
 import React from 'react';
 import { PageHeader, Row, Col, Button, Card, Avatar } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { history, useDispatch, useSelector, ProjectModelState, OrganizationModelState } from 'umi';
+import { history, useDispatch, useSelector } from 'umi';
+import type { ProjectModelState, OrganizationModelState } from 'umi';
 
 import BasicLayout from '@/layouts/Basic';
-import { RootState } from '@/interfaces';
+import type { RootState } from '@/interfaces';
 import { getPlatformLogo } from '@/utils';
 
 import styles from './Project.less';

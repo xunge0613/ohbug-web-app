@@ -1,7 +1,7 @@
 import { history } from 'umi';
 
 import { getGithub } from '@/utils';
-import { Model, RootState } from '@/interfaces';
+import type { Model, RootState } from '@/interfaces';
 import api from '@/api';
 
 export interface UserModelState {

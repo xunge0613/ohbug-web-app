@@ -1,10 +1,11 @@
 import React from 'react';
 import { Menu, Avatar, Dropdown, Typography, Divider } from 'antd';
-import { useSelector, useDispatch, ProjectModelState, UserModelState } from 'umi';
+import { useSelector, useDispatch } from 'umi';
+import type { ProjectModelState, UserModelState } from 'umi';
 
 import { useMount } from '@/hooks';
-import { RootState } from '@/interfaces';
 import getPlatformLogo from '@/utils/getPlatformLogo';
+import type { RootState } from '@/interfaces';
 import Logout from '../Logout';
 import CreateProject from '../CreateProject';
 

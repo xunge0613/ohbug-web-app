@@ -1,4 +1,5 @@
-import { GetPV, GetUV, request } from 'umi';
+import { request } from 'umi';
+import type { GetPV, GetUV } from 'umi';
 
 const view = {
   getPV: async (data: GetPV): Promise<number | void> => {

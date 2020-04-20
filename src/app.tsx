@@ -1,5 +1,5 @@
 import React from 'react';
-import { RequestConfig } from 'umi';
+import type { RequestConfig } from 'umi';
 
 import UserBlock from '@/components/UserBlock';
 

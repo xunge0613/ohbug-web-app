@@ -1,9 +1,10 @@
 import React from 'react';
-import { useLocation, useDispatch, useSelector, history, UserModelState } from 'umi';
+import { useLocation, useDispatch, useSelector, history } from 'umi';
+import type { UserModelState } from 'umi';
 
 import { useMount } from '@/hooks';
 import { getGithub } from '@/utils';
-import { RootState } from '@/interfaces';
+import type { RootState } from '@/interfaces';
 
 interface UseAuth {
   isLogin: boolean;

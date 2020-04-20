@@ -1,6 +1,7 @@
-import { ProjectModelState, Project, request } from 'umi';
+import { request } from 'umi';
+import type { ProjectModelState, Project } from 'umi';
 
-import { ProjectType } from '@/interfaces';
+import type { ProjectType } from '@/interfaces';
 
 interface Create {
   name: string;

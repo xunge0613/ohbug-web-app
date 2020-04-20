@@ -1,4 +1,5 @@
-import { Event, request } from 'umi';
+import { request } from 'umi';
+import type { Event } from 'umi';
 
 interface GetMany {
   project_id: number;

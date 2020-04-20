@@ -1,6 +1,6 @@
 import { message } from 'antd';
 
-import { Model } from '@/interfaces';
+import type { Model } from '@/interfaces';
 
 export interface AppModel extends Model {
   namespace: 'app';

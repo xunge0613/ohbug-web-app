@@ -1,9 +1,10 @@
 import React from 'react';
 import { Statistic, Tooltip, Skeleton } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector, AnalysisModelState } from 'umi';
+import { useDispatch, useSelector } from 'umi';
+import type { AnalysisModelState } from 'umi';
 
-import { RootState } from '@/interfaces';
+import type { RootState } from '@/interfaces';
 
 import styles from './EventOrIssueStatistic.less';
 

@@ -1,6 +1,6 @@
 import { history } from 'umi';
 
-import { Model, RootState, ProjectType } from '@/interfaces';
+import type { Model, RootState, ProjectType } from '@/interfaces';
 import api from '@/api';
 
 export interface Project {

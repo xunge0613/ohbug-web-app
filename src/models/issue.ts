@@ -1,11 +1,11 @@
-import { Platform, Event } from '@ohbug/types';
+import type { OhbugPlatform, OhbugEvent } from '@ohbug/types';
 
-import { RootState, Model } from '@/interfaces';
+import type { RootState, Model } from '@/interfaces';
 import api from '@/api';
 
 interface IssueIntro {
   type: string;
-  platform: Platform;
+  platform: OhbugPlatform;
   message?: string;
   name?: string;
   filename?: string;
@@ -23,7 +23,7 @@ export interface Issue<T = IssueIntro> {
 }
 
 export interface IssueModelState {
-  current?: Event<any>;
+  current?: OhbugEvent<any>;
   data?: Issue[];
   count?: number;
 }

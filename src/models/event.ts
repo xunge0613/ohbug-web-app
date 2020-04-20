@@ -1,13 +1,13 @@
-import { Event as EventBase, Platform } from '@ohbug/types';
-import { SourceMapTraceCode } from 'source-map-trace/dist/source-map-trace';
+import type { OhbugEvent, OhbugPlatform } from '@ohbug/types';
+import type { SourceMapTraceCode } from 'source-map-trace/dist/source-map-trace';
 
-import { Model, RootState } from '@/interfaces';
+import type { Model, RootState } from '@/interfaces';
 import api from '@/api';
 
 interface EventUser {
   ip_address: string;
 }
-export interface Event<T> extends EventBase<T> {
+export interface Event<T> extends OhbugEvent<T> {
   id: string;
   time: Date;
   user: EventUser;
@@ -16,7 +16,7 @@ export interface Event<T> extends EventBase<T> {
   title?: string;
   version: string;
   language?: string;
-  platform: Platform;
+  platform: OhbugPlatform;
   browser: string;
   browser_version: string;
   engine: string;

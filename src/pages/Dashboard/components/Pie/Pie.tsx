@@ -5,7 +5,7 @@ import DataSet from '@antv/data-set';
 import { useDispatch, useSelector } from 'umi';
 
 import { useMount } from '@/hooks';
-import { RootState } from '@/interfaces';
+import type { RootState } from '@/interfaces';
 
 type Type = 'browser' | 'os' | 'type' | 'device';
 interface StatisticsProps {

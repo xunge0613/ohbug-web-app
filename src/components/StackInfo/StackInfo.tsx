@@ -1,7 +1,7 @@
 import React from 'react';
 import { Radio } from 'antd';
-import { SourceMapTraceCode } from 'source-map-trace/dist/source-map-trace';
 import clsx from 'clsx';
+import type { SourceMapTraceCode } from 'source-map-trace/dist/source-map-trace';
 
 import styles from './StackInfo.less';
 
@@ -12,7 +12,7 @@ interface StackInfoProps {
 
 const StackInfo: React.FC<StackInfoProps> = ({ stack, source }) => {
   const [toggle, setToggle] = React.useState('raw');
-  const handleToggleChange = React.useCallback(e => {
+  const handleToggleChange = React.useCallback((e) => {
     setToggle(e.target.value);
   }, []);
 

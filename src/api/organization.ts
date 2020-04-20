@@ -1,4 +1,5 @@
-import { OrganizationModelState, request } from 'umi';
+import { request } from 'umi';
+import type { OrganizationModelState } from 'umi';
 
 interface Create {
   name: string;

@@ -1,5 +1,5 @@
-import { Event } from 'umi';
-import { RootState, Model } from '@/interfaces';
+import type { Event } from 'umi';
+import type { RootState, Model } from '@/interfaces';
 import api from '@/api';
 
 export interface FeedbackModelState {

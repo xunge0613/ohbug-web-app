@@ -1,4 +1,5 @@
-import { SearchEvents, Event, request } from 'umi';
+import { request } from 'umi';
+import type { SearchEvents, Event } from 'umi';
 
 interface Get {
   event_id: string | number;

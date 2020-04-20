@@ -1,6 +1,6 @@
 import { history } from 'umi';
 
-import { Model } from '@/interfaces';
+import type { Model } from '@/interfaces';
 import api from '@/api';
 
 export interface LoginModel extends Model {

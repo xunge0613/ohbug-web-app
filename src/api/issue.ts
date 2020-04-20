@@ -1,4 +1,5 @@
-import { Issue, request } from 'umi';
+import { request } from 'umi';
+import type { Issue } from 'umi';
 
 interface GetMany {
   project_id: number;

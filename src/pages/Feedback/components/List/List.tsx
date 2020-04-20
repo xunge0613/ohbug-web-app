@@ -1,10 +1,11 @@
 import React from 'react';
 import { Card, Table } from 'antd';
 import Timeago from 'react-timeago';
-import { useLocation, useSelector, useDispatch, Event as EventType, FeedbackModelState } from 'umi';
+import { useLocation, useSelector, useDispatch } from 'umi';
+import type { Event, FeedbackModelState } from 'umi';
 
 import { useMount } from '@/hooks';
-import { RootState } from '@/interfaces';
+import type { RootState } from '@/interfaces';
 
 import styles from './List.less';
 
@@ -43,7 +44,7 @@ const List: React.FC = () => {
   return (
     <Card className={styles.root}>
       {feedbacks && (
-        <Table<EventType<any>>
+        <Table<Event<any>>
           className={styles.table}
           dataSource={feedbacks}
           rowKey={(record): string => record.id}
@@ -54,17 +55,17 @@ const List: React.FC = () => {
           }}
           loading={loading}
         >
-          <Table.Column<EventType<any>> title="name" dataIndex={['detail', 'name']} />
-          <Table.Column<EventType<any>> title="email" dataIndex={['detail', 'email']} />
-          <Table.Column<EventType<any>> title="comments" dataIndex={['detail', 'comments']} />
-          <Table.Column<EventType<any>>
+          <Table.Column<Event<any>> title="name" dataIndex={['detail', 'name']} />
+          <Table.Column<Event<any>> title="email" dataIndex={['detail', 'email']} />
+          <Table.Column<Event<any>> title="comments" dataIndex={['detail', 'comments']} />
+          <Table.Column<Event<any>>
             title="time"
             key="time"
             render={(item): React.ReactElement => <Timeago date={item.time} />}
           />
-          <Table.Column<EventType<any>> title="user" dataIndex={['user', 'ip_address']} />
-          <Table.Column<EventType<any>> title="platform" dataIndex="platform" />
-          <Table.Column<EventType<any>> title="language" dataIndex="language" />
+          <Table.Column<Event<any>> title="user" dataIndex={['user', 'ip_address']} />
+          <Table.Column<Event<any>> title="platform" dataIndex="platform" />
+          <Table.Column<Event<any>> title="language" dataIndex="language" />
         </Table>
       )}
     </Card>

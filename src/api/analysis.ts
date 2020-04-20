@@ -1,4 +1,5 @@
-import { AnalysisItem, request } from 'umi';
+import { request } from 'umi';
+import type { AnalysisItem } from 'umi';
 
 interface Get {
   project_id: string | number;

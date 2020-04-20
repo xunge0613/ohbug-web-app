@@ -4,7 +4,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'umi';
 
-import { RootState } from '@/interfaces';
+import type { RootState } from '@/interfaces';
 
 import styles from './View.less';
 
