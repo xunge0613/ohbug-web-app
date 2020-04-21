@@ -18,7 +18,7 @@ function getResponse(ctx: any) {
   return ctx.res;
 }
 export const request: RequestConfig = {
-  prefix: '/api',
+  prefix: '/v1',
   timeout: 10000,
   middlewares: [
     async function returnData(ctx, next) {

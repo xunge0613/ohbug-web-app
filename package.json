@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "postinstall": "umi g tmp",
     "umi": "cross-env UMI_UI=1 umi dev",
     "start": "umi dev",
     "build": "umi build",

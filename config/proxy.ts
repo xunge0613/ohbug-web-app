@@ -1,7 +1,6 @@
 export default {
-  '/api': {
-    target: 'http://ohbug.io/api',
+  '/v1': {
+    target: 'http://localhost:6666',
     changeOrigin: true,
-    pathRewrite: { '^/api': '' },
   },
 };
