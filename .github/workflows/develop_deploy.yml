@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build Image
         env:
-          DOCKER_HOST_DEVELOP: ${{ secrets.DOCKER_HOST_DEVELOP }}
+          DOCKER_HOST_DEVELOP: ${{ secrets.HOST_DEVELOP }}
           DOCKER_PORT_DEVELOP: ${{ secrets.DOCKER_PORT_DEVELOP }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -26,8 +26,8 @@ jobs:
     steps:
       - uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.DOCKER_HOST_DEVELOP }}
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          host: ${{ secrets.HOST_DEVELOP }}
+          username: ${{ secrets.USERNAME_DEVELOP }}
+          password: ${{ secrets.PASSWORD_DEVELOP }}
           port: 22
-          script: ${{ secrets.DOCKER_DEPLOY_SCRIPT }}
+          script: ${{ secrets.DOCKER_DEPLOY_SCRIPT_DEVELOP }}
