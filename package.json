@@ -1,10 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "umi": "UMI_UI=1 umi dev",
+    "umi": "cross-env UMI_UI=1 umi dev",
     "start": "umi dev",
     "build": "umi build",
-    "build:analyze": "ANALYZE=1 umi build",
+    "build:analyze": "cross-env ANALYZE=1 umi build",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
@@ -38,6 +38,7 @@
     "@umijs/fabric": "^2.0.6",
     "@umijs/preset-ui": "^2.1.9",
     "antd-dayjs-webpack-plugin": "^1.0.0",
+    "cross-env": "^7.0.2",
     "cz-conventional-changelog": "3.1.0",
     "eslint": "^6.8.0",
     "eslint-loader": "^3.0.3",

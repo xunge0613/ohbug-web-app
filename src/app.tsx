@@ -18,7 +18,7 @@ function getResponse(ctx: any) {
   return ctx.res;
 }
 export const request: RequestConfig = {
-  prefix: process.env.REACT_APP_BASE_URL,
+  prefix: '/api',
   timeout: 10000,
   middlewares: [
     async function returnData(ctx, next) {
