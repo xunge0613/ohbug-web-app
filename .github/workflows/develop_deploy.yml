@@ -27,6 +27,6 @@ jobs:
         with:
           host: ${{ secrets.HOST_DEVELOP }}
           username: ${{ secrets.USERNAME_DEVELOP }}
-          password: ${{ secrets.PASSWORD_DEVELOP }}
+          key: ${{ secrets.KEY_DEVELOP }}
           port: 22
           script: ${{ secrets.DOCKER_DEPLOY_SCRIPT_DEVELOP }}
