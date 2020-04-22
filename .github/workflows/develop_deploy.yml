@@ -14,10 +14,9 @@ jobs:
           DOCKER_HOST_DEVELOP: ${{ secrets.DOCKER_HOST_DEVELOP }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          REACT_APP_GITHUB_CLIENT_ID_DEVELOP: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID_DEVELOP }}
         run: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_HOST_DEVELOP
-          docker build --build-arg REACT_APP_GITHUB_CLIENT_ID=$REACT_APP_GITHUB_CLIENT_ID_DEVELOP -t $DOCKER_HOST_DEVELOP/ohbug/web-app-develop .
+          docker build -t $DOCKER_HOST_DEVELOP/ohbug/web-app-develop .
           docker push $DOCKER_HOST_DEVELOP/ohbug/web-app-develop
   deploy:
     runs-on: ubuntu-latest

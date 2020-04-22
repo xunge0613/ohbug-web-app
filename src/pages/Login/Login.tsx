@@ -3,6 +3,7 @@ import { Typography, Button } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import { useLocation, useDispatch } from 'umi';
 
+import { oauth2_github_href } from '@/config';
 import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 
@@ -11,12 +12,6 @@ import styles from './Login.less';
 interface LoginPageProps {
   children?: React.ReactNode;
 }
-
-const clientId =
-  process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_GITHUB_CLIENT_ID
-    : process.env.REACT_APP_GITHUB_CLIENT_ID_DEV;
-const href = `https://github.com/login/oauth/authorize?client_id=${clientId}`;
 
 function useLoginRedirect(): void {
   const dispatch = useDispatch();
@@ -36,7 +31,7 @@ const Login: React.FC<LoginPageProps> = ({ children }) => {
     <BasicLayout className={styles.root}>
       <div>
         <Typography.Title>Join in</Typography.Title>
-        <Button type="primary" size="large" shape="round" href={href}>
+        <Button type="primary" size="large" shape="round" href={oauth2_github_href}>
           <GithubOutlined />
           Continue with Github
         </Button>

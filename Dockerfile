@@ -6,9 +6,7 @@ COPY package*.json yarn.lock ./
 RUN yarn
 COPY ./ ./
 RUN yarn postinstall
-ARG REACT_APP_GITHUB_CLIENT_ID=''
-ENV ENV_REACT_APP_GITHUB_CLIENT_ID=${REACT_APP_GITHUB_CLIENT_ID}
-RUN npx cross-env REACT_APP_GITHUB_CLIENT_ID=${ENV_REACT_APP_GITHUB_CLIENT_ID} umi build
+RUN yarn build
 
 # Stage 1
 FROM nginx:alpine
