@@ -2,7 +2,6 @@
   "private": true,
   "scripts": {
     "postinstall": "umi g tmp",
-    "umi": "cross-env UMI_UI=1 umi dev",
     "start": "umi dev",
     "build": "umi build",
     "build:analyze": "cross-env ANALYZE=1 umi build",
@@ -37,7 +36,6 @@
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "@umijs/fabric": "^2.0.6",
-    "@umijs/preset-ui": "^2.1.9",
     "antd-dayjs-webpack-plugin": "^1.0.0",
     "cross-env": "^7.0.2",
     "cz-conventional-changelog": "3.1.0",
