@@ -1,5 +1,5 @@
 # Stage 0
-FROM node:alpine as build
+FROM node:12 as build
 WORKDIR /usr/src/app/
 USER root
 COPY package*.json yarn.lock ./
