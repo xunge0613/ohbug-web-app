@@ -5,6 +5,8 @@
     "start": "umi dev",
     "build": "umi build",
     "build:analyze": "cross-env ANALYZE=1 umi build",
+    "docker:build": "docker build -t ohbug/web-app .",
+    "docker:prod": "docker-compose -f ./docker/docker-compose.yml up --build -d",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
