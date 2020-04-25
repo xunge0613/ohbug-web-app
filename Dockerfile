@@ -8,6 +8,7 @@ COPY yarn.lock /usr/src/app/yarn.lock
 RUN yarn
 
 COPY ./ /usr/src/app
+RUN yarn postinstall
 RUN yarn build
 
 # Stage 1
