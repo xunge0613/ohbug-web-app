@@ -2,10 +2,11 @@
   "private": true,
   "scripts": {
     "postinstall": "umi g tmp",
-    "start": "umi dev",
+    "start": "cross-env PORT=3000 umi dev",
     "build": "umi build",
     "build:analyze": "cross-env ANALYZE=1 umi build",
     "docker:build": "docker build -t ohbug/web-app .",
+    "docker:dev": "docker-compose -f ./docker/docker-compose.dev.yml up --build",
     "docker:prod": "docker-compose -f ./docker/docker-compose.yml up --build -d",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
