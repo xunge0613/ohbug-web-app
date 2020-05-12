@@ -1,6 +1,7 @@
 const layout = {
-  name: 'Ohbug',
+  title: 'ohbug',
   logo: '/logo.svg',
+  navTheme: 'light',
 };
 
 export default layout;

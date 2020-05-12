@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Typography } from 'antd';
-import { EllipsisOutlined } from '@ant-design/icons';
+import { Alert, Card, Radio, Table, Typography } from 'antd';
 import TimeAgo from 'react-timeago';
 import type { TableRowSelection } from 'antd/lib/table/interface';
 import { Link, useDispatch, useSelector } from 'umi';
@@ -15,21 +14,6 @@ import styles from './Issue.less';
 interface IssueDashPageProps {
   children?: React.ReactNode;
 }
-
-// const switchItem = (type: string) => {
-//   switch(type){
-//     case 'uncaughtError':
-//     case 'resourceError':
-//     case 'unhandledrejectionError':
-//     case 'ajaxError':
-//     case 'fetchError':
-//     case 'websocketError':
-//     case 'unknownError':
-//     case 'message':
-//     default:
-//       return;
-//   }
-// }
 
 const Issue: React.FC<IssueDashPageProps> = () => {
   const dispatch = useDispatch();
@@ -67,7 +51,14 @@ const Issue: React.FC<IssueDashPageProps> = () => {
   return (
     <BasicLayout className={styles.root}>
       <Card bordered={false}>
-        Count: {Array.isArray(issue) && issue.length}
+        {Array.isArray(issue) && (
+          <Alert
+            message={`合计 Issue 数：${issue.length}`}
+            type="info"
+            showIcon
+            closeText="Close Now"
+          />
+        )}
         <Table<IssueType>
           className={styles.table}
           tableLayout="fixed"
@@ -85,7 +76,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
             ellipsis
             width={400}
             dataIndex="latest"
-            title={<Button icon={<EllipsisOutlined />} />}
+            title="异常信息"
             render={(_, record: IssueType): React.ReactElement => (
               <div className={styles.desc}>
                 {/* 获取此 issue 所对应的最新 event */}
@@ -93,36 +84,45 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                   <Typography.Text className={styles.type} strong>
                     {record.type}
                   </Typography.Text>
-                  {record.intro.filename && (
-                    <Typography.Text type="secondary">{record.intro.filename}</Typography.Text>
+                  {record.metadata.filename && (
+                    <Typography.Text type="secondary">{record.metadata.filename}</Typography.Text>
                   )}
                 </Link>
                 <Typography.Paragraph className={styles.message} ellipsis>
-                  {record.intro.message && (
-                    <Typography.Text>{record.intro.message}</Typography.Text>
+                  {record.metadata.message && (
+                    <Typography.Text>{record.metadata.message}</Typography.Text>
                   )}
-                  {record.intro.selector && (
-                    <Typography.Text>{record.intro.selector}</Typography.Text>
-                  )}
-                  {record.intro.url && (
-                    <Typography.Text>{`${record.intro.method} ${record.intro.url}`}</Typography.Text>
+                  {record.metadata.others && (
+                    <Typography.Text>{record.metadata.others}</Typography.Text>
                   )}
                 </Typography.Paragraph>
+                <span>
+                  <TimeAgo date={record.created_at} />
+                  -
+                  <TimeAgo date={record.updated_at} />
+                </span>
               </div>
             )}
           />
           <Table.Column
             dataIndex="events"
-            title="EVENTS"
+            title="异常数"
             render={(text, record: IssueType): React.ReactElement => (
               <Link to={`/event?issue_id=${record.id}`}>{text}</Link>
             )}
           />
-          <Table.Column dataIndex="users" title="USERS" />
+          <Table.Column dataIndex="users" title="影响用户数" />
           <Table.Column
-            title="TIME"
-            render={(_, record: IssueType): React.ReactElement => (
-              <TimeAgo date={record.last_seen} />
+            title={(): React.ReactElement => (
+              <div>
+                <span>趋势</span>
+                <span style={{ marginLeft: 4 }}>
+                  <Radio.Group defaultValue="a" size="small" buttonStyle="solid">
+                    <Radio.Button value="a">近两周</Radio.Button>
+                    <Radio.Button value="b">当日</Radio.Button>
+                  </Radio.Group>
+                </span>
+              </div>
             )}
           />
         </Table>

@@ -6,6 +6,7 @@ import UserBlock from '@/components/UserBlock';
 import './styles';
 
 export const layout = {
+  menuHeaderRender: (logo: string) => logo,
   rightContentRender: () => <UserBlock />,
   footerRender: () => <footer>footer</footer>,
 };

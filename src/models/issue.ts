@@ -1,25 +1,23 @@
-import type { OhbugPlatform, OhbugEvent } from '@ohbug/types';
+import type { OhbugEvent } from '@ohbug/types';
 
 import type { RootState, Model } from '@/interfaces';
 import api from '@/api';
 
-interface IssueIntro {
+interface MetaData {
   type: string;
-  platform: OhbugPlatform;
-  message?: string;
-  name?: string;
+  message: string;
   filename?: string;
-  selector?: string;
-  url?: string;
-  method?: string;
+  others?: string;
 }
-export interface Issue<T = IssueIntro> {
+export interface Issue {
   id: number;
   type: string;
-  intro: T;
-  first_seen: Date;
-  last_seen: Date;
-  count: number;
+  intro: string;
+  created_at: Date;
+  updated_at: Date;
+  events: number;
+  users: number;
+  metadata: MetaData;
 }
 
 export interface IssueModelState {
@@ -37,16 +35,9 @@ const issue: IssueModel = {
   reducers: {
     setIssues(state, action) {
       const { payload } = action;
-      const data = payload.data.map((p: Issue<string>) => {
-        const intro: IssueIntro = JSON.parse(p.intro);
-        return {
-          ...p,
-          intro,
-        };
-      });
       return {
         ...state,
-        data,
+        data: payload.data,
         count: payload.count,
       };
     },

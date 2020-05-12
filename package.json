@@ -13,13 +13,13 @@
     "test:coverage": "umi-test --coverage"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.5",
+    "@ant-design/icons": "^4.1.0",
     "@antv/data-set": "^0.11.1",
     "@antv/g2": "^4.0.3",
-    "@umijs/hooks": "^1.8.1",
-    "@umijs/preset-react": "1.x",
+    "@umijs/hooks": "^1.9.2",
+    "@umijs/preset-react": "^1.4.22",
     "@umijs/test": "^3.0.14",
-    "antd": "^4.1.4",
+    "antd": "^4.2.2",
     "clsx": "^1.1.0",
     "dayjs": "^1.8.23",
     "js-cookie": "^2.2.1",
