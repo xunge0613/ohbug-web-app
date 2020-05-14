@@ -1,0 +1,39 @@
+.tooltip {
+  &-time {
+    padding-bottom: 3px;
+  }
+  &-value {
+    position: relative;
+    padding-top: 3px;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      display: block;
+      width: 20px;
+      height: 2px;
+      margin-left: -10px;
+      background: #666;
+      content: '';
+    }
+  }
+  &-arrow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 10px;
+    height: 5px;
+    margin-top: -5px;
+    margin-left: -5px;
+    &::before {
+      display: block;
+      width: 0;
+      height: 0;
+      margin: auto;
+      border-color: transparent transparent rgba(50, 50, 50, 0.9);
+      border-style: solid;
+      border-width: 0 5px 5px;
+      content: '';
+    }
+  }
+}

@@ -15,7 +15,7 @@ export interface Issue {
   intro: string;
   created_at: Date;
   updated_at: Date;
-  events: number;
+  count: number;
   users: number;
   metadata: MetaData;
 }
@@ -24,6 +24,13 @@ export interface IssueModelState {
   current?: OhbugEvent<any>;
   data?: Issue[];
   count?: number;
+  trend?: {
+    issue_id: string;
+    buckets: {
+      timestamp: number;
+      count: number;
+    }[];
+  }[];
 }
 export interface IssueModel extends Model<IssueModelState> {
   namespace: 'issue';
@@ -39,6 +46,13 @@ const issue: IssueModel = {
         ...state,
         data: payload.data,
         count: payload.count,
+      };
+    },
+    setTrend(state, action) {
+      const { payload } = action;
+      return {
+        ...state,
+        trend: payload,
       };
     },
   },
@@ -63,8 +77,26 @@ const issue: IssueModel = {
               count,
             },
           });
+          const ids = data.map((v: Issue) => v.id);
+          yield put({
+            type: 'getTrend',
+            payload: {
+              ids,
+              period: '24h',
+            },
+          });
         }
       }
+    },
+    *getTrend({ payload: { ids, period } }, { call, put }) {
+      const res = yield call(api.issue.getTrend, {
+        ids,
+        period,
+      });
+      yield put({
+        type: 'setTrend',
+        payload: res,
+      });
     },
   },
 };

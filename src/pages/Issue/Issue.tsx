@@ -9,6 +9,8 @@ import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import type { RootState } from '@/interfaces';
 
+import MiniChart from './components/MiniChart';
+
 import styles from './Issue.less';
 
 interface IssueDashPageProps {
@@ -19,6 +21,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
   const dispatch = useDispatch();
   const issue = useSelector<RootState, IssueModelState['data']>((state) => state.issue.data);
   const count = useSelector<RootState, IssueModelState['count']>((state) => state.issue.count);
+  const trend = useSelector<RootState, IssueModelState['trend']>((state) => state.issue.trend);
 
   useMount(() => {
     dispatch({
@@ -37,6 +40,21 @@ const Issue: React.FC<IssueDashPageProps> = () => {
       });
     },
     [dispatch],
+  );
+
+  const [trendValue, setTrendValue] = React.useState<'24h' | '14d'>('24h');
+  const handleTrendChange = React.useCallback(
+    (e) => {
+      const period = e.target.value;
+      setTrendValue(period);
+
+      const ids = issue?.map((v) => v.id);
+      dispatch({
+        type: 'issue/getTrend',
+        payload: { ids, period },
+      });
+    },
+    [issue],
   );
 
   const loading = useSelector<RootState, boolean>(
@@ -105,7 +123,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
             )}
           />
           <Table.Column
-            dataIndex="events"
+            dataIndex="count"
             title="异常数"
             render={(text, record: IssueType): React.ReactElement => (
               <Link to={`/event?issue_id=${record.id}`}>{text}</Link>
@@ -117,13 +135,22 @@ const Issue: React.FC<IssueDashPageProps> = () => {
               <div>
                 <span>趋势</span>
                 <span style={{ marginLeft: 4 }}>
-                  <Radio.Group defaultValue="a" size="small" buttonStyle="solid">
-                    <Radio.Button value="a">近两周</Radio.Button>
-                    <Radio.Button value="b">当日</Radio.Button>
+                  <Radio.Group
+                    value={trendValue}
+                    onChange={handleTrendChange}
+                    size="small"
+                    buttonStyle="solid"
+                  >
+                    <Radio.Button value="24h">当日</Radio.Button>
+                    <Radio.Button value="14d">近两周</Radio.Button>
                   </Radio.Group>
                 </span>
               </div>
             )}
+            render={(_, record: IssueType) => {
+              const data = trend?.find((v) => parseInt(v.issue_id, 10) === record.id)?.buckets;
+              return <MiniChart data={data} trend={trendValue} />;
+            }}
           />
         </Table>
       </Card>

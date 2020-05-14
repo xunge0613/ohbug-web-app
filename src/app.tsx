@@ -1,12 +1,16 @@
 import React from 'react';
 import type { RequestConfig } from 'umi';
+import echarts from 'echarts';
 
 import UserBlock from '@/components/UserBlock';
 
+import chartTheme from './styles/chart.json';
 import './styles';
 
+echarts.registerTheme('ohbug', chartTheme.theme);
+
 export const layout = {
-  menuHeaderRender: (logo: string) => logo,
+  // menuHeaderRender: (logo: string) => logo,
   rightContentRender: () => <UserBlock />,
   footerRender: () => <footer>footer</footer>,
 };
