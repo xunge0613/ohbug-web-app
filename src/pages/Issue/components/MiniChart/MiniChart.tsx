@@ -2,6 +2,9 @@ import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import type { EChartOption } from 'echarts';
 import dayjs from 'dayjs';
+import { useSelector } from 'umi';
+
+import type { RootState } from '@/interfaces';
 
 import './MiniChart.less';
 
@@ -15,6 +18,10 @@ interface MiniChartProps {
 }
 
 const MiniChart: React.FC<MiniChartProps> = ({ data, trend }) => {
+  const loading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects['issue/getTrend']!,
+  );
+
   const option = React.useMemo<EChartOption>(
     () => ({
       dataset: {
@@ -117,6 +124,7 @@ const MiniChart: React.FC<MiniChartProps> = ({ data, trend }) => {
       option={option}
       style={{ height: '40px' }}
       opts={{ renderer: 'svg' }}
+      showLoading={loading}
       theme="ohbug"
     />
   ) : null;
