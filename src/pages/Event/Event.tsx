@@ -1,14 +1,33 @@
 import React from 'react';
-import { PageHeader } from 'antd';
+import { useDispatch, useLocation, useParams } from 'umi';
 
+import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
-import Search from './components/Search';
-import List from './components/List';
+import Description from './components/Description';
 
 const Event: React.FC = () => {
+  const dispatch = useDispatch();
+  const { query } = useLocation() as any;
+  const { target } = useParams();
+
+  useMount(() => {
+    const { issue_id } = query;
+
+    if (target === 'latest' && issue_id) {
+      dispatch({ type: 'event/getLatestEvent', payload: { issue_id } });
+    } else {
+      dispatch({
+        type: 'event/get',
+        payload: {
+          event_id: target,
+        },
+      });
+    }
+  });
+
   return (
-    <BasicLayout pageHeader={<PageHeader title="" ghost extra={<Search />} />}>
-      <List />
+    <BasicLayout>
+      <Description />
     </BasicLayout>
   );
 };

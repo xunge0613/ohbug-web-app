@@ -35,19 +35,8 @@ export default [
   },
   {
     exact: true,
-    path: '/event',
-    component: '@/pages/Event',
-    wrappers: ['@/wrappers/auth'],
-    // layout
-    menu: {
-      name: '事件 Event',
-      icon: 'question-circle',
-    },
-  },
-  {
-    exact: true,
     path: '/event/:target',
-    component: '@/pages/Event/Detail',
+    component: '@/pages/Event',
     wrappers: ['@/wrappers/auth'],
   },
   {

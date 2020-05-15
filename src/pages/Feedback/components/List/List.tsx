@@ -47,7 +47,7 @@ const List: React.FC = () => {
         <Table<Event<any>>
           className={styles.table}
           dataSource={feedbacks}
-          rowKey={(record): string => record.id}
+          rowKey={(record): string => record.timestamp}
           pagination={{
             onChange: handleTablePaginationChange,
             pageSize: 20,

@@ -1,5 +1,5 @@
 import { request } from 'umi';
-import type { SearchEvents, Event } from 'umi';
+import type { Event } from 'umi';
 
 interface Get {
   event_id: string | number;
@@ -7,9 +7,6 @@ interface Get {
 }
 interface GetLatest {
   issue_id: string | number;
-  project_id: string | number;
-}
-interface GetMany extends SearchEvents {
   project_id: string | number;
 }
 
@@ -32,13 +29,6 @@ const event = {
         issue_id,
         project_id,
       },
-    });
-    return res;
-  },
-  getMany: async (data: GetMany): Promise<Event<any>[] | void> => {
-    const res = await request('/event', {
-      method: 'get',
-      params: data,
     });
     return res;
   },

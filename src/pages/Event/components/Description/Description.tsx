@@ -17,6 +17,7 @@ import type { OhbugAction } from '@ohbug/types';
 
 import StackInfo from '@/components/StackInfo';
 import type { RootState } from '@/interfaces';
+import { getTagsInfoByTags } from '@/utils';
 
 import styles from './Description.less';
 
@@ -88,6 +89,8 @@ interface ContentList {
 const Description: React.FC = () => {
   const event = useSelector<RootState, EventModelState['current']>((state) => state.event.current);
   const [activeTab, setActiveTab] = React.useState<keyof ContentList>('detail');
+
+  const tagsInfo = React.useMemo(() => getTagsInfoByTags(event?.tags), [event]);
 
   const replayRef = React.useRef<HTMLDivElement>(null);
   const handleTabChange = React.useCallback((key: any): void => {
@@ -251,7 +254,7 @@ const Description: React.FC = () => {
                     <div className={styles.action}>
                       <div className={styles.type}>exception</div>
                       <div className={styles.data}>{event.detail.message}</div>
-                      <div className={styles.time}>{dayjs(event.time).format('HH:mm:ss')}</div>
+                      <div className={styles.time}>{dayjs(event.timestamp).format('HH:mm:ss')}</div>
                     </div>
                   </Timeline.Item>
                 </Timeline>
@@ -270,11 +273,17 @@ const Description: React.FC = () => {
                 bordered
               >
                 <Descriptions.Item label="time">
-                  <Timeago date={event.time} />
+                  <Timeago date={event.timestamp} />
                 </Descriptions.Item>
-                <Descriptions.Item label="url">{event.url}</Descriptions.Item>
-                <Descriptions.Item label="title">{event.title}</Descriptions.Item>
-                <Descriptions.Item label="user">{event.user.ip_address}</Descriptions.Item>
+                <Descriptions.Item label="url">{event.tags.url}</Descriptions.Item>
+                <Descriptions.Item label="title">{event.tags.title}</Descriptions.Item>
+                <Descriptions.Item label="language">{event.tags.language}</Descriptions.Item>
+                <Descriptions.Item label="SDK type">{event.tags.platform}</Descriptions.Item>
+                <Descriptions.Item label="SDK version">{event.tags.version}</Descriptions.Item>
+                <Descriptions.Item label="user.ip_address">
+                  {event.user.ip_address}
+                </Descriptions.Item>
+                <Descriptions.Item label="user.uuid">{event.tags.uuid}</Descriptions.Item>
               </Descriptions>
 
               {/* all */}
@@ -285,15 +294,19 @@ const Description: React.FC = () => {
                 size="small"
                 bordered
               >
-                <Descriptions.Item label="browser">{event.browser}</Descriptions.Item>
+                <Descriptions.Item label="browser">{tagsInfo?.browser?.name}</Descriptions.Item>
                 <Descriptions.Item label="browser.version">
-                  {event.browser_version}
+                  {tagsInfo?.browser?.version?.original}
                 </Descriptions.Item>
-                <Descriptions.Item label="device">{event.device_type}</Descriptions.Item>
-                <Descriptions.Item label="engine">{event.engine}</Descriptions.Item>
-                <Descriptions.Item label="engine.version">{event.engine_version}</Descriptions.Item>
-                <Descriptions.Item label="os">{event.os}</Descriptions.Item>
-                <Descriptions.Item label="os.version">{event.os_version}</Descriptions.Item>
+                <Descriptions.Item label="engine">{tagsInfo?.engine?.name}</Descriptions.Item>
+                <Descriptions.Item label="engine.version">
+                  {tagsInfo?.engine?.version?.original}
+                </Descriptions.Item>
+                <Descriptions.Item label="device">{tagsInfo?.device?.type}</Descriptions.Item>
+                <Descriptions.Item label="os">{tagsInfo?.os?.name}</Descriptions.Item>
+                <Descriptions.Item label="os.version">
+                  {tagsInfo?.os?.version?.original}
+                </Descriptions.Item>
               </Descriptions>
             </Skeleton>
           </Col>
