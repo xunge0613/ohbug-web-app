@@ -123,13 +123,13 @@ const Issue: React.FC<IssueDashPageProps> = () => {
             )}
           />
           <Table.Column
-            dataIndex="count"
+            dataIndex="events_count"
             title="异常数"
             render={(text, record: IssueType): React.ReactElement => (
               <Link to={`/event?issue_id=${record.id}`}>{text}</Link>
             )}
           />
-          <Table.Column dataIndex="users" title="影响用户数" />
+          <Table.Column dataIndex="users_count" title="影响用户数" />
           <Table.Column
             title={(): React.ReactElement => (
               <div>

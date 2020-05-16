@@ -15,8 +15,8 @@ export interface Issue {
   intro: string;
   created_at: Date;
   updated_at: Date;
-  count: number;
-  users: number;
+  events_count: number;
+  users_count: number;
   metadata: MetaData;
 }
 

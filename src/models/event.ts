@@ -6,6 +6,7 @@ import api from '@/api';
 
 interface EventUser {
   ip_address: string;
+  uuid: string;
 }
 export interface Event<T> extends OhbugEvent<T> {
   user: EventUser;
