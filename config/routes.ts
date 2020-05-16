@@ -13,17 +13,6 @@ export default [
   },
   {
     exact: true,
-    path: '/dashboard',
-    component: '@/pages/Dashboard',
-    wrappers: ['@/wrappers/auth'],
-    // layout
-    menu: {
-      name: '仪表盘 Dashboard',
-      icon: 'dashboard',
-    },
-  },
-  {
-    exact: true,
     path: '/issue',
     component: '@/pages/Issue',
     wrappers: ['@/wrappers/auth'],
@@ -39,17 +28,28 @@ export default [
     component: '@/pages/Event',
     wrappers: ['@/wrappers/auth'],
   },
-  {
-    exact: true,
-    path: '/feedback',
-    component: '@/pages/Feedback',
-    wrappers: ['@/wrappers/auth'],
-    // layout
-    menu: {
-      name: '反馈 Feedback',
-      icon: 'coffee',
-    },
-  },
+  // {
+  //   exact: true,
+  //   path: '/feedback',
+  //   component: '@/pages/Feedback',
+  //   wrappers: ['@/wrappers/auth'],
+  //   // layout
+  //   menu: {
+  //     name: '反馈 Feedback',
+  //     icon: 'coffee',
+  //   },
+  // },
+  // {
+  //   exact: true,
+  //   path: '/dashboard',
+  //   component: '@/pages/Dashboard',
+  //   wrappers: ['@/wrappers/auth'],
+  //   // layout
+  //   menu: {
+  //     name: '仪表盘 Dashboard',
+  //     icon: 'dashboard',
+  //   },
+  // },
   {
     exact: true,
     path: '/login',

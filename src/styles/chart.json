@@ -3,7 +3,7 @@
   "themeName": "ohbug",
   "theme": {
     "seriesCnt": "4",
-    "backgroundColor": "rgba(242,234,191,0.15)",
+    "backgroundColor": "rgba(0,0,0,0)",
     "titleColor": "#893448",
     "subtitleColor": "#d95850",
     "textColorShow": false,

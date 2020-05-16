@@ -28,14 +28,14 @@ const chainWebpack = (memo) => {
 };
 
 // 开启 TypeScript 编译时类型检查
-const forkTSCheker = {};
+const forkTSChecker = {};
 
 const build = {
   dynamicImport,
   ignoreMomentLocale,
   hash,
   chainWebpack,
-  forkTSCheker,
+  forkTSChecker,
 };
 
 export default build;
