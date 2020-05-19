@@ -26,9 +26,10 @@ const auth: AuthModel = {
       }
     },
 
-    *login({ payload: { query } }, { call }) {
-      const data = yield call(api.auth.github, {
-        code: query.code,
+    *login({ payload: { mobile, captcha } }, { call }) {
+      const data = yield call(api.auth.login, {
+        mobile,
+        captcha,
       });
       if (data) {
         history.push('/project');

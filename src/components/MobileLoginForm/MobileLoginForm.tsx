@@ -8,12 +8,14 @@ import styles from './MobileLoginForm.less';
 
 const COUNTDOWN = 90;
 
+type FormType = 'login' | 'signup';
 interface MobileLoginFormFormProps {
   // 倒计时时间
   countDown?: number;
+  type: FormType;
 }
 
-const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNTDOWN }) => {
+const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNTDOWN, type }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
@@ -63,17 +65,41 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
     setCheckCaptcha(true);
 
     dispatch({
-      type: 'auth/signup',
+      type: `auth/${type}`,
       payload: {
-        mobile: values.mobile,
+        ...values,
         captcha: parseInt(values.captcha, 10),
       },
     });
   }, []);
 
+  const SubmitButtonText = React.useMemo(() => {
+    switch (type) {
+      case 'login':
+        return '登录';
+      case 'signup':
+        return '注册';
+      default:
+        return '';
+    }
+  }, [type]);
+
   return (
     <Form className={styles.root} form={form} onFinish={handleFinish}>
-      <Form.Item name="mobile" rules={[{ required: true, message: '请输入手机号码' }]}>
+      <Form.Item
+        name="mobile"
+        rules={[
+          { required: true, message: '请输入手机号码' },
+          {
+            validator(rule, value) {
+              if (!value || /^1[3456789]\d{9}$/.test(value)) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('手机号格式不合法'));
+            },
+          },
+        ]}
+      >
         <Input
           prefix={<MobileOutlined className={styles.inputPrefixIcon} />}
           size="large"
@@ -83,7 +109,22 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
       <Form.Item>
         <Row gutter={8}>
           <Col span={16}>
-            <Form.Item name="captcha" rules={[{ required: checkCaptcha, message: '请输入验证码' }]}>
+            <Form.Item
+              name="captcha"
+              rules={[
+                { required: checkCaptcha, message: '请输入验证码' },
+                {
+                  transform: (value) => parseInt(value, 10),
+                  validator(rule, value) {
+                    // 验证 6 位数字
+                    if (!value || /^\d{6}$/.test(value)) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('验证码格式不合法'));
+                  },
+                },
+              ]}
+            >
               <Input
                 prefix={<LockOutlined className={styles.inputPrefixIcon} />}
                 size="large"
@@ -101,7 +142,7 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
 
       <Form.Item>
         <Button type="primary" htmlType="submit" size="large" block>
-          注册
+          {SubmitButtonText}
         </Button>
       </Form.Item>
     </Form>

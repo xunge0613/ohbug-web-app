@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'path';
 // eslint-disable-next-line
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
 
@@ -30,12 +30,27 @@ const chainWebpack = (memo) => {
 // 开启 TypeScript 编译时类型检查
 const forkTSChecker = {};
 
+// node_modules 下的文件不走 babel 编译
+const nodeModulesTransform = {
+  type: 'none',
+  exclude: [],
+};
+
+// 开发环境禁用 sourcemap
+const devtool = process.env.NODE_ENV === 'production' ? false : 'cheap-module-source-map';
+
+// 替换压缩器为 esbuild
+const esbuild = {};
+
 const build = {
   dynamicImport,
   ignoreMomentLocale,
   hash,
   chainWebpack,
   forkTSChecker,
+  nodeModulesTransform,
+  devtool,
+  esbuild,
 };
 
 export default build;

@@ -12,7 +12,7 @@ const SignUp: React.FC = () => {
     <BasicLayout className={styles.root}>
       <div>
         <Typography.Title>注册</Typography.Title>
-        <MobileLoginForm />
+        <MobileLoginForm type="signup" />
         <Link to="/login">已有账号 去登陆</Link>
       </div>
     </BasicLayout>

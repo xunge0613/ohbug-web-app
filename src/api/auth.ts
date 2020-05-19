@@ -7,6 +7,7 @@ interface SignUp {
   mobile: string;
   captcha: number;
 }
+type Login = SignUp;
 interface Github {
   code: string;
 }
@@ -18,6 +19,10 @@ const auth = {
   },
   signup: async (data: Captcha): Promise<number> => {
     const res = await request('/auth/signup', { method: 'post', data });
+    return res;
+  },
+  login: async (data: Login): Promise<number> => {
+    const res = await request('/auth/login', { method: 'post', data });
     return res;
   },
   github: async (data: Github): Promise<boolean> => {

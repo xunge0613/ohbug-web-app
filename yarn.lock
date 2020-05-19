@@ -3173,6 +3173,13 @@
     dva-immer "^0.4.19"
     dva-loading "^3.0.20"
 
+"@umijs/plugin-esbuild@^1.0.0-beta.2":
+  version "1.0.0-beta.2"
+  resolved "https://registry.npmjs.org/@umijs/plugin-esbuild/-/plugin-esbuild-1.0.0-beta.2.tgz#7940a22bac2a30a0f3a121329a591f4e3f612339"
+  integrity sha512-0D47/zwF9iZhsVlQgP/OpnLPHQGNg0rkP3/eAtadICH7pP6vzawc87YB1+nz3Qxp9ywX4pjznhWKnuZ0zD/kvg==
+  dependencies:
+    esbuild-webpack-plugin "^1.0.0-beta.3"
+
 "@umijs/plugin-initial-state@2.2.1":
   version "2.2.1"
   resolved "https://registry.npmjs.org/@umijs/plugin-initial-state/-/plugin-initial-state-2.2.1.tgz#cd7592aa90b6b369bd0df297254320088397ff67"
@@ -6687,6 +6694,18 @@ es6-weak-map@^2.0.2:
     es5-ext "^0.10.46"
     es6-iterator "^2.0.3"
     es6-symbol "^3.1.1"
+
+esbuild-webpack-plugin@^1.0.0-beta.3:
+  version "1.0.0-beta.4"
+  resolved "https://registry.npmjs.org/esbuild-webpack-plugin/-/esbuild-webpack-plugin-1.0.0-beta.4.tgz#2a678c2a10ef1986c5a2a40f10ef75ca3d2ad13b"
+  integrity sha512-fM1slS1lBCStXkJEKQzFqRqwnt9k/I4h0mSwMft9Xpfhm5OfsxpAPNk6SdbKN0Z52MWzWwdQankCbYBQMELJBg==
+  dependencies:
+    esbuild "^0.2.3"
+
+esbuild@^0.2.3:
+  version "0.2.12"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.2.12.tgz#77db901f471de7e8732729ff928ffc12687be453"
+  integrity sha512-+PMODPa6MshZlZryeNeXxqdHF2A4phUe1AIBDAPqgHWAe5N/9IqrmCcE6RVDei0caMV7D9EBMEuY/X8+Wp5xiw==
 
 escape-goat@^2.0.0:
   version "2.1.1"
