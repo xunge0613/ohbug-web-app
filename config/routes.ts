@@ -53,7 +53,16 @@ export default [
   {
     exact: true,
     path: '/login',
-    component: '@/pages/Login',
+    component: '@/pages/LogIn',
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+    },
+  },
+  {
+    exact: true,
+    path: '/signup',
+    component: '@/pages/SignUp',
     layout: {
       hideMenu: true,
       hideNav: true,

@@ -7,7 +7,7 @@ import { oauth2_github_href } from '@/config';
 import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 
-import styles from './Login.less';
+import styles from './LogIn.less';
 
 interface LoginPageProps {
   children?: React.ReactNode;
@@ -19,12 +19,12 @@ function useLoginRedirect(): void {
 
   useMount(() => {
     if (query && Object.keys(query).length) {
-      dispatch({ type: 'login/login', payload: { query } });
+      dispatch({ type: 'auth/login', payload: { query } });
     }
   });
 }
 
-const Login: React.FC<LoginPageProps> = ({ children }) => {
+const LogIn: React.FC<LoginPageProps> = ({ children }) => {
   useLoginRedirect();
 
   return (
@@ -41,4 +41,4 @@ const Login: React.FC<LoginPageProps> = ({ children }) => {
   );
 };
 
-export default Login;
+export default LogIn;

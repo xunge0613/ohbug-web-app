@@ -6,7 +6,7 @@ import styles from './Logout.less';
 const Logout: React.FC = () => {
   const dispatch = useDispatch();
   const handleLogout = React.useCallback(() => {
-    dispatch({ type: 'login/logout' });
+    dispatch({ type: 'auth/logout' });
   }, [dispatch]);
 
   return (
