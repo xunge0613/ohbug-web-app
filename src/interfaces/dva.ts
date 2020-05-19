@@ -3,6 +3,7 @@ import type {
   Effect,
   Subscription,
   Loading,
+  AuthModelState,
   AnalysisModelState,
   EventModelState,
   FeedbackModelState,
@@ -28,6 +29,7 @@ export interface Model<S = any> {
 }
 
 export type RootState = {
+  auth: AuthModelState;
   analysis: AnalysisModelState;
   event: EventModelState;
   feedback: FeedbackModelState;

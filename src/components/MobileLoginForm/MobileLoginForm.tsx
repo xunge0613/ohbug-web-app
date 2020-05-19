@@ -1,14 +1,17 @@
 import React from 'react';
 import { Form, Input, Row, Col, Button } from 'antd';
 import { MobileOutlined, LockOutlined } from '@ant-design/icons';
-import { useDispatch } from 'umi';
-
+import { useDispatch, useSelector } from 'umi';
+import type { AuthModelState } from 'umi';
 import { useUpdateEffect } from '@umijs/hooks';
+
+import { RootState } from '@/interfaces';
+
 import styles from './MobileLoginForm.less';
 
 const COUNTDOWN = 90;
 
-type FormType = 'login' | 'signup';
+type FormType = 'login' | 'signup' | 'bindUser';
 interface MobileLoginFormFormProps {
   // 倒计时时间
   countDown?: number;
@@ -61,15 +64,22 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
     }
   }, []);
 
+  const oauth = useSelector<RootState, AuthModelState['oauth']>((state) => state.auth.oauth);
   const handleFinish = React.useCallback((values) => {
     setCheckCaptcha(true);
 
+    const payload = {
+      ...values,
+      captcha: parseInt(values.captcha, 10),
+    };
+    if (oauth) {
+      payload.oauthType = oauth.oauthType;
+      payload.oauthUserDetail = oauth.oauthUserDetail;
+    }
+
     dispatch({
       type: `auth/${type}`,
-      payload: {
-        ...values,
-        captcha: parseInt(values.captcha, 10),
-      },
+      payload,
     });
   }, []);
 
@@ -79,6 +89,8 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
         return '登录';
       case 'signup':
         return '注册';
+      case 'bindUser':
+        return '绑定用户';
       default:
         return '';
     }

@@ -6,4 +6,4 @@ export const oauth2_github_clientId =
     ? REACT_APP_GITHUB_CLIENT_ID
     : REACT_APP_GITHUB_CLIENT_ID_DEV;
 
-export const oauth2_github_href = `https://github.com/login/oauth/authorize?client_id=${oauth2_github_clientId}`;
+export const oauth2_github_href = `https://github.com/login/oauth/authorize?client_id=${oauth2_github_clientId}&state=github`;

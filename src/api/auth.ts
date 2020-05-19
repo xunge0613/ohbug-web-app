@@ -11,6 +11,12 @@ type Login = SignUp;
 interface Github {
   code: string;
 }
+interface BindUser {
+  mobile: string;
+  captcha: number;
+  oauthType: 'github';
+  oauthUserDetail: any;
+}
 
 const auth = {
   captcha: async (data: Captcha): Promise<number> => {
@@ -27,6 +33,10 @@ const auth = {
   },
   github: async (data: Github): Promise<boolean> => {
     const res = await request('/auth/github', { method: 'post', data });
+    return res;
+  },
+  bindUser: async (data: BindUser): Promise<boolean> => {
+    const res = await request('/auth/bindUser', { method: 'post', data });
     return res;
   },
   logout: async (): Promise<boolean> => {

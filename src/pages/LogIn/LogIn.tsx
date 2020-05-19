@@ -20,7 +20,7 @@ function useLoginRedirect(): void {
 
   useMount(() => {
     if (query && Object.keys(query).length) {
-      dispatch({ type: 'auth/login', payload: { query } });
+      dispatch({ type: 'auth/github', payload: query });
     }
   });
 }

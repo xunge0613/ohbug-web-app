@@ -70,6 +70,15 @@ export default [
   },
   {
     exact: true,
+    path: '/bindUser',
+    component: '@/pages/BindUser',
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+    },
+  },
+  {
+    exact: true,
     path: '/create-organization',
     component: '@/pages/CreateOrganization',
     wrappers: ['@/wrappers/auth'],
