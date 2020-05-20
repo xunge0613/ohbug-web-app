@@ -1,7 +1,6 @@
 import React from 'react';
 import { Alert, Card, Radio, Table, Typography } from 'antd';
 import TimeAgo from 'react-timeago';
-import type { TableRowSelection } from 'antd/lib/table/interface';
 import { Link, useDispatch, useSelector } from 'umi';
 import type { IssueModelState, Issue as IssueType } from 'umi';
 
@@ -61,11 +60,6 @@ const Issue: React.FC<IssueDashPageProps> = () => {
     (state) => state.loading.effects['issue/searchIssues']!,
   );
 
-  const rowSelection: TableRowSelection<IssueType> = {
-    onChange: () => {},
-    getCheckboxProps: () => ({}),
-  };
-
   return (
     <BasicLayout className={styles.root}>
       <Card bordered={false}>
@@ -80,7 +74,6 @@ const Issue: React.FC<IssueDashPageProps> = () => {
         <Table<IssueType>
           className={styles.table}
           tableLayout="fixed"
-          rowSelection={rowSelection}
           dataSource={issue}
           loading={loading}
           rowKey={(record): string => record.id.toString()}
