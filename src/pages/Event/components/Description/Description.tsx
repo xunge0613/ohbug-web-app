@@ -283,7 +283,7 @@ const Description: React.FC = () => {
                 <Descriptions.Item label="user.ip_address">
                   {event.user.ip_address}
                 </Descriptions.Item>
-                <Descriptions.Item label="user.uuid">{event.tags.uuid}</Descriptions.Item>
+                <Descriptions.Item label="user.uuid">{event.user.uuid}</Descriptions.Item>
               </Descriptions>
 
               {/* all */}
