@@ -3,8 +3,8 @@ import { Form, Input, Row, Col, Button } from 'antd';
 import { MobileOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'umi';
 import type { AuthModelState } from 'umi';
-import { useUpdateEffect } from '@umijs/hooks';
 
+import { useUpdateEffect } from '@/hooks';
 import { RootState } from '@/interfaces';
 
 import styles from './MobileLoginForm.less';
