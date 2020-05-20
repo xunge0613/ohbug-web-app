@@ -10,5 +10,6 @@ module.exports = {
     'no-new': 'off',
     'import/no-unresolved': 'off',
     'no-nested-ternary': 'off',
+    'global-require': 'off',
   },
 };

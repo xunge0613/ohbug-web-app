@@ -10,7 +10,7 @@ import './styles';
 echarts.registerTheme('ohbug', chartTheme.theme);
 
 export const layout = {
-  // menuHeaderRender: (logo: string) => logo,
+  headerRender: false,
   rightContentRender: () => <UserBlock />,
   footerRender: () => <footer>footer</footer>,
 };
