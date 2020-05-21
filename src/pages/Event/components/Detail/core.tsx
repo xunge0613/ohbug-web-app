@@ -1,26 +1,20 @@
 import React from 'react';
 import type { OhbugAction } from '@ohbug/types';
-import {
-  UserOutlined,
-  LinkOutlined,
-  RocketOutlined,
-  WarningOutlined,
-  CodeOutlined,
-} from '@ant-design/icons';
+
+import Icon from '@/components/Icon';
 
 export function getMessageAndIconByActionType(
   action: OhbugAction,
 ): {
   message: React.ReactNode;
   icon: React.ReactNode;
-  color?: string;
 } {
   const status = action.data?.res?.status;
   switch (action.type) {
     case 'click':
       return {
         message: action.data?.selector,
-        icon: <UserOutlined />,
+        icon: <Icon type="ohbug-click-line" />,
       };
     case 'navigation':
       return {
@@ -30,7 +24,7 @@ export function getMessageAndIconByActionType(
             <em>{action.data?.to}</em>
           </>
         ),
-        icon: <LinkOutlined />,
+        icon: <Icon type="ohbug-links-line" />,
       };
     case 'ajax':
       return {
@@ -40,8 +34,12 @@ export function getMessageAndIconByActionType(
             <strong>[{action.data?.res?.status}]</strong>
           </>
         ),
-        icon: <RocketOutlined />,
-        color: status > 400 ? 'red' : status <= 200 ? 'green' : 'grey',
+        icon: (
+          <Icon
+            type="ohbug-send-plane-fill"
+            style={{ color: status > 400 ? 'red' : status <= 200 ? 'green' : 'grey' }}
+          />
+        ),
       };
     case 'fetch':
       return {
@@ -51,19 +49,22 @@ export function getMessageAndIconByActionType(
             <strong>[{action.data?.res?.status}]</strong>
           </>
         ),
-        icon: <RocketOutlined />,
-        color: status > 400 ? 'red' : status <= 200 ? 'green' : 'grey',
+        icon: (
+          <Icon
+            type="ohbug-send-plane-fill"
+            style={{ color: status > 400 ? 'red' : status <= 200 ? 'green' : 'grey' }}
+          />
+        ),
       };
     case 'console':
       return {
         message: `[${action.message}] ${action.data}`,
-        icon: <CodeOutlined />,
+        icon: <Icon type="ohbug-terminal-box-line" />,
       };
     default:
       return {
         message: '',
-        icon: <WarningOutlined />,
-        color: 'ref',
+        icon: null,
       };
   }
 }

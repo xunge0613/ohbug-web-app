@@ -1,9 +1,9 @@
 import React from 'react';
 import { Tooltip, Tag } from 'antd';
-import { ClockCircleOutlined } from '@ant-design/icons';
 import type { Event } from 'umi';
 import dayjs from 'dayjs';
 
+import Icon from '@/components/Icon';
 import RelativeTime from '@/components/RelativeTime';
 import { getTagsInfoByTags } from '@/utils';
 
@@ -16,16 +16,13 @@ interface TooltipTags {
   value: any;
   icon: React.ReactNode;
 }
-const TooltipTags: React.FC<TooltipTags> = ({ title, value, icon }) => {
-  console.log(value);
-  return (
-    <Tooltip title={title}>
-      <Tag icon={icon} color="default">
-        {value}
-      </Tag>
-    </Tooltip>
-  );
-};
+const TooltipTags: React.FC<TooltipTags> = ({ title, value, icon }) => (
+  <Tooltip title={title}>
+    <Tag icon={icon} color="default">
+      {value}
+    </Tag>
+  </Tooltip>
+);
 
 interface ProfileProps {
   event: Event<any>;
@@ -39,37 +36,37 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         key: 'time',
         title: `发生时间: ${dayjs(event.timestamp).format(`YYYY-MM-DD HH:mm:ss`)}`,
         value: <RelativeTime time={event.timestamp} />,
-        icon: <ClockCircleOutlined />,
+        icon: <Icon type="ohbug-time-line" />,
       },
       {
         key: 'uuid',
         title: `UUID: ${event.user.uuid}`,
         value: event.user.uuid,
-        icon: <ClockCircleOutlined />,
+        icon: <Icon type="ohbug-id-line" />,
       },
       {
         key: 'ip',
         title: `IP: ${event.user.ip_address}`,
         value: event.user.ip_address,
-        icon: <ClockCircleOutlined />,
+        icon: <Icon type="ohbug-ip-line" />,
       },
       {
         key: 'title',
         title: `标题: ${event.tags.title}`,
         value: event.tags.title,
-        icon: <ClockCircleOutlined />,
+        icon: <Icon type="ohbug-title-fill" />,
       },
       {
         key: 'url',
         title: `URL: ${event.tags.url}`,
         value: event.tags.url,
-        icon: <ClockCircleOutlined />,
+        icon: <Icon type="ohbug-links-line" />,
       },
       {
         key: 'language',
         title: `Language: ${event.tags.language}`,
         value: event.tags.language,
-        icon: <ClockCircleOutlined />,
+        icon: <Icon type="ohbug-global-line" />,
       },
     ],
     [event],
@@ -80,14 +77,14 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
       <div className={styles.progressBox}>
         {/* 浏览器 */}
         <ProgressCard
-          icon={1}
+          icon={<Icon type="ohbug-chrome-line" style={{ fontSize: 20 }} />}
           title={tagsInfo?.browser?.name}
           description={tagsInfo?.browser?.version?.original}
           percent={50}
         />
         {/* 系统 */}
         <ProgressCard
-          icon={2}
+          icon={<Icon type="ohbug-apple-fill" style={{ fontSize: 20 }} />}
           title={tagsInfo?.os?.name}
           description={tagsInfo?.os?.version?.original}
           percent={60}

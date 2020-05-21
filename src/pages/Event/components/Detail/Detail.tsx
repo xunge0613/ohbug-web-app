@@ -2,9 +2,9 @@ import React from 'react';
 import { Card, Descriptions, Timeline, Tooltip } from 'antd';
 import type { Event } from 'umi';
 import dayjs from 'dayjs';
-import { WarningOutlined } from '@ant-design/icons';
 
 import StackInfo from '@/components/StackInfo';
+import Icon from '@/components/Icon';
 
 import { getMessageAndIconByActionType } from './core';
 
@@ -88,9 +88,9 @@ const Detail: React.FC<DetailProps> = ({ event }) => {
           <Descriptions.Item>
             <Timeline className={styles.actions}>
               {event?.actions?.map((action, index) => {
-                const { message, icon, color } = getMessageAndIconByActionType(action);
+                const { message, icon } = getMessageAndIconByActionType(action);
                 return (
-                  <Timeline.Item key={action.timestamp + index} dot={icon} color={color}>
+                  <Timeline.Item key={action.timestamp + index} dot={icon}>
                     <div className={styles.action}>
                       <div className={styles.type}>{action.type}</div>
                       <div className={styles.data}>{message}</div>
@@ -103,7 +103,7 @@ const Detail: React.FC<DetailProps> = ({ event }) => {
                   </Timeline.Item>
                 );
               })}
-              <Timeline.Item dot={<WarningOutlined />} color="red">
+              <Timeline.Item dot={<Icon type="ohbug-error-warning-line" />} color="red">
                 <div className={styles.action}>
                   <div className={styles.type}>exception</div>
                   <div className={styles.data}>{event.detail.message}</div>
