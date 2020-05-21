@@ -1,8 +1,8 @@
 import React from 'react';
 import { Alert, Card, Radio, Table, Typography } from 'antd';
-import TimeAgo from 'react-timeago';
 import { Link, useDispatch, useSelector } from 'umi';
 import type { IssueModelState, Issue as IssueType } from 'umi';
+import dayjs from 'dayjs';
 
 import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
@@ -110,9 +110,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                   )}
                 </Typography.Paragraph>
                 <span>
-                  <TimeAgo date={record.created_at} />
-                  -
-                  <TimeAgo date={record.updated_at} />
+                  {dayjs(record.created_at).fromNow()}-{dayjs(record.updated_at).fromNow()}
                 </span>
               </div>
             )}
