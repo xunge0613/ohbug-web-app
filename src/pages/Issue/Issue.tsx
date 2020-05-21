@@ -7,8 +7,7 @@ import type { IssueModelState, Issue as IssueType } from 'umi';
 import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import type { RootState } from '@/interfaces';
-
-import MiniChart from './components/MiniChart';
+import MiniChart from '@/components/MiniChart';
 
 import styles from './Issue.less';
 
@@ -49,7 +48,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
 
       const ids = issue?.map((v) => v.id);
       dispatch({
-        type: 'issue/getTrend',
+        type: 'issue/getTrends',
         payload: { ids, period },
       });
     },
@@ -141,7 +140,8 @@ const Issue: React.FC<IssueDashPageProps> = () => {
               </div>
             )}
             render={(_, record: IssueType) => {
-              const data = trend?.find((v) => parseInt(v.issue_id, 10) === record.id)?.buckets;
+              const data = trend?.data?.find((v) => parseInt(v.issue_id, 10) === record.id)
+                ?.buckets;
               return <MiniChart data={data} trend={trendValue} />;
             }}
           />

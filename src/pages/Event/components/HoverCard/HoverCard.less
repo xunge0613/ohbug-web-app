@@ -1,0 +1,45 @@
+@import '~@/styles/theme.less';
+
+.root {
+  :global {
+    .ant-card-body {
+      padding: 0;
+    }
+  }
+
+  position: relative;
+  overflow: visible;
+  background-color: @primary-color;
+
+  &::before {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 4px;
+    height: 40%;
+    margin-left: -2px;
+    background-color: @primary-color;
+    border-radius: 4px;
+    transition: @transition;
+    content: '';
+  }
+
+  .container {
+    width: 100%;
+    padding: @space-2;
+    background-color: @white;
+    border-radius: @radius-2;
+    cursor: default;
+    transition: @transition;
+  }
+
+  &:hover {
+    &::before {
+      top: 20%;
+      height: 60%;
+    }
+    .container {
+      width: calc(100% - 30px);
+    }
+  }
+}

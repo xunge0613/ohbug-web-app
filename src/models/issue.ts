@@ -1,5 +1,3 @@
-import type { OhbugEvent } from '@ohbug/types';
-
 import type { RootState, Model } from '@/interfaces';
 import api from '@/api';
 
@@ -19,19 +17,26 @@ export interface Issue {
   users_count: number;
   metadata: MetaData;
 }
-
+export interface Trend {
+  issue_id: string;
+  buckets: {
+    timestamp: number;
+    count: number;
+  }[];
+}
 export interface IssueModelState {
-  current?: OhbugEvent<any>;
+  current?: Issue;
   data?: Issue[];
   count?: number;
   trend?: {
-    issue_id: string;
-    buckets: {
-      timestamp: number;
-      count: number;
-    }[];
-  }[];
+    data?: Trend[];
+    current?: {
+      '24h': Trend;
+      '14d': Trend;
+    };
+  };
 }
+
 export interface IssueModel extends Model<IssueModelState> {
   namespace: 'issue';
 }
@@ -48,15 +53,49 @@ const issue: IssueModel = {
         count: payload.count,
       };
     },
-    setTrend(state, action) {
+    setTrends(state, action) {
       const { payload } = action;
       return {
         ...state,
-        trend: payload,
+        trend: {
+          ...state?.trend,
+          data: payload,
+        },
+      };
+    },
+    setCurrentTrend(state, action) {
+      const { payload } = action;
+      return {
+        ...state,
+        trend: {
+          ...state?.trend,
+          current: payload,
+        },
+      };
+    },
+    setCurrentIssue(state, action) {
+      return {
+        ...state,
+        current: action.payload,
       };
     },
   },
   effects: {
+    *get({ payload: { issue_id } }, { select, call, put }) {
+      const project = yield select((state: RootState) => state.project);
+      if (project.current) {
+        const project_id = project.current.id;
+
+        const data = yield call(api.issue.get, {
+          issue_id,
+          project_id,
+        });
+        if (data) {
+          yield put({ type: 'setCurrentIssue', payload: data });
+        }
+      }
+    },
+
     *searchIssues({ payload: { page = 0, start, end } }, { select, call, put }) {
       const project = yield select((state: RootState) => state.project);
       if (project.current) {
@@ -88,14 +127,24 @@ const issue: IssueModel = {
         }
       }
     },
-    *getTrend({ payload: { ids, period } }, { call, put }) {
+    *getTrends({ payload: { ids, period } }, { call, put }) {
       const res = yield call(api.issue.getTrend, {
         ids,
         period,
       });
       yield put({
-        type: 'setTrend',
+        type: 'setTrends',
         payload: res,
+      });
+    },
+    *getCurrentTrend({ payload: { ids, period } }, { call, put }) {
+      const [result] = yield call(api.issue.getTrend, {
+        ids,
+        period,
+      });
+      yield put({
+        type: 'setCurrentTrend',
+        payload: result,
       });
     },
   },

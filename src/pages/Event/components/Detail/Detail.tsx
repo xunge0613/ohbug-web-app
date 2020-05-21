@@ -1,0 +1,123 @@
+import React from 'react';
+import { Card, Descriptions, Timeline, Tooltip } from 'antd';
+import type { Event } from 'umi';
+import dayjs from 'dayjs';
+import { WarningOutlined } from '@ant-design/icons';
+
+import StackInfo from '@/components/StackInfo';
+
+import { getMessageAndIconByActionType } from './core';
+
+import styles from './Detail.less';
+
+interface DetailProps {
+  event: Event<any>;
+}
+const Detail: React.FC<DetailProps> = ({ event }) => {
+  return (
+    <div className={styles.root}>
+      {/* all */}
+      {event.detail.message && (
+        <Card className={styles.descriptions}>
+          <Descriptions title="错误信息" column={1} size="small">
+            <Descriptions.Item>{event.detail.message}</Descriptions.Item>
+          </Descriptions>
+        </Card>
+      )}
+      {/* unhandledrejectionError */}
+      {/* uncaughtError */}
+      {event.detail.stack && (
+        <Card className={styles.descriptions}>
+          <Descriptions title="堆栈信息" column={1} size="small">
+            <Descriptions.Item>
+              <StackInfo stack={event.detail.stack} source={event.source} />
+            </Descriptions.Item>
+          </Descriptions>
+        </Card>
+      )}
+      {/* resourceError */}
+      {event.detail.selector && (
+        <Card className={styles.descriptions}>
+          <Descriptions title="DOM 信息" column={1} size="small" bordered>
+            <Descriptions.Item label="HTML">{event.detail.outerHTML}</Descriptions.Item>
+            <Descriptions.Item label="selector">{event.detail.selector}</Descriptions.Item>
+            <Descriptions.Item label="nodeType">{event.detail.nodeType}</Descriptions.Item>
+            <Descriptions.Item label="tagName">{event.detail.tagName}</Descriptions.Item>
+            <Descriptions.Item label="id">{event.detail.id}</Descriptions.Item>
+            <Descriptions.Item label="className">{event.detail.className}</Descriptions.Item>
+            <Descriptions.Item label="name">{event.detail.name}</Descriptions.Item>
+            <Descriptions.Item label="src">{event.detail.src}</Descriptions.Item>
+          </Descriptions>
+        </Card>
+      )}
+      {/* ajaxError */}
+      {/* fetchError */}
+      {event.type === 'ajaxError' && (
+        <Card className={styles.descriptions}>
+          <Descriptions title="HTTP 信息" column={1} size="small" bordered>
+            <Descriptions.Item label="method">{event.detail.req.method}</Descriptions.Item>
+            <Descriptions.Item label="url">{event.detail.req.url}</Descriptions.Item>
+            <Descriptions.Item label="data">{event.detail.req.data}</Descriptions.Item>
+
+            <Descriptions.Item label="status">{event.detail.res.status}</Descriptions.Item>
+            <Descriptions.Item label="statusText">{event.detail.res.statusText}</Descriptions.Item>
+            <Descriptions.Item label="response">{event.detail.res.response}</Descriptions.Item>
+          </Descriptions>
+        </Card>
+      )}
+      {/* websocketError */}
+      {event.type === 'websocketError' && (
+        <Card className={styles.descriptions}>
+          <Descriptions title="WebSocket 信息" column={1} size="small" bordered>
+            <Descriptions.Item label="url">{event.detail.url}</Descriptions.Item>
+            <Descriptions.Item label="timeStamp">{event.detail.timeStamp}</Descriptions.Item>
+            <Descriptions.Item label="readyState">{event.detail.readyState}</Descriptions.Item>
+            <Descriptions.Item label="protocol">{event.detail.protocol}</Descriptions.Item>
+            <Descriptions.Item label="extensions">{event.detail.extensions}</Descriptions.Item>
+            <Descriptions.Item label="binaryType">{event.detail.binaryType}</Descriptions.Item>
+            <Descriptions.Item label="bufferedAmount">
+              {event.detail.bufferedAmount}
+            </Descriptions.Item>
+          </Descriptions>
+        </Card>
+      )}
+
+      {/* actions */}
+      <Card className={styles.descriptions}>
+        <Descriptions title="Actions 信息" column={1} size="small">
+          <Descriptions.Item>
+            <Timeline className={styles.actions}>
+              {event?.actions?.map((action, index) => {
+                const { message, icon, color } = getMessageAndIconByActionType(action);
+                return (
+                  <Timeline.Item key={action.timestamp + index} dot={icon} color={color}>
+                    <div className={styles.action}>
+                      <div className={styles.type}>{action.type}</div>
+                      <div className={styles.data}>{message}</div>
+                      <Tooltip title={dayjs(event.timestamp).format('YYYY-MM-DD HH:mm:ss')}>
+                        <div className={styles.time}>
+                          {dayjs(event.timestamp).format('HH:mm:ss')}
+                        </div>
+                      </Tooltip>
+                    </div>
+                  </Timeline.Item>
+                );
+              })}
+              <Timeline.Item dot={<WarningOutlined />} color="red">
+                <div className={styles.action}>
+                  <div className={styles.type}>exception</div>
+                  <div className={styles.data}>{event.detail.message}</div>
+                  <Tooltip title={dayjs(event.timestamp).format('YYYY-MM-DD HH:mm:ss')}>
+                    <div className={styles.time}>{dayjs(event.timestamp).format('HH:mm:ss')}</div>
+                  </Tooltip>
+                </div>
+              </Timeline.Item>
+            </Timeline>
+          </Descriptions.Item>
+        </Descriptions>
+      </Card>
+    </div>
+  );
+};
+
+export default Detail;

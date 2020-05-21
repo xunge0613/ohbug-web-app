@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Typography, Card, Statistic } from 'antd';
-import type { EventModelState } from 'umi';
+import type { Event, Issue } from 'umi';
 import clsx from 'clsx';
 
 import Image from '@/components/Image';
@@ -21,14 +21,15 @@ const Trend: React.FC<TrendProps> = ({ data }) => {
 };
 
 interface TitleProps {
-  event: EventModelState['current'];
+  event: Event<any>;
+  issue: Issue;
 }
-const Title: React.FC<TitleProps> = ({ event }) => {
+const Title: React.FC<TitleProps> = ({ event, issue }) => {
   return (
     <Row className={styles.root} gutter={24}>
-      <Col className={styles.left} sm={24} md={18}>
+      <Col className={styles.left} xs={24} sm={24} md={18}>
         <Typography className={styles.content}>
-          <Typography.Title>{event?.type}</Typography.Title>
+          <Typography.Title>{event.type}</Typography.Title>
           {event?.detail?.message && (
             <Typography.Text ellipsis strong style={{ fontSize: 16 }}>
               {event.detail.message}
@@ -47,16 +48,16 @@ const Title: React.FC<TitleProps> = ({ event }) => {
         />
       </Col>
 
-      <Col className={styles.right} sm={24} md={6}>
+      <Col className={styles.right} xs={24} sm={24} md={6}>
         <Card size="small" style={{ width: '100%' }}>
           <div className={styles.countCard}>
-            <Statistic title="EVENTS" value={11293} />
+            <Statistic title="EVENTS" value={issue.events_count} />
             <Trend data={0.15} />
           </div>
         </Card>
         <Card size="small" style={{ width: '100%' }}>
           <div className={styles.countCard}>
-            <Statistic title="USERS" value={122} />
+            <Statistic title="USERS" value={issue.users_count} />
             <Trend data={-0.04} />
           </div>
         </Card>

@@ -1,19 +1,33 @@
 import { request } from 'umi';
 import type { Issue } from 'umi';
 
+interface Get {
+  project_id: number;
+  issue_id: number;
+}
 interface GetMany {
   project_id: number;
   page: number;
   start?: number | string;
   end?: number | string;
 }
-type Period = '24h' | '14d';
+type Period = '24h' | '14d' | 'all';
 interface GetTrend {
   ids: string[];
   period: Period;
 }
 
 const issue = {
+  get: async (data: Get): Promise<Issue | void> => {
+    const { issue_id, project_id } = data;
+    const res = await request(`/issue/${issue_id}`, {
+      method: 'get',
+      params: {
+        project_id,
+      },
+    });
+    return res;
+  },
   getMany: async (data: GetMany): Promise<Issue[] | void> => {
     const res = await request('/issue', {
       method: 'get',
@@ -23,8 +37,8 @@ const issue = {
   },
   getTrend: async (data: GetTrend): Promise<Issue[] | void> => {
     const res = await request('/issue/trend', {
-      method: 'get',
-      params: data,
+      method: 'post',
+      data,
     });
     return res;
   },

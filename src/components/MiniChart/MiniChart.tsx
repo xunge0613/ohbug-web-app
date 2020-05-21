@@ -1,10 +1,8 @@
 import React from 'react';
+import { Typography, Badge } from 'antd';
 import ReactEcharts from 'echarts-for-react';
 import type { EChartOption } from 'echarts';
 import dayjs from 'dayjs';
-import { useSelector } from 'umi';
-
-import type { RootState } from '@/interfaces';
 
 import './MiniChart.less';
 
@@ -13,15 +11,13 @@ type Data = {
   count: number;
 };
 interface MiniChartProps {
-  data?: Data[];
   trend: '24h' | '14d';
+  data?: Data[];
+  loading?: boolean;
+  title?: string;
 }
 
-const MiniChart: React.FC<MiniChartProps> = ({ data, trend }) => {
-  const loading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects['issue/getTrend']!,
-  );
-
+const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) => {
   const option = React.useMemo<EChartOption>(
     () => ({
       dataset: {
@@ -47,6 +43,7 @@ const MiniChart: React.FC<MiniChartProps> = ({ data, trend }) => {
         padding: [8, 16],
         backgroundColor: 'rgba(50, 50, 50, 0.9)',
         transitionDuration: 0,
+        appendToBody: true,
         position(point, params, dom, rect, size) {
           // @ts-ignore
           const { contentSize } = size;
@@ -120,13 +117,21 @@ const MiniChart: React.FC<MiniChartProps> = ({ data, trend }) => {
   );
 
   return data ? (
-    <ReactEcharts
-      option={option}
-      style={{ height: '40px' }}
-      opts={{ renderer: 'svg' }}
-      showLoading={loading}
-      theme="ohbug"
-    />
+    <div>
+      {title && (
+        <div>
+          <Badge status="processing" />
+          <Typography.Text strong>{title}</Typography.Text>
+        </div>
+      )}
+      <ReactEcharts
+        option={option}
+        style={{ height: '40px' }}
+        opts={{ renderer: 'svg' }}
+        showLoading={loading}
+        theme="ohbug"
+      />
+    </div>
   ) : null;
 };
 

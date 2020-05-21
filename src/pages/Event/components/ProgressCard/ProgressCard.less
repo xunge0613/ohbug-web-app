@@ -15,6 +15,9 @@
   width: @card-width;
   min-width: @card-width;
   height: @card-height;
+  &:not(:last-child) {
+    margin-right: @space;
+  }
 
   .container {
     width: @card-width;

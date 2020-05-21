@@ -1,22 +1,17 @@
 import React from 'react';
 import { useDispatch, useLocation, useParams, useSelector } from 'umi';
-import type { EventModelState } from 'umi';
-import { Spin, Tag, Tooltip } from 'antd';
-import { ClockCircleOutlined } from '@ant-design/icons';
-import dayjs from 'dayjs';
+import type { EventModelState, IssueModelState } from 'umi';
+import { Row, Col, Spin, Tabs } from 'antd';
 
 import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import type { RootState } from '@/interfaces';
-import { getTagsInfoByTags } from '@/utils';
-
-import RelativeTime from '@/components/RelativeTime';
 
 import Title from './components/Title';
-import ProgressCard from './components/ProgressCard';
+import Profile from './components/Profile';
+import Detail from './components/Detail';
+import Trend from './components/Trend';
 // import Description from './components/Description';
-
-import styles from './Event.less';
 
 const Event: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,6 +23,7 @@ const Event: React.FC = () => {
 
     if (target === 'latest' && issue_id) {
       dispatch({ type: 'event/getLatestEvent', payload: { issue_id } });
+      dispatch({ type: 'issue/get', payload: { issue_id } });
     } else {
       dispatch({
         type: 'event/get',
@@ -39,64 +35,57 @@ const Event: React.FC = () => {
   });
 
   const event = useSelector<RootState, EventModelState['current']>((state) => state.event.current);
+  const issue = useSelector<RootState, IssueModelState['current']>((state) => state.issue.current);
   const loading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects['event/getLatestEvent']!,
+    (state) =>
+      state.loading.effects['event/getLatestEvent']! &&
+      state.loading.effects['issue/getLatestIssue']!,
   );
-  const tagsInfo = React.useMemo(() => getTagsInfoByTags(event?.tags), [event]);
+
+  const tabList = React.useMemo(
+    () => [
+      {
+        key: 'detail',
+        tab: 'detail',
+        disabled: false,
+        element: (
+          <Row gutter={24}>
+            <Col xs={24} sm={24} md={18}>
+              <Profile event={event!} />
+              <Detail event={event!} />
+            </Col>
+            <Col xs={24} sm={24} md={6}>
+              <Trend issue={issue!} />
+            </Col>
+          </Row>
+        ),
+      },
+      {
+        key: 'replay',
+        tab: 'replay',
+        disabled: !event?.replay,
+        element: <div>reply</div>,
+      },
+    ],
+    [event, issue],
+  );
 
   return (
-    <BasicLayout className={styles.root}>
+    <BasicLayout>
       <Spin spinning={loading} delay={500}>
-        {event && (
+        {event && issue && (
           <>
-            <Title event={event} />
-            {/* 概要信息 */}
-            <div className={styles.profile}>
-              <div className={styles.progressBox}>
-                {/* 浏览器 */}
-                <ProgressCard
-                  icon={1}
-                  title={tagsInfo?.browser?.name}
-                  description={tagsInfo?.browser?.version?.original}
-                  percent={50}
-                />
-                {/* 系统 */}
-                <ProgressCard
-                  icon={2}
-                  title={tagsInfo?.os?.name}
-                  description={tagsInfo?.os?.version?.original}
-                  percent={60}
-                />
-              </div>
-              <div className={styles.tagsBox}>
-                {/* 时间 */}
-                <Tooltip title={dayjs(event.timestamp).format(`YYYY-MM-DD HH:mm:ss`)}>
-                  <Tag icon={<ClockCircleOutlined />} color="default">
-                    <RelativeTime time={event.timestamp} />
-                  </Tag>
-                </Tooltip>
-                {/* 标题 */}
-                <Tag icon={<ClockCircleOutlined />} color="default">
-                  {event.tags.title}
-                </Tag>
-                {/* UUID */}
-                <Tag icon={<ClockCircleOutlined />} color="default">
-                  UUID: {event.user.uuid}
-                </Tag>
-                {/* IP */}
-                <Tag icon={<ClockCircleOutlined />} color="default">
-                  IP: {event.user.ip_address}
-                </Tag>
-                {/* URL */}
-                <Tag icon={<ClockCircleOutlined />} color="default">
-                  URL: {event.tags.url}
-                </Tag>
-                {/* 语言 */}
-                <Tag icon={<ClockCircleOutlined />} color="default">
-                  language: {event.tags.language}
-                </Tag>
-              </div>
-            </div>
+            {/* 标题信息 */}
+            <Title event={event} issue={issue} />
+
+            {/* tab */}
+            <Tabs>
+              {tabList.map((tab) => (
+                <Tabs.TabPane tab={tab.tab} key={tab.key}>
+                  {tab.element}
+                </Tabs.TabPane>
+              ))}
+            </Tabs>
 
             {/* <Description /> */}
           </>

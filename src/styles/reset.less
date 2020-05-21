@@ -16,10 +16,10 @@ img {
 }
 
 .ant-card {
+  overflow: hidden;
   border-radius: @radius-2 !important;
   box-shadow: @box-shadow;
   &.ant-card-bordered {
-    overflow: hidden;
     border: none;
   }
   & > .ant-card-head {
@@ -28,6 +28,13 @@ img {
     .ant-card-head-title {
       padding-bottom: 0;
     }
+  }
+}
+
+.ant-badge-status-processing {
+  background-color: @primary-color !important;
+  &::after {
+    border-color: @primary-color !important;
   }
 }
 
