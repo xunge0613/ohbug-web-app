@@ -118,7 +118,7 @@ const issue: IssueModel = {
           });
           const ids = data.map((v: Issue) => v.id);
           yield put({
-            type: 'getTrend',
+            type: 'getTrends',
             payload: {
               ids,
               period: '24h',

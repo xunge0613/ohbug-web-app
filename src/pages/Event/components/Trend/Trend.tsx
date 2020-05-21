@@ -1,11 +1,11 @@
 import React from 'react';
 import { Card, Typography } from 'antd';
 import { useDispatch, useSelector } from 'umi';
-import type { Issue, IssueModelState } from 'umi';
+import type { IssueModelState } from 'umi';
 import dayjs from 'dayjs';
 
 import type { RootState } from '@/interfaces';
-import { useMount } from '@/hooks';
+import { useUpdateEffect } from '@/hooks';
 import MiniChart from '@/components/MiniChart';
 
 import HoverCard from '../HoverCard';
@@ -13,18 +13,20 @@ import HoverCard from '../HoverCard';
 import styles from './Trend.less';
 
 interface TrendProps {
-  issue: Issue;
+  issue: IssueModelState['current'];
 }
 const Trend: React.FC<TrendProps> = ({ issue }) => {
   const dispatch = useDispatch();
 
-  useMount(() => {
-    const ids = [issue.id];
-    dispatch({
-      type: 'issue/getCurrentTrend',
-      payload: { ids, period: 'all' },
-    });
-  });
+  useUpdateEffect(() => {
+    if (issue) {
+      const ids = [issue.id];
+      dispatch({
+        type: 'issue/getCurrentTrend',
+        payload: { ids, period: 'all' },
+      });
+    }
+  }, [issue]);
 
   const trend = useSelector<RootState, IssueModelState['trend']>((state) => state.issue.trend);
   const loading = useSelector<RootState, boolean>(
@@ -47,11 +49,11 @@ const Trend: React.FC<TrendProps> = ({ issue }) => {
           <Typography.Text strong>首次发生</Typography.Text>
         </p>
         <div>
-          <Typography.Text>{dayjs(issue.created_at).fromNow()}</Typography.Text>
+          <Typography.Text>{dayjs(issue?.created_at).fromNow()}</Typography.Text>
         </div>
         <div>
           <Typography.Text>
-            {dayjs(issue.created_at).format(`YYYY-MM-DD HH:mm:ss A`)}
+            {dayjs(issue?.created_at).format(`YYYY-MM-DD HH:mm:ss A`)}
           </Typography.Text>
         </div>
       </HoverCard>
@@ -60,11 +62,11 @@ const Trend: React.FC<TrendProps> = ({ issue }) => {
           <Typography.Text strong>最近发生</Typography.Text>
         </p>
         <div>
-          <Typography.Text>{dayjs(issue.updated_at).fromNow()}</Typography.Text>
+          <Typography.Text>{dayjs(issue?.updated_at).fromNow()}</Typography.Text>
         </div>
         <div>
           <Typography.Text>
-            {dayjs(issue.updated_at).format(`YYYY-MM-DD HH:mm:ss A`)}
+            {dayjs(issue?.updated_at).format(`YYYY-MM-DD HH:mm:ss A`)}
           </Typography.Text>
         </div>
       </HoverCard>

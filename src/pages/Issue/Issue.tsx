@@ -58,6 +58,9 @@ const Issue: React.FC<IssueDashPageProps> = () => {
   const loading = useSelector<RootState, boolean>(
     (state) => state.loading.effects['issue/searchIssues']!,
   );
+  const trendChartLoading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects['issue/getTrends']!,
+  );
 
   return (
     <BasicLayout className={styles.root}>
@@ -142,7 +145,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
             render={(_, record: IssueType) => {
               const data = trend?.data?.find((v) => parseInt(v.issue_id, 10) === record.id)
                 ?.buckets;
-              return <MiniChart data={data} trend={trendValue} />;
+              return <MiniChart data={data} trend={trendValue} loading={trendChartLoading} />;
             }}
           />
         </Table>
