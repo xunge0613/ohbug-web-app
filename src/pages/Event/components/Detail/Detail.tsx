@@ -18,21 +18,15 @@ const Detail: React.FC<DetailProps> = ({ event }) => {
     <div className={styles.root}>
       {/* all */}
       {event.detail.message && (
-        <Card className={styles.descriptions}>
-          <Descriptions title="错误信息" column={1} size="small">
-            <Descriptions.Item>{event.detail.message}</Descriptions.Item>
-          </Descriptions>
+        <Card className={styles.descriptions} title="错误信息">
+          {event.detail.message}
         </Card>
       )}
       {/* unhandledrejectionError */}
       {/* uncaughtError */}
       {event.detail.stack && (
-        <Card className={styles.descriptions}>
-          <Descriptions title="堆栈信息" column={1} size="small">
-            <Descriptions.Item>
-              <StackInfo stack={event.detail.stack} source={event.source} />
-            </Descriptions.Item>
-          </Descriptions>
+        <Card className={styles.descriptions} title="堆栈信息">
+          <StackInfo stack={event.detail.stack} source={event.source} />
         </Card>
       )}
       {/* resourceError */}
@@ -83,38 +77,32 @@ const Detail: React.FC<DetailProps> = ({ event }) => {
       )}
 
       {/* actions */}
-      <Card className={styles.descriptions}>
-        <Descriptions title="Actions 信息" column={1} size="small">
-          <Descriptions.Item>
-            <Timeline className={styles.actions}>
-              {event?.actions?.map((action, index) => {
-                const { message, icon } = getMessageAndIconByActionType(action);
-                return (
-                  <Timeline.Item key={action.timestamp + index} dot={icon}>
-                    <div className={styles.action}>
-                      <div className={styles.type}>{action.type}</div>
-                      <div className={styles.data}>{message}</div>
-                      <Tooltip title={dayjs(event.timestamp).format('YYYY-MM-DD HH:mm:ss')}>
-                        <div className={styles.time}>
-                          {dayjs(event.timestamp).format('HH:mm:ss')}
-                        </div>
-                      </Tooltip>
-                    </div>
-                  </Timeline.Item>
-                );
-              })}
-              <Timeline.Item dot={<Icon type="ohbug-error-warning-line" />} color="red">
+      <Card className={styles.descriptions} title="Actions 信息">
+        <Timeline className={styles.actions}>
+          {event?.actions?.map((action, index) => {
+            const { message, icon } = getMessageAndIconByActionType(action);
+            return (
+              <Timeline.Item key={action.timestamp + index} dot={icon}>
                 <div className={styles.action}>
-                  <div className={styles.type}>exception</div>
-                  <div className={styles.data}>{event.detail.message}</div>
+                  <div className={styles.type}>{action.type}</div>
+                  <div className={styles.data}>{message}</div>
                   <Tooltip title={dayjs(event.timestamp).format('YYYY-MM-DD HH:mm:ss')}>
                     <div className={styles.time}>{dayjs(event.timestamp).format('HH:mm:ss')}</div>
                   </Tooltip>
                 </div>
               </Timeline.Item>
-            </Timeline>
-          </Descriptions.Item>
-        </Descriptions>
+            );
+          })}
+          <Timeline.Item dot={<Icon type="ohbug-error-warning-line" />} color="red">
+            <div className={styles.action}>
+              <div className={styles.type}>exception</div>
+              <div className={styles.data}>{event.detail.message}</div>
+              <Tooltip title={dayjs(event.timestamp).format('YYYY-MM-DD HH:mm:ss')}>
+                <div className={styles.time}>{dayjs(event.timestamp).format('HH:mm:ss')}</div>
+              </Tooltip>
+            </div>
+          </Timeline.Item>
+        </Timeline>
       </Card>
     </div>
   );
