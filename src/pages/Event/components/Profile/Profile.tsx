@@ -80,14 +80,12 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
           icon={<Icon type="ohbug-chrome-line" style={{ fontSize: 20 }} />}
           title={tagsInfo?.browser?.name}
           description={tagsInfo?.browser?.version?.original}
-          percent={50}
         />
         {/* 系统 */}
         <ProgressCard
           icon={<Icon type="ohbug-apple-fill" style={{ fontSize: 20 }} />}
           title={tagsInfo?.os?.name}
           description={tagsInfo?.os?.version?.original}
-          percent={60}
         />
       </div>
 

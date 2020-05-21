@@ -8,16 +8,17 @@ interface ProgressCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
-  percent: number;
+  percent?: number;
 }
 const ProgressCard: React.FC<ProgressCardProps> = ({ icon, title, description, percent }) => {
   const progressStyles = React.useMemo(
     () =>
       clsx(styles.progress, {
-        [styles.white]: percent >= 60,
+        [styles.white]: percent && percent >= 60,
       }),
     [percent],
   );
+
   return (
     <Card className={styles.root}>
       <div className={styles.container}>
@@ -31,10 +32,12 @@ const ProgressCard: React.FC<ProgressCardProps> = ({ icon, title, description, p
           </Typography.Text>
         </div>
 
-        <div className={progressStyles}>
-          <div className={styles.line} style={{ height: `${percent}%` }} />
-          <span className={styles.number}>{percent}%</span>
-        </div>
+        {percent && (
+          <div className={progressStyles}>
+            <div className={styles.line} style={{ height: `${percent}%` }} />
+            <span className={styles.number}>{percent}%</span>
+          </div>
+        )}
       </div>
     </Card>
   );
