@@ -4,6 +4,7 @@ import echarts from 'echarts';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
+import menuRender from '@/components/menuRender/menuRender';
 import UserBlock from '@/components/UserBlock';
 
 import chartTheme from './styles/chart.json';
@@ -15,6 +16,7 @@ echarts.registerTheme('ohbug', chartTheme.theme);
 export const layout = {
   headerRender: false,
   rightContentRender: () => <UserBlock />,
+  menuRender,
   footerRender: () => <footer>footer</footer>,
 };
 

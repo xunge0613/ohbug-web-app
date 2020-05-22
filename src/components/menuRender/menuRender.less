@@ -1,0 +1,31 @@
+@import '~@/styles/theme.less';
+
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  height: 100%;
+  overflow: auto;
+
+  .logo {
+    height: 64px;
+    .flex-center();
+
+    .title {
+      margin-left: @space;
+      color: @primary-color;
+      font-weight: 600;
+      font-size: 18px;
+    }
+  }
+
+  .menu {
+    border: none;
+  }
+
+  .userBlock {
+    position: absolute;
+    bottom: 200px;
+  }
+}
