@@ -2,10 +2,10 @@ import React from 'react';
 import { Card, Table } from 'antd';
 import { useLocation, useSelector, useDispatch } from 'umi';
 import type { Event, FeedbackModelState } from 'umi';
-import dayjs from 'dayjs';
 
 import { useMount } from '@/hooks';
 import type { RootState } from '@/interfaces';
+import RelativeTime from '@/components/RelativeTime';
 
 import styles from './List.less';
 
@@ -61,7 +61,7 @@ const List: React.FC = () => {
           <Table.Column<Event<any>>
             title="time"
             key="time"
-            render={(item): React.ReactNode => <span>{dayjs(item.time).fromNow()}</span>}
+            render={(item): React.ReactNode => <RelativeTime time={item.time} />}
           />
           <Table.Column<Event<any>> title="user" dataIndex={['user', 'ip_address']} />
           <Table.Column<Event<any>> title="platform" dataIndex="platform" />

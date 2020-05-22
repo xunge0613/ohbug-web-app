@@ -1,8 +1,5 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-
-dayjs.extend(relativeTime);
 
 interface RelativeTimeProps {
   time: string | undefined;

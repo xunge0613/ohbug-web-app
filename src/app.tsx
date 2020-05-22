@@ -1,12 +1,15 @@
 import React from 'react';
 import type { RequestConfig } from 'umi';
 import echarts from 'echarts';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 import UserBlock from '@/components/UserBlock';
 
 import chartTheme from './styles/chart.json';
 import './styles';
 
+dayjs.extend(relativeTime);
 echarts.registerTheme('ohbug', chartTheme.theme);
 
 export const layout = {
