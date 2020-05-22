@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { Link } from 'umi';
 
 import BasicLayout from '@/layouts/Basic';
 import MobileLoginForm from '@/components/MobileLoginForm';
@@ -13,7 +12,6 @@ const SignUp: React.FC = () => {
       <div>
         <Typography.Title>注册</Typography.Title>
         <MobileLoginForm type="signup" />
-        <Link to="/login">已有账号 去登陆</Link>
       </div>
     </BasicLayout>
   );

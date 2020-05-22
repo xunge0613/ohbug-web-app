@@ -3,4 +3,16 @@
 .root {
   text-align: center;
   .flex-center();
+
+  .container {
+    max-width: 350px;
+
+    .loginBox {
+      & > * {
+        &:not(:last-child) {
+          margin-bottom: @space;
+        }
+      }
+    }
+  }
 }

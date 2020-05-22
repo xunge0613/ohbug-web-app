@@ -1,12 +1,12 @@
 import React from 'react';
-import { Spin, Typography, Button } from 'antd';
-import { GithubOutlined } from '@ant-design/icons';
-import { useLocation, useDispatch, Link, useSelector } from 'umi';
+import { Spin, Space, Typography, Button } from 'antd';
+import { useLocation, useDispatch, useSelector } from 'umi';
 
 import { oauth2_github_href } from '@/config';
-import { useMount } from '@/hooks';
+import { useMount, useToggle } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import MobileLoginForm from '@/components/MobileLoginForm';
+import Icon from '@/components/Icon';
 import type { RootState } from '@/interfaces';
 
 import styles from './LogIn.less';
@@ -33,23 +33,61 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
     (state) => !!state.loading.effects['auth/github']!,
   );
 
+  const { state: loginBoxVisible, toggle: toggleLoginBoxVisible } = useToggle(true);
+  const handleLoginWithMobileClick = React.useCallback(() => {
+    toggleLoginBoxVisible(false);
+  }, []);
+  const handleBackLoginBoxClick = React.useCallback(() => {
+    toggleLoginBoxVisible(true);
+  }, []);
+
   return (
     <BasicLayout className={styles.root}>
       {loading ? (
         <Spin />
       ) : (
-        <div>
+        <Space className={styles.container} direction="vertical" size="middle">
           <Typography.Title>登录</Typography.Title>
-          <MobileLoginForm type="login" />
-          <Button type="primary" size="large" href={oauth2_github_href}>
-            <GithubOutlined />
-            Continue with Github
-          </Button>
 
-          <br />
-          <Link to="/signup">还没有账号 去注册</Link>
+          {loginBoxVisible ? (
+            <div className={styles.loginBox}>
+              <Button
+                block
+                size="large"
+                href={oauth2_github_href}
+                icon={<Icon type="ohbug-github-fill" style={{ color: '#24292e' }} />}
+              >
+                Login with Github
+              </Button>
+              <Button
+                block
+                size="large"
+                href="#"
+                icon={<Icon type="ohbug-wechat-fill" style={{ color: '#1AAD19' }} />}
+              >
+                Login with WeChat
+              </Button>
+              <Button
+                block
+                size="large"
+                icon={<Icon type="ohbug-wechat-fill" />}
+                onClick={handleLoginWithMobileClick}
+              >
+                Login with mobile
+              </Button>
+            </div>
+          ) : (
+            <>
+              <MobileLoginForm type="login" />
+              <Button type="link" onClick={handleBackLoginBoxClick}>
+                <Icon type="ohbug-arrow-left-s-line" />
+                所有登录选项
+              </Button>
+            </>
+          )}
+
           {children}
-        </div>
+        </Space>
       )}
     </BasicLayout>
   );

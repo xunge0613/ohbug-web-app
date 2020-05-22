@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Row, Col, Button } from 'antd';
 import { MobileOutlined, LockOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'umi';
+import { useDispatch, useSelector, Link } from 'umi';
 import type { AuthModelState } from 'umi';
 
 import { useUpdateEffect } from '@/hooks';
@@ -95,6 +95,26 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
         return '';
     }
   }, [type]);
+  const SubText = React.useMemo(() => {
+    switch (type) {
+      case 'login':
+        return (
+          <span>
+            没有账号？ <Link to="/signup">注册</Link>
+          </span>
+        );
+      case 'signup':
+        return (
+          <span>
+            已有账号？ <Link to="/login">登录</Link>
+          </span>
+        );
+      case 'bindUser':
+        return null;
+      default:
+        return null;
+    }
+  }, [type]);
 
   return (
     <Form className={styles.root} form={form} onFinish={handleFinish}>
@@ -122,6 +142,7 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
         <Row gutter={8}>
           <Col span={16}>
             <Form.Item
+              noStyle
               name="captcha"
               rules={[
                 { required: checkCaptcha, message: '请输入验证码' },
@@ -145,7 +166,7 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
             </Form.Item>
           </Col>
           <Col span={8}>
-            <Button size="large" block disabled={timing} onClick={handleGetCaptcha}>
+            <Button size="large" block disabled={timing} onClick={handleGetCaptcha} type="primary">
               {timing ? `${count} 秒` : '获取验证码'}
             </Button>
           </Col>
@@ -157,6 +178,8 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
           {SubmitButtonText}
         </Button>
       </Form.Item>
+
+      <Form.Item noStyle>{SubText}</Form.Item>
     </Form>
   );
 };
