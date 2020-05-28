@@ -1,38 +1,21 @@
 import React from 'react';
-import { Menu, Avatar, Dropdown, Typography, Divider } from 'antd';
+import { Menu, Avatar, Dropdown, Typography } from 'antd';
 import { useSelector, useDispatch } from 'umi';
 import type { ProjectModelState, UserModelState } from 'umi';
 
 import { useMount } from '@/hooks';
 import getPlatformLogo from '@/utils/getPlatformLogo';
+import Icon from '@/components/Icon';
 import type { RootState } from '@/interfaces';
+
 import Logout from '../Logout';
 import CreateProject from '../CreateProject';
 
 import styles from './UserBlock.less';
 
-const createMenu = (user: UserModelState, project: ProjectModelState): React.ReactElement => {
-  const { current } = project;
-
+const createMenu = (user: UserModelState): React.ReactElement => {
   return (
     <Menu className={styles.menu}>
-      {current && (
-        <>
-          <div className={styles.user}>
-            <Avatar src={getPlatformLogo(current.type)} />
-            <div className={styles.info}>
-              <Typography.Text className={styles.name} strong>
-                {current.name}
-              </Typography.Text>
-              <Typography.Text className={styles.type} type="secondary">
-                {current.type}
-              </Typography.Text>
-            </div>
-          </div>
-          <Divider style={{ margin: 0 }} />
-        </>
-      )}
-
       <Menu.Item className={styles.user}>
         <Avatar src={user.avatar} />
         <div className={styles.info} style={{ display: 'inline-flex' }}>
@@ -49,7 +32,10 @@ const createMenu = (user: UserModelState, project: ProjectModelState): React.Rea
   );
 };
 
-const UserBlock: React.FC = () => {
+interface UserBlockProps {
+  collapsed: boolean;
+}
+const UserBlock: React.FC<UserBlockProps> = ({ collapsed }) => {
   const dispatch = useDispatch();
   const project = useSelector<RootState, ProjectModelState>((state) => state.project);
   const user = useSelector<RootState, UserModelState>((state) => state.user);
@@ -62,18 +48,30 @@ const UserBlock: React.FC = () => {
   });
 
   return (
-    <div className={styles.root}>
-      <Dropdown
-        overlay={createMenu(user, project)}
-        placement="bottomRight"
-        overlayClassName={styles.popover}
-      >
-        <div className={styles.inner}>
-          <Avatar src={current && getPlatformLogo(current.type)} />
+    <>
+      <Dropdown trigger={['click']} overlay={createMenu(user)} placement="bottomRight">
+        <div className={styles.root}>
+          <div className={styles.user}>
+            {current && (
+              <>
+                <Avatar src={getPlatformLogo(current.type)} />
+                {!collapsed && (
+                  <div className={styles.info}>
+                    <Typography.Text className={styles.name} strong>
+                      {current.name} <Icon type="ohbug-arrow-down-s-line" />
+                    </Typography.Text>
+                    <Typography.Text className={styles.type} type="secondary">
+                      {current.type}
+                    </Typography.Text>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </Dropdown>
       <CreateProject />
-    </div>
+    </>
   );
 };
 

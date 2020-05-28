@@ -8,7 +8,7 @@ export default [
     // layout
     menu: {
       name: '项目 Project',
-      icon: 'project',
+      icon: 'ohbug-projector-line',
     },
   },
   {
@@ -19,7 +19,7 @@ export default [
     // layout
     menu: {
       name: '问题 Issue',
-      icon: 'issues-close',
+      icon: 'ohbug-error-warning-line',
     },
   },
   {

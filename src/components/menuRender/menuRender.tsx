@@ -1,8 +1,9 @@
 import React from 'react';
-import { Layout, Menu, Avatar } from 'antd';
+import { Layout, Menu } from 'antd';
 
 import { history } from 'umi';
 import UserBlock from '@/components/UserBlock';
+import Icon from '@/components/Icon';
 
 import styles from './menuRender.less';
 
@@ -11,51 +12,56 @@ function handleMenuItemClick({ key }: any) {
 }
 
 function menuRender(props: any) {
-  const {
-    navTheme,
-    siderWidth,
-    isMobile,
-    collapsed,
-    onCollapse,
-    menuData,
-    location,
-    logo,
-    title,
-  } = props;
-  console.log(props);
+  const { navTheme, siderWidth, isMobile, collapsed, onCollapse, menuData, location } = props;
 
   return (
     <Layout.Sider
       className={styles.root}
       theme={navTheme}
       width={siderWidth}
+      breakpoint="lg"
+      collapsedWidth={isMobile ? 0 : 80}
       collapsed={collapsed}
       onCollapse={(collapse) => {
-        if (!isMobile) {
-          if (onCollapse) {
-            onCollapse(collapse);
-          }
+        if (onCollapse) {
+          onCollapse(collapse);
         }
       }}
+      trigger=""
     >
-      <div className={styles.logo}>
-        <Avatar src={logo} />
-        <span className={styles.title}>{title}</span>
+      <div className={styles.top}>
+        <div className={styles.userBlock}>
+          <UserBlock collapsed={collapsed} />
+        </div>
+
+        <Menu
+          className={styles.menu}
+          selectedKeys={[location?.pathname]}
+          onClick={handleMenuItemClick}
+          mode="inline"
+        >
+          {menuData.map((item: any) => (
+            <Menu.Item key={item.key} icon={<Icon type={item.icon} />}>
+              {item.name}
+            </Menu.Item>
+          ))}
+        </Menu>
       </div>
 
-      <Menu
-        className={styles.menu}
-        selectedKeys={[location?.pathname]}
-        onClick={handleMenuItemClick}
-        mode="inline"
-      >
-        {menuData.map((item: any) => (
-          <Menu.Item key={item.key}>{item.name}</Menu.Item>
-        ))}
-      </Menu>
-
-      <div className={styles.userBlock}>
-        <UserBlock />
+      <div className={styles.bottom}>
+        <button
+          className={styles.trigger}
+          type="button"
+          onClick={() => {
+            onCollapse(!collapsed);
+          }}
+        >
+          {collapsed ? (
+            <Icon type="ohbug-layout-left-line" />
+          ) : (
+            <Icon type="ohbug-layout-left-2-line" />
+          )}
+        </button>
       </div>
     </Layout.Sider>
   );

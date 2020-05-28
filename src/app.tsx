@@ -1,11 +1,10 @@
-import React from 'react';
 import type { RequestConfig } from 'umi';
 import echarts from 'echarts';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import menuRender from '@/components/menuRender/menuRender';
-import UserBlock from '@/components/UserBlock';
+import menuRender from '@/components/menuRender';
+import footerRender from '@/components/footerRender';
 
 import chartTheme from './styles/chart.json';
 import './styles';
@@ -15,9 +14,8 @@ echarts.registerTheme('ohbug', chartTheme.theme);
 
 export const layout = {
   headerRender: false,
-  rightContentRender: () => <UserBlock />,
   menuRender,
-  footerRender: () => <footer>footer</footer>,
+  footerRender,
 };
 
 function getResponse(ctx: any) {
