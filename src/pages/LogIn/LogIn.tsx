@@ -1,12 +1,12 @@
 import React from 'react';
-import { Spin, Space, Typography, Button } from 'antd';
-import { useLocation, useDispatch, useSelector } from 'umi';
+import { Space, Button } from 'antd';
+import { useLocation, useDispatch, useSelector, Link } from 'umi';
 
 import { oauth2_github_href } from '@/config';
 import { useMount, useToggle } from '@/hooks';
-import BasicLayout from '@/layouts/Basic';
 import MobileLoginForm from '@/components/MobileLoginForm';
 import Icon from '@/components/Icon';
+import LoginTemplate from '@/components/LoginTemplate';
 import type { RootState } from '@/interfaces';
 
 import styles from './LogIn.less';
@@ -42,54 +42,55 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
   }, []);
 
   return (
-    <BasicLayout className={styles.root}>
-      {loading ? (
-        <Spin />
-      ) : (
-        <Space className={styles.container} direction="vertical" size="middle">
-          <Typography.Title>登录</Typography.Title>
+    <LoginTemplate
+      className={styles.root}
+      loading={loading}
+      title="Login"
+      subTitle="登录帐户以开始全面监控您的应用。"
+    >
+      {loginBoxVisible ? (
+        <Space className={styles.loginBox} direction="vertical" size="middle">
+          <Button
+            block
+            size="large"
+            href={oauth2_github_href}
+            icon={<Icon type="ohbug-github-fill" style={{ color: '#24292e' }} />}
+          >
+            Login with Github
+          </Button>
+          <Button
+            block
+            size="large"
+            href="#"
+            icon={<Icon type="ohbug-wechat-fill" style={{ color: '#1AAD19' }} />}
+          >
+            Login with WeChat
+          </Button>
+          <Button
+            block
+            size="large"
+            icon={<Icon type="ohbug-wechat-fill" />}
+            onClick={handleLoginWithMobileClick}
+          >
+            Login with mobile
+          </Button>
 
-          {loginBoxVisible ? (
-            <div className={styles.loginBox}>
-              <Button
-                block
-                size="large"
-                href={oauth2_github_href}
-                icon={<Icon type="ohbug-github-fill" style={{ color: '#24292e' }} />}
-              >
-                Login with Github
-              </Button>
-              <Button
-                block
-                size="large"
-                href="#"
-                icon={<Icon type="ohbug-wechat-fill" style={{ color: '#1AAD19' }} />}
-              >
-                Login with WeChat
-              </Button>
-              <Button
-                block
-                size="large"
-                icon={<Icon type="ohbug-wechat-fill" />}
-                onClick={handleLoginWithMobileClick}
-              >
-                Login with mobile
-              </Button>
-            </div>
-          ) : (
-            <>
-              <MobileLoginForm type="login" />
-              <Button type="link" onClick={handleBackLoginBoxClick}>
-                <Icon type="ohbug-arrow-left-s-line" />
-                所有登录选项
-              </Button>
-            </>
-          )}
-
-          {children}
+          <span>
+            没有账号？ <Link to="/signup">注册</Link>
+          </span>
         </Space>
+      ) : (
+        <>
+          <MobileLoginForm type="login" />
+          <Button type="link" onClick={handleBackLoginBoxClick}>
+            <Icon type="ohbug-arrow-left-s-line" />
+            所有登录选项
+          </Button>
+        </>
       )}
-    </BasicLayout>
+
+      {children}
+    </LoginTemplate>
   );
 };
 

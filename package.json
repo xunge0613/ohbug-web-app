@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "postinstall": "umi g tmp",
-    "start": "cross-env PORT=3000 umi dev",
+    "start": "umi dev",
     "build": "umi build",
     "build:analyze": "cross-env ANALYZE=1 umi build",
     "docker:build": "docker build -t ohbug/web-app .",

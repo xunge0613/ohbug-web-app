@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Row, Col, Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { MobileOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector, Link } from 'umi';
 import type { AuthModelState } from 'umi';
@@ -138,39 +138,32 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
           placeholder="请输入手机号码"
         />
       </Form.Item>
-      <Form.Item>
-        <Row gutter={8}>
-          <Col span={16}>
-            <Form.Item
-              noStyle
-              name="captcha"
-              rules={[
-                { required: checkCaptcha, message: '请输入验证码' },
-                {
-                  transform: (value) => parseInt(value, 10),
-                  validator(rule, value) {
-                    // 验证 6 位数字
-                    if (!value || /^\d{6}$/.test(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error('验证码格式不合法'));
-                  },
-                },
-              ]}
-            >
-              <Input
-                prefix={<LockOutlined className={styles.inputPrefixIcon} />}
-                size="large"
-                placeholder="请输入验证码"
-              />
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Button size="large" block disabled={timing} onClick={handleGetCaptcha} type="primary">
+      <Form.Item
+        name="captcha"
+        rules={[
+          { required: checkCaptcha, message: '请输入验证码' },
+          {
+            transform: (value) => parseInt(value, 10),
+            validator(rule, value) {
+              // 验证 6 位数字
+              if (!value || /^\d{6}$/.test(value)) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('验证码格式不合法'));
+            },
+          },
+        ]}
+      >
+        <Input
+          prefix={<LockOutlined className={styles.inputPrefixIcon} />}
+          size="large"
+          placeholder="请输入验证码"
+          suffix={
+            <Button disabled={timing} onClick={handleGetCaptcha} type="link" size="small">
               {timing ? `${count} 秒` : '获取验证码'}
             </Button>
-          </Col>
-        </Row>
+          }
+        />
       </Form.Item>
 
       <Form.Item>

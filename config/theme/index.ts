@@ -8,7 +8,7 @@ export default {
   '@body-background': '#ffffff',
   '@layout-body-background': '#fbfbfb',
   '@font-size-base': '14px',
-  '@border-radius-base': '1px',
+  '@border-radius-base': '2px',
   '@border-radius-sm': '1px',
   '@form-item-margin-bottom': '16px',
   '@progress-radius': '1px',

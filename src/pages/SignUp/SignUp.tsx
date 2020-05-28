@@ -1,19 +1,19 @@
 import React from 'react';
-import { Typography } from 'antd';
 
-import BasicLayout from '@/layouts/Basic';
+import LoginTemplate from '@/components/LoginTemplate';
 import MobileLoginForm from '@/components/MobileLoginForm';
 
 import styles from './SignUp.less';
 
 const SignUp: React.FC = () => {
   return (
-    <BasicLayout className={styles.root}>
-      <div>
-        <Typography.Title>注册</Typography.Title>
-        <MobileLoginForm type="signup" />
-      </div>
-    </BasicLayout>
+    <LoginTemplate
+      className={styles.root}
+      title="Signin"
+      subTitle="注册帐户以开始全面监控您的应用。"
+    >
+      <MobileLoginForm type="signup" />
+    </LoginTemplate>
   );
 };
 

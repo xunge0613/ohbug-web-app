@@ -1,18 +1,9 @@
 @import '~@/styles/theme.less';
 
 .root {
-  text-align: center;
-  .flex-center();
-
-  .container {
+  .loginBox {
+    min-width: 280px;
     max-width: 350px;
-
-    .loginBox {
-      & > * {
-        &:not(:last-child) {
-          margin-bottom: @space;
-        }
-      }
-    }
+    margin: 0 auto;
   }
 }

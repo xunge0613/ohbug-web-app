@@ -57,6 +57,7 @@ export default [
     layout: {
       hideMenu: true,
       hideNav: true,
+      hideFooter: true,
     },
   },
   {
@@ -66,6 +67,7 @@ export default [
     layout: {
       hideMenu: true,
       hideNav: true,
+      hideFooter: true,
     },
   },
   {
@@ -75,6 +77,7 @@ export default [
     layout: {
       hideMenu: true,
       hideNav: true,
+      hideFooter: true,
     },
   },
   {
@@ -90,6 +93,7 @@ export default [
     layout: {
       hideMenu: true,
       hideNav: true,
+      hideFooter: true,
     },
   },
   {

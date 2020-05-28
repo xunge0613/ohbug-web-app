@@ -4,7 +4,7 @@ import { useSelector, Link } from 'umi';
 import type { AuthModelState } from 'umi';
 
 import type { RootState } from '@/interfaces';
-import BasicLayout from '@/layouts/Basic';
+import LoginTemplate from '@/components/LoginTemplate';
 import MobileLoginForm from '@/components/MobileLoginForm';
 
 import styles from './BindUser.less';
@@ -13,7 +13,7 @@ const BindUser: React.FC = () => {
   const oauth = useSelector<RootState, AuthModelState['oauth']>((state) => state.auth.oauth);
 
   return (
-    <BasicLayout className={styles.root}>
+    <LoginTemplate className={styles.root} title="请绑定手机号">
       {oauth && (
         <div>
           <Typography>{oauth?.oauthUserDetail?.name}</Typography>
@@ -21,11 +21,10 @@ const BindUser: React.FC = () => {
         </div>
       )}
       <div>
-        <Typography.Title>您好，请绑定手机号</Typography.Title>
         <MobileLoginForm type="bindUser" />
-        <Link to="/login">已有账号 去登陆</Link>
+        已有账号？ <Link to="/login">登陆</Link>
       </div>
-    </BasicLayout>
+    </LoginTemplate>
   );
 };
 
