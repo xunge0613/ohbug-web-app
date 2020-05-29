@@ -1,9 +1,8 @@
 import React from 'react';
 import { Menu, Avatar, Dropdown, Typography } from 'antd';
-import { useSelector, useDispatch } from 'umi';
+import { useSelector } from 'umi';
 import type { ProjectModelState, UserModelState } from 'umi';
 
-import { useMount } from '@/hooks';
 import getPlatformLogo from '@/utils/getPlatformLogo';
 import Icon from '@/components/Icon';
 import type { RootState } from '@/interfaces';
@@ -36,16 +35,9 @@ interface UserBlockProps {
   collapsed: boolean;
 }
 const UserBlock: React.FC<UserBlockProps> = ({ collapsed }) => {
-  const dispatch = useDispatch();
   const project = useSelector<RootState, ProjectModelState>((state) => state.project);
   const user = useSelector<RootState, UserModelState>((state) => state.user);
   const { current } = project;
-
-  useMount(() => {
-    if (!project.current || !project.current.id) {
-      dispatch({ type: 'project/handleCreateProjectVisible', payload: true });
-    }
-  });
 
   return (
     <>

@@ -13,7 +13,6 @@ const CreateProject: React.FC = () => {
   const handleFinish = React.useCallback(
     async (values) => {
       dispatch({ type: 'project/create', payload: values });
-      dispatch({ type: 'project/handleCreateProjectVisible', payload: false });
     },
     [dispatch],
   );
@@ -21,17 +20,15 @@ const CreateProject: React.FC = () => {
   const project = useSelector<RootState, ProjectModelState>((state) => state.project);
   const visible = project.createProjectVisible;
   const handleClose = React.useCallback(() => {
-    if (project.current && project.current.id) {
-      dispatch({ type: 'project/handleCreateProjectVisible', payload: false });
-    }
-  }, [dispatch, project]);
+    dispatch({ type: 'project/handleCreateProjectVisible', payload: false });
+  }, [dispatch]);
 
   return (
     <Drawer
       className={styles.root}
       title="Create Project"
       placement="right"
-      closable={false}
+      closable
       width={340}
       visible={visible}
       onClose={handleClose}

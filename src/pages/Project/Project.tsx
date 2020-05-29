@@ -56,7 +56,7 @@ const Project: React.FC<ProjectPageProps> = () => {
                 dispatch({
                   type: 'project/setState',
                   payload: {
-                    current: project,
+                    current: p,
                   },
                 });
                 history.push('/issue');

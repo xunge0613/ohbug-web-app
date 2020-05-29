@@ -85,6 +85,11 @@ export default [
     path: '/create-organization',
     component: '@/pages/CreateOrganization',
     wrappers: ['@/wrappers/auth'],
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+      hideFooter: true,
+    },
   },
   {
     exact: true,

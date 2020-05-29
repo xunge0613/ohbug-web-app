@@ -23,6 +23,7 @@ const project: ProjectModel = {
   state: {
     createProjectVisible: false,
     data: [],
+    current: undefined,
   },
   reducers: {
     setState(state, action) {
@@ -46,7 +47,7 @@ const project: ProjectModel = {
       }
     },
 
-    *create({ payload: { name, type } }, { select, call }) {
+    *create({ payload: { name, type } }, { select, call, put }) {
       const admin_id = yield select((state: RootState) => state.user.id);
       const organization_id = yield select((state: RootState) => state.organization.id);
 
@@ -57,6 +58,7 @@ const project: ProjectModel = {
           admin_id,
           organization_id,
         });
+        yield put({ type: 'project/handleCreateProjectVisible', payload: false });
         if (data) {
           history.push('/');
         }
@@ -78,13 +80,16 @@ const project: ProjectModel = {
                 data,
               },
             });
-            yield put({
-              type: 'setState',
-              payload: {
-                // 默认取第一项为当前 project
-                current: data[0],
-              },
-            });
+            const current = yield select((state: RootState) => state.project.current);
+            if (!current) {
+              yield put({
+                type: 'setState',
+                payload: {
+                  // 默认取第一项为当前 project
+                  current: data[0],
+                },
+              });
+            }
           }
         }
       }
