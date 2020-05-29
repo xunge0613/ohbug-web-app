@@ -1,7 +1,8 @@
 import { createFromIconfontCN } from '@ant-design/icons';
+import { ICONFONT_URL } from '@/config';
 
 const Icon = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_1765412_uyrl5b1e188.js',
+  scriptUrl: ICONFONT_URL,
   extraCommonProps: {
     style: {
       fontSize: 14,

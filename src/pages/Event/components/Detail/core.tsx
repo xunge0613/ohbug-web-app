@@ -14,7 +14,7 @@ export function getMessageAndIconByActionType(
     case 'click':
       return {
         message: action.data?.selector,
-        icon: <Icon type="ohbug-click-line" />,
+        icon: <Icon type="icon-ohbug-click-line" />,
       };
     case 'navigation':
       return {
@@ -24,7 +24,7 @@ export function getMessageAndIconByActionType(
             <em>{action.data?.to}</em>
           </>
         ),
-        icon: <Icon type="ohbug-links-line" />,
+        icon: <Icon type="icon-ohbug-links-line" />,
       };
     case 'ajax':
       return {
@@ -36,7 +36,7 @@ export function getMessageAndIconByActionType(
         ),
         icon: (
           <Icon
-            type="ohbug-send-plane-fill"
+            type="icon-ohbug-send-plane-fill"
             style={{ color: status > 400 ? 'red' : status <= 200 ? 'green' : 'grey' }}
           />
         ),
@@ -51,7 +51,7 @@ export function getMessageAndIconByActionType(
         ),
         icon: (
           <Icon
-            type="ohbug-send-plane-fill"
+            type="icon-ohbug-send-plane-fill"
             style={{ color: status > 400 ? 'red' : status <= 200 ? 'green' : 'grey' }}
           />
         ),
@@ -59,7 +59,7 @@ export function getMessageAndIconByActionType(
     case 'console':
       return {
         message: `[${action.message}] ${action.data}`,
-        icon: <Icon type="ohbug-terminal-box-line" />,
+        icon: <Icon type="icon-ohbug-terminal-box-line" />,
       };
     default:
       return {

@@ -54,7 +54,7 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
             block
             size="large"
             href={oauth2_github_href}
-            icon={<Icon type="ohbug-github-fill" style={{ color: '#24292e' }} />}
+            icon={<Icon type="icon-ohbug-github-fill" style={{ color: '#24292e' }} />}
           >
             Login with Github
           </Button>
@@ -62,14 +62,14 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
             block
             size="large"
             href="#"
-            icon={<Icon type="ohbug-wechat-fill" style={{ color: '#1AAD19' }} />}
+            icon={<Icon type="icon-ohbug-wechat-fill" style={{ color: '#1AAD19' }} />}
           >
             Login with WeChat
           </Button>
           <Button
             block
             size="large"
-            icon={<Icon type="ohbug-wechat-fill" />}
+            icon={<Icon type="icon-ohbug-wechat-fill" />}
             onClick={handleLoginWithMobileClick}
           >
             Login with mobile
@@ -83,7 +83,7 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
         <>
           <MobileLoginForm type="login" />
           <Button type="link" onClick={handleBackLoginBoxClick}>
-            <Icon type="ohbug-arrow-left-s-line" />
+            <Icon type="icon-ohbug-arrow-left-s-line" />
             所有登录选项
           </Button>
         </>

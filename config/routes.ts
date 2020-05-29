@@ -8,7 +8,7 @@ export default [
     // layout
     menu: {
       name: '项目 Project',
-      icon: 'ohbug-projector-line',
+      icon: 'icon-ohbug-projector-line',
     },
   },
   {
@@ -19,8 +19,14 @@ export default [
     // layout
     menu: {
       name: '问题 Issue',
-      icon: 'ohbug-error-warning-line',
+      icon: 'icon-ohbug-error-warning-line',
     },
+  },
+  {
+    exact: true,
+    path: '/issue/:issue_id/event/:event_id',
+    component: '@/pages/Event',
+    wrappers: ['@/wrappers/auth'],
   },
   {
     exact: true,

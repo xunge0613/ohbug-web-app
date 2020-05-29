@@ -38,37 +38,37 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
               key: 'time',
               title: `发生时间: ${dayjs(event.timestamp).format(`YYYY-MM-DD HH:mm:ss`)}`,
               value: <RelativeTime time={event.timestamp} />,
-              icon: <Icon type="ohbug-time-line" />,
+              icon: <Icon type="icon-ohbug-time-line" />,
             },
             {
               key: 'uuid',
               title: `UUID: ${event.user.uuid}`,
               value: event.user.uuid,
-              icon: <Icon type="ohbug-id-line" />,
+              icon: <Icon type="icon-ohbug-id-line" />,
             },
             {
               key: 'ip',
               title: `IP: ${event.user.ip_address}`,
               value: event.user.ip_address,
-              icon: <Icon type="ohbug-ip-line" />,
+              icon: <Icon type="icon-ohbug-ip-line" />,
             },
             {
               key: 'title',
               title: `标题: ${event.tags.title}`,
               value: event.tags.title,
-              icon: <Icon type="ohbug-title-fill" />,
+              icon: <Icon type="icon-ohbug-title-fill" />,
             },
             {
               key: 'url',
               title: `URL: ${event.tags.url}`,
               value: event.tags.url,
-              icon: <Icon type="ohbug-links-line" />,
+              icon: <Icon type="icon-ohbug-links-line" />,
             },
             {
               key: 'language',
               title: `Language: ${event.tags.language}`,
               value: event.tags.language,
-              icon: <Icon type="ohbug-global-line" />,
+              icon: <Icon type="icon-ohbug-global-line" />,
             },
           ]
         : [],
@@ -83,13 +83,13 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         <Skeleton loading={loading}>
           {/* 浏览器 */}
           <ProgressCard
-            icon={<Icon type="ohbug-chrome-line" style={{ fontSize: 20 }} />}
+            icon={<Icon type="icon-ohbug-chrome-line" style={{ fontSize: 20 }} />}
             title={tagsInfo?.browser?.name}
             description={tagsInfo?.browser?.version?.original}
           />
           {/* 系统 */}
           <ProgressCard
-            icon={<Icon type="ohbug-apple-fill" style={{ fontSize: 20 }} />}
+            icon={<Icon type="icon-ohbug-apple-fill" style={{ fontSize: 20 }} />}
             title={tagsInfo?.os?.name}
             description={tagsInfo?.os?.version?.original}
           />

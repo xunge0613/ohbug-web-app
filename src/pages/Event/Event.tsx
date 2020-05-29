@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useLocation, useParams, useSelector } from 'umi';
+import { useDispatch, useParams, useSelector } from 'umi';
 import type { EventModelState, IssueModelState } from 'umi';
 import { Row, Col, Tabs } from 'antd';
 
@@ -58,20 +58,17 @@ const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
 
 const Event: React.FC = () => {
   const dispatch = useDispatch();
-  const { query } = useLocation() as any;
-  const { target } = useParams();
+  const { issue_id, event_id } = useParams();
 
   useMount(() => {
-    const { issue_id } = query;
-
-    if (target === 'latest' && issue_id) {
+    if (event_id === 'latest' && issue_id) {
       dispatch({ type: 'event/getLatestEvent', payload: { issue_id } });
       dispatch({ type: 'issue/get', payload: { issue_id } });
     } else {
       dispatch({
         type: 'event/get',
         payload: {
-          event_id: target,
+          event_id,
         },
       });
     }

@@ -32,7 +32,7 @@ const createMenu = (user: UserModelState): React.ReactElement => {
 };
 
 interface UserBlockProps {
-  collapsed: boolean;
+  collapsed?: boolean;
 }
 const UserBlock: React.FC<UserBlockProps> = ({ collapsed }) => {
   const project = useSelector<RootState, ProjectModelState>((state) => state.project);
@@ -50,7 +50,7 @@ const UserBlock: React.FC<UserBlockProps> = ({ collapsed }) => {
                 {!collapsed && (
                   <div className={styles.info}>
                     <Typography.Text className={styles.name} strong>
-                      {current.name} <Icon type="ohbug-arrow-down-s-line" />
+                      {current.name} <Icon type="icon-ohbug-arrow-down-s-line" />
                     </Typography.Text>
                     <Typography.Text className={styles.type} type="secondary">
                       {current.type}

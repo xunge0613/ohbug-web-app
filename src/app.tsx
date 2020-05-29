@@ -3,8 +3,9 @@ import echarts from 'echarts';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import menuRender from '@/components/menuRender';
 import footerRender from '@/components/footerRender';
+import menuHeaderRender from '@/components/menuHeaderRender';
+import { ICONFONT_URL } from '@/config';
 
 import chartTheme from './styles/chart.json';
 import './styles';
@@ -13,8 +14,10 @@ dayjs.extend(relativeTime);
 echarts.registerTheme('ohbug', chartTheme.theme);
 
 export const layout = {
+  iconfontUrl: ICONFONT_URL,
+  menuHeaderRender,
+  onMenuHeaderClick: () => {},
   headerRender: false,
-  menuRender,
   footerRender,
 };
 

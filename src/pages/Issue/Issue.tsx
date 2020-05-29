@@ -93,7 +93,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
             render={(_, record: IssueType): React.ReactElement => (
               <div className={styles.desc}>
                 {/* 获取此 issue 所对应的最新 event */}
-                <Link to={`/event/latest?issue_id=${record.id}`}>
+                <Link to={`/issue/${record.id}/event/latest`}>
                   <Typography.Text className={styles.type} strong>
                     {record.type}
                   </Typography.Text>
@@ -119,7 +119,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
             dataIndex="events_count"
             title="异常数"
             render={(text, record: IssueType): React.ReactElement => (
-              <Link to={`/event?issue_id=${record.id}`}>{text}</Link>
+              <Link to={`/issue/${record.id}/event/latest`}>{text}</Link>
             )}
           />
           <Table.Column dataIndex="users_count" title="影响用户数" />

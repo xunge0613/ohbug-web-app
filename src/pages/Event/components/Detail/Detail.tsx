@@ -96,7 +96,7 @@ const Detail: React.FC<DetailProps> = ({ event }) => {
             );
           })}
           {event && (
-            <Timeline.Item dot={<Icon type="ohbug-error-warning-line" />} color="red">
+            <Timeline.Item dot={<Icon type="icon-ohbug-error-warning-line" />} color="red">
               <div className={styles.action}>
                 <div className={styles.type}>exception</div>
                 <div className={styles.data}>{event.detail.message}</div>
