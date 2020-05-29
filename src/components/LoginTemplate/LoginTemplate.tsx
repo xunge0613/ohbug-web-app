@@ -13,6 +13,7 @@ interface LoginTemplateProps {
   loading?: boolean;
   title: string;
   subTitle?: string;
+  figure?: string;
 }
 const LoginTemplate: React.FC<LoginTemplateProps> = ({
   className,
@@ -20,17 +21,14 @@ const LoginTemplate: React.FC<LoginTemplateProps> = ({
   loading = false,
   title,
   subTitle,
+  figure = require('@/static/images/login_figure.svg'),
 }) => {
   const classes = clsx(className, styles.root);
   return (
     <BasicLayout className={classes}>
       <Row className={styles.container} gutter={8}>
         <Col className={styles.left} xs={0} sm={0} md={0} lg={12} xl={14}>
-          <Image
-            src={require('@/static/images/login_figure.svg')}
-            alt="login_figure"
-            style={{ width: '80%', margin: '0 auto' }}
-          />
+          <Image src={figure} alt="login_figure" style={{ width: '80%', margin: '0 auto' }} />
         </Col>
 
         <Col className={styles.right} xs={24} sm={24} md={24} lg={12} xl={10}>
