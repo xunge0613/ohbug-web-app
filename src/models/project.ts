@@ -1,8 +1,16 @@
+import dayjs from 'dayjs';
 import { history } from 'umi';
 
 import type { Model, RootState, ProjectType } from '@/interfaces';
 import api from '@/api';
 
+export interface ProjectTrend {
+  'event.apiKey': string;
+  buckets: {
+    timestamp: number;
+    count: number;
+  }[];
+}
 export interface Project {
   app_id: string;
   id: number;
@@ -11,8 +19,9 @@ export interface Project {
 }
 export interface ProjectModelState {
   createProjectVisible: boolean;
-  current?: Project;
   data: Project[];
+  current?: Project;
+  currentTrend?: ProjectTrend;
 }
 export interface ProjectModel extends Model<ProjectModelState> {
   namespace: 'project';
@@ -91,6 +100,29 @@ const project: ProjectModel = {
               });
             }
           }
+        }
+      }
+    },
+
+    *trend(_, { select, call, put }) {
+      const current = yield select((state: RootState) => state.project.current);
+      if (current) {
+        const project_id = current.id;
+        const now = dayjs();
+        const start = now.subtract(13, 'day').format('YYYY-MM-DD');
+        const end = now.format('YYYY-MM-DD');
+        const data = yield call(api.project.trend, {
+          project_id,
+          start,
+          end,
+        });
+        if (data) {
+          yield put({
+            type: 'setState',
+            payload: {
+              currentTrend: data,
+            },
+          });
         }
       }
     },

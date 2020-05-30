@@ -4,20 +4,20 @@ import ReactEcharts from 'echarts-for-react';
 import type { EChartOption } from 'echarts';
 import dayjs from 'dayjs';
 
-import './MiniChart.less';
+import './LineChart.less';
 
 type Data = {
   timestamp: number;
   count: number;
 };
-interface MiniChartProps {
+interface LineChartProps {
   trend: '24h' | '14d';
   data?: Data[];
   loading?: boolean;
   title?: string;
 }
 
-const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) => {
+const LineChart: React.FC<LineChartProps> = ({ trend, data, loading, title }) => {
   const option = React.useMemo<EChartOption>(
     () => ({
       dataset: {
@@ -26,30 +26,29 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
       },
       xAxis: {
         type: 'category',
-        show: false,
+        axisTick: {
+          alignWithLabel: true,
+        },
+        axisLabel: {
+          formatter(timestamp: number) {
+            return dayjs(timestamp).format('YYYY-MM-DD');
+          },
+        },
       },
       yAxis: {
         type: 'value',
         show: false,
       },
       grid: {
-        top: 5,
-        bottom: 5,
-        left: 0,
-        right: 0,
+        top: 10,
+        bottom: 25,
+        left: 10,
+        right: 10,
       },
       tooltip: {
         trigger: 'axis',
         padding: [8, 16],
         backgroundColor: 'rgba(50, 50, 50, 0.9)',
-        transitionDuration: 0,
-        appendToBody: true,
-        position(point, params, dom, rect, size) {
-          // @ts-ignore
-          const { contentSize } = size;
-          // @ts-ignore
-          return [point[0] - contentSize[0] / 2, '120%'];
-        },
         formatter(params) {
           // @ts-ignore
           const [{ value }] = params;
@@ -61,7 +60,7 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
             ${dayjs(timestamp).format('h:00 A → h:59 A')}
             </div>
 
-            <div class="tooltip-value">${count} events</div>
+            <div class="tooltip-value">${count} issues</div>
 
             <span class="tooltip-arrow" />
             `;
@@ -69,7 +68,7 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
           if (trend === '14d') {
             return `<div class="tooltip-time">${dayjs(timestamp).format('YYYY-MM-DD')}</div>
 
-            <div class="tooltip-value">${count} events</div>
+            <div class="tooltip-value">${count} issues</div>
 
             <span class="tooltip-arrow" />
             `;
@@ -85,12 +84,17 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
       },
       series: [
         {
-          name: 'events',
+          name: 'issues',
           type: 'line',
-          // smooth: true,
-          symbol: 'emptyCircle',
-          symbolSize: 2,
-          showSymbol: false,
+          smooth: true,
+          symbolSize: 8,
+          itemStyle: {
+            normal: {
+              lineStyle: {
+                width: 4,
+              },
+            },
+          },
           areaStyle: {
             color: {
               type: 'linear',
@@ -134,7 +138,7 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
       )}
       <ReactEcharts
         option={option}
-        style={{ height: '40px' }}
+        style={{ height: '160px' }}
         opts={{ renderer: 'svg' }}
         showLoading={loading}
         theme="ohbug"
@@ -143,4 +147,4 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
   ) : null;
 };
 
-export default MiniChart;
+export default LineChart;

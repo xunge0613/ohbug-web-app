@@ -8,6 +8,8 @@ import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import type { RootState } from '@/interfaces';
 import MiniChart from '@/components/MiniChart';
+import LineChart from '@/components/LineChart';
+import { ProjectModelState } from '@/models/project';
 
 import styles from './Issue.less';
 
@@ -27,6 +29,9 @@ const Issue: React.FC<IssueDashPageProps> = () => {
       payload: {
         page: 0,
       },
+    });
+    dispatch({
+      type: 'project/trend',
     });
   });
 
@@ -62,9 +67,14 @@ const Issue: React.FC<IssueDashPageProps> = () => {
     (state) => state.loading.effects['issue/getTrends']!,
   );
 
+  const projectTrend = useSelector<RootState, ProjectModelState['currentTrend']>(
+    (state) => state.project.currentTrend,
+  );
+
   return (
     <BasicLayout className={styles.root}>
       <Card bordered={false}>
+        {projectTrend && <LineChart trend="14d" data={projectTrend.buckets} />}
         {Array.isArray(issue) && (
           <Alert
             message={`合计 Issue 数：${issue.length}`}

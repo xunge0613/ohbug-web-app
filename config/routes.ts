@@ -13,6 +13,12 @@ export default [
   },
   {
     exact: true,
+    path: '/project/:project_id/getting-started',
+    component: '@/pages/GettingStarted',
+    wrappers: ['@/wrappers/auth'],
+  },
+  {
+    exact: true,
     path: '/issue',
     component: '@/pages/Issue',
     wrappers: ['@/wrappers/auth'],
