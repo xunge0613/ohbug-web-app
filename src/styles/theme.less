@@ -22,7 +22,7 @@
 @space-2: 24px;
 @space-3: 36px;
 
-@radius: 1px;
+@radius: 2px;
 @radius-2: 16px;
 
 // transition
@@ -54,4 +54,16 @@
 .form-width {
   min-width: 280px;
   max-width: 350px;
+}
+
+.hoverAnimation {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-right: 0 solid @primary-color !important;
+  transition: @transition;
+
+  &:hover {
+    border-right-width: 30px !important;
+  }
 }

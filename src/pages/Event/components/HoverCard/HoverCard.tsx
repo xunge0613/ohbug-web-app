@@ -9,7 +9,7 @@ const HoverCard: React.FC<CardProps> = (props) => {
   const classes = clsx(props.className, styles.root);
   return (
     <Card {...props} className={classes}>
-      <div className={styles.container}>{props.children}</div>
+      {props.children}
     </Card>
   );
 };

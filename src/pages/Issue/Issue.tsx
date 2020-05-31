@@ -1,7 +1,19 @@
 import React from 'react';
-import { Alert, Card, Radio, Table, Typography } from 'antd';
+import {
+  Alert,
+  Card,
+  Space,
+  List,
+  Skeleton,
+  Radio,
+  Typography,
+  Row,
+  Col,
+  Input,
+  DatePicker,
+} from 'antd';
 import { Link, useDispatch, useSelector } from 'umi';
-import type { IssueModelState, Issue as IssueType } from 'umi';
+import type { IssueModelState } from 'umi';
 import dayjs from 'dayjs';
 
 import { useMount } from '@/hooks';
@@ -73,91 +85,121 @@ const Issue: React.FC<IssueDashPageProps> = () => {
 
   return (
     <BasicLayout className={styles.root}>
-      <Card bordered={false}>
-        {projectTrend && <LineChart trend="14d" data={projectTrend.buckets} />}
-        {Array.isArray(issue) && (
-          <Alert
-            message={`合计 Issue 数：${issue.length}`}
-            type="info"
-            showIcon
-            closeText="Close Now"
-          />
+      <Space size="middle" direction="vertical">
+        {projectTrend && (
+          <Card className={styles.chart}>
+            <LineChart trend="14d" data={projectTrend.buckets} />
+          </Card>
         )}
-        <Table<IssueType>
-          className={styles.table}
-          tableLayout="fixed"
-          dataSource={issue}
+
+        <Space className={styles.searchBox} size="middle">
+          <DatePicker.RangePicker showTime />
+          <Input.Search
+            className={styles.search}
+            placeholder="input search text"
+            onSearch={(value) => console.log(value)}
+          />
+        </Space>
+
+        <List
+          className={styles.list}
+          itemLayout="horizontal"
           loading={loading}
-          rowKey={(record): string => record.id.toString()}
+          dataSource={issue}
           pagination={{
             onChange: handleTablePaginationChange,
             pageSize: 20,
             total: count,
           }}
-        >
-          <Table.Column<IssueType>
-            ellipsis
-            width={400}
-            dataIndex="latest"
-            title="异常信息"
-            render={(_, record: IssueType): React.ReactElement => (
-              <div className={styles.desc}>
-                {/* 获取此 issue 所对应的最新 event */}
-                <Link to={`/issue/${record.id}/event/latest`}>
-                  <Typography.Text className={styles.type} strong>
-                    {record.type}
-                  </Typography.Text>
-                  {record.metadata.filename && (
-                    <Typography.Text type="secondary">{record.metadata.filename}</Typography.Text>
-                  )}
-                </Link>
-                <Typography.Paragraph className={styles.message} ellipsis>
-                  {record.metadata.message && (
-                    <Typography.Text>{record.metadata.message}</Typography.Text>
-                  )}
-                  {record.metadata.others && (
-                    <Typography.Text>{record.metadata.others}</Typography.Text>
-                  )}
-                </Typography.Paragraph>
-                <span>
-                  {dayjs(record.created_at).fromNow()}-{dayjs(record.updated_at).fromNow()}
-                </span>
+          header={
+            <>
+              {Array.isArray(issue) && (
+                <Alert
+                  className={styles.message}
+                  message={`合计 Issue 数：${issue.length}`}
+                  type="info"
+                  showIcon
+                  closable
+                />
+              )}
+              <div className={styles.header}>
+                <div className={styles.title}>异常信息</div>
+                <Row className={styles.content} gutter={8}>
+                  <Col span={6}>时间</Col>
+                  <Col span={4}>异常数</Col>
+                  <Col span={4}>影响用户数</Col>
+                  <Col span={10}>
+                    <span>趋势</span>
+                    <span style={{ marginLeft: 4 }}>
+                      <Radio.Group
+                        value={trendValue}
+                        onChange={handleTrendChange}
+                        size="small"
+                        buttonStyle="solid"
+                      >
+                        <Radio.Button value="24h">当日</Radio.Button>
+                        <Radio.Button value="14d">近两周</Radio.Button>
+                      </Radio.Group>
+                    </span>
+                  </Col>
+                </Row>
               </div>
-            )}
-          />
-          <Table.Column
-            dataIndex="events_count"
-            title="异常数"
-            render={(text, record: IssueType): React.ReactElement => (
-              <Link to={`/issue/${record.id}/event/latest`}>{text}</Link>
-            )}
-          />
-          <Table.Column dataIndex="users_count" title="影响用户数" />
-          <Table.Column
-            title={(): React.ReactElement => (
-              <div>
-                <span>趋势</span>
-                <span style={{ marginLeft: 4 }}>
-                  <Radio.Group
-                    value={trendValue}
-                    onChange={handleTrendChange}
-                    size="small"
-                    buttonStyle="solid"
-                  >
-                    <Radio.Button value="24h">当日</Radio.Button>
-                    <Radio.Button value="14d">近两周</Radio.Button>
-                  </Radio.Group>
-                </span>
-              </div>
-            )}
-            render={(_, record: IssueType) => {
-              const data = trend?.data?.find((v) => parseInt(v.issue_id, 10) === record.id)
-                ?.buckets;
-              return <MiniChart data={data} trend={trendValue} loading={trendChartLoading} />;
-            }}
-          />
-        </Table>
-      </Card>
+            </>
+          }
+          renderItem={(item) => {
+            const chartData = trend?.data?.find((v) => parseInt(v.issue_id, 10) === item.id)
+              ?.buckets;
+            return (
+              <List.Item>
+                <Skeleton title loading={loading} active>
+                  <List.Item.Meta
+                    title={
+                      <div className={styles.title}>
+                        {/* 获取此 issue 所对应的最新 event */}
+                        <Link to={`/issue/${item.id}/event/latest`}>
+                          <Typography.Text className={styles.type} strong>
+                            {item.type}
+                          </Typography.Text>
+                          {item.metadata.filename && (
+                            <Typography.Text type="secondary">
+                              {item.metadata.filename}
+                            </Typography.Text>
+                          )}
+                        </Link>
+                      </div>
+                    }
+                    description={
+                      <Typography.Paragraph className={styles.desc} ellipsis>
+                        {item.metadata.message && (
+                          <Typography.Text>{item.metadata.message}</Typography.Text>
+                        )}
+                        {item.metadata.others && (
+                          <Typography.Text>{item.metadata.others}</Typography.Text>
+                        )}
+                      </Typography.Paragraph>
+                    }
+                  />
+                  <Row className={styles.content} gutter={8}>
+                    <Col span={6}>
+                      {dayjs(item.created_at).fromNow()}-{dayjs(item.updated_at).fromNow()}
+                    </Col>
+
+                    <Col span={4}>
+                      <Link to={`/issue/${item.id}/event/latest`}>{item.events_count}</Link>
+                    </Col>
+
+                    <Col span={4}>{item.users_count}</Col>
+
+                    <Col span={10}>
+                      <MiniChart data={chartData} trend={trendValue} loading={trendChartLoading} />
+                    </Col>
+                  </Row>
+                </Skeleton>
+              </List.Item>
+            );
+          }}
+        />
+      </Space>
     </BasicLayout>
   );
 };

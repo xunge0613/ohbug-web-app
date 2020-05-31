@@ -87,7 +87,8 @@ const LineChart: React.FC<LineChartProps> = ({ trend, data, loading, title }) =>
           name: 'issues',
           type: 'line',
           smooth: true,
-          symbolSize: 8,
+          symbolSize: 6,
+          showSymbol: false,
           itemStyle: {
             normal: {
               lineStyle: {
