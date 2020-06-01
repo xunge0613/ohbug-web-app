@@ -2126,10 +2126,26 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
+"@ohbug/core@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.npm.taobao.org/@ohbug/core/download/@ohbug/core-0.0.11.tgz#e32c920ae63b0578448af210b54ebb5dbd074be3"
+  integrity sha1-4yySCuY7BXhEivIQtU67Xb0HS+M=
+  dependencies:
+    "@ohbug/types" "^0.0.6"
+    "@ohbug/utils" "^0.0.11"
+
 "@ohbug/types@^0.0.6":
   version "0.0.6"
   resolved "https://registry.npmjs.org/@ohbug/types/-/types-0.0.6.tgz#7e2f1a3fc35732f5a2e59f2baba5205a318e09bd"
   integrity sha512-3L4u9AEi+vEb+gbsm+3+YSEm0wZ7H0eULkwRGISyo711DYwDnuyUCAcrPoZ6SehSQJ8G3zwwF5pKBt3MLlx0GQ==
+
+"@ohbug/utils@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.npm.taobao.org/@ohbug/utils/download/@ohbug/utils-0.0.11.tgz#88ec9510cd08b29f9efd144d3776994834d22f64"
+  integrity sha1-iOyVEM0Isp+e/RRNN3aZSDTSL2Q=
+  dependencies:
+    "@ohbug/types" "^0.0.6"
+    uuid "^7.0.2"
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"

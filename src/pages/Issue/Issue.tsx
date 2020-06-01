@@ -1,27 +1,16 @@
 import React from 'react';
-import {
-  Alert,
-  Card,
-  Space,
-  List,
-  Skeleton,
-  Radio,
-  Typography,
-  Row,
-  Col,
-  Input,
-  DatePicker,
-} from 'antd';
+import { Card, Space, List, Skeleton, Radio, Typography, Row, Col } from 'antd';
 import { Link, useDispatch, useSelector } from 'umi';
 import type { IssueModelState } from 'umi';
 import dayjs from 'dayjs';
 
-import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import type { RootState } from '@/interfaces';
 import MiniChart from '@/components/MiniChart';
 import LineChart from '@/components/LineChart';
 import { ProjectModelState } from '@/models/project';
+
+import TimePicker from './components/TimePicker';
 
 import styles from './Issue.less';
 
@@ -34,18 +23,6 @@ const Issue: React.FC<IssueDashPageProps> = () => {
   const issue = useSelector<RootState, IssueModelState['data']>((state) => state.issue.data);
   const count = useSelector<RootState, IssueModelState['count']>((state) => state.issue.count);
   const trend = useSelector<RootState, IssueModelState['trend']>((state) => state.issue.trend);
-
-  useMount(() => {
-    dispatch({
-      type: 'issue/searchIssues',
-      payload: {
-        page: 0,
-      },
-    });
-    dispatch({
-      type: 'project/trend',
-    });
-  });
 
   const handleTablePaginationChange = React.useCallback(
     (current) => {
@@ -92,37 +69,26 @@ const Issue: React.FC<IssueDashPageProps> = () => {
           </Card>
         )}
 
-        <Space className={styles.searchBox} size="middle">
-          <DatePicker.RangePicker showTime />
-          <Input.Search
-            className={styles.search}
-            placeholder="input search text"
-            onSearch={(value) => console.log(value)}
-          />
-        </Space>
-
-        <List
-          className={styles.list}
-          itemLayout="horizontal"
-          loading={loading}
-          dataSource={issue}
-          pagination={{
-            onChange: handleTablePaginationChange,
-            pageSize: 20,
-            total: count,
-          }}
-          header={
-            <>
-              {Array.isArray(issue) && (
-                <Alert
-                  className={styles.message}
-                  message={`合计 Issue 数：${issue.length}`}
-                  type="info"
-                  showIcon
-                  closable
-                />
-              )}
-              <div className={styles.header}>
+        <Card
+          title={`问题列表 (${issue?.length})`}
+          extra={
+            <Space size="middle">
+              <TimePicker />
+            </Space>
+          }
+        >
+          <List
+            className={styles.list}
+            itemLayout="horizontal"
+            loading={loading}
+            dataSource={issue}
+            pagination={{
+              onChange: handleTablePaginationChange,
+              pageSize: 20,
+              total: count,
+            }}
+            header={
+              <div className={styles.header} style={{ paddingLeft: 0 }}>
                 <div className={styles.title}>异常信息</div>
                 <Row className={styles.content} gutter={8}>
                   <Col span={6}>时间</Col>
@@ -144,61 +110,65 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                   </Col>
                 </Row>
               </div>
-            </>
-          }
-          renderItem={(item) => {
-            const chartData = trend?.data?.find((v) => parseInt(v.issue_id, 10) === item.id)
-              ?.buckets;
-            return (
-              <List.Item>
-                <Skeleton title loading={loading} active>
-                  <List.Item.Meta
-                    title={
-                      <div className={styles.title}>
-                        {/* 获取此 issue 所对应的最新 event */}
-                        <Link to={`/issue/${item.id}/event/latest`}>
-                          <Typography.Text className={styles.type} strong>
-                            {item.type}
-                          </Typography.Text>
-                          {item.metadata.filename && (
-                            <Typography.Text type="secondary">
-                              {item.metadata.filename}
+            }
+            renderItem={(item) => {
+              const chartData = trend?.data?.find((v) => parseInt(v.issue_id, 10) === item.id)
+                ?.buckets;
+              return (
+                <List.Item>
+                  <Skeleton title loading={loading} active>
+                    <List.Item.Meta
+                      title={
+                        <div className={styles.title}>
+                          {/* 获取此 issue 所对应的最新 event */}
+                          <Link to={`/issue/${item.id}/event/latest`}>
+                            <Typography.Text className={styles.type} strong>
+                              {item.type}
                             </Typography.Text>
+                            {item.metadata.filename && (
+                              <Typography.Text type="secondary">
+                                {item.metadata.filename}
+                              </Typography.Text>
+                            )}
+                          </Link>
+                        </div>
+                      }
+                      description={
+                        <Typography.Paragraph className={styles.desc} ellipsis>
+                          {item.metadata.message && (
+                            <Typography.Text>{item.metadata.message}</Typography.Text>
                           )}
-                        </Link>
-                      </div>
-                    }
-                    description={
-                      <Typography.Paragraph className={styles.desc} ellipsis>
-                        {item.metadata.message && (
-                          <Typography.Text>{item.metadata.message}</Typography.Text>
-                        )}
-                        {item.metadata.others && (
-                          <Typography.Text>{item.metadata.others}</Typography.Text>
-                        )}
-                      </Typography.Paragraph>
-                    }
-                  />
-                  <Row className={styles.content} gutter={8}>
-                    <Col span={6}>
-                      {dayjs(item.created_at).fromNow()}-{dayjs(item.updated_at).fromNow()}
-                    </Col>
+                          {item.metadata.others && (
+                            <Typography.Text>{item.metadata.others}</Typography.Text>
+                          )}
+                        </Typography.Paragraph>
+                      }
+                    />
+                    <Row className={styles.content} gutter={8}>
+                      <Col span={6}>
+                        {dayjs(item.created_at).fromNow()}-{dayjs(item.updated_at).fromNow()}
+                      </Col>
 
-                    <Col span={4}>
-                      <Link to={`/issue/${item.id}/event/latest`}>{item.events_count}</Link>
-                    </Col>
+                      <Col span={4}>
+                        <Link to={`/issue/${item.id}/event/latest`}>{item.events_count}</Link>
+                      </Col>
 
-                    <Col span={4}>{item.users_count}</Col>
+                      <Col span={4}>{item.users_count}</Col>
 
-                    <Col span={10}>
-                      <MiniChart data={chartData} trend={trendValue} loading={trendChartLoading} />
-                    </Col>
-                  </Row>
-                </Skeleton>
-              </List.Item>
-            );
-          }}
-        />
+                      <Col span={10}>
+                        <MiniChart
+                          data={chartData}
+                          trend={trendValue}
+                          loading={trendChartLoading}
+                        />
+                      </Col>
+                    </Row>
+                  </Skeleton>
+                </List.Item>
+              );
+            }}
+          />
+        </Card>
       </Space>
     </BasicLayout>
   );

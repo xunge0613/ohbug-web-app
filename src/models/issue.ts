@@ -100,6 +100,13 @@ const issue: IssueModel = {
       const project = yield select((state: RootState) => state.project);
       if (project.current) {
         const project_id = project.current.id;
+        yield put({
+          type: 'project/trend',
+          payload: {
+            start,
+            end,
+          },
+        });
 
         const res = yield call(api.issue.getMany, {
           project_id,

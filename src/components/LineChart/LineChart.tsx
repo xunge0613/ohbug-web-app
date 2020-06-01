@@ -27,9 +27,13 @@ const LineChart: React.FC<LineChartProps> = ({ trend, data, loading, title }) =>
       xAxis: {
         type: 'category',
         axisTick: {
-          alignWithLabel: true,
+          show: false,
+        },
+        axisLine: {
+          show: false,
         },
         axisLabel: {
+          lineHeight: 25,
           formatter(timestamp: number) {
             return dayjs(timestamp).format('YYYY-MM-DD');
           },
@@ -42,8 +46,8 @@ const LineChart: React.FC<LineChartProps> = ({ trend, data, loading, title }) =>
       grid: {
         top: 10,
         bottom: 25,
-        left: 10,
-        right: 10,
+        left: 0,
+        right: 0,
       },
       tooltip: {
         trigger: 'axis',
@@ -106,11 +110,11 @@ const LineChart: React.FC<LineChartProps> = ({ trend, data, loading, title }) =>
               colorStops: [
                 {
                   offset: 0,
-                  color: 'rgba(255,111,97,0.5)',
+                  color: 'rgba(255,111,97,0.25)',
                 },
                 {
                   offset: 0.333,
-                  color: 'rgba(255,111,97,0.3)',
+                  color: 'rgba(255,111,97,0.2)',
                 },
                 {
                   offset: 0.666,

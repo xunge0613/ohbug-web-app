@@ -17,6 +17,7 @@
     "@ant-design/pro-layout": "^5.0.12",
     "@antv/data-set": "^0.11.4",
     "@antv/g2": "4.0.7",
+    "@ohbug/core": "^0.0.11",
     "@umijs/hooks": "^1.9.2",
     "@umijs/preset-react": "^1.5.3",
     "@umijs/test": "^3.2.2",

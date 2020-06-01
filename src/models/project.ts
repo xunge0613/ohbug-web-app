@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { history } from 'umi';
 
 import type { Model, RootState, ProjectType } from '@/interfaces';
@@ -104,13 +103,10 @@ const project: ProjectModel = {
       }
     },
 
-    *trend(_, { select, call, put }) {
+    *trend({ payload: { start, end } }, { select, call, put }) {
       const current = yield select((state: RootState) => state.project.current);
       if (current) {
         const project_id = current.id;
-        const now = dayjs();
-        const start = now.subtract(13, 'day').format('YYYY-MM-DD');
-        const end = now.format('YYYY-MM-DD');
         const data = yield call(api.project.trend, {
           project_id,
           start,
