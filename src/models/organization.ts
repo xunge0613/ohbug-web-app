@@ -3,10 +3,14 @@ import { history } from 'umi';
 import type { Model, RootState } from '@/interfaces';
 import api from '@/api';
 
-export interface OrganizationModelState {
+export interface Organization {
   id?: number;
   name?: string;
   avatar?: string;
+}
+export interface OrganizationModelState {
+  current?: Organization;
+  data?: Organization[];
 }
 export interface OrganizationModel extends Model<OrganizationModelState> {
   namespace: 'organization';
@@ -16,10 +20,16 @@ const organization: OrganizationModel = {
   namespace: 'organization',
   state: {},
   reducers: {
-    setState(state, action) {
+    setCurrentOrganization(state, action) {
       return {
         ...state,
-        ...action.payload,
+        current: action.payload,
+      };
+    },
+    setOrganizations(state, action) {
+      return {
+        ...state,
+        data: action.payload,
       };
     },
   },

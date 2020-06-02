@@ -46,13 +46,17 @@ const user: UserModel = {
             payload: data,
           });
           // 若用户没有 Organization 则跳至 new 页面
-          if (!data.organization) {
+          if (!data.organizations) {
             history.push('/create-organization');
           } else {
             // 得到 Organization 信息
             yield put({
-              type: 'organization/setState',
-              payload: data.organization,
+              type: 'organization/setOrganizations',
+              payload: data.organizations,
+            });
+            yield put({
+              type: 'organization/setCurrentOrganization',
+              payload: data.organizations[0],
             });
           }
         }

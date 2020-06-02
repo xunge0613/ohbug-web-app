@@ -57,7 +57,7 @@ const project: ProjectModel = {
 
     *create({ payload: { name, type } }, { select, call, put }) {
       const admin_id = yield select((state: RootState) => state.user.id);
-      const organization_id = yield select((state: RootState) => state.organization.id);
+      const organization_id = yield select((state: RootState) => state.organization?.current?.id);
 
       if (name && type && admin_id && organization_id) {
         const data = yield call(api.project.create, {
@@ -74,8 +74,8 @@ const project: ProjectModel = {
     },
 
     *getAllProjectByOrganizationId(_, { select, call, put }) {
-      const organization = yield select((state: RootState) => state.organization);
-      if (Object.keys(organization).length) {
+      const organization = yield select((state: RootState) => state.organization.current);
+      if (organization) {
         const organization_id = organization.id;
         if (organization_id) {
           const data = yield call(api.project.getAll, {
