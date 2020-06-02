@@ -11,10 +11,10 @@ export interface Issue {
   id: number;
   type: string;
   intro: string;
-  created_at: Date;
-  updated_at: Date;
-  events_count: number;
-  users_count: number;
+  createdAt: Date;
+  updatedAt: Date;
+  eventsCount: number;
+  usersCount: number;
   metadata: MetaData;
 }
 export interface Trend {

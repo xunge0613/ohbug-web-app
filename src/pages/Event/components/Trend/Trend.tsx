@@ -49,11 +49,11 @@ const Trend: React.FC<TrendProps> = ({ issue }) => {
           <Typography.Text strong>首次发生</Typography.Text>
         </p>
         <div>
-          <Typography.Text>{dayjs(issue?.created_at).fromNow()}</Typography.Text>
+          <Typography.Text>{dayjs(issue?.createdAt).fromNow()}</Typography.Text>
         </div>
         <div>
           <Typography.Text>
-            {dayjs(issue?.created_at).format(`YYYY-MM-DD HH:mm:ss A`)}
+            {dayjs(issue?.createdAt).format(`YYYY-MM-DD HH:mm:ss A`)}
           </Typography.Text>
         </div>
       </HoverCard>
@@ -62,11 +62,11 @@ const Trend: React.FC<TrendProps> = ({ issue }) => {
           <Typography.Text strong>最近发生</Typography.Text>
         </p>
         <div>
-          <Typography.Text>{dayjs(issue?.updated_at).fromNow()}</Typography.Text>
+          <Typography.Text>{dayjs(issue?.updatedAt).fromNow()}</Typography.Text>
         </div>
         <div>
           <Typography.Text>
-            {dayjs(issue?.updated_at).format(`YYYY-MM-DD HH:mm:ss A`)}
+            {dayjs(issue?.updatedAt).format(`YYYY-MM-DD HH:mm:ss A`)}
           </Typography.Text>
         </div>
       </HoverCard>

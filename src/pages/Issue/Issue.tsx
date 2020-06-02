@@ -146,14 +146,14 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                     />
                     <Row className={styles.content} gutter={8}>
                       <Col span={6}>
-                        {dayjs(item.created_at).fromNow()}-{dayjs(item.updated_at).fromNow()}
+                        {dayjs(item.createdAt).fromNow()}-{dayjs(item.updatedAt).fromNow()}
                       </Col>
 
                       <Col span={4}>
-                        <Link to={`/issue/${item.id}/event/latest`}>{item.events_count}</Link>
+                        <Link to={`/issue/${item.id}/event/latest`}>{item.eventsCount}</Link>
                       </Col>
 
-                      <Col span={4}>{item.users_count}</Col>
+                      <Col span={4}>{item.usersCount}</Col>
 
                       <Col span={10}>
                         <MiniChart

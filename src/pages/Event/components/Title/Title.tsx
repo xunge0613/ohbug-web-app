@@ -56,7 +56,7 @@ const Title: React.FC<TitleProps> = ({ event, issue }) => {
         <Skeleton loading={rightLoading}>
           <Card size="small" style={{ width: '100%' }}>
             <div className={styles.countCard}>
-              <Statistic title="EVENTS" value={issue?.events_count} />
+              <Statistic title="EVENTS" value={issue?.eventsCount} />
               <Trend data={0.15} />
             </div>
           </Card>
@@ -64,7 +64,7 @@ const Title: React.FC<TitleProps> = ({ event, issue }) => {
         <Skeleton loading={rightLoading}>
           <Card size="small" style={{ width: '100%' }}>
             <div className={styles.countCard}>
-              <Statistic title="USERS" value={issue?.users_count} />
+              <Statistic title="USERS" value={issue?.usersCount} />
               <Trend data={-0.04} />
             </div>
           </Card>
