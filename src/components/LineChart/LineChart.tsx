@@ -6,132 +6,140 @@ import dayjs from 'dayjs';
 
 import './LineChart.less';
 
+// 判断时间是 近14天/近24h/其他时间
+export function switchTimeRange(start: Data | undefined, end: Data | undefined) {
+  const time_start = dayjs(start?.timestamp);
+  const time_end = dayjs(end?.timestamp);
+  const diff = time_end.diff(time_start, 'hour');
+  // 312 23
+  switch (diff) {
+    // 14天
+    case 312:
+      return 'YYYY-MM-DD';
+    // 24小时
+    case 23:
+      return 'YYYY-MM-DD HH:mm:ss';
+    default:
+      return 'YYYY-MM-DD HH:mm:ss';
+  }
+}
+
 type Data = {
   timestamp: number;
   count: number;
 };
 interface LineChartProps {
-  trend: '24h' | '14d';
   data?: Data[];
   loading?: boolean;
   title?: string;
 }
 
-const LineChart: React.FC<LineChartProps> = ({ trend, data, loading, title }) => {
-  const option = React.useMemo<EChartOption>(
-    () => ({
-      dataset: {
-        source: data,
-        dimensions: [{ name: 'timestamp' }, { name: 'count' }],
-      },
-      xAxis: {
-        type: 'category',
-        axisTick: {
-          show: false,
+const LineChart: React.FC<LineChartProps> = ({ data, loading, title }) => {
+  const option = React.useMemo<EChartOption | undefined>(() => {
+    if (data) {
+      const start = data[0];
+      const end = data[data.length - 1];
+      const timeFormat = switchTimeRange(start, end);
+      return {
+        dataset: {
+          source: data,
+          dimensions: [{ name: 'timestamp' }, { name: 'count' }],
         },
-        axisLine: {
-          show: false,
-        },
-        axisLabel: {
-          lineHeight: 25,
-          formatter(timestamp: number) {
-            return dayjs(timestamp).format('YYYY-MM-DD');
+        xAxis: {
+          type: 'category',
+          axisTick: {
+            show: false,
+          },
+          axisLine: {
+            show: false,
+          },
+          axisLabel: {
+            lineHeight: 25,
+            formatter(timestamp: number) {
+              return dayjs(timestamp).format(timeFormat);
+            },
           },
         },
-      },
-      yAxis: {
-        type: 'value',
-        show: false,
-      },
-      grid: {
-        top: 10,
-        bottom: 25,
-        left: 0,
-        right: 0,
-      },
-      tooltip: {
-        trigger: 'axis',
-        padding: [8, 16],
-        backgroundColor: 'rgba(50, 50, 50, 0.9)',
-        formatter(params) {
-          // @ts-ignore
-          const [{ value }] = params;
-          // @ts-ignore
-          const { timestamp, count } = value;
-          if (trend === '24h') {
-            return `<div class="tooltip-time">
-            ${dayjs(timestamp).format('YYYY-MM-DD')}<br>
-            ${dayjs(timestamp).format('h:00 A → h:59 A')}
-            </div>
+        yAxis: {
+          type: 'value',
+          show: false,
+        },
+        grid: {
+          top: 10,
+          bottom: 25,
+          left: 0,
+          right: 0,
+        },
+        tooltip: {
+          trigger: 'axis',
+          padding: [8, 16],
+          backgroundColor: 'rgba(50, 50, 50, 0.9)',
+          formatter(params) {
+            // @ts-ignore
+            const [{ value }] = params;
+            // @ts-ignore
+            const { timestamp, count } = value;
+            return `<div class="tooltip-time">${dayjs(timestamp).format(timeFormat)}</div>
 
             <div class="tooltip-value">${count} issues</div>
 
             <span class="tooltip-arrow" />
-            `;
-          }
-          if (trend === '14d') {
-            return `<div class="tooltip-time">${dayjs(timestamp).format('YYYY-MM-DD')}</div>
-
-            <div class="tooltip-value">${count} issues</div>
-
-            <span class="tooltip-arrow" />
-            `;
-          }
-          return '';
+          `;
+          },
+          textStyle: {
+            fontWeight: 'bolder',
+            fontSize: 12,
+            lineHeight: 1,
+          },
+          extraCssText: 'text-align: center;',
         },
-        textStyle: {
-          fontWeight: 'bolder',
-          fontSize: 12,
-          lineHeight: 1,
-        },
-        extraCssText: 'text-align: center;',
-      },
-      series: [
-        {
-          name: 'issues',
-          type: 'line',
-          smooth: true,
-          symbolSize: 6,
-          showSymbol: false,
-          itemStyle: {
-            normal: {
-              lineStyle: {
-                width: 4,
+        series: [
+          {
+            name: 'issues',
+            type: 'line',
+            smooth: true,
+            symbolSize: 6,
+            showSymbol: false,
+            itemStyle: {
+              normal: {
+                lineStyle: {
+                  width: 4,
+                },
+              },
+            },
+            areaStyle: {
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: 'rgba(255,111,97,0.25)',
+                  },
+                  {
+                    offset: 0.333,
+                    color: 'rgba(255,111,97,0.2)',
+                  },
+                  {
+                    offset: 0.666,
+                    color: 'rgba(255,111,97,0.1)',
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(255,111,97,0)',
+                  },
+                ],
               },
             },
           },
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [
-                {
-                  offset: 0,
-                  color: 'rgba(255,111,97,0.25)',
-                },
-                {
-                  offset: 0.333,
-                  color: 'rgba(255,111,97,0.2)',
-                },
-                {
-                  offset: 0.666,
-                  color: 'rgba(255,111,97,0.1)',
-                },
-                {
-                  offset: 1,
-                  color: 'rgba(255,111,97,0)',
-                },
-              ],
-            },
-          },
-        },
-      ],
-    }),
-    [data],
-  );
+        ],
+      };
+    }
+    return undefined;
+  }, [data]);
 
   return data ? (
     <div>
@@ -142,7 +150,7 @@ const LineChart: React.FC<LineChartProps> = ({ trend, data, loading, title }) =>
         </div>
       )}
       <ReactEcharts
-        option={option}
+        option={option!}
         style={{ height: '160px' }}
         opts={{ renderer: 'svg' }}
         showLoading={loading}

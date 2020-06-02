@@ -65,7 +65,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
       <Space size="middle" direction="vertical">
         {projectTrend && (
           <Card className={styles.chart}>
-            <LineChart trend="14d" data={projectTrend.buckets} />
+            <LineChart data={projectTrend.buckets} />
           </Card>
         )}
 
