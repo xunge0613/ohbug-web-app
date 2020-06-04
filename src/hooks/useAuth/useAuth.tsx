@@ -29,7 +29,7 @@ const useAuth = (): UseAuth => {
 
   useMount(() => {
     async function getAllProjectInfo(): Promise<any> {
-      // 根据 Organization id 获取对应所有的 Project
+      // 根据 Organization id 获取对应所有的 OrganizationProject
       await dispatch({ type: 'project/getAllProjectByOrganizationId' });
     }
 

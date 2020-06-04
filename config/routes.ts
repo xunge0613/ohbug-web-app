@@ -1,19 +1,19 @@
 export default [
-  { exact: true, path: '/', redirect: '/project' },
+  { exact: true, path: '/', redirect: '/organization-project' },
   {
     exact: true,
-    path: '/project',
-    component: '@/pages/Project',
+    path: '/organization-project',
+    component: '@/pages/OrganizationProject',
     wrappers: ['@/wrappers/auth'],
     // layout
     menu: {
-      name: '项目 Project',
+      name: '团队项目',
       icon: 'icon-ohbug-projector-line',
     },
   },
   {
     exact: true,
-    path: '/project/:project_id/getting-started',
+    path: '/organization-project/:project_id/getting-started',
     component: '@/pages/GettingStarted',
     wrappers: ['@/wrappers/auth'],
   },
@@ -24,7 +24,7 @@ export default [
     wrappers: ['@/wrappers/auth'],
     // layout
     menu: {
-      name: '问题 Issue',
+      name: '问题',
       icon: 'icon-ohbug-error-warning-line',
     },
   },

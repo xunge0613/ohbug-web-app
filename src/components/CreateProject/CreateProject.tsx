@@ -26,7 +26,7 @@ const CreateProject: React.FC = () => {
   return (
     <Drawer
       className={styles.root}
-      title="Create Project"
+      title="创建项目"
       placement="right"
       closable
       width={340}
@@ -35,7 +35,7 @@ const CreateProject: React.FC = () => {
     >
       <Form onFinish={handleFinish} hideRequiredMark>
         <Form.Item
-          label="Project Name"
+          label="项目名称"
           name="name"
           rules={[
             {
@@ -48,7 +48,7 @@ const CreateProject: React.FC = () => {
         </Form.Item>
 
         <Form.Item
-          label="Project Type"
+          label="项目类型"
           name="type"
           rules={[
             {
@@ -63,7 +63,9 @@ const CreateProject: React.FC = () => {
           </Select>
         </Form.Item>
 
-        <Button htmlType="submit">创建 Project</Button>
+        <Button htmlType="submit" type="primary">
+          创建项目
+        </Button>
       </Form>
     </Drawer>
   );

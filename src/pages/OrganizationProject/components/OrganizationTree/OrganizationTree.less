@@ -1,0 +1,31 @@
+@import '~@/styles/theme.less';
+
+.root {
+  .project {
+    .title {
+      cursor: pointer;
+    }
+  }
+
+  .node {
+    border: 3px solid transparent;
+    border-radius: @radius-2;
+    transition: @transition;
+    &:hover {
+      border-color: fade(@primary-color, 30%);
+    }
+  }
+  .selectedNode {
+    border: 3px solid @primary-color !important;
+  }
+
+  .line {
+    //background-color: #000;
+  }
+  .selectedLine {
+    & line {
+      transition: @transition;
+      stroke: @primary-color;
+    }
+  }
+}

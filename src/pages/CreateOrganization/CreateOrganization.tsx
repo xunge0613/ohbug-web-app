@@ -44,7 +44,7 @@ const CreateOrganization: React.FC = () => {
     <LoginTemplate
       className={styles.root}
       title="创建团队"
-      subTitle="您将能够组织一个团队，管理 Project、Issue 和 团队成员等。"
+      subTitle="您将能够组织一个团队，管理 OrganizationProject、Issue 和 团队成员等。"
       figure={require('@/static/images/create_organization_figure.svg')}
     >
       <Form

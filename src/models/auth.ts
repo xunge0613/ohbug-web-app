@@ -37,7 +37,7 @@ const auth: AuthModel = {
         captcha,
       });
       if (data) {
-        history.push('/project');
+        history.push('/organization-project');
       }
     },
 
@@ -47,14 +47,14 @@ const auth: AuthModel = {
         captcha,
       });
       if (data) {
-        history.push('/project');
+        history.push('/organization-project');
       }
     },
 
     *github({ payload }, { call, put }) {
       const data = yield call(api.auth.github, payload);
       if (data === true) {
-        history.push('/project');
+        history.push('/organization-project');
       } else if (data instanceof Object) {
         // 约定 data 为 object 即为 oauth 登录成功但是没有绑定用户
         yield put({
@@ -76,7 +76,7 @@ const auth: AuthModel = {
         oauthUserDetail,
       });
       if (data) {
-        history.push('/project');
+        history.push('/organization-project');
       }
     },
 
