@@ -37,12 +37,13 @@ const organization: OrganizationModel = {
     },
   },
   effects: {
-    *create({ payload: { name } }, { select, call }) {
+    *create({ payload: { name, introduction } }, { select, call }) {
       const admin_id = yield select((state: RootState) => state.user.id);
 
       if (name && admin_id) {
         const data = yield call(api.organization.create, {
           name,
+          introduction,
           admin_id,
         });
         if (data) {

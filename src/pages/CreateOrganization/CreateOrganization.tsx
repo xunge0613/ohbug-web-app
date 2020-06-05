@@ -61,9 +61,30 @@ const CreateOrganization: React.FC = () => {
               required: true,
               message: '请输入团队名称！',
             },
+            {
+              max: 12,
+              message: '团队名称最大为12个字符',
+            },
           ]}
         >
-          <Input placeholder="例如：抓BUG小分队" onChange={handleInputChange} />
+          <Input placeholder="例如：抓BUG小分队" onChange={handleInputChange} maxLength={12} />
+        </Form.Item>
+        <Form.Item
+          label="团队简介"
+          name="introduction"
+          rules={[
+            {
+              max: 140,
+              message: '团队简介最大为140个字符',
+            },
+          ]}
+        >
+          <Input.TextArea
+            placeholder="非必填项"
+            onChange={handleInputChange}
+            maxLength={140}
+            autoSize
+          />
         </Form.Item>
 
         <Divider dashed />
