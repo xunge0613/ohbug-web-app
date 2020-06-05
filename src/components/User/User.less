@@ -1,0 +1,20 @@
+@import '~@/styles/theme.less';
+
+.root {
+  cursor: pointer;
+}
+
+.userContent {
+  .flex-between();
+  //.avatar {}
+  .info {
+    margin-right: @space;
+
+    .name {
+      font-weight: 600;
+    }
+    .time {
+      color: @primary-color;
+    }
+  }
+}

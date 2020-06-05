@@ -1,4 +1,5 @@
 import { history } from 'umi';
+import type { User } from 'umi';
 
 import type { Model, RootState, ProjectType } from '@/interfaces';
 import api from '@/api';
@@ -15,6 +16,7 @@ export interface Project {
   id: number;
   name: string;
   type: ProjectType;
+  users: User[];
 }
 export interface ProjectModelState {
   createProjectVisible: boolean;

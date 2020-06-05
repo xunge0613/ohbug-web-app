@@ -39,15 +39,11 @@ export function expandDataSource(dataSource: TreeDataSource<any>) {
   return flatDataSource;
 }
 
-const nodeWidth = '200px';
-const nodeSpace = '300px';
 interface NodeWrapperProps {
   rowData: Row<any>;
   colData: Col<any>;
-  top: string;
-  left: string;
 }
-const NodeWrapper: React.FC<NodeWrapperProps> = ({ rowData, colData, top, left }) => {
+const NodeWrapper: React.FC<NodeWrapperProps> = ({ rowData, colData }) => {
   const { row, rowNumber } = rowData;
   const { col, colNumber } = colData;
 
@@ -76,6 +72,8 @@ const NodeWrapper: React.FC<NodeWrapperProps> = ({ rowData, colData, top, left }
     nodeClassName,
     selectedLineClassName,
     lineClassName,
+    nodeWidth,
+    nodeSpace,
   } = React.useContext(TreeContext);
   const handleNodeClick = React.useCallback(() => {
     handleSelectedNodeChange(col.key);
@@ -89,6 +87,9 @@ const NodeWrapper: React.FC<NodeWrapperProps> = ({ rowData, colData, top, left }
       }),
     [selectedNodeClassName, currentNode, col.key],
   );
+
+  const top = `calc(${nodeSpace} * ${rowNumber})`;
+  const left = `calc(100% / ${row.length} * ${colNumber} + (100% / ${row.length} - ${nodeWidth}) / 2)`;
 
   return (
     <>
@@ -139,11 +140,7 @@ export function render(flatDataSource: FlatDataSource) {
             col,
             colNumber,
           };
-          const top = `calc(${nodeSpace} * ${rowNumber})`;
-          const left = `calc(100% / ${row.length} * ${colNumber} + (100% / ${row.length} - ${nodeWidth}) / 2)`;
-          return (
-            <NodeWrapper key={col.key} rowData={rowData} colData={colData} top={top} left={left} />
-          );
+          return <NodeWrapper key={col.key} rowData={rowData} colData={colData} />;
         })}
       </div>
     );

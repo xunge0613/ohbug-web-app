@@ -7,6 +7,8 @@ interface TreeContextType {
   nodeClassName?: string;
   selectedLineClassName?: string;
   lineClassName?: string;
+  nodeWidth?: string;
+  nodeSpace?: string;
 }
 export const TreeContext = React.createContext<TreeContextType>({
   handleSelectedNodeChange: () => {},

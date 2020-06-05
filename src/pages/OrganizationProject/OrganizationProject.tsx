@@ -36,16 +36,16 @@ const OrganizationProject: React.FC<ProjectPageProps> = () => {
       pageHeader={
         <PageHeader
           title={
-            <Button icon={<PlusCircleOutlined />} onClick={handleCreateOrganization}>
-              创建团队
-            </Button>
+            <div className={styles.title}>
+              <Button icon={<PlusCircleOutlined />} onClick={handleCreateOrganization}>
+                创建团队
+              </Button>
+              <Button icon={<PlusCircleOutlined />} onClick={handleCreateProject}>
+                创建项目
+              </Button>
+            </div>
           }
           ghost
-          extra={
-            <Button icon={<PlusCircleOutlined />} onClick={handleCreateProject}>
-              创建项目
-            </Button>
-          }
         />
       }
     >

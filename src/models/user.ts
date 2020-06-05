@@ -4,13 +4,15 @@ import { getGithub } from '@/utils';
 import type { Model, RootState } from '@/interfaces';
 import api from '@/api';
 
-export interface UserModelState {
+export interface User {
   id?: number;
   name?: string;
+  mobile?: '15563685309';
   email?: string;
   avatar?: string;
-  from?: string;
+  createdAt?: '2020-06-02T01:13:38.629Z';
 }
+export type UserModelState = User;
 export interface UserModel extends Model<UserModelState> {
   namespace: 'user';
 }

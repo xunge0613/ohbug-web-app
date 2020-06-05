@@ -1,9 +1,36 @@
 @import '~@/styles/theme.less';
 
 .root {
+  .head {
+    .headTitle {
+      .flex();
+
+      .avatar {
+        margin-right: @space;
+      }
+      .content {
+        flex-direction: column;
+        font-size: 14px;
+        .flex();
+      }
+    }
+    .extra {
+      margin-left: @space;
+    }
+  }
   .project {
     .title {
       cursor: pointer;
+    }
+    .info {
+      .flex-between();
+    }
+    .users {
+      margin-top: @space-2;
+      .user {
+        margin-right: @space;
+        margin-bottom: @space;
+      }
     }
   }
 
@@ -16,7 +43,7 @@
     }
   }
   .selectedNode {
-    border: 3px solid @primary-color !important;
+    border: 3px solid fade(@primary-color, 70%) !important;
   }
 
   .line {
@@ -25,7 +52,7 @@
   .selectedLine {
     & line {
       transition: @transition;
-      stroke: @primary-color;
+      stroke: fade(@primary-color, 70%);
     }
   }
 }

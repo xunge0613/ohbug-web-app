@@ -18,6 +18,8 @@ export interface TreeProps<T> {
   nodeClassName?: string;
   selectedLineClassName?: string;
   lineClassName?: string;
+  nodeWidth?: string;
+  nodeSpace?: string;
 }
 const Tree: React.FC<TreeProps<any>> = ({
   className,
@@ -28,6 +30,8 @@ const Tree: React.FC<TreeProps<any>> = ({
   nodeClassName,
   selectedLineClassName,
   lineClassName,
+  nodeWidth = '280px',
+  nodeSpace = '300px',
 }) => {
   if (!dataSource) {
     throw new Error(
@@ -67,6 +71,8 @@ const Tree: React.FC<TreeProps<any>> = ({
           nodeClassName,
           selectedLineClassName,
           lineClassName,
+          nodeWidth,
+          nodeSpace,
         }}
       >
         <section className={classes}>{render(flatDataSource)}</section>
@@ -81,6 +87,8 @@ const Tree: React.FC<TreeProps<any>> = ({
       nodeClassName,
       selectedLineClassName,
       lineClassName,
+      nodeWidth,
+      nodeSpace,
     ],
   );
 };

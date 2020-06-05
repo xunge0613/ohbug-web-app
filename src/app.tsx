@@ -2,6 +2,7 @@ import type { RequestConfig } from 'umi';
 import echarts from 'echarts';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/zh-cn';
 
 import footerRender from '@/components/footerRender';
 import menuHeaderRender from '@/components/menuHeaderRender';
@@ -11,6 +12,8 @@ import chartTheme from './styles/chart.json';
 import './styles';
 
 dayjs.extend(relativeTime);
+dayjs.locale('zh-cn');
+dayjs().locale('zh-cn').format();
 echarts.registerTheme('ohbug', chartTheme.theme);
 
 export const layout = {

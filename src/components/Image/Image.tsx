@@ -7,12 +7,13 @@ interface ImageProps {
   src: string;
   alt: string;
   className?: string;
-  style?: object;
+  style?: React.CSSProperties;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
-const Image: React.FC<ImageProps> = ({ src, alt, className, style, ...args }) => {
+const Image: React.FC<ImageProps> = ({ src, alt, className, style, onClick, ...args }) => {
   const classes = clsx(styles.root, className);
   return (
-    <div className={classes} style={style} {...args}>
+    <div className={classes} style={style} onClick={onClick} {...args}>
       <img src={src} alt={alt} />
     </div>
   );

@@ -1,11 +1,14 @@
 import React from 'react';
-import { Card, Avatar } from 'antd';
+import { Card, Avatar, Typography } from 'antd';
 import { history, useDispatch } from 'umi';
 import type { Organization, Project } from 'umi';
 
 import Tree from '@/components/Tree';
 import type { TreeDataSource } from '@/components/Tree';
+import Image from '@/components/Image';
 import Icon from '@/components/Icon';
+import IconButton from '@/components/IconButton';
+import User from '@/components/User';
 import { getPlatformLogo } from '@/utils';
 
 import styles from './OrganizationTree.less';
@@ -18,6 +21,7 @@ interface DataSourceValue {
   title: string;
   avatar: string;
   desc?: string;
+  others?: any;
 }
 const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, projects }) => {
   const dispatch = useDispatch();
@@ -28,21 +32,33 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
       value: {
         title: organization.name!,
         avatar: organization.avatar!,
-        desc: '我是团队简介',
+        desc: `团队共${organization.users?.length}人`,
+        others: organization.introduction,
       },
       render: (value) => {
         return (
           <Card
             className={styles.head}
             title={
-              <span>
-                <Avatar src={value.avatar} alt="Org" />
-                {value.title}
-                <Icon type="icon-ohbug-arrow-down-s-line" />
-              </span>
+              <div className={styles.headTitle}>
+                <Avatar className={styles.avatar} src={value.avatar} size="large">
+                  {value.title[0]}
+                </Avatar>
+                <div className={styles.content}>
+                  <Typography.Text strong>
+                    {value.title} <Icon type="icon-ohbug-arrow-down-s-line" />
+                  </Typography.Text>
+                  <Typography.Text type="secondary">{value.desc}</Typography.Text>
+                </div>
+              </div>
+            }
+            extra={
+              <div className={styles.extra}>
+                <IconButton icon="icon-ohbug-settings-3-line" />
+              </div>
             }
           >
-            {value.desc}
+            <Typography.Text type="secondary">{value.others}</Typography.Text>
           </Card>
         );
       },
@@ -51,9 +67,10 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
         value: {
           title: project.name,
           avatar: getPlatformLogo(project.type),
-          desc: project.type,
+          desc: `项目共${project.users.length}人`,
+          others: project,
         },
-        render: (value, { rowNumber }) => {
+        render: (value) => {
           function handleClick() {
             dispatch({
               type: 'project/setState',
@@ -63,18 +80,35 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
             });
             history.push('/issue');
           }
+
           return (
             <Card
               className={styles.project}
-              title={
-                <span className={styles.title} onClick={handleClick}>
-                  <Avatar src={value.avatar} alt={value.desc} />
-                  {value.title}
-                </span>
+              cover={
+                <Image
+                  src={value.avatar}
+                  alt={value.desc || ''}
+                  onClick={handleClick}
+                  style={{ cursor: 'pointer' }}
+                />
               }
             >
-              {value.desc}
-              {rowNumber}
+              <div className={styles.info}>
+                <Card.Meta
+                  title={
+                    <span className={styles.title} onClick={handleClick}>
+                      {value.title}
+                    </span>
+                  }
+                  description={value.desc}
+                />
+                <IconButton icon="icon-ohbug-settings-3-line" />
+              </div>
+              <div className={styles.users}>
+                {project.users.map((user) => (
+                  <User data={user} key={user.id} />
+                ))}
+              </div>
             </Card>
           );
         },
