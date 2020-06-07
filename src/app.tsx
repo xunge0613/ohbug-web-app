@@ -1,3 +1,6 @@
+import React from 'react';
+import ConfigProvider from 'antd/lib/config-provider';
+import { ConfigProvider as ConfigProvider2 } from 'antd';
 import type { RequestConfig } from 'umi';
 import echarts from 'echarts';
 import dayjs from 'dayjs';
@@ -23,6 +26,19 @@ export const layout = {
   headerRender: false,
   footerRender,
 };
+
+const renderEmpty = () => (
+  <div style={{ textAlign: 'center' }}>
+    <p>Data Not Found </p>
+  </div>
+);
+export function rootContainer(container: React.ReactNode) {
+  return (
+    <ConfigProvider renderEmpty={renderEmpty}>
+      <ConfigProvider2 renderEmpty={renderEmpty}>{container}</ConfigProvider2>
+    </ConfigProvider>
+  );
+}
 
 function getResponse(ctx: any) {
   if (ctx.res.success && typeof ctx.res.data !== 'undefined') {

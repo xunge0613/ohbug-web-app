@@ -20,6 +20,7 @@ export interface TreeProps<T> {
   lineClassName?: string;
   nodeWidth?: string;
   nodeSpace?: string;
+  empty?: React.ReactNode;
 }
 const Tree: React.FC<TreeProps<any>> = ({
   className,
@@ -32,6 +33,7 @@ const Tree: React.FC<TreeProps<any>> = ({
   lineClassName,
   nodeWidth = '280px',
   nodeSpace = '300px',
+  empty,
 }) => {
   if (!dataSource) {
     throw new Error(
@@ -75,7 +77,7 @@ const Tree: React.FC<TreeProps<any>> = ({
           nodeSpace,
         }}
       >
-        <section className={classes}>{render(flatDataSource)}</section>
+        <section className={classes}>{render(flatDataSource, empty)}</section>
       </TreeContext.Provider>
     ),
     [
@@ -89,6 +91,7 @@ const Tree: React.FC<TreeProps<any>> = ({
       lineClassName,
       nodeWidth,
       nodeSpace,
+      empty,
     ],
   );
 };

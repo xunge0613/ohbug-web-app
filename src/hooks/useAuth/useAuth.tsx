@@ -28,11 +28,6 @@ const useAuth = (): UseAuth => {
   const user = useSelector<RootState, UserModelState>((state) => state.user);
 
   useMount(() => {
-    async function getAllProjectInfo(): Promise<any> {
-      // 根据 Organization id 获取对应所有的 OrganizationProject
-      await dispatch({ type: 'project/getAllProjectByOrganizationId' });
-    }
-
     async function getUserInfo(): Promise<any> {
       try {
         if (!Object.keys(user).length) {
@@ -58,7 +53,6 @@ const useAuth = (): UseAuth => {
       } else {
         // 登录状态
         await getUserInfo();
-        await getAllProjectInfo();
         setLogin(true);
       }
     }

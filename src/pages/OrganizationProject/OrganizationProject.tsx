@@ -18,6 +18,9 @@ interface ProjectPageProps {
 const OrganizationProject: React.FC<ProjectPageProps> = () => {
   const dispatch = useDispatch();
 
+  const organizations = useSelector<RootState, OrganizationModelState['data']>(
+    (state) => state.organization.data,
+  );
   const organization = useSelector<RootState, OrganizationModelState['current']>(
     (state) => state.organization.current,
   );
@@ -49,7 +52,11 @@ const OrganizationProject: React.FC<ProjectPageProps> = () => {
         />
       }
     >
-      <OrganizationTree organization={organization!} projects={projects!} />
+      <OrganizationTree
+        organizations={organizations!}
+        organization={organization!}
+        projects={projects!}
+      />
     </BasicLayout>
   );
 };

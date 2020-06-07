@@ -56,10 +56,6 @@ const user: UserModel = {
               type: 'organization/setOrganizations',
               payload: data.organizations,
             });
-            yield put({
-              type: 'organization/setCurrentOrganization',
-              payload: data.organizations[0],
-            });
           }
         }
       }

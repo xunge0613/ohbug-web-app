@@ -23,16 +23,10 @@ const organization: OrganizationModel = {
   namespace: 'organization',
   state: {},
   reducers: {
-    setCurrentOrganization(state, action) {
+    setState(state, action) {
       return {
         ...state,
-        current: action.payload,
-      };
-    },
-    setOrganizations(state, action) {
-      return {
-        ...state,
-        data: action.payload,
+        ...action.payload,
       };
     },
   },
@@ -50,6 +44,31 @@ const organization: OrganizationModel = {
           history.push('/');
         }
       }
+    },
+
+    *setOrganizations({ payload }, { put }) {
+      yield put({
+        type: 'setState',
+        payload: {
+          data: payload,
+        },
+      });
+      yield put({
+        type: 'setCurrentOrganization',
+        payload: payload[0],
+      });
+    },
+
+    *setCurrentOrganization({ payload }, { put }) {
+      yield put({
+        type: 'setState',
+        payload: {
+          current: payload,
+        },
+      });
+      yield put({
+        type: 'project/getAllProjectByOrganizationId',
+      });
     },
   },
 };

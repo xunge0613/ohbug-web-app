@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Avatar, Typography } from 'antd';
+import { Card, Avatar, Typography, Dropdown, Menu } from 'antd';
+import { ConfigContext } from 'antd/lib/config-provider';
 import { history, useDispatch } from 'umi';
 import type { Organization, Project } from 'umi';
 
@@ -14,6 +15,7 @@ import { getPlatformLogo } from '@/utils';
 import styles from './OrganizationTree.less';
 
 interface OrganizationTreeProps {
+  organizations: Organization[];
   organization: Organization;
   projects: Project[];
 }
@@ -23,9 +25,38 @@ interface DataSourceValue {
   desc?: string;
   others?: any;
 }
-const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, projects }) => {
+const OrganizationTree: React.FC<OrganizationTreeProps> = ({
+  organizations,
+  organization,
+  projects,
+}) => {
   const dispatch = useDispatch();
 
+  const switchOrganizationMenu = React.useMemo(() => {
+    return (
+      <Menu>
+        {organizations.map((org) => (
+          <Menu.Item
+            key={org.id}
+            icon={
+              <Avatar src={org.avatar} style={{ marginRight: 8 }}>
+                {org.name?.[0]}
+              </Avatar>
+            }
+            onClick={() => {
+              dispatch({
+                type: 'organization/setCurrentOrganization',
+                payload: org,
+              });
+            }}
+            disabled={org.id === organization.id}
+          >
+            {org.name}
+          </Menu.Item>
+        ))}
+      </Menu>
+    );
+  }, [organizations, organization]);
   const dataSource = React.useMemo<TreeDataSource<DataSourceValue>>(() => {
     return {
       key: '0',
@@ -45,9 +76,11 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
                   {value.title[0]}
                 </Avatar>
                 <div className={styles.content}>
-                  <Typography.Text strong>
-                    {value.title} <Icon type="icon-ohbug-arrow-down-s-line" />
-                  </Typography.Text>
+                  <Dropdown overlay={switchOrganizationMenu} trigger={['click']}>
+                    <Typography.Text className={styles.title} strong>
+                      {value.title} <Icon type="icon-ohbug-arrow-down-s-line" />
+                    </Typography.Text>
+                  </Dropdown>
                   <Typography.Text type="secondary">{value.desc}</Typography.Text>
                 </div>
               </div>
@@ -121,6 +154,8 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
     setValue(key);
   }, []);
 
+  const { renderEmpty } = React.useContext(ConfigContext);
+
   return (
     <Tree
       className={styles.root}
@@ -131,6 +166,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
       nodeClassName={styles.node}
       selectedLineClassName={styles.selectedLine}
       lineClassName={styles.line}
+      empty={renderEmpty('Tree')}
     />
   );
 };

@@ -124,27 +124,37 @@ const NodeWrapper: React.FC<NodeWrapperProps> = ({ rowData, colData }) => {
     </>
   );
 };
-export function render(flatDataSource: FlatDataSource) {
-  return Object.keys(flatDataSource).map((rowNumber) => {
-    const row = flatDataSource[rowNumber];
-    return (
-      <div className={styles.rowBox} key={rowNumber}>
-        {row.map((col, index) => {
-          const colNumber = index;
+export function render(flatDataSource: FlatDataSource, empty?: React.ReactNode) {
+  const flatDataSourceKeys = Object.keys(flatDataSource);
+  if (flatDataSourceKeys.length < 1) {
+    return empty;
+  }
 
-          const rowData: Row<any> = {
-            row,
-            rowNumber: parseInt(rowNumber, 10),
-          };
-          const colData: Col<any> = {
-            col,
-            colNumber,
-          };
-          return <NodeWrapper key={col.key} rowData={rowData} colData={colData} />;
-        })}
-      </div>
-    );
-  });
+  return (
+    <>
+      {flatDataSourceKeys.map((rowNumber) => {
+        const row = flatDataSource[rowNumber];
+        return (
+          <div className={styles.rowBox} key={rowNumber}>
+            {row.map((col, index) => {
+              const colNumber = index;
+
+              const rowData: Row<any> = {
+                row,
+                rowNumber: parseInt(rowNumber, 10),
+              };
+              const colData: Col<any> = {
+                col,
+                colNumber,
+              };
+              return <NodeWrapper key={col.key} rowData={rowData} colData={colData} />;
+            })}
+          </div>
+        );
+      })}
+      {flatDataSourceKeys.length === 1 && <div className={styles.empty}>{empty}</div>}
+    </>
+  );
 }
 
 type PositionType = 'top' | 'bottom';
