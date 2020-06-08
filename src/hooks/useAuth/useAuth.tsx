@@ -15,7 +15,6 @@ interface UseAuth {
  * 未登录直接跳转到登录页
  * 已登录则获取用户相关信息 获取完毕后退出 isLogin
  *
- * @param Component
  */
 const useAuth = (): UseAuth => {
   const dispatch = useDispatch();

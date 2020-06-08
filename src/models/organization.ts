@@ -31,8 +31,9 @@ const organization: OrganizationModel = {
     },
   },
   effects: {
-    *create({ payload: { name, introduction } }, { select, call }) {
+    *create({ payload: { name, introduction } }, { select, call, put }) {
       const admin_id = yield select((state: RootState) => state.user.id);
+      const organizations = yield select((state: RootState) => state.organization.data);
 
       if (name && admin_id) {
         const data = yield call(api.organization.create, {
@@ -41,6 +42,14 @@ const organization: OrganizationModel = {
           admin_id,
         });
         if (data) {
+          yield put({
+            type: 'setOrganizations',
+            payload: [...organizations, data],
+          });
+          yield put({
+            type: 'setCurrentOrganization',
+            payload: data,
+          });
           history.push('/');
         }
       }
@@ -52,10 +61,6 @@ const organization: OrganizationModel = {
         payload: {
           data: payload,
         },
-      });
-      yield put({
-        type: 'setCurrentOrganization',
-        payload: payload[0],
       });
     },
 
