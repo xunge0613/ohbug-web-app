@@ -55,6 +55,45 @@ const organization: OrganizationModel = {
       }
     },
 
+    *update({ payload: { name, introduction, avatar } }, { select, call, put }) {
+      const { id, name: old_name, introduction: old_introduction } = yield select(
+        (state: RootState) => state.organization.current,
+      );
+      const organizations = yield select((state: RootState) => state.organization.data);
+      if (old_name !== name || old_introduction !== introduction) {
+        const data = yield call(api.organization.update, {
+          organization_id: id,
+          name,
+          introduction,
+          avatar,
+        });
+        if (data) {
+          yield put({
+            type: 'setOrganizations',
+            payload: [...organizations, data],
+          });
+          yield put({
+            type: 'setCurrentOrganization',
+            payload: data,
+          });
+          yield put({
+            type: 'app/info',
+            payload: '更新团队信息成功',
+          });
+        } else {
+          yield put({
+            type: 'app/error',
+            payload: '更新团队信息失败',
+          });
+        }
+      } else {
+        yield put({
+          type: 'app/error',
+          payload: '没有更改就请不要点更新啦~',
+        });
+      }
+    },
+
     *setOrganizations({ payload }, { put }) {
       yield put({
         type: 'setState',

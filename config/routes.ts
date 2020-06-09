@@ -40,6 +40,32 @@ export default [
     component: '@/pages/Event',
     wrappers: ['@/wrappers/auth'],
   },
+  {
+    exact: false,
+    path: '/settings',
+    component: '@/pages/Settings',
+    wrappers: ['@/wrappers/auth'],
+    routes: [
+      {
+        exact: true,
+        path: '/settings/profile',
+        component: '@/pages/Settings/components/Profile',
+      },
+      {
+        exact: true,
+        path: '/settings/projects',
+        component: '@/pages/Settings/components/Projects',
+      },
+      {
+        redirect: '/settings/profile',
+      },
+    ],
+    // layout
+    menu: {
+      name: '设置',
+      icon: 'icon-ohbug-settings-3-line',
+    },
+  },
   // {
   //   exact: true,
   //   path: '/feedback',

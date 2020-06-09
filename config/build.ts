@@ -1,6 +1,7 @@
 import * as path from 'path';
-// eslint-disable-next-line
-import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
+
+// @ts-ignore
+import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin'; // eslint-disable-line
 
 // 按需加载
 const dynamicImport = {
@@ -13,7 +14,7 @@ const ignoreMomentLocale = true;
 // 配置是否让生成的文件包含 hash 后缀
 const hash = true;
 
-const chainWebpack = (memo) => {
+const chainWebpack = (memo: any) => {
   // 使用 dayjs 替换 moment.js
   memo.plugin('antd-dayjs').use(AntdDayjsWebpackPlugin);
 

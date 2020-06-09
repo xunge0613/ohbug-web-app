@@ -12,6 +12,9 @@ const app: AppModel = {
     error({ payload }) {
       message.error(payload);
     },
+    info({ payload }) {
+      message.info(payload);
+    },
   },
 };
 

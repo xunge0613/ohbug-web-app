@@ -1,5 +1,3 @@
-import { defineConfig } from 'umi';
-
 import layout from './layout';
 import routes from './routes';
 import proxy from './proxy';
@@ -10,7 +8,7 @@ import theme from './theme';
 import others from './others';
 import build from './build';
 
-export default defineConfig({
+export default {
   layout,
   routes,
 
@@ -23,4 +21,4 @@ export default defineConfig({
 
   ...others,
   ...build,
-});
+};
