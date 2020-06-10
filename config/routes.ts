@@ -1,5 +1,5 @@
 export default [
-  { exact: true, path: '/', redirect: '/organization-project' },
+  { exact: true, path: '/', wrappers: ['@/wrappers/auth'], redirect: '/organization-project' },
   {
     exact: true,
     path: '/organization-project',

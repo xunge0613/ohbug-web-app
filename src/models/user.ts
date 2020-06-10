@@ -49,7 +49,7 @@ const user: UserModel = {
           });
           // 若用户没有 Organization 则跳至 new 页面
           if (!data.organizations || !data.organizations.length) {
-            history.push('/create-organization');
+            history.replace('/create-organization');
           } else {
             // 得到 Organization 信息
             yield put({

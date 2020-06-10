@@ -49,6 +49,7 @@ const CreateOrganization: React.FC = () => {
     >
       <Form
         className={styles.form}
+        form={form}
         onFinish={handleFinish}
         onFinishFailed={handleFinishFailed}
         hideRequiredMark

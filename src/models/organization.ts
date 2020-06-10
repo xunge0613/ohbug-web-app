@@ -44,7 +44,7 @@ const organization: OrganizationModel = {
         if (data) {
           yield put({
             type: 'setOrganizations',
-            payload: [...organizations, data],
+            payload: [...(organizations || []), data],
           });
           yield put({
             type: 'setCurrentOrganization',
@@ -91,6 +91,31 @@ const organization: OrganizationModel = {
           type: 'app/error',
           payload: '没有更改就请不要点更新啦~',
         });
+      }
+    },
+
+    *delete({ payload }, { select, call, put }) {
+      const organizations = yield select((state: RootState) => state.organization.data) || [];
+      if (payload !== undefined) {
+        const data = yield call(api.organization.delete, {
+          organization_id: payload,
+        });
+        if (data) {
+          const new_organizations = organizations.filter((org: Organization) => org.id !== payload);
+          yield put({
+            type: 'setOrganizations',
+            payload: new_organizations,
+          });
+          yield put({
+            type: 'setCurrentOrganization',
+            payload: new_organizations[0],
+          });
+          if (!new_organizations.length) {
+            history.goBack();
+          } else {
+            history.replace('/');
+          }
+        }
       }
     },
 

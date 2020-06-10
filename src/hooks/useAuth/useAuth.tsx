@@ -1,10 +1,10 @@
 import React from 'react';
 import { useLocation, useDispatch, useSelector, history } from 'umi';
-import type { UserModelState } from 'umi';
+import type { UserModelState, OrganizationModelState } from 'umi';
 
+import type { RootState } from '@/interfaces';
 import { useMount } from '@/hooks';
 import { getGithub } from '@/utils';
-import type { RootState } from '@/interfaces';
 
 interface UseAuth {
   isLogin: boolean;
@@ -25,6 +25,9 @@ const useAuth = (): UseAuth => {
   const auth = Boolean(github.id);
   const [isLogin, setLogin] = React.useState(false);
   const user = useSelector<RootState, UserModelState>((state) => state.user);
+  const organization = useSelector<RootState, OrganizationModelState['current']>(
+    (state) => state.organization.current,
+  );
 
   useMount(() => {
     async function getUserInfo(): Promise<any> {
@@ -35,6 +38,8 @@ const useAuth = (): UseAuth => {
         } else if (pathname === '/login') {
           // 已经有了 user 信息
           history.replace('/');
+        } else if (!organization) {
+          history.replace('/create-organization');
         }
       } catch (error) {
         history.replace('/login');

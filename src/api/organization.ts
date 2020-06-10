@@ -22,6 +22,10 @@ const organization = {
     const res = await request('/organization/update', { method: 'post', data });
     return res;
   },
+  delete: async (data: number): Promise<OrganizationModelState | void> => {
+    const res = await request('/organization/delete', { method: 'post', data });
+    return res;
+  },
 };
 
 export default organization;

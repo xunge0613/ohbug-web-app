@@ -52,11 +52,13 @@ const OrganizationProject: React.FC<ProjectPageProps> = () => {
         />
       }
     >
-      <OrganizationTree
-        organizations={organizations!}
-        organization={organization!}
-        projects={projects!}
-      />
+      {organizations && organization && projects && (
+        <OrganizationTree
+          organizations={organizations}
+          organization={organization}
+          projects={projects}
+        />
+      )}
     </BasicLayout>
   );
 };
