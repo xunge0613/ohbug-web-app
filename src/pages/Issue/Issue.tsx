@@ -70,7 +70,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
         )}
 
         <Card
-          title={`问题列表 (${issue?.length})`}
+          title={`问题列表 ${issue ? `(${issue.length})` : ''}`}
           extra={
             <Space size="middle">
               <TimePicker />

@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
   }, []);
 
   return (
-    <div className={styles.root}>
+    <section className={styles.root}>
       <Zone title="团队基本信息">
         <Row gutter={16}>
           <Col span={12}>
@@ -99,7 +99,7 @@ const Profile: React.FC = () => {
       <Zone type="danger" title="危险区域">
         <DangerZone organization={organization} />
       </Zone>
-    </div>
+    </section>
   );
 };
 

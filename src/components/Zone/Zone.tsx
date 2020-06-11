@@ -6,10 +6,11 @@ import styles from './Zone.less';
 interface ZoneProps {
   className?: string;
   title?: string;
+  extra?: React.ReactNode;
   children?: React.ReactNode;
   type?: 'normal' | 'danger';
 }
-const Zone: React.FC<ZoneProps> = ({ className, title, children, type = 'normal' }) => {
+const Zone: React.FC<ZoneProps> = ({ className, title, extra, children, type = 'normal' }) => {
   const classes = clsx(className, styles.root);
   const titleClasses = clsx(styles.title, {
     [styles.danger]: type === 'danger',
@@ -19,7 +20,10 @@ const Zone: React.FC<ZoneProps> = ({ className, title, children, type = 'normal'
   });
   return (
     <section className={classes}>
-      <h2 className={titleClasses}>{title}</h2>
+      <h2 className={titleClasses}>
+        {title}
+        {extra}
+      </h2>
       <div className={containerClasses}>{children}</div>
     </section>
   );

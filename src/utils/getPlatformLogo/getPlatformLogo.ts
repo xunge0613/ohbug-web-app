@@ -1,4 +1,5 @@
-function getPlatformLogo(type: string): string {
+type Type = 'JavaScript' | 'NodeJS' | string;
+function getPlatformLogo(type: Type): string {
   switch (type) {
     case 'JavaScript':
       return require('@/static/images/JavaScript.jpg'); // eslint-disable-line global-require
