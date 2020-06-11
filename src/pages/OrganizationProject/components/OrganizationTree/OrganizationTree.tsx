@@ -140,7 +140,12 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({
                   }
                   description={value.desc}
                 />
-                <IconButton icon="icon-ohbug-settings-3-line" />
+                <IconButton
+                  icon="icon-ohbug-settings-3-line"
+                  onClick={() => {
+                    history.push(`/settings/${organization.id}/project/${value.others.id}`);
+                  }}
+                />
               </div>
               <div className={styles.users}>
                 {project.users.map((user) => (

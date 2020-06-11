@@ -54,19 +54,28 @@ export default [
       {
         exact: true,
         path: '/settings/:organization_id/profile',
-        component: '@/pages/Settings/components/Profile',
+        component: '@/pages/Settings/Organization/Profile',
       },
       {
         exact: true,
         path: '/settings/:organization_id/projects',
-        component: '@/pages/Settings/components/Projects',
+        component: '@/pages/Settings/Organization/Projects',
+      },
+      // project settings
+      {
+        exact: true,
+        path: '/settings/:organization_id/project/:project_id',
+        redirect: '/settings/:organization_id/project/:project_id/profile',
+      },
+      {
+        exact: true,
+        path: '/settings/:organization_id/project/:project_id/profile',
+        component: '@/pages/Settings/Project/Profile',
+      },
+      {
+        redirect: '/404',
       },
     ],
-    // layout
-    menu: {
-      name: '设置',
-      icon: 'icon-ohbug-settings-3-line',
-    },
   },
   // {
   //   exact: true,

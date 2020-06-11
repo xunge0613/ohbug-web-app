@@ -27,7 +27,7 @@ const Profile: React.FC = () => {
   const [form] = Form.useForm();
   const handleFinish = React.useCallback(
     (values) => {
-      dispatch({ type: 'organization/update', payload: values });
+      dispatch({ type: 'organization/update', payload: { ...values, organization_id } });
     },
     [dispatch],
   );
@@ -50,7 +50,7 @@ const Profile: React.FC = () => {
                 className={styles.formItem}
                 name="name"
                 label="团队名称"
-                initialValue={organization.name}
+                initialValue={organization?.name}
                 rules={[
                   {
                     required: true,
@@ -68,7 +68,7 @@ const Profile: React.FC = () => {
                 className={styles.formItem}
                 name="introduction"
                 label="团队简介"
-                initialValue={organization.introduction}
+                initialValue={organization?.introduction}
                 rules={[
                   {
                     max: 140,
@@ -88,8 +88,13 @@ const Profile: React.FC = () => {
           </Col>
           <Col span={12}>
             <UploadImage callback={handleCallback}>
-              <Avatar className={styles.avatar} src={organization.avatar} size={150} shape="square">
-                {organization.name?.[0]}
+              <Avatar
+                className={styles.avatar}
+                src={organization?.avatar}
+                size={150}
+                shape="square"
+              >
+                {organization?.name?.[0]}
               </Avatar>
               <Icon className={styles.tips} type="icon-ohbug-upload-cloud-2-line" />
             </UploadImage>

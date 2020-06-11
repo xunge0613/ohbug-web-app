@@ -29,6 +29,7 @@
     "echarts": "^4.7.0",
     "echarts-for-react": "^2.0.16",
     "js-cookie": "^2.2.1",
+    "path-to-regexp": "^6.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "redux-logger": "^3.0.6",

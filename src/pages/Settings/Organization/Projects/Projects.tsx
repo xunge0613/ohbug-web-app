@@ -20,10 +20,6 @@ const Projects: React.FC = () => {
   );
   if (!projects) history.push('/404');
 
-  const handleJump = React.useCallback(() => {
-    history.push(`/`);
-  }, []);
-
   return (
     <section className={styles.root}>
       <Zone title="项目列表">
@@ -33,11 +29,23 @@ const Projects: React.FC = () => {
           itemLayout="horizontal"
           renderItem={(item) => (
             <List.Item
-              extra={<IconButton icon="icon-ohbug-settings-3-line" onClick={handleJump} />}
+              extra={
+                <IconButton
+                  icon="icon-ohbug-settings-3-line"
+                  onClick={() => {
+                    history.push(`/settings/${organization_id}/project/${item.id}`);
+                  }}
+                />
+              }
             >
               <div className={styles.item}>
                 <Avatar className={styles.avatar} src={getPlatformLogo(item.type)} />
-                <span className={styles.title} onClick={handleJump}>
+                <span
+                  className={styles.title}
+                  onClick={() => {
+                    history.push(`/settings/${organization_id}/project/${item.id}`);
+                  }}
+                >
                   {item.name}
                 </span>
               </div>

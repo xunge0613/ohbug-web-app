@@ -57,14 +57,15 @@ const organization: OrganizationModel = {
       }
     },
 
-    *update({ payload: { name, introduction, avatar } }, { select, call, put }) {
-      const { id, name: old_name, introduction: old_introduction } = yield select(
-        (state: RootState) => state.organization.current,
-      );
+    *update({ payload: { name, introduction, avatar, organization_id } }, { select, call, put }) {
       const organizations = yield select((state: RootState) => state.organization.data);
+      const { name: old_name, introduction: old_introduction } = organizations?.find(
+        // eslint-disable-next-line eqeqeq
+        (org: Organization) => org.id == organization_id,
+      );
       if (old_name !== name || old_introduction !== introduction) {
         const data = yield call(api.organization.update, {
-          organization_id: id,
+          organization_id,
           name,
           introduction,
           avatar,

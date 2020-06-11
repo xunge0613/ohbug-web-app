@@ -40,11 +40,15 @@ const CreateProject: React.FC = () => {
           rules={[
             {
               required: true,
-              message: '请输入 Project Name！',
+              message: '请输入项目名称！',
+            },
+            {
+              max: 12,
+              message: '项目名称最大为12个字符',
             },
           ]}
         >
-          <Input placeholder="例如：Project1" />
+          <Input placeholder="例如：Project1" maxLength={12} />
         </Form.Item>
 
         <Form.Item
@@ -53,11 +57,11 @@ const CreateProject: React.FC = () => {
           rules={[
             {
               required: true,
-              message: '请选择 Project Type！',
+              message: '请选择项目类型！',
             },
           ]}
         >
-          <Select placeholder="请选择 Project Type">
+          <Select placeholder="请选择项目类型">
             <Select.Option value="JavaScript">JavaScript</Select.Option>
             <Select.Option value="NodeJS">NodeJS</Select.Option>
           </Select>

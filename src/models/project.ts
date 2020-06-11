@@ -12,10 +12,11 @@ export interface ProjectTrend {
   }[];
 }
 export interface Project {
-  app_id: string;
   id: number;
+  apiKey: string;
   name: string;
   type: ProjectType;
+  createdAt: string;
   users: User[];
 }
 export interface ProjectModelState {
@@ -76,6 +77,24 @@ const project: ProjectModel = {
           // 这里强制刷新下 重新获取 projects 的同时更新下 tree 组件的样式
           window.location.reload();
           history.push('/');
+        }
+      }
+    },
+
+    *update({ payload: { name, type, project_id } }, { call, put }) {
+      if (name && type && project_id) {
+        const data = yield call(api.project.update, {
+          name,
+          type,
+          project_id,
+        });
+        if (data) {
+          window.location.reload();
+        } else {
+          yield put({
+            type: 'app/error',
+            payload: '更新项目信息失败',
+          });
         }
       }
     },

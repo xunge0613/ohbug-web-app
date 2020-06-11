@@ -42,17 +42,22 @@ const DangerZone: React.FC<DangerZoneProps> = ({ organization }) => {
     [form],
   );
 
-  const dataSource = [
-    {
-      title: <Typography.Text strong>删除团队</Typography.Text>,
-      description: <Typography.Text type="secondary">请确定，一旦删除将无法恢复。</Typography.Text>,
-      actions: [
-        <Button danger onClick={handleDeleteClick}>
-          删除团队
-        </Button>,
-      ],
-    },
-  ];
+  const dataSource = React.useMemo(
+    () => [
+      {
+        title: <Typography.Text strong>删除团队</Typography.Text>,
+        description: (
+          <Typography.Text type="secondary">请确定，一旦删除将无法恢复。</Typography.Text>
+        ),
+        actions: [
+          <Button danger onClick={handleDeleteClick}>
+            删除团队
+          </Button>,
+        ],
+      },
+    ],
+    [handleDeleteClick],
+  );
   return (
     <>
       <List
