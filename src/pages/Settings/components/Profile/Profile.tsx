@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Form, Input, Button, Avatar } from 'antd';
-import { useDispatch, useSelector } from 'umi';
-import type { OrganizationModelState } from 'umi';
+import { useDispatch, useSelector, useParams, history } from 'umi';
+import type { Organization } from 'umi';
 
 import { RootState } from '@/interfaces';
 import UploadImage from '@/components/UploadImage';
@@ -14,9 +14,15 @@ import styles from './Profile.less';
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
 
-  const organization = useSelector<RootState, OrganizationModelState['current']>(
-    (state) => state.organization.current,
+  const { organization_id } = useParams();
+  if (!organization_id) history.push('/404');
+
+  const organization = useSelector<RootState, Organization>(
+    (state) =>
+      // eslint-disable-next-line eqeqeq
+      state.organization?.data?.find((org) => org.id == organization_id)!,
   );
+  if (!organization) history.push('/404');
 
   const [form] = Form.useForm();
   const handleFinish = React.useCallback(
@@ -44,7 +50,7 @@ const Profile: React.FC = () => {
                 className={styles.formItem}
                 name="name"
                 label="团队名称"
-                initialValue={organization?.name}
+                initialValue={organization.name}
                 rules={[
                   {
                     required: true,
@@ -62,7 +68,7 @@ const Profile: React.FC = () => {
                 className={styles.formItem}
                 name="introduction"
                 label="团队简介"
-                initialValue={organization?.introduction}
+                initialValue={organization.introduction}
                 rules={[
                   {
                     max: 140,
@@ -82,13 +88,8 @@ const Profile: React.FC = () => {
           </Col>
           <Col span={12}>
             <UploadImage callback={handleCallback}>
-              <Avatar
-                className={styles.avatar}
-                src={organization?.avatar}
-                size={150}
-                shape="square"
-              >
-                {organization?.name?.[0]}
+              <Avatar className={styles.avatar} src={organization.avatar} size={150} shape="square">
+                {organization.name?.[0]}
               </Avatar>
               <Icon className={styles.tips} type="icon-ohbug-upload-cloud-2-line" />
             </UploadImage>

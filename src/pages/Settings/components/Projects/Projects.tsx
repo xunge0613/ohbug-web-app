@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, List, Avatar } from 'antd';
-import { PlusCircleOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector, history } from 'umi';
-import type { ProjectModelState } from 'umi';
+import { List, Avatar } from 'antd';
+import { useSelector, history, useParams } from 'umi';
+import type { Project } from 'umi';
 
 import { RootState } from '@/interfaces';
 import Zone from '@/components/Zone';
@@ -12,26 +11,22 @@ import IconButton from '@/components/IconButton';
 import styles from './Projects.less';
 
 const Projects: React.FC = () => {
-  const dispatch = useDispatch();
-  const handleCreateProject = React.useCallback(() => {
-    dispatch({ type: 'project/handleCreateProjectVisible', payload: true });
-  }, [dispatch]);
+  const { organization_id } = useParams();
+  if (!organization_id) history.push('/404');
 
-  const projects = useSelector<RootState, ProjectModelState['data']>((state) => state.project.data);
+  const projects = useSelector<RootState, Project[]>(
+    // eslint-disable-next-line eqeqeq
+    (state) => state.organization?.data?.find((org) => org.id == organization_id)?.projects!,
+  );
+  if (!projects) history.push('/404');
+
   const handleJump = React.useCallback(() => {
     history.push(`/`);
   }, []);
 
   return (
     <section className={styles.root}>
-      <Zone
-        title="项目列表"
-        extra={
-          <Button icon={<PlusCircleOutlined />} onClick={handleCreateProject}>
-            创建项目
-          </Button>
-        }
-      >
+      <Zone title="项目列表">
         <List
           className={styles.list}
           dataSource={projects}

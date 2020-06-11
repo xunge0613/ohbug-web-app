@@ -42,22 +42,24 @@ export default [
   },
   {
     exact: false,
-    path: '/settings',
+    path: '/settings/:organization_id',
     component: '@/pages/Settings',
     wrappers: ['@/wrappers/auth'],
     routes: [
       {
         exact: true,
-        path: '/settings/profile',
+        path: '/settings/:organization_id',
+        redirect: '/settings/:organization_id/profile',
+      },
+      {
+        exact: true,
+        path: '/settings/:organization_id/profile',
         component: '@/pages/Settings/components/Profile',
       },
       {
         exact: true,
-        path: '/settings/projects',
+        path: '/settings/:organization_id/projects',
         component: '@/pages/Settings/components/Projects',
-      },
-      {
-        redirect: '/settings/profile',
       },
     ],
     // layout

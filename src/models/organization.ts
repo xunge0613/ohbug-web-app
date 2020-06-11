@@ -1,5 +1,5 @@
 import { history } from 'umi';
-import type { User } from 'umi';
+import type { User, Project } from 'umi';
 
 import type { Model, RootState } from '@/interfaces';
 import api from '@/api';
@@ -9,7 +9,9 @@ export interface Organization {
   name?: string;
   avatar?: string;
   introduction?: string;
+  createdAt?: string;
   users?: User[];
+  projects?: Project[];
 }
 export interface OrganizationModelState {
   current?: Organization;

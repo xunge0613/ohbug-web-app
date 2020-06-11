@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Menu } from 'antd';
-import { useRouteMatch, useLocation, history } from 'umi';
+import { useRouteMatch, useLocation, useParams, history } from 'umi';
 
 import BasicLayout from '@/layouts/Basic';
 
@@ -24,12 +24,14 @@ interface SettingsProps {
 }
 const Settings: React.FC<SettingsProps> = ({ children }) => {
   const match = useRouteMatch();
+  const { organization_id } = useParams();
   const location = useLocation();
   const selectedKeys = React.useMemo(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, key] = location.pathname.split('/settings/');
+    const [_, key] = location.pathname.split(`/settings/${organization_id}/`);
     return [key];
-  }, [location]);
+  }, [location, organization_id]);
+
   return (
     <BasicLayout className={styles.root}>
       <Card>
@@ -38,7 +40,7 @@ const Settings: React.FC<SettingsProps> = ({ children }) => {
             <Menu.Item
               key={item.key}
               onClick={() => {
-                history.push(`${match.path}${item.path}`);
+                history.push(`${match.url}${item.path}`);
               }}
             >
               {item.label}
