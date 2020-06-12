@@ -88,6 +88,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({
             extra={
               <div className={styles.extra}>
                 <IconButton
+                  spin
                   icon="icon-ohbug-settings-3-line"
                   onClick={() => {
                     history.push(`settings/${organization.id}`);
@@ -141,6 +142,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({
                   description={value.desc}
                 />
                 <IconButton
+                  spin
                   icon="icon-ohbug-settings-3-line"
                   onClick={() => {
                     history.push(`/settings/${organization.id}/project/${value.others.id}`);

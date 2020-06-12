@@ -19,7 +19,7 @@
     "@antv/g2": "4.0.7",
     "@ohbug/core": "^0.0.11",
     "@umijs/hooks": "^1.9.2",
-    "@umijs/preset-react": "^1.5.3",
+    "@umijs/preset-react": "^1.5.6",
     "@umijs/test": "^3.2.2",
     "ali-oss": "^6.9.0",
     "antd": "^4.2.4",
@@ -36,7 +36,7 @@
     "rrweb-player": "^0.4.3",
     "source-map-trace": "^0.0.1",
     "ua-device": "^0.1.10",
-    "umi": "^3.2.2"
+    "umi": "^3.2.3"
   },
   "devDependencies": {
     "@ohbug/types": "^0.0.6",

@@ -4,6 +4,7 @@ import { useRouteMatch, useLocation, useParams, history } from 'umi';
 import { pathToRegexp } from 'path-to-regexp';
 
 import BasicLayout from '@/layouts/Basic';
+import IconButton from '@/components/IconButton';
 
 import styles from './Settings.less';
 
@@ -68,8 +69,19 @@ const Settings: React.FC<SettingsProps> = ({ children }) => {
     return [key];
   }, [location, organization_id]);
 
+  const handleBack = React.useCallback(() => {
+    history.goBack();
+  }, []);
+
   return (
-    <BasicLayout className={styles.root}>
+    <BasicLayout
+      className={styles.root}
+      pageHeader={
+        <div className={styles.header}>
+          <IconButton icon="icon-ohbug-arrow-left-s-line" onClick={handleBack} />
+        </div>
+      }
+    >
       <Card>
         <Menu className={styles.leftMenu} selectedKeys={selectedKeys}>
           {menuList.map((item) => (
