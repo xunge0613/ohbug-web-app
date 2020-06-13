@@ -20,7 +20,7 @@ interface GetTrend {
 const issue = {
   get: async (data: Get): Promise<Issue | void> => {
     const { issue_id, project_id } = data;
-    const res = await request(`/issue/${issue_id}`, {
+    const res = await request(`/issues/${issue_id}`, {
       method: 'get',
       params: {
         project_id,
@@ -29,14 +29,14 @@ const issue = {
     return res;
   },
   getMany: async (data: GetMany): Promise<Issue[] | void> => {
-    const res = await request('/issue', {
+    const res = await request('/issues', {
       method: 'get',
       params: data,
     });
     return res;
   },
   getTrend: async (data: GetTrend): Promise<Issue[] | void> => {
-    const res = await request('/issue/trend', {
+    const res = await request('/issues/trend', {
       method: 'post',
       data,
     });

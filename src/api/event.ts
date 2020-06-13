@@ -13,7 +13,7 @@ interface GetLatest {
 const event = {
   get: async (data: Get): Promise<Event<any> | void> => {
     const { event_id, project_id } = data;
-    const res = await request(`/event/${event_id}`, {
+    const res = await request(`/events/${event_id}`, {
       method: 'get',
       params: {
         project_id,
@@ -23,7 +23,7 @@ const event = {
   },
   getLatest: async (data: GetLatest): Promise<Event<any> | void> => {
     const { issue_id, project_id } = data;
-    const res = await request('/event/latest', {
+    const res = await request('/events/latest', {
       method: 'get',
       params: {
         issue_id,

@@ -73,6 +73,11 @@ export default [
         component: '@/pages/Settings/Project/Profile',
       },
       {
+        exact: true,
+        path: '/settings/:organization_id/project/:project_id/notice',
+        component: '@/pages/Settings/Project/Notice',
+      },
+      {
         redirect: '/404',
       },
     ],

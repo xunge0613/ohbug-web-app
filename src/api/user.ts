@@ -12,7 +12,7 @@ interface User {
 
 const user = {
   get: async (id: string): Promise<User | void> => {
-    const res = await request(`/user/${id}`, { method: 'get' });
+    const res = await request(`/users/${id}`, { method: 'get' });
     return res;
   },
 };
