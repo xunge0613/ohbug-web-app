@@ -7,6 +7,7 @@ import feedback from './feedback';
 import event from './event';
 import analysis from './analysis';
 import view from './view';
+import notification from './notification';
 
 const api = {
   project,
@@ -18,6 +19,7 @@ const api = {
   event,
   analysis,
   view,
+  notification,
 };
 
 export default api;
