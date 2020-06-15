@@ -16,6 +16,7 @@ const Rules: React.FC = () => {
   const { project_id } = useParams();
   const { state: modalVisible, setTrue: modalShow, setFalse: modalOnCancel } = useBoolean(false);
   const [currentRule, setCurrentRule] = React.useState<NotificationRule | undefined>(undefined);
+  const [currentSwitch, setCurrentSwitch] = React.useState<number>();
 
   React.useEffect(() => {
     dispatch({
@@ -26,6 +27,9 @@ const Rules: React.FC = () => {
     });
   }, [project_id]);
   const rules = useSelector<RootState, NotificationRule[]>((state) => state.notification?.ruleData);
+  const switchLoading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects['notification/rules/update']!,
+  );
 
   return (
     <section className={styles.root}>
@@ -48,7 +52,11 @@ const Rules: React.FC = () => {
           </Button>
         }
       >
-        <Table<NotificationRule> dataSource={rules} rowKey={(record) => record.id!}>
+        <Table<NotificationRule>
+          dataSource={rules}
+          rowKey={(record) => record.id!}
+          pagination={false}
+        >
           <Table.Column<NotificationRule>
             title="名称/规则"
             render={(item: NotificationRule) => (
@@ -70,7 +78,23 @@ const Rules: React.FC = () => {
           />
           <Table.Column<NotificationRule>
             title="启用"
-            render={(item: NotificationRule) => <Switch checked={item?.open} />}
+            render={(item: NotificationRule) => (
+              <Switch
+                checked={item?.open}
+                loading={switchLoading && currentSwitch === item?.id}
+                onChange={(checked) => {
+                  setCurrentSwitch(item?.id);
+                  dispatch({
+                    type: 'notification/rules/update',
+                    payload: {
+                      project_id,
+                      rule_id: item.id,
+                      open: checked,
+                    },
+                  });
+                }}
+              />
+            )}
           />
           <Table.Column<NotificationRule>
             title="操作"
@@ -103,6 +127,7 @@ const Rules: React.FC = () => {
                           type: 'notification/rules/delete',
                           payload: {
                             rule_id: item?.id,
+                            project_id,
                           },
                         });
                       },

@@ -84,7 +84,7 @@ const notification: NotificationModel = {
   effects: {
     'rules/create': function* (
       { payload: { project_id, name, data, whiteList, blackList, level, interval, open = true } },
-      { call },
+      { call, put },
     ) {
       if (project_id) {
         const result = yield call(api.notification.createRule, {
@@ -98,7 +98,12 @@ const notification: NotificationModel = {
           open,
         });
         if (result) {
-          window.location.reload();
+          yield put({
+            type: 'rules/get',
+            payload: {
+              project_id,
+            },
+          });
         }
       }
     },
@@ -120,8 +125,8 @@ const notification: NotificationModel = {
     },
 
     'rules/update': function* (
-      { payload: { rule_id, name, data, whiteList, blackList, level, interval, open } },
-      { call },
+      { payload: { project_id, rule_id, name, data, whiteList, blackList, level, interval, open } },
+      { call, put },
     ) {
       if (rule_id) {
         const result = yield call(api.notification.updateRule, {
@@ -135,18 +140,28 @@ const notification: NotificationModel = {
           open,
         });
         if (result) {
-          window.location.reload();
+          yield put({
+            type: 'rules/get',
+            payload: {
+              project_id,
+            },
+          });
         }
       }
     },
 
-    'rules/delete': function* ({ payload: { rule_id } }, { call }) {
+    'rules/delete': function* ({ payload: { project_id, rule_id } }, { call, put }) {
       if (rule_id) {
         const result = yield call(api.notification.deleteRule, {
           rule_id,
         });
         if (result) {
-          window.location.reload();
+          yield put({
+            type: 'rules/get',
+            payload: {
+              project_id,
+            },
+          });
         }
       }
     },
