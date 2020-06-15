@@ -58,7 +58,7 @@ const notification = {
     open,
   }: UpdateRule): Promise<NotificationRule | void> => {
     const res = await request(`/notification/rules/${rule_id}`, {
-      method: 'put',
+      method: 'patch',
       data: { name, data, whiteList, blackList, level, interval, open },
     });
     return res;

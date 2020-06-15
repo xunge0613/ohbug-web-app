@@ -1,0 +1,306 @@
+import React from 'react';
+import { useDispatch, useSelector } from 'umi';
+import type { NotificationRule, NotificationRuleLevel } from 'umi';
+import { Modal, Form, Input, Select, InputNumber, Tag, Space } from 'antd';
+import { types } from '@ohbug/core';
+import IconButton from '@/components/IconButton';
+import { RootState } from '@/interfaces';
+import { useUpdateEffect } from '@umijs/hooks';
+
+const intervalList = [
+  { label: '10分钟', value: 600000 },
+  { label: '30分钟', value: 1800000 },
+  { label: '1小时', value: 3600000 },
+  { label: '3小时', value: 10800000 },
+  { label: '6小时', value: 21600000 },
+  { label: '12小时', value: 43200000 },
+];
+const levelList = [
+  { label: '严重', value: 'serious' },
+  { label: '警告', value: 'warning' },
+  { label: '默认', value: 'default' },
+];
+interface LevelComponentProps {
+  value?: NotificationRuleLevel;
+  onChange?: (key: NotificationRuleLevel) => void;
+}
+const LevelComponent: React.FC<LevelComponentProps> = ({ value, onChange }) => {
+  const handleChange = React.useCallback((tag, checked) => {
+    // eslint-disable-next-line no-unused-expressions
+    if (checked) onChange?.(tag);
+  }, []);
+  return (
+    <>
+      {levelList.map((item) => (
+        <Tag.CheckableTag
+          checked={value === item.value}
+          onChange={(checked) => handleChange(item.value, checked)}
+          key={item.value}
+        >
+          {item.label}
+        </Tag.CheckableTag>
+      ))}
+    </>
+  );
+};
+interface EditRuleProps {
+  project_id: number | string;
+  visible: boolean;
+  onCancel: () => void;
+  initialValues?: NotificationRule;
+}
+function getRuleDataType(rule?: NotificationRule): 'indicator' | 'range' | undefined {
+  if (rule) {
+    if (rule.data?.hasOwnProperty('interval') && rule.data?.hasOwnProperty('percentage')) {
+      return 'indicator';
+    }
+    if (
+      rule.data?.hasOwnProperty('range1') &&
+      rule.data?.hasOwnProperty('range2') &&
+      rule.data?.hasOwnProperty('range3') &&
+      rule.data?.hasOwnProperty('range4')
+    ) {
+      return 'range';
+    }
+  }
+  return undefined;
+}
+const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, initialValues }) => {
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const [data, setData] = React.useState<'indicator' | 'range'>(
+    getRuleDataType(initialValues) || 'indicator',
+  );
+  const [type, setType] = React.useState(() => (initialValues ? 'update' : 'create'));
+  const confirmLoading = useSelector<RootState, boolean>(
+    (state) => state.loading.effects[`rules/${type}`]!,
+  );
+  useUpdateEffect(() => {
+    setData(getRuleDataType(initialValues) || 'indicator');
+    setType(initialValues ? 'update' : 'create');
+
+    if (initialValues) {
+      form.setFieldsValue({
+        name: initialValues.name,
+        data: initialValues.data,
+        whiteList: initialValues.whiteList || [],
+        blackList: initialValues.blackList || [],
+        level: initialValues.level,
+        interval: initialValues.interval,
+        open: initialValues.open,
+        recently: initialValues.recently,
+        count: initialValues.count,
+      });
+    } else {
+      form.resetFields();
+    }
+  }, [initialValues]);
+
+  const handleOk = React.useCallback(() => {
+    form.submit();
+  }, []);
+  const handleFinish = React.useCallback(
+    (value) => {
+      const payload = {
+        project_id,
+        ...value,
+      };
+      if (type === 'update') {
+        payload.rule_id = initialValues?.id;
+      }
+      dispatch({
+        type: `notification/rules/${type}`,
+        payload,
+      });
+      // eslint-disable-next-line no-unused-expressions
+      onCancel?.();
+    },
+    [type, initialValues?.id],
+  );
+
+  return (
+    <Modal
+      title="编辑通知规则"
+      visible={visible}
+      onOk={handleOk}
+      onCancel={onCancel}
+      confirmLoading={confirmLoading}
+      width={750}
+      okText="保存"
+      cancelText="取消"
+    >
+      <Form
+        form={form}
+        labelCol={{ span: 3 }}
+        wrapperCol={{ span: 21 }}
+        onFinish={handleFinish}
+        hideRequiredMark
+      >
+        <Form.Item label="名称" name="name" rules={[{ required: true, message: '请输入通知名称' }]}>
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label={
+            <Select value={data} onChange={setData} bordered={false}>
+              <Select.Option value="indicator">指标</Select.Option>
+              <Select.Option value="range">区间</Select.Option>
+            </Select>
+          }
+          rules={[{ required: true, message: '请填写匹配规则' }]}
+        >
+          {data === 'indicator' && (
+            <div>
+              <span>
+                近{' '}
+                <Form.Item name={['data', 'interval']} initialValue={180000} noStyle>
+                  <Select disabled style={{ width: 80 }}>
+                    <Select.Option value={180000}>3分钟</Select.Option>
+                  </Select>
+                </Form.Item>{' '}
+                增长率超过{' '}
+              </span>
+              <Form.Item
+                name={['data', 'percentage']}
+                rules={[{ required: true, message: '请填写指标' }]}
+                initialValue={30}
+                noStyle
+              >
+                <InputNumber min={1} max={100} />
+              </Form.Item>
+              <span> %</span>
+            </div>
+          )}
+          {data === 'range' && (
+            <Space>
+              <Form.Item
+                name={['data', 'range1']}
+                rules={[{ required: true, message: '请填写事件区间1' }]}
+                initialValue={1000}
+                noStyle
+              >
+                <InputNumber min={1} max={999999} />
+              </Form.Item>
+              <Form.Item
+                name={['data', 'range2']}
+                rules={[{ required: true, message: '请填写事件区间2' }]}
+                initialValue={2000}
+                noStyle
+              >
+                <InputNumber min={1} max={999999} />
+              </Form.Item>
+              <Form.Item
+                name={['data', 'range3']}
+                rules={[{ required: true, message: '请填写事件区间3' }]}
+                initialValue={5000}
+                noStyle
+              >
+                <InputNumber min={1} max={999999} />
+              </Form.Item>
+              <Form.Item
+                name={['data', 'range4']}
+                rules={[{ required: true, message: '请填写事件区间4' }]}
+                initialValue={10000}
+                noStyle
+              >
+                <InputNumber min={1} max={999999} />
+              </Form.Item>
+            </Space>
+          )}
+        </Form.Item>
+
+        {[
+          {
+            name: 'whiteList',
+            label: '白名单',
+          },
+          {
+            name: 'blackList',
+            label: '黑名单',
+          },
+        ].map((item) => (
+          <Form.List name={item.name} key={item.name}>
+            {(fields, operation) => (
+              <Form.Item label={item.label}>
+                <Space direction="vertical">
+                  {fields.map((field: any, index: number) => (
+                    <Space key={field.key} align="center">
+                      <Form.Item name={[field.name, 'message']} noStyle>
+                        <Input
+                          placeholder="message..."
+                          addonBefore={
+                            <Form.Item
+                              name={[field.name, 'type']}
+                              initialValue="uncaughtError"
+                              noStyle
+                            >
+                              <Select dropdownMatchSelectWidth={false}>
+                                {Object.values(types).map((t) => (
+                                  <Select.Option value={t} key={t}>
+                                    {t}
+                                  </Select.Option>
+                                ))}
+                              </Select>
+                            </Form.Item>
+                          }
+                        />
+                      </Form.Item>
+                      {fields.length > 0 ? (
+                        <IconButton
+                          onClick={() => {
+                            operation.remove(field.name);
+                          }}
+                          icon="icon-ohbug-subtract-line"
+                          size="small"
+                        />
+                      ) : null}
+                      {fields.length < 3 && index === fields.length - 1 && (
+                        <IconButton
+                          onClick={() => {
+                            operation.add();
+                          }}
+                          icon="icon-ohbug-add-line"
+                          size="small"
+                        />
+                      )}
+                    </Space>
+                  ))}
+                </Space>
+                {fields.length === 0 && (
+                  <IconButton
+                    onClick={() => {
+                      operation.add();
+                    }}
+                    icon="icon-ohbug-add-line"
+                    size="small"
+                  />
+                )}
+              </Form.Item>
+            )}
+          </Form.List>
+        ))}
+
+        <Form.Item label="级别" name="level" initialValue="default">
+          <LevelComponent />
+        </Form.Item>
+
+        <Form.Item
+          label="静默期"
+          name="interval"
+          initialValue={1800000}
+          rules={[{ required: true, message: '请选择静默期' }]}
+        >
+          <Select>
+            {intervalList.map((item) => (
+              <Select.Option value={item.value} key={item.value}>
+                {item.label}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+
+export default EditRule;

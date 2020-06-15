@@ -8,7 +8,12 @@ interface NotificationRuleIndicator {
   interval: number; // 间隔时间
   percentage: number; // 增长百分比
 }
-type NotificationRuleRange = number[];
+type NotificationRuleRange = {
+  range1: number;
+  range2: number;
+  range3: number;
+  range4: number;
+};
 export type NotificationRuleData = NotificationRuleIndicator | NotificationRuleRange;
 
 interface NotificationRuleItem {
@@ -56,7 +61,7 @@ export interface NotificationSetting {
 }
 
 export interface NotificationModelState {
-  ruleData?: NotificationRule[];
+  ruleData: NotificationRule[];
   settingData?: NotificationSetting;
 }
 export interface NotificationModel extends Model<NotificationModelState> {
@@ -65,7 +70,9 @@ export interface NotificationModel extends Model<NotificationModelState> {
 
 const notification: NotificationModel = {
   namespace: 'notification',
-  state: {},
+  state: {
+    ruleData: [],
+  },
   reducers: {
     setState(state, action) {
       return {
@@ -75,8 +82,8 @@ const notification: NotificationModel = {
     },
   },
   effects: {
-    *createRule(
-      { payload: { project_id, name, data, whiteList, blackList, level, interval, open } },
+    'rules/create': function* (
+      { payload: { project_id, name, data, whiteList, blackList, level, interval, open = true } },
       { call },
     ) {
       if (project_id) {
@@ -96,7 +103,7 @@ const notification: NotificationModel = {
       }
     },
 
-    *getRules({ payload: { project_id } }, { call, put }) {
+    'rules/get': function* ({ payload: { project_id } }, { call, put }) {
       if (project_id) {
         const result = yield call(api.notification.getRules, {
           project_id,
@@ -112,7 +119,7 @@ const notification: NotificationModel = {
       }
     },
 
-    *updateRule(
+    'rules/update': function* (
       { payload: { rule_id, name, data, whiteList, blackList, level, interval, open } },
       { call },
     ) {
@@ -133,7 +140,7 @@ const notification: NotificationModel = {
       }
     },
 
-    *deleteRule({ payload: { rule_id } }, { call }) {
+    'rules/delete': function* ({ payload: { rule_id } }, { call }) {
       if (rule_id) {
         const result = yield call(api.notification.deleteRule, {
           rule_id,
@@ -144,7 +151,7 @@ const notification: NotificationModel = {
       }
     },
 
-    *getSetting({ payload: { project_id } }, { call, put }) {
+    'setting/get': function* ({ payload: { project_id } }, { call, put }) {
       if (project_id) {
         const result = yield call(api.notification.getSetting, {
           project_id,
@@ -160,15 +167,14 @@ const notification: NotificationModel = {
       }
     },
 
-    *updateSetting({ payload: { project_id, emails, browser, webhooks } }, { call }) {
+    'setting/update': function* ({ payload: { project_id, emails, browser, webhooks } }, { call }) {
       if (project_id) {
-        const result = yield call(api.notification.updateSetting, {
+        yield call(api.notification.updateSetting, {
           project_id,
           emails,
           browser,
           webhooks,
         });
-        console.log(result);
       }
     },
   },

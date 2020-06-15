@@ -74,8 +74,13 @@ export default [
       },
       {
         exact: true,
-        path: '/settings/:organization_id/project/:project_id/notice',
-        component: '@/pages/Settings/Project/Notice',
+        path: '/settings/:organization_id/project/:project_id/notification_rules',
+        component: '@/pages/Settings/Project/Notification/Rules',
+      },
+      {
+        exact: true,
+        path: '/settings/:organization_id/project/:project_id/notification_setting',
+        component: '@/pages/Settings/Project/Notification/Setting',
       },
       {
         redirect: '/404',

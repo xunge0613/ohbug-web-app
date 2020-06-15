@@ -12,6 +12,7 @@ import type {
   ProjectModelState,
   UserModelState,
   ViewModelState,
+  NotificationModelState,
 } from 'umi';
 
 export interface Model<S = any> {
@@ -38,6 +39,7 @@ export type RootState = {
   project: ProjectModelState;
   user: UserModelState;
   view: ViewModelState;
+  notification: NotificationModelState;
 } & {
   loading: Loading;
 };

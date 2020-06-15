@@ -2,14 +2,14 @@ import React from 'react';
 
 import Zone from '@/components/Zone';
 
-import styles from './Notice.less';
+import styles from './Setting.less';
 
-const Notice: React.FC = () => {
+const Setting: React.FC = () => {
   return (
     <section className={styles.root}>
-      <Zone title="项目基本信息" />
+      <Zone title="通知设置" />
     </section>
   );
 };
 
-export default Notice;
+export default Setting;

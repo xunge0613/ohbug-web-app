@@ -13,11 +13,10 @@
 }
 
 .root {
-  width: @space-3;
-  height: @space-3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  line-height: @space-3;
-  text-align: center;
   background-color: fade(@primary-color, 10%);
   border: none;
   border-radius: 50%;
@@ -45,5 +44,20 @@
         animation: rotate 1.5s linear infinite;
       }
     }
+  }
+  &.sizeSmall {
+    width: @space-2;
+    height: @space-2;
+    line-height: @space-2;
+  }
+  &.sizeDefault {
+    width: @space-3;
+    height: @space-3;
+    line-height: @space-3;
+  }
+  &.sizeLarge {
+    width: @space-2 * 2;
+    height: @space-2 * 2;
+    line-height: @space-2 * 2;
   }
 }

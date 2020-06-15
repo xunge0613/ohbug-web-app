@@ -8,7 +8,14 @@ import IconButton from '@/components/IconButton';
 
 import styles from './Settings.less';
 
-const organizationMenuList = [
+interface MenuItem {
+  label: string;
+  key: string;
+  path?: string;
+  children?: MenuList;
+}
+type MenuList = MenuItem[];
+const organizationMenuList: MenuList = [
   {
     label: '团队设置',
     key: 'profile',
@@ -20,7 +27,7 @@ const organizationMenuList = [
     path: '/projects',
   },
 ];
-const projectMenuList = (project_id?: number | string) => [
+const projectMenuList = (project_id?: number | string): MenuList => [
   {
     label: '项目设置',
     key: `project/${project_id}/profile`,
@@ -28,8 +35,19 @@ const projectMenuList = (project_id?: number | string) => [
   },
   {
     label: '通知',
-    key: `project/${project_id}/notice`,
-    path: `/project/${project_id}/notice`,
+    key: `project/${project_id}/notification`,
+    children: [
+      {
+        label: '通知规则',
+        key: `project/${project_id}/notification_rules`,
+        path: `/project/${project_id}/notification_rules`,
+      },
+      {
+        label: '通知设置',
+        key: `project/${project_id}/notification_setting`,
+        path: `/project/${project_id}/notification_setting`,
+      },
+    ],
   },
   // {
   //   label: 'SourceMap',
@@ -42,6 +60,19 @@ const projectMenuList = (project_id?: number | string) => [
     path: `/project/${project_id}/users`,
   },
 ];
+function renderMenu(menuList: MenuList, handleItemClick: (item: MenuItem) => void) {
+  return menuList.map((item) =>
+    Array.isArray(item.children) ? (
+      <Menu.SubMenu key={item.key} title={item.label}>
+        {renderMenu(item.children, handleItemClick)}
+      </Menu.SubMenu>
+    ) : (
+      <Menu.Item key={item.key} onClick={() => handleItemClick(item)}>
+        {item.label}
+      </Menu.Item>
+    ),
+  );
+}
 
 interface SettingsProps {
   children: React.ReactNode;
@@ -83,17 +114,8 @@ const Settings: React.FC<SettingsProps> = ({ children }) => {
       }
     >
       <Card>
-        <Menu className={styles.leftMenu} selectedKeys={selectedKeys}>
-          {menuList.map((item) => (
-            <Menu.Item
-              key={item.key}
-              onClick={() => {
-                history.push(`${match.url}${item.path}`);
-              }}
-            >
-              {item.label}
-            </Menu.Item>
-          ))}
+        <Menu className={styles.leftMenu} selectedKeys={selectedKeys} mode="inline">
+          {renderMenu(menuList, (item) => history.push(`${match.url}${item.path}`))}
         </Menu>
         <section className={styles.container}>{children}</section>
       </Card>

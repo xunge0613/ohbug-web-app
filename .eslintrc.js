@@ -11,5 +11,6 @@ module.exports = {
     'import/no-unresolved': 'off',
     'no-nested-ternary': 'off',
     'global-require': 'off',
+    'func-names': 'off',
   },
 };

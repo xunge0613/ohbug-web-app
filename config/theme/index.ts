@@ -15,7 +15,7 @@ export default {
   '@table-row-hover-bg': '#fafafa',
   '@table-padding-vertical': '14px',
   '@tabs-card-tab-active-border-top': '2px solid @primary-color',
-  '@switch-color': '@success-color',
+  '@switch-color': '@info-color',
   '@wave-animation-width': '5px',
   '@alert-success-border-color': "~`colorPalette('@{success-color}', 1) `",
   '@alert-info-border-color': "~`colorPalette('@{info-color}', 1) `",
