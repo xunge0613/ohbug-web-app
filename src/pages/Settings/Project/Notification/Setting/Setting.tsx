@@ -91,96 +91,116 @@ const Setting: React.FC = () => {
             {(fields, operation) => (
               <Space direction="vertical">
                 {fields.map((field, index) => (
-                  <Space align="center" key={field.key}>
+                  <div className={styles.emailLine}>
+                    <Space style={{ width: 500 }} align="center" key={field.key}>
+                      <Form.Item
+                        name={[field.name, 'email']}
+                        hasFeedback
+                        rules={[
+                          { required: true, message: '请输入正确的邮箱格式' },
+                          { type: 'email', message: '请输入正确的邮箱格式' },
+                          { max: 100, message: '请输入正确的邮箱格式' },
+                        ]}
+                      >
+                        <Input
+                          maxLength={100}
+                          onBlur={() => {
+                            form.submit();
+                          }}
+                        />
+                      </Form.Item>
+                      {fields.length > 1 ? (
+                        <IconButton
+                          style={{ marginBottom: 16 }}
+                          onClick={() => {
+                            const emails = form.getFieldValue('emails');
+                            // 判断当前行是否输入内容
+                            if (!emails[index].email) {
+                              // 没有内容 直接删除行
+                              operation.remove(field.name);
+                            } else {
+                              Modal.confirm({
+                                title: '请确认是否删除?',
+                                okText: '删除',
+                                okType: 'danger',
+                                cancelText: '取消',
+                                onOk() {
+                                  operation.remove(field.name);
+                                  setTimeout(form.submit, 0);
+                                },
+                              });
+                            }
+                          }}
+                          icon="icon-ohbug-indeterminate-circle-line"
+                          size="small"
+                        />
+                      ) : null}
+                      {fields.length < 3 && index === fields.length - 1 && (
+                        <IconButton
+                          style={{ marginBottom: 16 }}
+                          onClick={() => {
+                            operation.add();
+                          }}
+                          icon="icon-ohbug-add-circle-line"
+                          size="small"
+                        />
+                      )}
+                    </Space>
                     <Form.Item
-                      name={[field.name, 'email']}
-                      hasFeedback
-                      rules={[
-                        { required: true, message: '请输入正确的邮箱格式' },
-                        { type: 'email', message: '请输入正确的邮箱格式' },
-                        { max: 100, message: '请输入正确的邮箱格式' },
-                      ]}
+                      className={styles.emailSwitch}
+                      name={[field.name, 'open']}
+                      valuePropName="checked"
+                      initialValue
                     >
-                      <Input
-                        maxLength={100}
-                        onBlur={() => {
-                          form.submit();
-                        }}
-                      />
-                    </Form.Item>
-                    <Form.Item name={[field.name, 'open']} valuePropName="checked" initialValue>
                       <Switch
                         onChange={() => {
                           form.submit();
                         }}
                       />
                     </Form.Item>
-                    {fields.length > 1 ? (
-                      <IconButton
-                        style={{ marginBottom: 16 }}
-                        onClick={() => {
-                          const emails = form.getFieldValue('emails');
-                          // 判断当前行是否输入内容
-                          if (!emails[index].email) {
-                            // 没有内容 直接删除行
-                            operation.remove(field.name);
-                          } else {
-                            Modal.confirm({
-                              title: '请确认是否删除?',
-                              okText: '删除',
-                              okType: 'danger',
-                              cancelText: '取消',
-                              onOk() {
-                                operation.remove(field.name);
-                                setTimeout(form.submit, 0);
-                              },
-                            });
-                          }
-                        }}
-                        icon="icon-ohbug-subtract-line"
-                        size="small"
-                      />
-                    ) : null}
-                    {fields.length < 3 && index === fields.length - 1 && (
-                      <IconButton
-                        style={{ marginBottom: 16 }}
-                        onClick={() => {
-                          operation.add();
-                        }}
-                        icon="icon-ohbug-add-line"
-                        size="small"
-                      />
-                    )}
-                  </Space>
+                  </div>
                 ))}
               </Space>
             )}
           </Form.List>
         </Zone>
 
-        <Zone title="浏览器通知">
-          <Form.Item name="browser" initialValue={false} valuePropName="checked">
-            <Switch loading={browserSwitchLoading} onChange={handleBrowserChange} />
-          </Form.Item>
-        </Zone>
+        <Zone
+          title={
+            <div className={styles.browserLine}>
+              <div style={{ width: 500 }}>浏览器通知</div>
+              <Form.Item
+                className={styles.browserSwitch}
+                name="browser"
+                initialValue={false}
+                valuePropName="checked"
+              >
+                <Switch loading={browserSwitchLoading} onChange={handleBrowserChange} />
+              </Form.Item>
+            </div>
+          }
+        />
 
         <Zone
           title="第三方通知"
           extra={
-            <Button
+            <IconButton
+              className={styles.addWebhook}
+              icon="icon-ohbug-add-circle-line"
               onClick={() => {
                 setCurrentRule(undefined);
                 webhookModalShow();
               }}
             >
               +
-            </Button>
+            </IconButton>
           }
         >
           <Form.Item name="webhooks" valuePropName="dataSource">
             <Table pagination={false} rowKey={(record) => record.id!}>
               <Table.Column
                 title="名称"
+                width={500}
                 render={(item) => {
                   return (
                     <span>

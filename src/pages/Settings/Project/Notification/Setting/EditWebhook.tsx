@@ -1,24 +1,31 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'umi';
+import { useDispatch, useSelector, Link } from 'umi';
 import type { NotificationSettingWebHook } from 'umi';
-import { Modal, Form, Radio, Input, Space } from 'antd';
+import { Modal, Form, Input, Space, Tooltip } from 'antd';
 
 import { useUpdateEffect } from '@/hooks';
 import IconButton from '@/components/IconButton';
+import RadioIconButton from '@/components/RadioIconButton';
+import Icon from '@/components/Icon';
 import { RootState } from '@/interfaces';
+
+import styles from './EditWebhook.less';
 
 const typeList = [
   {
     label: '钉钉',
     value: 'dingtalk',
+    icon: 'icon-ohbug-dingtalk',
   },
   {
     label: '企业微信',
     value: 'wechat_work',
+    icon: 'icon-ohbug-wechat-work',
   },
   {
     label: '自定义',
     value: 'others',
+    icon: 'icon-ohbug-webhook-others',
   },
 ];
 interface EditWebhookProps {
@@ -75,6 +82,7 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
 
   return (
     <Modal
+      className={styles.root}
       title="编辑第三方通知"
       visible={visible}
       onOk={handleOk}
@@ -91,18 +99,27 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
         onFinish={handleFinish}
         hideRequiredMark
       >
-        <Form.Item name="type" rules={[{ required: true, message: '请选择第三方通知类型' }]}>
-          <Radio.Group>
-            {typeList.map((item) => (
-              <Radio key={item.value} value={item.value}>
-                {item.label}
-              </Radio>
-            ))}
-          </Radio.Group>
+        <Form.Item
+          name="type"
+          rules={[{ required: true, message: '请选择第三方通知类型' }]}
+          initialValue="dingtalk"
+          noStyle
+        >
+          <RadioIconButton className={styles.type} dataSource={typeList} />
         </Form.Item>
 
-        <Form.Item label="名称" name="name" rules={[{ required: true, message: '请输入通知名称' }]}>
-          <Input />
+        <Form.Item
+          label="名称"
+          name="name"
+          rules={[
+            { required: true, message: '请输入通知名称' },
+            {
+              max: 24,
+              message: '通知名称最多为24个字符',
+            },
+          ]}
+        >
+          <Input maxLength={24} />
         </Form.Item>
 
         <Form.Item
@@ -121,7 +138,16 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
 
         <Form.List name="at">
           {(fields, operation) => (
-            <Form.Item label="@的人">
+            <Form.Item
+              label={
+                <Tooltip title="负责人的联系方式，多用于@对应负责人，通常为手机号。">
+                  <span>
+                    负责人
+                    <Icon className={styles.tip} type="icon-ohbug-question-fill" />
+                  </span>
+                </Tooltip>
+              }
+            >
               <Space direction="vertical">
                 {fields.map((field: any, index: number) => (
                   <Space key={field.key}>
@@ -133,7 +159,7 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
                         onClick={() => {
                           operation.remove(field.name);
                         }}
-                        icon="icon-ohbug-subtract-line"
+                        icon="icon-ohbug-indeterminate-circle-line"
                         size="small"
                       />
                     ) : null}
@@ -142,7 +168,7 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
                         onClick={() => {
                           operation.add();
                         }}
-                        icon="icon-ohbug-add-line"
+                        icon="icon-ohbug-add-circle-line"
                         size="small"
                       />
                     )}
@@ -154,13 +180,19 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
                   onClick={() => {
                     operation.add();
                   }}
-                  icon="icon-ohbug-add-line"
+                  icon="icon-ohbug-add-circle-line"
                   size="small"
                 />
               )}
             </Form.Item>
           )}
         </Form.List>
+
+        <Form.Item label="参考文档" colon={false}>
+          <Link to="/" style={{ textDecoration: 'underline' }}>
+            钉钉接入指引
+          </Link>
+        </Form.Item>
       </Form>
     </Modal>
   );

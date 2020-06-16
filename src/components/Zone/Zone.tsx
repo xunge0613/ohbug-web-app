@@ -5,7 +5,7 @@ import styles from './Zone.less';
 
 interface ZoneProps {
   className?: string;
-  title?: string;
+  title?: React.ReactNode;
   extra?: React.ReactNode;
   children?: React.ReactNode;
   type?: 'normal' | 'danger';

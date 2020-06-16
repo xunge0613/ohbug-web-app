@@ -250,7 +250,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
                           onClick={() => {
                             operation.remove(field.name);
                           }}
-                          icon="icon-ohbug-subtract-line"
+                          icon="icon-ohbug-indeterminate-circle-line"
                           size="small"
                         />
                       ) : null}
@@ -259,7 +259,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
                           onClick={() => {
                             operation.add();
                           }}
-                          icon="icon-ohbug-add-line"
+                          icon="icon-ohbug-add-circle-line"
                           size="small"
                         />
                       )}
@@ -271,7 +271,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
                     onClick={() => {
                       operation.add();
                     }}
-                    icon="icon-ohbug-add-line"
+                    icon="icon-ohbug-add-circle-line"
                     size="small"
                   />
                 )}

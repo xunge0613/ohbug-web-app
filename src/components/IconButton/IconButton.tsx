@@ -11,16 +11,21 @@ interface IconButtonProps {
   icon: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any;
   size?: 'default' | 'small' | 'large';
+  type?: 'default' | 'primary';
 }
 const IconButton: React.FC<IconButtonProps> = ({
   spin,
   icon,
   onClick,
   size = 'default',
+  type = 'default',
+  className,
   ...args
 }) => {
-  const classes = clsx(styles.root, {
+  const classes = clsx(styles.root, className, {
     [styles.spin]: spin,
+    [styles.defaultType]: type === 'default',
+    [styles.primaryType]: type === 'primary',
     [styles.sizeSmall]: size === 'small',
     [styles.sizeDefault]: size === 'default',
     [styles.sizeLarge]: size === 'large',
