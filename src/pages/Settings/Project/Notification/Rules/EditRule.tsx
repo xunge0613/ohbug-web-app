@@ -73,7 +73,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
   );
   const [type, setType] = React.useState(() => (initialValues ? 'update' : 'create'));
   const confirmLoading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects[`rules/${type}`]!,
+    (state) => state.loading.effects[`notification/rules/${type}`]!,
   );
   useUpdateEffect(() => {
     setData(getRuleDataType(initialValues) || 'indicator');

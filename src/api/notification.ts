@@ -1,5 +1,12 @@
 import { request } from 'umi';
-import type { NotificationRule } from 'umi';
+import type {
+  NotificationRule,
+  NotificationSettingWebHook,
+  NotificationSettingBrowser,
+  NotificationSettingEmails,
+  NotificationSettingWebHookType,
+} from 'umi';
+import { NotificationSetting } from '@/models/notification';
 
 type Level = 'serious' | 'warning' | 'default';
 interface CreateRule {
@@ -33,9 +40,24 @@ interface GetSetting {
 }
 interface UpdateSetting {
   project_id: number;
-  emails: string[];
-  browser: boolean;
-  webhooks: string[];
+  emails: NotificationSettingEmails[];
+  browser: NotificationSettingBrowser;
+  webhooks: NotificationSettingWebHook[];
+}
+interface CreateSettingWebhook {
+  project_id: number;
+  type: NotificationSettingWebHookType;
+  name: string;
+  link: string;
+  open?: boolean;
+  at?: { value: string }[];
+}
+interface UpdateSettingWebhook extends CreateSettingWebhook {
+  id: string;
+}
+interface DeleteSettingWebhook {
+  project_id: number;
+  id: string;
 }
 
 const notification = {
@@ -67,7 +89,7 @@ const notification = {
     const res = await request(`/notification/rules/${rule_id}`, { method: 'delete' });
     return res;
   },
-  getSetting: async (data: GetSetting): Promise<NotificationRule | void> => {
+  getSetting: async (data: GetSetting): Promise<NotificationSetting | void> => {
     const res = await request('/notification/setting', { method: 'get', params: data });
     return res;
   },
@@ -76,7 +98,7 @@ const notification = {
     emails,
     browser,
     webhooks,
-  }: UpdateSetting): Promise<NotificationRule | void> => {
+  }: UpdateSetting): Promise<NotificationSetting | void> => {
     const res = await request('/notification/setting', {
       method: 'patch',
       params: { project_id },
@@ -85,6 +107,59 @@ const notification = {
         browser,
         webhooks,
       },
+    });
+    return res;
+  },
+  createSettingWebhook: async ({
+    project_id,
+    type,
+    name,
+    link,
+    open,
+    at,
+  }: CreateSettingWebhook): Promise<NotificationSettingWebHook | void> => {
+    const res = await request('/notification/setting/webhooks', {
+      method: 'post',
+      params: { project_id },
+      data: {
+        type,
+        name,
+        link,
+        open,
+        at,
+      },
+    });
+    return res;
+  },
+  updateSettingWebhook: async ({
+    project_id,
+    id,
+    type,
+    name,
+    link,
+    open,
+    at,
+  }: UpdateSettingWebhook): Promise<NotificationSettingWebHook | void> => {
+    const res = await request(`/notification/setting/webhooks/${id}`, {
+      method: 'patch',
+      params: { project_id },
+      data: {
+        type,
+        name,
+        link,
+        open,
+        at,
+      },
+    });
+    return res;
+  },
+  deleteSettingWebhook: async ({
+    project_id,
+    id,
+  }: DeleteSettingWebhook): Promise<boolean | void> => {
+    const res = await request(`/notification/setting/webhooks/${id}`, {
+      method: 'delete',
+      params: { project_id },
     });
     return res;
   },

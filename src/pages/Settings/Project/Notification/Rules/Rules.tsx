@@ -3,7 +3,7 @@ import { useDispatch, useParams, useSelector } from 'umi';
 import type { NotificationRule } from 'umi';
 import { Table, Tag, Switch, Button, Modal } from 'antd';
 
-import { RootState } from '@/interfaces';
+import type { RootState } from '@/interfaces';
 import Zone from '@/components/Zone';
 import { useBoolean } from '@/hooks';
 
@@ -109,7 +109,7 @@ const Rules: React.FC = () => {
                     modalShow();
                   }}
                 >
-                  编辑
+                  修改
                 </Button>
                 <Button
                   className={styles.deleteButton}

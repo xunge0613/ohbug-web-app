@@ -31,12 +31,14 @@ interface NotificationSettingEmail {
 }
 export type NotificationSettingEmails = NotificationSettingEmail[];
 export type NotificationSettingBrowser = boolean;
-type NotificationSettingWebHookType = 'dingtalk' | 'wechat_work' | 'others';
-interface NotificationSettingWebHook {
+export type NotificationSettingWebHookType = 'dingtalk' | 'wechat_work' | 'others';
+export interface NotificationSettingWebHook {
+  id: string;
   type: NotificationSettingWebHookType;
   name: string;
   link: string;
-  at?: string[];
+  open: boolean;
+  at?: { value: string }[];
 }
 export type NotificationSettingWebHooks = NotificationSettingWebHook[];
 
@@ -182,14 +184,91 @@ const notification: NotificationModel = {
       }
     },
 
-    'setting/update': function* ({ payload: { project_id, emails, browser, webhooks } }, { call }) {
+    'setting/update': function* (
+      { payload: { project_id, emails, browser, webhooks } },
+      { call, put },
+    ) {
       if (project_id) {
-        yield call(api.notification.updateSetting, {
+        const result = yield call(api.notification.updateSetting, {
           project_id,
           emails,
           browser,
           webhooks,
         });
+        if (result) {
+          yield put({
+            type: 'setting/get',
+            payload: {
+              project_id,
+            },
+          });
+        }
+      }
+    },
+
+    'setting/webhooks/create': function* (
+      { payload: { project_id, type, name, link, open, at } },
+      { call, put },
+    ) {
+      if (project_id) {
+        const result = yield call(api.notification.createSettingWebhook, {
+          project_id,
+          type,
+          name,
+          link,
+          open,
+          at,
+        });
+        if (result) {
+          yield put({
+            type: 'setting/get',
+            payload: {
+              project_id,
+            },
+          });
+        }
+      }
+    },
+
+    'setting/webhooks/update': function* (
+      { payload: { project_id, id, type, name, link, open, at } },
+      { call, put },
+    ) {
+      if (project_id && id) {
+        const result = yield call(api.notification.updateSettingWebhook, {
+          project_id,
+          id,
+          type,
+          name,
+          link,
+          open,
+          at,
+        });
+        if (result) {
+          yield put({
+            type: 'setting/get',
+            payload: {
+              project_id,
+            },
+          });
+        }
+      }
+    },
+
+    'setting/webhooks/delete': function* ({ payload: { project_id, id } }, { call, put }) {
+      if (project_id && id) {
+        const result = yield call(api.notification.deleteSettingWebhook, {
+          project_id,
+          id,
+        });
+        if (result) {
+          yield put({
+            type: 'setting/get',
+            payload: {
+              project_id,
+            },
+          });
+        }
       }
     },
   },
