@@ -30,7 +30,17 @@ interface NotificationSettingEmail {
   open: boolean;
 }
 export type NotificationSettingEmails = NotificationSettingEmail[];
-export type NotificationSettingBrowser = boolean;
+export type NotificationSettingBrowser = {
+  open: boolean;
+  data: {
+    endpoint: string;
+    keys: {
+      p256dh: string;
+      auth: string;
+    };
+    expirationTime: string | null;
+  } | null;
+};
 export type NotificationSettingWebHookType = 'dingtalk' | 'wechat_work' | 'others';
 export interface NotificationSettingWebHook {
   id: string;

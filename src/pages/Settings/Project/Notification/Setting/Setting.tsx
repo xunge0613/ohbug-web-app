@@ -7,6 +7,7 @@ import type { RootState } from '@/interfaces';
 import Zone from '@/components/Zone';
 import IconButton from '@/components/IconButton';
 import { useUpdateEffect, useBoolean } from '@/hooks';
+import { registerServiceWorker, askNotificationPermission } from '@/utils';
 
 import EditWebhook from './EditWebhook';
 
@@ -20,6 +21,12 @@ const Setting: React.FC = () => {
     undefined,
   );
   const [currentSwitch, setCurrentSwitch] = React.useState<number>();
+  const [browserDisabled] = React.useState<boolean>(() => {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      return false;
+    }
+    return true;
+  });
 
   React.useEffect(() => {
     dispatch({
@@ -41,7 +48,10 @@ const Setting: React.FC = () => {
 
   useUpdateEffect(() => {
     if (setting) {
-      form.setFieldsValue(setting);
+      form.setFieldsValue({
+        ...setting,
+        browser: setting?.browser?.open,
+      });
     }
   }, [setting]);
 
@@ -52,13 +62,44 @@ const Setting: React.FC = () => {
   } = useBoolean(false);
 
   const handleBrowserChange = React.useCallback((checked: boolean) => {
-    dispatch({
-      type: 'notification/setting/update',
-      payload: {
-        project_id,
-        browser: checked,
-      },
-    });
+    if (checked === true) {
+      // 获取浏览器通知权限
+      askNotificationPermission()
+        .then(() => {
+          registerServiceWorker().then((subscribeOptions) => {
+            dispatch({
+              type: 'notification/setting/update',
+              payload: {
+                project_id,
+                browser: {
+                  open: checked,
+                  data: JSON.parse(JSON.stringify(subscribeOptions)),
+                },
+              },
+            });
+          });
+        })
+        .catch((err) => {
+          dispatch({
+            type: 'app/error',
+            payload: err.message,
+          });
+          form.setFieldsValue({
+            browser: false,
+          });
+        });
+    } else {
+      dispatch({
+        type: 'notification/setting/update',
+        payload: {
+          project_id,
+          browser: {
+            open: checked,
+            data: null,
+          },
+        },
+      });
+    }
   }, []);
   const handleFinish = React.useCallback(
     (values) => {
@@ -91,7 +132,7 @@ const Setting: React.FC = () => {
             {(fields, operation) => (
               <Space direction="vertical">
                 {fields.map((field, index) => (
-                  <div className={styles.emailLine}>
+                  <div className={styles.emailLine} key={field.key}>
                     <Space style={{ width: 500 }} align="center" key={field.key}>
                       <Form.Item
                         name={[field.name, 'email']}
@@ -175,11 +216,19 @@ const Setting: React.FC = () => {
                 initialValue={false}
                 valuePropName="checked"
               >
-                <Switch loading={browserSwitchLoading} onChange={handleBrowserChange} />
+                <Switch
+                  loading={browserSwitchLoading}
+                  onChange={handleBrowserChange}
+                  disabled={browserDisabled}
+                />
               </Form.Item>
             </div>
           }
-        />
+        >
+          <span>
+            {browserDisabled ? `当前浏览器不支持浏览器通知，建议切换至 Chrome 浏览器` : ''}
+          </span>
+        </Zone>
 
         <Zone
           title="第三方通知"

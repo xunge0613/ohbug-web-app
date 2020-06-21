@@ -10,7 +10,7 @@ const app: AppModel = {
   namespace: 'app',
   effects: {
     error({ payload }) {
-      message.error(payload);
+      message.error(payload, 5);
     },
     info({ payload }) {
       message.info(payload);
