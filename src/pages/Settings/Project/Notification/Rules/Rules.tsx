@@ -7,7 +7,9 @@ import type { RootState } from '@/interfaces';
 import Zone from '@/components/Zone';
 import { useBoolean } from '@/hooks';
 
+import dayjs from 'dayjs';
 import EditRule from './EditRule';
+import { levelList } from './Rules.core';
 
 import styles from './Rules.less';
 
@@ -68,12 +70,19 @@ const Rules: React.FC = () => {
           />
           <Table.Column<NotificationRule>
             title="通知类型"
-            render={(item: NotificationRule) => <Tag>{item?.level}</Tag>}
+            render={(item: NotificationRule) => {
+              const { color, label } = levelList.find((v) => v.value === item.level)!;
+              return <Tag color={color}>{label}</Tag>;
+            }}
           />
           <Table.Column<NotificationRule>
             title="最近通知"
             render={(item: NotificationRule) => (
-              <span>{item?.recently || '还没有触发过通知哟~'}</span>
+              <span>
+                {item?.recently
+                  ? dayjs(item?.recently).format('YYYY-MM-DD HH:mm:ss')
+                  : '还没有触发过通知哟~'}
+              </span>
             )}
           />
           <Table.Column<NotificationRule>

@@ -3,23 +3,13 @@ import { useDispatch, useSelector } from 'umi';
 import type { NotificationRule, NotificationRuleLevel } from 'umi';
 import { Modal, Form, Input, Select, InputNumber, Tag, Space } from 'antd';
 import { types } from '@ohbug/core';
-import IconButton from '@/components/IconButton';
-import { RootState } from '@/interfaces';
 import { useUpdateEffect } from '@umijs/hooks';
 
-const intervalList = [
-  { label: '10分钟', value: 600000 },
-  { label: '30分钟', value: 1800000 },
-  { label: '1小时', value: 3600000 },
-  { label: '3小时', value: 10800000 },
-  { label: '6小时', value: 21600000 },
-  { label: '12小时', value: 43200000 },
-];
-const levelList = [
-  { label: '严重', value: 'serious' },
-  { label: '警告', value: 'warning' },
-  { label: '默认', value: 'default' },
-];
+import IconButton from '@/components/IconButton';
+import { RootState } from '@/interfaces';
+
+import { levelList, intervalList } from './Rules.core';
+
 interface LevelComponentProps {
   value?: NotificationRuleLevel;
   onChange?: (key: NotificationRuleLevel) => void;
@@ -69,14 +59,14 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [data, setData] = React.useState<'indicator' | 'range'>(
-    getRuleDataType(initialValues) || 'indicator',
+    getRuleDataType(initialValues) || 'range',
   );
   const [type, setType] = React.useState(() => (initialValues ? 'update' : 'create'));
   const confirmLoading = useSelector<RootState, boolean>(
     (state) => state.loading.effects[`notification/rules/${type}`]!,
   );
   useUpdateEffect(() => {
-    setData(getRuleDataType(initialValues) || 'indicator');
+    setData(getRuleDataType(initialValues) || 'range');
     setType(initialValues ? 'update' : 'create');
 
     if (initialValues) {
@@ -143,7 +133,9 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
         <Form.Item
           label={
             <Select value={data} onChange={setData} bordered={false}>
-              <Select.Option value="indicator">指标</Select.Option>
+              <Select.Option value="indicator" disabled>
+                指标
+              </Select.Option>
               <Select.Option value="range">区间</Select.Option>
             </Select>
           }
