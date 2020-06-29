@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@ahooksjs/use-request@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/@ahooksjs/use-request/download/@ahooksjs/use-request-2.0.1.tgz#e456d1ceed99086708748b26d805baf84ee0188a"
+  integrity sha1-5FbRzu2ZCGcIdIsm2AW6+E7gGIo=
+  dependencies:
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
+
 "@ant-design/colors@^3.1.0":
   version "3.2.2"
   resolved "https://registry.npmjs.org/@ant-design/colors/-/colors-3.2.2.tgz#5ad43d619e911f3488ebac303d606e66a8423903"
@@ -3375,17 +3383,6 @@
     stylelint-order "^4.0.0"
     typescript "^3.8.3"
 
-"@umijs/hooks@^1.9.2":
-  version "1.9.2"
-  resolved "https://registry.npmjs.org/@umijs/hooks/-/hooks-1.9.2.tgz#647becc86d4e6aa96f78371edab987b533845b8b"
-  integrity sha512-mYT9C7cL4u1ZymCn8zNBiAV011fwnNQFYGkl3HCVyqWTzqtdVngSbVL3vUE9ii6v30zge/tpPQAjosjrrBHfIQ==
-  dependencies:
-    "@umijs/use-request" "^1.4.2"
-    intersection-observer "^0.7.0"
-    lodash.isequal "^4.5.0"
-    resize-observer-polyfill "^1.5.1"
-    screenfull "^5.0.0"
-
 "@umijs/plugin-access@2.3.1":
   version "2.3.1"
   resolved "https://registry.npmjs.org/@umijs/plugin-access/-/plugin-access-2.3.1.tgz#016a1cae8583b878cbebb3ea6b07235a56f2c756"
@@ -3655,7 +3652,7 @@
     "@umijs/utils" "3.2.3"
     webpack-chain "6.4.0"
 
-"@umijs/use-request@^1.2.0", "@umijs/use-request@^1.4.2":
+"@umijs/use-request@^1.2.0":
   version "1.4.2"
   resolved "https://registry.npmjs.org/@umijs/use-request/-/use-request-1.4.2.tgz#8673435d3d0c4205062b74e35f3fb0d25397c213"
   integrity sha512-PBoOsM+4ISspGGV/5y2i21HLd/h+BkdIDmbxYvUIOF/MVXrumS6C9EFJaSl9+RrLzW9w10/wKpy0GGIg1CJ3gw==
@@ -4057,6 +4054,19 @@ aggregate-error@^3.0.0:
   dependencies:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
+
+ahooks@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/ahooks/download/ahooks-2.0.1.tgz#12bcdaf7db5c6f03a0ab566eaac598696c2ec8c8"
+  integrity sha1-Erza99tcbwOgq1ZuqsWYaWwuyMg=
+  dependencies:
+    "@ahooksjs/use-request" "^2.0.1"
+    intersection-observer "^0.7.0"
+    lodash.debounce "^4.0.8"
+    lodash.isequal "^4.5.0"
+    lodash.throttle "^4.1.1"
+    resize-observer-polyfill "^1.5.1"
+    screenfull "^5.0.0"
 
 airbnb-prop-types@^2.15.0:
   version "2.15.0"

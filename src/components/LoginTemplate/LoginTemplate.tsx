@@ -37,7 +37,7 @@ const LoginTemplate: React.FC<LoginTemplateProps> = ({
           ) : (
             <Space direction="vertical" size="middle">
               <Typography className={styles.titleBox}>
-                <Typography.Title level={2}>{title}</Typography.Title>
+                <Typography.Title level={3}>{title}</Typography.Title>
                 <Typography.Paragraph type="secondary">{subTitle}</Typography.Paragraph>
               </Typography>
 

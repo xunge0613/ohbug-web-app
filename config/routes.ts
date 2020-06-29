@@ -83,6 +83,11 @@ export default [
         component: '@/pages/Settings/Project/Notification/Setting',
       },
       {
+        exact: true,
+        path: '/settings/:organization_id/project/:project_id/members',
+        component: '@/pages/Settings/Project/Members',
+      },
+      {
         redirect: '/404',
       },
     ],
@@ -144,6 +149,16 @@ export default [
     path: '/create-organization',
     component: '@/pages/CreateOrganization',
     wrappers: ['@/wrappers/auth'],
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+      hideFooter: true,
+    },
+  },
+  {
+    exact: true,
+    path: '/invite',
+    component: '@/pages/Invite',
     layout: {
       hideMenu: true,
       hideNav: true,

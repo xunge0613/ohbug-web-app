@@ -3,7 +3,7 @@ import { Space, Button } from 'antd';
 import { useLocation, useDispatch, useSelector, Link } from 'umi';
 
 import { oauth2_github_href } from '@/config';
-import { useMount, useToggle } from '@/hooks';
+import { useMount, useToggle, useInvite } from '@/hooks';
 import MobileLoginForm from '@/components/MobileLoginForm';
 import Icon from '@/components/Icon';
 import LoginTemplate from '@/components/LoginTemplate';
@@ -15,9 +15,10 @@ interface LoginPageProps {
   children?: React.ReactNode;
 }
 
-function useLoginRedirect(): void {
+function useLoginRedirect() {
   const dispatch = useDispatch();
-  const { query } = useLocation() as any;
+  // @ts-ignore
+  const { query } = useLocation();
 
   useMount(() => {
     if (query && Object.keys(query).length) {
@@ -28,12 +29,13 @@ function useLoginRedirect(): void {
 
 const LogIn: React.FC<LoginPageProps> = ({ children }) => {
   useLoginRedirect();
+  const { subTitle } = useInvite();
 
   const loading = useSelector<RootState, boolean>(
     (state) => !!state.loading.effects['auth/github']!,
   );
 
-  const { state: loginBoxVisible, toggle: toggleLoginBoxVisible } = useToggle(true);
+  const [loginBoxVisible, { toggle: toggleLoginBoxVisible }] = useToggle(true);
   const handleLoginWithMobileClick = React.useCallback(() => {
     toggleLoginBoxVisible(false);
   }, []);
@@ -42,12 +44,7 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
   }, []);
 
   return (
-    <LoginTemplate
-      className={styles.root}
-      loading={loading}
-      title="Login"
-      subTitle="登录帐户以开始全面监控您的应用。"
-    >
+    <LoginTemplate className={styles.root} loading={loading} title="Login" subTitle={subTitle}>
       {loginBoxVisible ? (
         <Space className={styles.loginBox} direction="vertical" size="middle">
           <Button

@@ -5,6 +5,7 @@ import type { UserModelState, OrganizationModelState } from 'umi';
 import type { RootState } from '@/interfaces';
 import { useMount } from '@/hooks';
 import { getGithub } from '@/utils';
+import { InviteModelState } from '@/models/invite';
 
 interface UseAuth {
   isLogin: boolean;
@@ -28,9 +29,12 @@ const useAuth = (): UseAuth => {
   const organization = useSelector<RootState, OrganizationModelState['current']>(
     (state) => state.organization.current,
   );
+  const invite = useSelector<RootState, InviteModelState['current']>(
+    (state) => state.invite.current,
+  );
 
   useMount(() => {
-    async function getUserInfo(): Promise<any> {
+    async function getUserInfo(): Promise<void> {
       try {
         if (!Object.keys(user).length) {
           // 没有 user 信息 需要获取
@@ -46,7 +50,7 @@ const useAuth = (): UseAuth => {
       }
     }
 
-    async function run(): Promise<any> {
+    async function run(): Promise<void> {
       if (!auth) {
         // 未登录状态
         setLogin(false);
@@ -57,6 +61,13 @@ const useAuth = (): UseAuth => {
       } else {
         // 登录状态
         await getUserInfo();
+
+        if (invite) {
+          await dispatch({
+            type: 'invite/bind',
+          });
+        }
+
         setLogin(true);
       }
     }

@@ -18,6 +18,7 @@ export interface Project {
   type: ProjectType;
   createdAt: string;
   users: User[];
+  admin: User;
 }
 export interface ProjectModelState {
   createProjectVisible: boolean;

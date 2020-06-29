@@ -16,7 +16,7 @@ import styles from './Rules.less';
 const Rules: React.FC = () => {
   const dispatch = useDispatch();
   const { project_id } = useParams();
-  const { state: modalVisible, setTrue: modalShow, setFalse: modalOnCancel } = useBoolean(false);
+  const [modalVisible, { setTrue: modalShow, setFalse: modalOnCancel }] = useBoolean(false);
   const [currentRule, setCurrentRule] = React.useState<NotificationRule | undefined>(undefined);
   const [currentSwitch, setCurrentSwitch] = React.useState<number>();
 

@@ -8,6 +8,7 @@ import event from './event';
 import analysis from './analysis';
 import view from './view';
 import notification from './notification';
+import invite from './invite';
 
 const api = {
   project,
@@ -20,6 +21,7 @@ const api = {
   analysis,
   view,
   notification,
+  invite,
 };
 
 export default api;

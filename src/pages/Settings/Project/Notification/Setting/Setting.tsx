@@ -55,11 +55,10 @@ const Setting: React.FC = () => {
     }
   }, [setting]);
 
-  const {
-    state: webhookModalVisible,
-    setTrue: webhookModalShow,
-    setFalse: webhookModalOnCancel,
-  } = useBoolean(false);
+  const [
+    webhookModalVisible,
+    { setTrue: webhookModalShow, setFalse: webhookModalOnCancel },
+  ] = useBoolean(false);
 
   const handleBrowserChange = React.useCallback((checked: boolean) => {
     if (checked === true) {

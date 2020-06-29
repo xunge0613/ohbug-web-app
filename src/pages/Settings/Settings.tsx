@@ -56,8 +56,8 @@ const projectMenuList = (project_id?: number | string): MenuList => [
   // },
   {
     label: '成员列表',
-    key: `project/${project_id}/users`,
-    path: `/project/${project_id}/users`,
+    key: `project/${project_id}/members`,
+    path: `/project/${project_id}/members`,
   },
 ];
 function renderMenu(menuList: MenuList, handleItemClick: (item: MenuItem) => void) {

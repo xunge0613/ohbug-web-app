@@ -7,8 +7,9 @@ import styles from './User.less';
 
 interface UserProps {
   data: User;
+  hasName?: boolean;
 }
-const UserComponent: React.FC<UserProps> = ({ data }) => {
+const UserComponent: React.FC<UserProps> = ({ data, hasName }) => {
   const content = React.useMemo(() => {
     return (
       <div className={styles.userContent}>
@@ -25,9 +26,10 @@ const UserComponent: React.FC<UserProps> = ({ data }) => {
 
   return (
     <Popover content={content} trigger="hover">
-      <Avatar className={styles.root} src={data.avatar}>
-        {data.name?.[0]}
-      </Avatar>
+      <span className={styles.root}>
+        <Avatar src={data.avatar}>{data.name?.[0]}</Avatar>
+        {hasName && <span className={styles.name}>{data.name}</span>}
+      </span>
     </Popover>
   );
 };
