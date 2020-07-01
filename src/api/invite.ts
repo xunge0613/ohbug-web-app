@@ -13,6 +13,10 @@ interface Bind {
   uuid: string;
   user_id: number;
 }
+interface BindProject {
+  users: number[];
+  project_id: number;
+}
 
 const invite = {
   url: async (data: Invite): Promise<string | void> => {
@@ -25,6 +29,10 @@ const invite = {
   },
   bind: async (data: Bind): Promise<any | void> => {
     const res = await request(`/invite/bind`, { method: 'post', data });
+    return res;
+  },
+  bindProject: async (data: BindProject): Promise<any | void> => {
+    const res = await request(`/invite/bindProject`, { method: 'post', data });
     return res;
   },
 };

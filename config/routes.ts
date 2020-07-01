@@ -61,6 +61,11 @@ export default [
         path: '/settings/:organization_id/projects',
         component: '@/pages/Settings/Organization/Projects',
       },
+      {
+        exact: true,
+        path: '/settings/:organization_id/members',
+        component: '@/pages/Settings/Organization/Members',
+      },
       // project settings
       {
         exact: true,

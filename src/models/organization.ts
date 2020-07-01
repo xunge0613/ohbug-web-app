@@ -10,6 +10,7 @@ export interface Organization {
   avatar?: string;
   introduction?: string;
   createdAt?: string;
+  admin?: User;
   users?: User[];
   projects?: Project[];
 }

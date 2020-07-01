@@ -26,6 +26,11 @@ const organizationMenuList: MenuList = [
     key: 'projects',
     path: '/projects',
   },
+  {
+    label: '成员列表',
+    key: 'members',
+    path: '/members',
+  },
 ];
 const projectMenuList = (project_id?: number | string): MenuList => [
   {
