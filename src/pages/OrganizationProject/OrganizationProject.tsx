@@ -2,10 +2,9 @@ import React from 'react';
 import { PageHeader, Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { history, useDispatch, useSelector } from 'umi';
-import type { ProjectModelState, OrganizationModelState } from 'umi';
 
 import BasicLayout from '@/layouts/Basic';
-import type { RootState } from '@/interfaces';
+import type { RootState, ProjectModelState, OrganizationModelState } from '@/interfaces';
 
 import OrganizationTree from './components/OrganizationTree';
 
@@ -53,11 +52,7 @@ const OrganizationProject: React.FC<ProjectPageProps> = () => {
       }
     >
       {organizations && organization && projects && (
-        <OrganizationTree
-          organizations={organizations}
-          organization={organization}
-          projects={projects}
-        />
+        <OrganizationTree organization={organization} projects={projects} />
       )}
     </BasicLayout>
   );

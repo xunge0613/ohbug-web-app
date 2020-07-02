@@ -1,13 +1,12 @@
 import React from 'react';
 import { useDispatch, useParams, useSelector } from 'umi';
-import type { NotificationRule } from 'umi';
 import { Table, Tag, Switch, Button, Modal } from 'antd';
+import dayjs from 'dayjs';
 
-import type { RootState } from '@/interfaces';
-import Zone from '@/components/Zone';
+import type { RootState, NotificationRule } from '@/interfaces';
+import { Zone } from '@/components';
 import { useBoolean } from '@/hooks';
 
-import dayjs from 'dayjs';
 import EditRule from './EditRule';
 import { levelList } from './Rules.core';
 

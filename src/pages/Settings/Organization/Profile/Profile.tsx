@@ -1,12 +1,10 @@
 import React from 'react';
 import { Row, Col, Form, Input, Button, Avatar } from 'antd';
 import { useDispatch, useSelector, useParams, history } from 'umi';
-import type { Organization } from 'umi';
 
-import { RootState } from '@/interfaces';
-import UploadImage from '@/components/UploadImage';
-import Icon from '@/components/Icon';
-import Zone from '@/components/Zone';
+import { RootState, Organization } from '@/interfaces';
+import { UploadImage, Icon, Zone } from '@/components';
+
 import DangerZone from './DangerZone';
 
 import styles from './Profile.less';

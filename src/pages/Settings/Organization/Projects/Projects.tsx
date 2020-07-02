@@ -1,12 +1,10 @@
 import React from 'react';
 import { List, Avatar } from 'antd';
 import { useSelector, history, useParams } from 'umi';
-import type { Project } from 'umi';
 
-import { RootState } from '@/interfaces';
-import Zone from '@/components/Zone';
+import { RootState, Project } from '@/interfaces';
+import { Zone, IconButton } from '@/components';
 import { getPlatformLogo } from '@/utils';
-import IconButton from '@/components/IconButton';
 
 import styles from './Projects.less';
 

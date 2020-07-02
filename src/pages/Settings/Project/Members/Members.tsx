@@ -1,12 +1,9 @@
 import React from 'react';
 import { Table, Button } from 'antd';
 import { useSelector, useParams } from 'umi';
-import type { Project, User, Organization } from 'umi';
 
-import { RootState } from '@/interfaces';
-import Zone from '@/components/Zone';
-import UserComponent from '@/components/User';
-import InviteProject from '@/components/InviteProject';
+import { RootState, Project, User, Organization } from '@/interfaces';
+import { Zone, User as UserComponent, InviteProject } from '@/components';
 import { useBoolean } from '@/hooks';
 
 import styles from './Members.less';

@@ -1,6 +1,4 @@
-export { default as useAuth } from './useAuth';
-export { default as useRect } from './useRect';
+export * from './business';
+export * from './common';
 
 export * from 'ahooks';
-
-export * from './service';

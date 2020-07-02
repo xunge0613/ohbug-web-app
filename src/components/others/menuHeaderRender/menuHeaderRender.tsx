@@ -1,10 +1,10 @@
 import React from 'react';
 
-import UserBlock from '@/components/UserBlock';
+import { SwitchOrganization } from '@/components';
 
 function menuHeaderRender(_: unknown, __: unknown, props: any) {
   const { collapsed } = props;
-  return <UserBlock collapsed={collapsed} />;
+  return <SwitchOrganization collapsed={collapsed} />;
 }
 
 export default menuHeaderRender;

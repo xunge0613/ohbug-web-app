@@ -1,7 +1,7 @@
 import React from 'react';
 import type { OhbugAction } from '@ohbug/types';
 
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 
 export function getMessageAndIconByActionType(
   action: OhbugAction,

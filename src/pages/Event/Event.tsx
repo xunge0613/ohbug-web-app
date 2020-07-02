@@ -1,11 +1,10 @@
 import React from 'react';
 import { useDispatch, useParams, useSelector } from 'umi';
-import type { EventModelState, IssueModelState } from 'umi';
 import { Row, Col, Tabs } from 'antd';
 
 import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
-import type { RootState } from '@/interfaces';
+import type { RootState, EventModelState, IssueModelState } from '@/interfaces';
 
 import Title from './components/Title';
 import Profile from './components/Profile';

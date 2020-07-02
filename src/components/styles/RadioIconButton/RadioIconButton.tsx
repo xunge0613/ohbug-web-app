@@ -3,7 +3,7 @@ import { Radio } from 'antd';
 import { RadioGroupProps } from 'antd/lib/radio';
 import clsx from 'clsx';
 
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 
 import styles from './RadioIconButton.less';
 

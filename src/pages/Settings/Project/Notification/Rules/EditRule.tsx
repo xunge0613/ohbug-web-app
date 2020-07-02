@@ -1,11 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'umi';
-import type { NotificationRule, NotificationRuleLevel } from 'umi';
 import { Modal, Form, Input, Select, InputNumber, Tag, Space } from 'antd';
 import { types } from '@ohbug/core';
 
-import IconButton from '@/components/IconButton';
-import { RootState } from '@/interfaces';
+import { RootState, NotificationRule, NotificationRuleLevel } from '@/interfaces';
+import { IconButton } from '@/components';
 import { useUpdateEffect } from '@/hooks';
 
 import { levelList, intervalList } from './Rules.core';

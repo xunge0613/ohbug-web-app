@@ -1,12 +1,11 @@
 import React from 'react';
 import { Card, Typography } from 'antd';
 import { useDispatch, useSelector } from 'umi';
-import type { IssueModelState } from 'umi';
 import dayjs from 'dayjs';
 
-import type { RootState } from '@/interfaces';
+import type { RootState, IssueModelState } from '@/interfaces';
 import { useUpdateEffect } from '@/hooks';
-import MiniChart from '@/components/MiniChart';
+import { MiniChart } from '@/components';
 
 import HoverCard from '../HoverCard';
 

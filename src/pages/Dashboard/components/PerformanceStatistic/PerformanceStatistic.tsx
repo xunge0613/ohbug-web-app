@@ -2,9 +2,8 @@ import React from 'react';
 import { Card, Menu, Dropdown, Typography, Tooltip } from 'antd';
 import { QuestionCircleOutlined, DownOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'umi';
-import type { AnalysisModelState } from 'umi';
 
-import type { RootState } from '@/interfaces';
+import type { RootState, AnalysisModelState } from '@/interfaces';
 import Chart from './Chart';
 
 import styles from './Chart.less';

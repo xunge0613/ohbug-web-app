@@ -1,11 +1,10 @@
 import React from 'react';
 import { Card, Table } from 'antd';
 import { useLocation, useSelector, useDispatch } from 'umi';
-import type { Event, FeedbackModelState } from 'umi';
 
 import { useMount } from '@/hooks';
-import type { RootState } from '@/interfaces';
-import RelativeTime from '@/components/RelativeTime';
+import type { RootState, Event, FeedbackModelState } from '@/interfaces';
+import { RelativeTime } from '@/components';
 
 import styles from './List.less';
 

@@ -1,11 +1,10 @@
 import React from 'react';
 import { useDispatch, useLocation, history, useSelector } from 'umi';
-import type { InviteModelState } from 'umi';
 import { Button } from 'antd';
 
-import type { RootState } from '@/interfaces';
+import type { RootState, InviteModelState } from '@/interfaces';
 import { useMount } from '@/hooks';
-import LoginTemplate from '@/components/LoginTemplate';
+import { LoginTemplate } from '@/components';
 
 const Invite: React.FC = () => {
   const dispatch = useDispatch();

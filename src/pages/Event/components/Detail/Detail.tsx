@@ -1,10 +1,9 @@
 import React from 'react';
 import { Card, Descriptions, Timeline, Tooltip } from 'antd';
-import type { EventModelState } from 'umi';
 import dayjs from 'dayjs';
 
-import StackInfo from '@/components/StackInfo';
-import Icon from '@/components/Icon';
+import type { EventModelState } from '@/interfaces';
+import { StackInfo, Icon } from '@/components';
 
 import { getMessageAndIconByActionType } from './core';
 

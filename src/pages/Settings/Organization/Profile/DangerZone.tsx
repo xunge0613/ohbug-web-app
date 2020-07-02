@@ -1,7 +1,8 @@
 import React from 'react';
 import { Alert, Button, List, Modal, Typography, Form, Input } from 'antd';
 import { useDispatch } from 'umi';
-import type { Organization } from 'umi';
+
+import type { Organization } from '@/interfaces';
 
 import styles from './Profile.less';
 

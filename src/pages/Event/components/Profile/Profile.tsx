@@ -1,10 +1,9 @@
 import React from 'react';
 import { Skeleton, Tooltip, Tag } from 'antd';
-import type { EventModelState } from 'umi';
 import dayjs from 'dayjs';
 
-import Icon from '@/components/Icon';
-import RelativeTime from '@/components/RelativeTime';
+import type { EventModelState } from '@/interfaces';
+import { Icon, RelativeTime } from '@/components';
 import { getTagsInfoByTags } from '@/utils';
 
 import ProgressCard from '../ProgressCard';

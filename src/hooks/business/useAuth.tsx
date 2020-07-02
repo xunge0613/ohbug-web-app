@@ -17,7 +17,7 @@ interface UseAuth {
  * 已登录则获取用户相关信息 获取完毕后退出 isLogin
  *
  */
-const useAuth = (): UseAuth => {
+export const useAuth = (): UseAuth => {
   const dispatch = useDispatch();
   const github = getGithub();
   const { pathname } = useLocation();
@@ -77,5 +77,3 @@ const useAuth = (): UseAuth => {
 
   return { isLogin };
 };
-
-export default useAuth;

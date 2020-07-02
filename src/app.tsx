@@ -7,8 +7,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
 
-import footerRender from '@/components/footerRender';
-import menuHeaderRender from '@/components/menuHeaderRender';
+import { CreateProject, footerRender, menuHeaderRender } from '@/components';
 import { ICONFONT_URL } from '@/config';
 
 import chartTheme from './styles/chart.json';
@@ -35,7 +34,10 @@ const renderEmpty = () => (
 export function rootContainer(container: React.ReactNode) {
   return (
     <ConfigProvider renderEmpty={renderEmpty}>
-      <ConfigProvider2 renderEmpty={renderEmpty}>{container}</ConfigProvider2>
+      <ConfigProvider2 renderEmpty={renderEmpty}>
+        <CreateProject />
+        {container}
+      </ConfigProvider2>
     </ConfigProvider>
   );
 }

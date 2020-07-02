@@ -1,9 +1,9 @@
 import React from 'react';
 import { Row, Col, Skeleton, Typography, Card, Statistic } from 'antd';
-import type { EventModelState, IssueModelState } from 'umi';
 import clsx from 'clsx';
 
-import Image from '@/components/Image';
+import type { EventModelState, IssueModelState } from '@/interfaces';
+import { Image } from '@/components';
 
 import styles from './Title.less';
 

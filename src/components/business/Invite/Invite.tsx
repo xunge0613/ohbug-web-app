@@ -3,7 +3,7 @@ import { Modal, Button, Typography, Space, Radio, Checkbox } from 'antd';
 import type { User, Project } from 'umi';
 
 import { useCounter, useControllableValue, useRequest } from '@/hooks';
-import IconButton from '@/components/IconButton';
+import { IconButton } from '@/components';
 import api from '@/api';
 
 import styles from './Invite.less';

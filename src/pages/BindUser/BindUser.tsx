@@ -1,11 +1,9 @@
 import React from 'react';
 import { Typography, Avatar } from 'antd';
 import { useSelector, Link } from 'umi';
-import type { AuthModelState } from 'umi';
 
-import type { RootState } from '@/interfaces';
-import LoginTemplate from '@/components/LoginTemplate';
-import MobileLoginForm from '@/components/MobileLoginForm';
+import type { RootState, AuthModelState } from '@/interfaces';
+import { LoginTemplate, MobileLoginForm } from '@/components';
 
 import styles from './BindUser.less';
 

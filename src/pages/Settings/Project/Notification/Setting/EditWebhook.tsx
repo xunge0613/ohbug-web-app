@@ -1,13 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector, Link } from 'umi';
-import type { NotificationSettingWebHook } from 'umi';
 import { Modal, Form, Input, Space, Tooltip } from 'antd';
 
+import { RootState, NotificationSettingWebHook } from '@/interfaces';
 import { useUpdateEffect } from '@/hooks';
-import IconButton from '@/components/IconButton';
-import RadioIconButton from '@/components/RadioIconButton';
-import Icon from '@/components/Icon';
-import { RootState } from '@/interfaces';
+import { IconButton, RadioIconButton, Icon } from '@/components';
 
 import styles from './EditWebhook.less';
 

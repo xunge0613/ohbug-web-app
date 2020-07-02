@@ -2,7 +2,8 @@ import React from 'react';
 import { useDispatch } from 'umi';
 import { Form, Input, Button, Divider } from 'antd';
 
-import LoginTemplate from '@/components/LoginTemplate';
+import { LoginTemplate } from '@/components';
+
 import styles from './CreateOrganization.less';
 
 const CreateOrganization: React.FC = () => {

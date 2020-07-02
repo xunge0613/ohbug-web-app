@@ -4,7 +4,7 @@ import { useRouteMatch, useLocation, useParams, history } from 'umi';
 import { pathToRegexp } from 'path-to-regexp';
 
 import BasicLayout from '@/layouts/Basic';
-import IconButton from '@/components/IconButton';
+import { IconButton } from '@/components';
 
 import styles from './Settings.less';
 
@@ -120,7 +120,7 @@ const Settings: React.FC<SettingsProps> = ({ children }) => {
     >
       <Card>
         <Menu className={styles.leftMenu} selectedKeys={selectedKeys} mode="inline">
-          {renderMenu(menuList, (item) => history.push(`${match.url}${item.path}`))}
+          {renderMenu(menuList, (item) => history.replace(`${match.url}${item.path}`))}
         </Menu>
         <section className={styles.container}>{children}</section>
       </Card>

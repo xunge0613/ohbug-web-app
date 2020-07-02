@@ -1,9 +1,8 @@
 import React from 'react';
 import { Drawer, Form, Input, Button, Select } from 'antd';
 import { useDispatch, useSelector } from 'umi';
-import type { ProjectModelState } from 'umi';
 
-import type { RootState } from '@/interfaces';
+import type { RootState, ProjectModelState } from '@/interfaces';
 
 import styles from './CreateProject.less';
 

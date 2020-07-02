@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 
 import styles from './IconButton.less';
 

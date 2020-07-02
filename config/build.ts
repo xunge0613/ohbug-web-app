@@ -5,7 +5,7 @@ import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin'; // eslint-disabl
 
 // 按需加载
 const dynamicImport = {
-  loading: '@/components/Loading',
+  loading: '@/components/styles/Loading',
 };
 
 // 忽略 moment 的 locale 文件

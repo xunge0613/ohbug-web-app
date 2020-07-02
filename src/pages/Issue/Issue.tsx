@@ -1,14 +1,11 @@
 import React from 'react';
 import { Card, Space, List, Skeleton, Radio, Typography, Row, Col } from 'antd';
 import { Link, useDispatch, useSelector } from 'umi';
-import type { IssueModelState } from 'umi';
 import dayjs from 'dayjs';
 
 import BasicLayout from '@/layouts/Basic';
-import type { RootState } from '@/interfaces';
-import MiniChart from '@/components/MiniChart';
-import LineChart from '@/components/LineChart';
-import { ProjectModelState } from '@/models/project';
+import type { RootState, IssueModelState, ProjectModelState } from '@/interfaces';
+import { MiniChart, LineChart } from '@/components';
 
 import TimePicker from './components/TimePicker';
 

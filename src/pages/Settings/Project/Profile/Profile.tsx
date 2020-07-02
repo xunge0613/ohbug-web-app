@@ -1,10 +1,9 @@
 import React from 'react';
 import { Form, Input, Button, Select, List, Typography } from 'antd';
 import { useDispatch, useSelector, useParams } from 'umi';
-import type { Project } from 'umi';
 
-import { RootState } from '@/interfaces';
-import Zone from '@/components/Zone';
+import { RootState, Project } from '@/interfaces';
+import { Zone } from '@/components';
 
 import styles from './Profile.less';
 

@@ -3,7 +3,7 @@ import { Spin, Row, Col, Space, Typography } from 'antd';
 import clsx from 'clsx';
 
 import BasicLayout from '@/layouts/Basic';
-import Image from '@/components/Image';
+import { Image } from '@/components';
 
 import styles from './LoginTemplate.less';
 

@@ -42,4 +42,4 @@ function useRect<T extends HTMLElement = HTMLElement>(
   return [state, element as MutableRefObject<T>];
 }
 
-export default useRect;
+export { useRect };

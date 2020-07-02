@@ -4,9 +4,7 @@ import { useLocation, useDispatch, useSelector, Link } from 'umi';
 
 import { oauth2_github_href } from '@/config';
 import { useMount, useToggle, useInvite } from '@/hooks';
-import MobileLoginForm from '@/components/MobileLoginForm';
-import Icon from '@/components/Icon';
-import LoginTemplate from '@/components/LoginTemplate';
+import { MobileLoginForm, Icon, LoginTemplate } from '@/components';
 import type { RootState } from '@/interfaces';
 
 import styles from './LogIn.less';

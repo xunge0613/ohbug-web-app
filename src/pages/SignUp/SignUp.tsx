@@ -1,7 +1,6 @@
 import React from 'react';
 
-import LoginTemplate from '@/components/LoginTemplate';
-import MobileLoginForm from '@/components/MobileLoginForm';
+import { LoginTemplate, MobileLoginForm } from '@/components';
 import { useInvite } from '@/hooks';
 
 import styles from './SignUp.less';

@@ -1,11 +1,9 @@
 import React from 'react';
 import { useDispatch, useParams, useSelector } from 'umi';
-import type { NotificationSetting, NotificationSettingWebHook } from 'umi';
 import { Form, Switch, Input, Space, Button, Table, Modal } from 'antd';
 
-import type { RootState } from '@/interfaces';
-import Zone from '@/components/Zone';
-import IconButton from '@/components/IconButton';
+import type { RootState, NotificationSetting, NotificationSettingWebHook } from '@/interfaces';
+import { Zone, IconButton } from '@/components';
 import { useUpdateEffect, useBoolean } from '@/hooks';
 import { registerServiceWorker, askNotificationPermission } from '@/utils';
 
