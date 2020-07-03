@@ -27,7 +27,7 @@ const CreateOrganization: React.FC = () => {
   const handleInputChange = React.useCallback(
     (e) => {
       form.setFieldsValue({
-        name: e.target.value,
+        [e.target.id]: e.target.value,
       });
       form
         .validateFields()

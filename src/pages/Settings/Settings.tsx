@@ -1,8 +1,9 @@
 import React from 'react';
 import { Card, Menu } from 'antd';
-import { useRouteMatch, useLocation, useParams, history } from 'umi';
+import { useRouteMatch, useLocation, useParams, history, useSelector } from 'umi';
 import { pathToRegexp } from 'path-to-regexp';
 
+import { Organization, RootState } from '@/interfaces';
 import BasicLayout from '@/layouts/Basic';
 import { IconButton } from '@/components';
 
@@ -86,6 +87,15 @@ const Settings: React.FC<SettingsProps> = ({ children }) => {
   const match = useRouteMatch();
   const { organization_id } = useParams();
   const location = useLocation();
+
+  const organization = useSelector<RootState, Organization>(
+    (state) => state.organization?.current!,
+  );
+  React.useEffect(() => {
+    if (organization_id === 'current' && organization) {
+      history.replace(`/settings/${organization.id}`);
+    }
+  }, [organization]);
 
   const regexp = pathToRegexp('/settings/:organization_id/project/:project_id/(.*)');
   const isProjectSetting = React.useMemo(

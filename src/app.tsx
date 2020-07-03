@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
 
-import { CreateProject, footerRender, menuHeaderRender } from '@/components';
+import { CreateProject, footerRender, menuRender } from '@/components';
 import { ICONFONT_URL } from '@/config';
 
 import chartTheme from './styles/chart.json';
@@ -20,8 +20,7 @@ echarts.registerTheme('ohbug', chartTheme.theme);
 
 export const layout = {
   iconfontUrl: ICONFONT_URL,
-  menuHeaderRender,
-  onMenuHeaderClick: () => {},
+  menuRender,
   headerRender: false,
   footerRender,
 };

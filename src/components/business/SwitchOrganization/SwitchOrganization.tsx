@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, Dropdown, Menu, Spin, Typography } from 'antd';
 import { useSelector, useDispatch } from 'umi';
+import clsx from 'clsx';
 
 import type { RootState, OrganizationModelState } from '@/interfaces';
 import { Icon } from '@/components';
@@ -44,23 +45,32 @@ const SwitchOrganization: React.FC<SwitchOrganizationProps> = ({ desc, collapsed
     );
   }, [data, current]);
   return current ? (
-    <div className={styles.root}>
-      <Avatar className={styles.avatar} src={current.avatar} size="large">
-        {current.name?.[0]}
-      </Avatar>
-      {!collapsed && (
-        <div className={styles.content}>
-          <Dropdown overlay={switchOrganizationMenu} trigger={['click']}>
-            <Typography.Text className={styles.title} strong>
-              {current.name} <Icon type="icon-ohbug-arrow-down-s-line" />
-            </Typography.Text>
-          </Dropdown>
-          {(desc || current.introduction) && (
-            <Typography.Text type="secondary">{desc || current.introduction}</Typography.Text>
-          )}
-        </div>
-      )}
-    </div>
+    <Dropdown overlay={switchOrganizationMenu} trigger={['click']}>
+      <div className={styles.root}>
+        <Avatar
+          className={clsx(styles.avatar, {
+            [styles.collapsed]: collapsed,
+          })}
+          src={current.avatar}
+          size="large"
+        >
+          {current.name?.[0]}
+        </Avatar>
+        {!collapsed && (
+          <div className={styles.info}>
+            <span>
+              <Typography.Text className={styles.title} strong ellipsis style={{ maxWidth: 112 }}>
+                {current.name}
+              </Typography.Text>
+              <Icon type="icon-ohbug-arrow-down-s-line" />
+            </span>
+            {(desc || current.introduction) && (
+              <Typography.Text type="secondary">{desc || current.introduction}</Typography.Text>
+            )}
+          </div>
+        )}
+      </div>
+    </Dropdown>
   ) : (
     <Spin />
   );
