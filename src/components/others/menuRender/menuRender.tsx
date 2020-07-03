@@ -26,6 +26,7 @@ function MenuRender(props: SiderMenuProps): React.ReactElement {
   return (
     <Layout.Sider
       collapsible
+      collapsedWidth={48}
       collapsed={collapsed}
       breakpoint={breakpoint === false ? undefined : breakpoint}
       onCollapse={(collapse) => {
@@ -37,6 +38,10 @@ function MenuRender(props: SiderMenuProps): React.ReactElement {
       }}
       style={{
         overflow: 'hidden',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+        zIndex: 1000,
         ...style,
       }}
       width={siderWidth}

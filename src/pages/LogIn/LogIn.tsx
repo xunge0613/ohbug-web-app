@@ -48,27 +48,27 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
           <Button
             block
             size="large"
+            icon={<Icon type="icon-ohbug-smartphone-fill" />}
+            onClick={handleLoginWithMobileClick}
+          >
+            手机登录
+          </Button>
+          <Button
+            block
+            size="large"
             href={oauth2_github_href}
             icon={<Icon type="icon-ohbug-github-fill" style={{ color: '#24292e' }} />}
           >
-            Login with Github
+            Github 登录
           </Button>
-          <Button
-            block
-            size="large"
-            href="#"
-            icon={<Icon type="icon-ohbug-wechat-fill" style={{ color: '#1AAD19' }} />}
-          >
-            Login with WeChat
-          </Button>
-          <Button
-            block
-            size="large"
-            icon={<Icon type="icon-ohbug-wechat-fill" />}
-            onClick={handleLoginWithMobileClick}
-          >
-            Login with mobile
-          </Button>
+          {/* <Button */}
+          {/*  block */}
+          {/*  size="large" */}
+          {/*  href="#" */}
+          {/*  icon={<Icon type="icon-ohbug-wechat-fill" style={{ color: '#1AAD19' }} />} */}
+          {/* > */}
+          {/*  微信登录 */}
+          {/* </Button> */}
 
           <span>
             没有账号？ <Link to="/signup">注册</Link>

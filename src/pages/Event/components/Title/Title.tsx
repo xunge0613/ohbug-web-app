@@ -1,24 +1,24 @@
 import React from 'react';
 import { Row, Col, Skeleton, Typography, Card, Statistic } from 'antd';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 
 import type { EventModelState, IssueModelState } from '@/interfaces';
 import { Image } from '@/components';
 
 import styles from './Title.less';
 
-interface TrendProps {
-  data: number;
-}
-const Trend: React.FC<TrendProps> = ({ data }) => {
-  const type = data <= 0 ? 'down' : 'up';
-  const classes = clsx(styles.trend, {
-    [styles.up]: type === 'up',
-    [styles.down]: type === 'down',
-  });
-  const value = `${type === 'up' ? '+' : ''}${data * 100}%`;
-  return <div className={classes}>{value}</div>;
-};
+// interface TrendProps {
+//   data: number;
+// }
+// const Trend: React.FC<TrendProps> = ({ data }) => {
+//   const type = data <= 0 ? 'down' : 'up';
+//   const classes = clsx(styles.trend, {
+//     [styles.up]: type === 'up',
+//     [styles.down]: type === 'down',
+//   });
+//   const value = `${type === 'up' ? '+' : ''}${data * 100}%`;
+//   return <div className={classes}>{value}</div>;
+// };
 
 interface TitleProps {
   event: EventModelState['current'];
@@ -57,7 +57,7 @@ const Title: React.FC<TitleProps> = ({ event, issue }) => {
           <Card size="small" style={{ width: '100%' }}>
             <div className={styles.countCard}>
               <Statistic title="EVENTS" value={issue?.eventsCount} />
-              <Trend data={0.15} />
+              {/* <Trend data={0.15} /> */}
             </div>
           </Card>
         </Skeleton>
@@ -65,7 +65,7 @@ const Title: React.FC<TitleProps> = ({ event, issue }) => {
           <Card size="small" style={{ width: '100%' }}>
             <div className={styles.countCard}>
               <Statistic title="USERS" value={issue?.usersCount} />
-              <Trend data={-0.04} />
+              {/* <Trend data={-0.04} /> */}
             </div>
           </Card>
         </Skeleton>

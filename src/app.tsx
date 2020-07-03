@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
 
-import { CreateProject, footerRender, menuRender } from '@/components';
+import { CreateProject, footerRender, headerRender, menuRender, renderEmpty } from '@/components';
 import { ICONFONT_URL } from '@/config';
 
 import chartTheme from './styles/chart.json';
@@ -21,15 +21,10 @@ echarts.registerTheme('ohbug', chartTheme.theme);
 export const layout = {
   iconfontUrl: ICONFONT_URL,
   menuRender,
-  headerRender: false,
+  headerRender,
   footerRender,
 };
 
-const renderEmpty = () => (
-  <div style={{ textAlign: 'center' }}>
-    <p>Data Not Found </p>
-  </div>
-);
 export function rootContainer(container: React.ReactNode) {
   return (
     <ConfigProvider renderEmpty={renderEmpty}>

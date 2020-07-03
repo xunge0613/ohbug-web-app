@@ -52,7 +52,7 @@ const SwitchOrganization: React.FC<SwitchOrganizationProps> = ({ desc, collapsed
             [styles.collapsed]: collapsed,
           })}
           src={current.avatar}
-          size="large"
+          size={collapsed ? 'small' : 'large'}
         >
           {current.name?.[0]}
         </Avatar>
