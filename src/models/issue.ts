@@ -81,18 +81,12 @@ const issue: IssueModel = {
     },
   },
   effects: {
-    *get({ payload: { issue_id } }, { select, call, put }) {
-      const project = yield select((state: RootState) => state.project);
-      if (project.current) {
-        const project_id = project.current.id;
-
-        const data = yield call(api.issue.get, {
-          issue_id,
-          project_id,
-        });
-        if (data) {
-          yield put({ type: 'setCurrentIssue', payload: data });
-        }
+    *get({ payload: { issue_id } }, { call, put }) {
+      const data = yield call(api.issue.get, {
+        issue_id,
+      });
+      if (data) {
+        yield put({ type: 'setCurrentIssue', payload: data });
       }
     },
 

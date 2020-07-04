@@ -1,7 +1,7 @@
 import type { OhbugEvent } from '@ohbug/types';
 import type { SourceMapTraceCode } from 'source-map-trace/dist/source-map-trace';
 
-import type { Model, RootState } from '@/interfaces';
+import type { Model } from '@/interfaces';
 import api from '@/api';
 
 interface EventUser {
@@ -37,33 +37,21 @@ const event: EventModel = {
     },
   },
   effects: {
-    *get({ payload: { event_id } }, { select, call, put }) {
-      const project = yield select((state: RootState) => state.project);
-      if (project.current) {
-        const project_id = project.current.id;
-
-        const data = yield call(api.event.get, {
-          event_id,
-          project_id,
-        });
-        if (data) {
-          yield put({ type: 'setCurrentEvent', payload: data });
-        }
+    *get({ payload: { event_id } }, { call, put }) {
+      const data = yield call(api.event.get, {
+        event_id,
+      });
+      if (data) {
+        yield put({ type: 'setCurrentEvent', payload: data });
       }
     },
 
-    *getLatestEvent({ payload: { issue_id } }, { select, call, put }) {
-      const project = yield select((state: RootState) => state.project);
-      if (project.current) {
-        const project_id = project.current.id;
-
-        const data = yield call(api.event.getLatest, {
-          issue_id,
-          project_id,
-        });
-        if (data) {
-          yield put({ type: 'setCurrentEvent', payload: data });
-        }
+    *getLatestEvent({ payload: { issue_id } }, { call, put }) {
+      const data = yield call(api.event.getLatest, {
+        issue_id,
+      });
+      if (data) {
+        yield put({ type: 'setCurrentEvent', payload: data });
       }
     },
   },

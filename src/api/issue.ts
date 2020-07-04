@@ -2,7 +2,6 @@ import { request } from 'umi';
 import type { Issue } from 'umi';
 
 interface Get {
-  project_id: number;
   issue_id: number;
 }
 interface GetMany {
@@ -19,12 +18,9 @@ interface GetTrend {
 
 const issue = {
   get: async (data: Get): Promise<Issue | void> => {
-    const { issue_id, project_id } = data;
+    const { issue_id } = data;
     const res = await request(`/issues/${issue_id}`, {
       method: 'get',
-      params: {
-        project_id,
-      },
     });
     return res;
   },
