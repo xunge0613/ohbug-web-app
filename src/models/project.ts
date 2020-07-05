@@ -47,7 +47,7 @@ const project: ProjectModel = {
   },
   effects: {
     *handleCreateProjectVisible({ payload }, { select, put }) {
-      const user = yield select((state: RootState) => state.user);
+      const user = yield select((state: RootState) => state.user.current);
       const hasAuth = Boolean(Object.keys(user).length);
       if (hasAuth) {
         yield put({
@@ -60,7 +60,7 @@ const project: ProjectModel = {
     },
 
     *create({ payload: { name, type } }, { select, call, put }) {
-      const admin_id = yield select((state: RootState) => state.user.id);
+      const admin_id = yield select((state: RootState) => state.user.current?.id);
       const organization_id = yield select((state: RootState) => state.organization?.current?.id);
 
       if (name && type && admin_id && organization_id) {

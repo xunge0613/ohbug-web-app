@@ -1,13 +1,7 @@
 import React from 'react';
 import { useLocation, useDispatch, useSelector, history } from 'umi';
 
-import type {
-  RootState,
-  UserModelState,
-  OrganizationModelState,
-  ProjectModelState,
-  InviteModelState,
-} from '@/interfaces';
+import type { RootState, User, Organization, Project, Invite } from '@/interfaces';
 import { useMount } from '@/hooks';
 import { getGithub } from '@/utils';
 
@@ -29,21 +23,14 @@ export const useAuth = (): UseAuth => {
   // 根据 cookie 内是否含有 id 判断登录态
   const auth = Boolean(github.id);
   const [isLogin, setLogin] = React.useState(false);
-  const user = useSelector<RootState, UserModelState>((state) => state.user);
-  const organization = useSelector<RootState, OrganizationModelState['current']>(
-    (state) => state.organization.current,
-  );
-  const project = useSelector<RootState, ProjectModelState['current']>(
-    (state) => state.project.current,
-  );
-  const invite = useSelector<RootState, InviteModelState['current']>(
-    (state) => state.invite.current,
-  );
-
+  const user = useSelector<RootState, User>((state) => state.user.current!);
+  const organization = useSelector<RootState, Organization>((state) => state.organization.current!);
+  const project = useSelector<RootState, Project>((state) => state.project.current!);
+  const invite = useSelector<RootState, Invite>((state) => state.invite.current!);
   useMount(async () => {
     async function getUserInfo(): Promise<void> {
       try {
-        if (!Object.keys(user).length) {
+        if (!user || !Object.keys(user).length) {
           // 没有 user 信息 需要获取
           await dispatch({ type: 'user/get' });
         } else if (pathname === '/login') {

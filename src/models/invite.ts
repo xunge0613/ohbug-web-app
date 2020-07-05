@@ -39,7 +39,7 @@ const invite: InviteModel = {
 
     *bind(_, { select, call }) {
       const { uuid } = yield select((state: RootState) => state.invite.current);
-      const { id: user_id } = yield select((state: RootState) => state.user);
+      const { id: user_id } = yield select((state: RootState) => state.user.current);
 
       if (uuid && user_id) {
         yield call(api.invite.bind, {

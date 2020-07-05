@@ -18,7 +18,7 @@ const Members: React.FC = () => {
     // eslint-disable-next-line eqeqeq
     (state) => state.organization?.data?.find((org) => org.id == organization_id)!,
   );
-  const user = useSelector<RootState, User>((state) => state?.user);
+  const user = useSelector<RootState, User>((state) => state?.user?.current!);
   const [inviteVisible, { setTrue: inviteModalShow, setFalse: inviteModalOnCancel }] = useBoolean(
     false,
   );

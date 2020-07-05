@@ -8,3 +8,4 @@ export { default as StackInfo } from './StackInfo';
 export { default as SwitchOrganization } from './SwitchOrganization';
 export { default as User } from './User';
 export { default as UserBlock } from './UserBlock';
+export { default as UserSetting } from './UserSetting';
