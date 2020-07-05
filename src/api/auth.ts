@@ -19,10 +19,6 @@ interface BindUser {
 }
 
 const auth = {
-  sts: async (): Promise<number> => {
-    const res = await request('/auth/sts', { method: 'get' });
-    return res;
-  },
   captcha: async (data: Captcha): Promise<number> => {
     const res = await request('/auth/captcha', { method: 'get', params: data });
     return res;

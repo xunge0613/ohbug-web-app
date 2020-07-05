@@ -103,7 +103,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
               </div>
               <div className={styles.users}>
                 {project.users.map((user) => (
-                  <User data={user} key={user.id} />
+                  <User className={styles.user} data={user} key={user.id} />
                 ))}
               </div>
             </Card>

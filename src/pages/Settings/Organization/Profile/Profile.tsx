@@ -3,7 +3,8 @@ import { Row, Col, Form, Input, Button, Avatar } from 'antd';
 import { useDispatch, useSelector, useParams, history } from 'umi';
 
 import { RootState, Organization } from '@/interfaces';
-import { UploadImage, Icon, Zone } from '@/components';
+import { Zone } from '@/components';
+import { getDefaultAvatar } from '@/utils';
 
 import DangerZone from './DangerZone';
 
@@ -21,6 +22,10 @@ const Profile: React.FC = () => {
       state.organization?.data?.find((org) => org.id == organization_id)!,
   );
   if (!organization) history.push('/404');
+  const avatar = React.useMemo(
+    () => getDefaultAvatar({ id: organization.id, name: organization.name }),
+    [organization],
+  );
 
   const [form] = Form.useForm();
   const handleFinish = React.useCallback(
@@ -29,14 +34,6 @@ const Profile: React.FC = () => {
     },
     [dispatch],
   );
-  const handleCallback = React.useCallback((url) => {
-    dispatch({
-      type: 'organization/update',
-      payload: {
-        avatar: url,
-      },
-    });
-  }, []);
 
   return (
     <section className={styles.root}>
@@ -85,17 +82,9 @@ const Profile: React.FC = () => {
             </Form>
           </Col>
           <Col span={12}>
-            <UploadImage callback={handleCallback}>
-              <Avatar
-                className={styles.avatar}
-                src={organization?.avatar}
-                size={150}
-                shape="square"
-              >
-                {organization?.name?.[0]}
-              </Avatar>
-              <Icon className={styles.tips} type="icon-ohbug-upload-cloud-2-line" />
-            </UploadImage>
+            <Avatar src={organization?.avatar || avatar} size={150} shape="square">
+              {organization?.name?.[0]}
+            </Avatar>
           </Col>
         </Row>
       </Zone>

@@ -5,6 +5,7 @@ import clsx from 'clsx';
 
 import type { RootState, OrganizationModelState } from '@/interfaces';
 import { Icon } from '@/components';
+import { getDefaultAvatar } from '@/utils';
 
 import styles from './SwitchOrganization.less';
 
@@ -24,7 +25,10 @@ const SwitchOrganization: React.FC<SwitchOrganizationProps> = ({ desc, collapsed
           <Menu.Item
             key={org.id}
             icon={
-              <Avatar src={org.avatar} style={{ marginRight: 8 }}>
+              <Avatar
+                src={org.avatar || getDefaultAvatar({ id: org.id, name: org.name })}
+                style={{ marginRight: 8 }}
+              >
                 {org.name?.[0]}
               </Avatar>
             }
@@ -51,7 +55,7 @@ const SwitchOrganization: React.FC<SwitchOrganizationProps> = ({ desc, collapsed
           className={clsx(styles.avatar, {
             [styles.collapsed]: collapsed,
           })}
-          src={current.avatar}
+          src={current.avatar || getDefaultAvatar({ id: current.id, name: current.name })}
           size={collapsed ? 'small' : 'large'}
         >
           {current.name?.[0]}

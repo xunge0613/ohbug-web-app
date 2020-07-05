@@ -92,7 +92,6 @@ const issue: IssueModel = {
 
     *searchIssues({ payload: { page = 0, start, end, project_id } }, { select, call, put }) {
       const project: Project = yield select((state: RootState) => state.project.current);
-      console.log(project);
       if (project_id) {
         yield put({
           type: 'project/trend',

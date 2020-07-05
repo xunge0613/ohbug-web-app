@@ -4,6 +4,7 @@ import { useSelector } from 'umi';
 
 import { Logout, Icon } from '@/components';
 import type { RootState, User } from '@/interfaces';
+import { getDefaultAvatar } from '@/utils';
 
 import styles from './UserBlock.less';
 
@@ -27,11 +28,12 @@ const createMenu = (user: User): React.ReactElement => {
 interface UserBlockProps {}
 const UserBlock: React.FC<UserBlockProps> = () => {
   const user = useSelector<RootState, User>((state) => state.user);
+  const avatar = React.useMemo(() => getDefaultAvatar({ id: user.id, name: user.name }), [user]);
 
   return (
     <Dropdown trigger={['click']} overlay={createMenu(user)} placement="bottomRight">
       <div className={styles.root}>
-        <Avatar src={user.avatar} />
+        <Avatar src={user.avatar || avatar} />
         <Icon type="icon-ohbug-arrow-down-s-line" />
       </div>
     </Dropdown>
