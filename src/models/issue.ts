@@ -1,4 +1,4 @@
-import type { RootState, Model } from '@/interfaces';
+import type { RootState, Model, Project } from '@/interfaces';
 import api from '@/api';
 
 interface MetaData {
@@ -90,10 +90,10 @@ const issue: IssueModel = {
       }
     },
 
-    *searchIssues({ payload: { page = 0, start, end } }, { select, call, put }) {
-      const project = yield select((state: RootState) => state.project);
-      if (project.current) {
-        const project_id = project.current.id;
+    *searchIssues({ payload: { page = 0, start, end, project_id } }, { select, call, put }) {
+      const project: Project = yield select((state: RootState) => state.project.current);
+      console.log(project);
+      if (project_id) {
         yield put({
           type: 'project/trend',
           payload: {
@@ -103,7 +103,7 @@ const issue: IssueModel = {
         });
 
         const res = yield call(api.issue.getMany, {
-          project_id,
+          project_id: project_id === 'current' ? project.id : project_id,
           page,
           start,
           end,

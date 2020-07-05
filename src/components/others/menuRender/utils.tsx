@@ -14,7 +14,8 @@ export const getSelectedMenuKeys = (pathname: string, menuData: MenuDataItem[]):
 
 export function getMenuItem(item: MenuDataItem): React.ReactElement {
   let { path } = item;
-  if (item.path === '/settings/:organization_id') path = '/settings/current';
+  if (path === '/settings/:organization_id') path = '/settings/current';
+  if (path === '/issue') path = '/issue?project_id=current';
   return (
     <Menu.Item key={item.key || item.path} icon={<Icon type={item.icon as string} />}>
       <Link to={path!}>{item.name}</Link>

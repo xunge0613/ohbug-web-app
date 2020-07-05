@@ -69,7 +69,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
                 current: project,
               },
             });
-            history.push('/issue');
+            history.push(`/issue?project_id=${project.id}`);
           }
 
           return (

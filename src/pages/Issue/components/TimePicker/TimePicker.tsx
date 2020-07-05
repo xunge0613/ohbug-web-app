@@ -1,6 +1,6 @@
 import React from 'react';
 import { DatePicker } from 'antd';
-import { useDispatch } from 'umi';
+import { useDispatch, useLocation } from 'umi';
 import dayjs from 'dayjs';
 
 import { useMount } from '@/hooks';
@@ -15,6 +15,7 @@ const ranges = {
 
 const TimePicker: React.FC = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useMount(() => {
     dispatch({
@@ -23,21 +24,28 @@ const TimePicker: React.FC = () => {
         page: 0,
         start: defaultValue[0].toISOString(),
         end: defaultValue[1].toISOString(),
+        // @ts-ignore
+        project_id: location?.query?.project_id,
       },
     });
   });
 
-  const handleTimeChange = React.useCallback((dates: any) => {
-    const [start, end] = dates;
-    dispatch({
-      type: 'issue/searchIssues',
-      payload: {
-        page: 0,
-        start: start.toISOString(),
-        end: end.toISOString(),
-      },
-    });
-  }, []);
+  const handleTimeChange = React.useCallback(
+    (dates: any) => {
+      const [start, end] = dates;
+      dispatch({
+        type: 'issue/searchIssues',
+        payload: {
+          page: 0,
+          start: start.toISOString(),
+          end: end.toISOString(),
+          // @ts-ignore
+          project_id: location?.query?.project_id,
+        },
+      });
+    },
+    [location],
+  );
 
   return (
     <DatePicker.RangePicker

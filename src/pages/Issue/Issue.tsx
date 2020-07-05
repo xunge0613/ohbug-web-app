@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Space, List, Skeleton, Radio, Typography, Row, Col } from 'antd';
-import { Link, useDispatch, useSelector } from 'umi';
+import { Link, useLocation, useDispatch, useSelector } from 'umi';
 import dayjs from 'dayjs';
 
 import BasicLayout from '@/layouts/Basic';
@@ -17,6 +17,7 @@ interface IssueDashPageProps {
 
 const Issue: React.FC<IssueDashPageProps> = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const issue = useSelector<RootState, IssueModelState['data']>((state) => state.issue.data);
   const count = useSelector<RootState, IssueModelState['count']>((state) => state.issue.count);
   const trend = useSelector<RootState, IssueModelState['trend']>((state) => state.issue.trend);
@@ -26,6 +27,8 @@ const Issue: React.FC<IssueDashPageProps> = () => {
       dispatch({
         type: 'issue/searchIssues',
         payload: { page: current - 1 },
+        // @ts-ignore
+        project_id: location?.query?.project_id,
       });
     },
     [dispatch],

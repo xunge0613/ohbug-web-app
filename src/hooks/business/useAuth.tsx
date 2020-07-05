@@ -1,11 +1,15 @@
 import React from 'react';
 import { useLocation, useDispatch, useSelector, history } from 'umi';
-import type { UserModelState, OrganizationModelState } from 'umi';
 
-import type { RootState } from '@/interfaces';
+import type {
+  RootState,
+  UserModelState,
+  OrganizationModelState,
+  ProjectModelState,
+  InviteModelState,
+} from '@/interfaces';
 import { useMount } from '@/hooks';
 import { getGithub } from '@/utils';
-import { InviteModelState } from '@/models/invite';
 
 interface UseAuth {
   isLogin: boolean;
@@ -29,11 +33,14 @@ export const useAuth = (): UseAuth => {
   const organization = useSelector<RootState, OrganizationModelState['current']>(
     (state) => state.organization.current,
   );
+  const project = useSelector<RootState, ProjectModelState['current']>(
+    (state) => state.project.current,
+  );
   const invite = useSelector<RootState, InviteModelState['current']>(
     (state) => state.invite.current,
   );
 
-  useMount(() => {
+  useMount(async () => {
     async function getUserInfo(): Promise<void> {
       try {
         if (!Object.keys(user).length) {
@@ -50,30 +57,30 @@ export const useAuth = (): UseAuth => {
       }
     }
 
-    async function run(): Promise<void> {
-      if (!auth) {
-        // 未登录状态
-        setLogin(false);
+    if (!auth) {
+      // 未登录状态
+      setLogin(false);
 
-        if (pathname !== '/login') {
-          history.replace('/login');
-        }
-      } else {
-        // 登录状态
-        await getUserInfo();
+      if (pathname !== '/login') {
+        history.replace('/login');
+      }
+    } else {
+      // 登录状态
+      await getUserInfo();
 
-        if (invite) {
-          await dispatch({
-            type: 'invite/bind',
-          });
-        }
-
-        setLogin(true);
+      if (invite) {
+        await dispatch({
+          type: 'invite/bind',
+        });
       }
     }
-
-    run();
   });
+
+  React.useEffect(() => {
+    if (organization && project) {
+      setLogin(true);
+    }
+  }, [organization, project, invite]);
 
   return { isLogin };
 };
