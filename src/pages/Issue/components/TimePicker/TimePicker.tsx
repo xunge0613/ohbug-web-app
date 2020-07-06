@@ -3,8 +3,6 @@ import { DatePicker } from 'antd';
 import { useDispatch, useLocation } from 'umi';
 import dayjs from 'dayjs';
 
-import { useMount } from '@/hooks';
-
 const today = [dayjs().subtract(23, 'hour'), dayjs()];
 const twoWeeks = [dayjs().subtract(13, 'day'), dayjs()];
 const defaultValue = twoWeeks;
@@ -15,9 +13,9 @@ const ranges = {
 
 const TimePicker: React.FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation() as any;
 
-  useMount(() => {
+  React.useEffect(() => {
     dispatch({
       type: 'issue/searchIssues',
       payload: {
@@ -28,7 +26,7 @@ const TimePicker: React.FC = () => {
         project_id: location?.query?.project_id,
       },
     });
-  });
+  }, [location?.query?.project_id]);
 
   const handleTimeChange = React.useCallback(
     (dates: any) => {

@@ -1,0 +1,33 @@
+@import '~@/styles/theme.less';
+
+:global {
+  .ant-menu-horizontal > .ant-menu-item-selected {
+    a,
+    .anticon {
+      color: @white !important;
+    }
+  }
+}
+.root {
+  font-size: 16px;
+  .flex-center();
+  :global {
+    .anticon {
+      color: fade(@white, 65%) !important;
+      transition: color 0.3s;
+    }
+  }
+  a {
+    color: fade(@white, 65%) !important;
+  }
+  &:hover {
+    :global {
+      .anticon {
+        color: @white !important;
+      }
+    }
+    a {
+      color: @white !important;
+    }
+  }
+}

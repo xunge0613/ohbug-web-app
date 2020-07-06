@@ -11,9 +11,10 @@ import {
   CreateProject,
   UserSetting,
   footerRender,
-  headerRender,
-  menuRender,
+  menuHeaderRender,
+  menuItemRender,
   renderEmpty,
+  rightContentRender,
 } from '@/components';
 import { ICONFONT_URL } from '@/config';
 
@@ -27,8 +28,11 @@ echarts.registerTheme('ohbug', chartTheme.theme);
 
 export const layout = {
   iconfontUrl: ICONFONT_URL,
-  menuRender,
-  headerRender,
+  layout: 'top',
+  rightContentRender,
+  onMenuHeaderClick: () => {},
+  menuHeaderRender,
+  menuItemRender,
   footerRender,
 };
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Row, Col, Form, Input, Button, Avatar } from 'antd';
+import { Row, Col, Form, Input, Button } from 'antd';
 import { useDispatch, useSelector, useParams, history } from 'umi';
 
 import { RootState, Organization } from '@/interfaces';
 import { Zone } from '@/components';
-import { getDefaultAvatar } from '@/utils';
 
 import DangerZone from './DangerZone';
 
@@ -22,10 +21,6 @@ const Profile: React.FC = () => {
       state.organization?.data?.find((org) => org.id == organization_id)!,
   );
   if (!organization) history.push('/404');
-  const avatar = React.useMemo(
-    () => getDefaultAvatar({ id: organization.id, name: organization.name }),
-    [organization],
-  );
 
   const [form] = Form.useForm();
   const handleFinish = React.useCallback(
@@ -80,11 +75,6 @@ const Profile: React.FC = () => {
                 </Button>
               </Form.Item>
             </Form>
-          </Col>
-          <Col span={12}>
-            <Avatar src={organization?.avatar || avatar} size={150} shape="square">
-              {organization?.name?.[0]}
-            </Avatar>
           </Col>
         </Row>
       </Zone>

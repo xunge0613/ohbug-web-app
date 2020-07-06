@@ -69,3 +69,21 @@ label {
 .ant-table-thead > tr > th {
   font-weight: 600 !important;
 }
+@menu-height: 60px !important;
+.ant-layout-header {
+  height: @menu-height;
+  line-height: @menu-height;
+  .ant-pro-top-nav-header {
+    height: @menu-height;
+    .ant-pro-top-nav-header-main {
+      height: @menu-height;
+      .ant-pro-top-nav-header-logo {
+        height: @menu-height;
+      }
+    }
+  }
+  .ant-pro-top-nav-header-menu .ant-menu.ant-menu-horizontal {
+    height: @menu-height;
+    line-height: @menu-height;
+  }
+}

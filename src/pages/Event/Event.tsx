@@ -25,12 +25,12 @@ const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
         disabled: false,
         element: (
           <Row gutter={24}>
+            <Col xs={24} sm={24} md={6}>
+              <Trend issue={issue} />
+            </Col>
             <Col xs={24} sm={24} md={18}>
               <Profile event={event} />
               <Detail event={event} />
-            </Col>
-            <Col xs={24} sm={24} md={6}>
-              <Trend issue={issue} />
             </Col>
           </Row>
         ),

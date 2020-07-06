@@ -38,24 +38,26 @@
   }
 
   .node {
-    border: 3px solid transparent;
+    z-index: 2;
     border-radius: @radius-2;
     transition: @transition;
     &:hover {
-      border-color: fade(@primary-color, 30%);
+      box-shadow: @box-shadow-2;
+      transform: scale3d(1.05, 1.05, 1.05);
     }
   }
   .selectedNode {
-    border: 3px solid fade(@primary-color, 70%) !important;
+    box-shadow: @box-shadow-2;
+    transform: scale3d(1.05, 1.05, 1.05);
   }
 
   .line {
-    //background-color: #000;
+    z-index: 1;
   }
   .selectedLine {
     & line {
       transition: @transition;
-      stroke: fade(@primary-color, 70%);
+      stroke: fade(@black, 20%);
     }
   }
 }

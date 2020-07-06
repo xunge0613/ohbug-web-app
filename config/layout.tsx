@@ -1,7 +1,7 @@
 const layout = {
   title: 'ohbug',
   logo: '/logo.svg',
-  navTheme: 'light',
+  navTheme: 'dark',
 };
 
 export default layout;

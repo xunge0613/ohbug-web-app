@@ -31,14 +31,6 @@ const UserBlock: React.FC<UserBlockProps> = () => {
         },
       },
       {
-        value: 'feedback',
-        label: '反馈问题',
-        icon: <Icon type="icon-ohbug-feedback-line" />,
-        onClick: () => {
-          window.open('//ohbug.net/feedback');
-        },
-      },
-      {
         value: 'home',
         label: '官网',
         icon: <Icon type="icon-ohbug-home-smile-line" />,
@@ -52,6 +44,14 @@ const UserBlock: React.FC<UserBlockProps> = () => {
         icon: <Icon type="icon-ohbug-book-read-line" />,
         onClick: () => {
           window.open('//ohbug.net/docs');
+        },
+      },
+      {
+        value: 'feedback',
+        label: '反馈问题',
+        icon: <Icon type="icon-ohbug-feedback-line" />,
+        onClick: () => {
+          window.open('//ohbug.net/feedback');
         },
       },
     ],
@@ -88,7 +88,7 @@ const UserBlock: React.FC<UserBlockProps> = () => {
     <Dropdown trigger={['click']} overlay={menu} placement="bottomRight">
       <div className={styles.root}>
         <Avatar src={user?.avatar || avatar}>{user?.name?.[0]}</Avatar>
-        <Icon type="icon-ohbug-arrow-down-s-line" />
+        <Icon type="icon-ohbug-arrow-down-s-fill" />
       </div>
     </Dropdown>
   );

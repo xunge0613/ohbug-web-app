@@ -7,6 +7,7 @@ export default {
   '@highlight-color': '#FF8C81',
   '@body-background': '#ffffff',
   '@layout-body-background': '#fbfbfb',
+  '@layout-header-background': '#333',
   '@font-size-base': '14px',
   '@border-radius-base': '2px',
   '@border-radius-sm': '1px',

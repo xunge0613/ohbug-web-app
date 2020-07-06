@@ -7,7 +7,6 @@ import api from '@/api';
 export interface Organization {
   id?: number;
   name?: string;
-  avatar?: string;
   introduction?: string;
   createdAt?: string;
   admin?: User;

@@ -23,7 +23,7 @@ export interface UserModel extends Model<UserModelState> {
 const user: UserModel = {
   namespace: 'user',
   state: {
-    userSettingVisible: true,
+    userSettingVisible: false,
     current: undefined,
   },
   reducers: {

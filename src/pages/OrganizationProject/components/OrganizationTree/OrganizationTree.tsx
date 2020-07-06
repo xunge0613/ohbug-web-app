@@ -1,14 +1,15 @@
 import React from 'react';
 import { Card, Typography } from 'antd';
 import { ConfigContext } from 'antd/lib/config-provider';
-import { history, useDispatch } from 'umi';
+import { history, useDispatch, useSelector } from 'umi';
 
-import type { Organization, Project } from '@/interfaces';
+import type { RootState, ProjectModelState, Organization, Project } from '@/interfaces';
 import { SwitchOrganization, Tree, Image, IconButton, User } from '@/components';
 import type { TreeDataSource } from '@/components';
 import { getPlatformLogo } from '@/utils';
 
 import styles from './OrganizationTree.less';
+import {} from '@/interfaces';
 
 interface OrganizationTreeProps {
   organization: Organization;
@@ -16,19 +17,21 @@ interface OrganizationTreeProps {
 }
 interface DataSourceValue {
   title: string;
-  avatar: string;
+  avatar?: string;
   desc?: string;
   others?: any;
 }
 const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, projects }) => {
   const dispatch = useDispatch();
+  const currentProject = useSelector<RootState, ProjectModelState['current']>(
+    (state) => state.project.current,
+  );
 
   const dataSource = React.useMemo<TreeDataSource<DataSourceValue>>(() => {
     return {
       key: '0',
       value: {
         title: organization.name!,
-        avatar: organization.avatar!,
         desc: `团队共${organization.users?.length}人`,
         others: organization.introduction,
       },
@@ -77,7 +80,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
               className={styles.project}
               cover={
                 <Image
-                  src={value.avatar}
+                  src={value.avatar!}
                   alt={value.desc || ''}
                   onClick={handleClick}
                   style={{ cursor: 'pointer' }}
@@ -113,7 +116,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
     };
   }, [organization, projects]);
 
-  const [value, setValue] = React.useState();
+  const [value, setValue] = React.useState(() => currentProject?.id);
   const handleChange = React.useCallback((key) => {
     setValue(key);
   }, []);
