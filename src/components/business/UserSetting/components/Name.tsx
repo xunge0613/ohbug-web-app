@@ -2,16 +2,25 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 
 import type { User } from '@/interfaces';
+import { useRequest } from '@/hooks';
+import api from '@/api';
 
 interface Props {
   user: User;
 }
 const Name: React.FC<Props> = ({ user }) => {
-  const handleFinish = React.useCallback((values) => {
-    // TODO
-    // eslint-disable-next-line no-console
-    console.log(values);
-  }, []);
+  const { run } = useRequest(api.user.update, { manual: true });
+  const handleFinish = React.useCallback(
+    async (values) => {
+      if (values) {
+        const result = await run({ id: user.id, ...values });
+        if (result) {
+          window.location.reload();
+        }
+      }
+    },
+    [run, user],
+  );
 
   return (
     <Form layout="vertical" hideRequiredMark onFinish={handleFinish}>
