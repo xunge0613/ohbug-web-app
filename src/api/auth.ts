@@ -3,11 +3,12 @@ import { request } from 'umi';
 interface Captcha {
   mobile: string;
 }
-interface SignUp {
+interface Base {
   mobile: string;
   captcha: number;
 }
-type Login = SignUp;
+type SignUp = Base;
+type Login = Base;
 interface Github {
   code: string;
 }
@@ -23,11 +24,15 @@ const auth = {
     const res = await request('/auth/captcha', { method: 'get', params: data });
     return res;
   },
-  signup: async (data: Captcha): Promise<number> => {
+  verify: async (data: Base): Promise<boolean> => {
+    const res = await request('/auth/verify', { method: 'get', params: data });
+    return res;
+  },
+  signup: async (data: Captcha): Promise<boolean> => {
     const res = await request('/auth/signup', { method: 'post', data });
     return res;
   },
-  login: async (data: Login): Promise<number> => {
+  login: async (data: Login): Promise<boolean> => {
     const res = await request('/auth/login', { method: 'post', data });
     return res;
   },
