@@ -45,6 +45,8 @@
     "umi": "^3.2.7"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
     "@ohbug/types": "^0.0.6",
     "@types/ali-oss": "^6.0.5",
     "@types/echarts": "^4.6.0",
@@ -67,19 +69,24 @@
   },
   "lint-staged": {
     "*.{js,jsx,less,md,json}": [
-      "prettier --write"
+      "prettier --write",
+      "git add"
     ],
     "*.ts?(x)": [
       "eslint --fix",
-      "prettier --parser=typescript --write"
+      "prettier --parser=typescript --write",
+      "git add"
     ],
     "*.less": [
-      "stylelint --fix"
+      "stylelint --fix",
+      "git add"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "config": {
