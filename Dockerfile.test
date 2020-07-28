@@ -9,7 +9,7 @@ RUN yarn
 
 COPY ./ /usr/src/app
 RUN yarn postinstall
-RUN yarn build
+RUN yarn build:test
 
 # Stage 1
 FROM nginx:alpine

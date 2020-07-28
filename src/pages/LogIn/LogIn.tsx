@@ -2,7 +2,7 @@ import React from 'react';
 import { Space, Button } from 'antd';
 import { useLocation, useDispatch, useSelector, Link } from 'umi';
 
-import { oauth2_github_href } from '@/config';
+import { oauth2GithubHref } from '@/config';
 import { useMount, useToggle, useInvite } from '@/hooks';
 import { MobileLoginForm, Icon, LoginTemplate } from '@/components';
 import type { RootState } from '@/interfaces';
@@ -56,7 +56,7 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
           <Button
             block
             size="large"
-            href={oauth2_github_href}
+            href={oauth2GithubHref}
             icon={<Icon type="icon-ohbug-github-fill" style={{ color: '#24292e' }} />}
           >
             Github 登录

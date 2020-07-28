@@ -59,7 +59,13 @@ export const request: RequestConfig = {
   prefix: '/v1',
   timeout: 10000,
   middlewares: [
-    async function returnData(ctx, next) {
+    async function (ctx, next) {
+      const { req } = ctx;
+      const { url } = req;
+      // baseURL 从 config/define 中定义
+      // @ts-ignore
+      ctx.req.url = `${baseURL}${url}`;
+
       await next();
 
       // 简化返回数据 直接拿到 data

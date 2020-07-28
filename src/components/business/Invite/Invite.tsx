@@ -76,7 +76,7 @@ const Invite: React.FC<InviteProps> = ({ projects, organization_id, user, visibl
         // 发送请求 获取邀请链接
         if (organization_id && user) {
           await run({
-            auth: memberState,
+            auth: memberState!,
             projects: projectCheckedList,
             organization_id: Number(organization_id),
             inviter_id: user?.id!,

@@ -1,0 +1,18 @@
+name: deploy_test
+
+on:
+  push:
+    branches: [ test ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.WEB_APP_HOST_TEST }}
+          username: ${{ secrets.WEB_APP_USERNAME_TEST }}
+          key: ${{ secrets.WEB_APP_KEY_TEST }}
+          port: 22
+          script: |
+            ${{ secrets.WEB_APP_CLONE_SCRIPT_TEST }}
+            npm run deploy:test

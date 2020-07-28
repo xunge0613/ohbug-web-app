@@ -17,6 +17,6 @@
     },
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src"],
+  "include": ["src", "config"],
   "exclude": ["node_modules"]
 }

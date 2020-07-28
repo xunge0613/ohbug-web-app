@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  web-app:
+    image: ohbug-web-app-test
+    volumes:
+      - /usr/src/app
+    ports:
+      - 80:80
