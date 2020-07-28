@@ -7,12 +7,31 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build:test
+
+      - name: Deploy to Server
+      - uses: easingthemes/ssh-deploy@v2.1.1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.WEB_APP_KEY_TEST }}
+          ARGS: "-rltgoDzvO --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.WEB_APP_HOST_TEST }}
+          REMOTE_USER: ${{ secrets.WEB_APP_USERNAME_TEST }}
+          TARGET: ${{ secrets.WEB_APP_TARGET_TEST }}
+
+      - name: Restart server
       - uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.WEB_APP_HOST_TEST }}
-          username: ${{ secrets.WEB_APP_USERNAME_TEST }}
-          key: ${{ secrets.WEB_APP_KEY_TEST }}
-          port: 22
-          script: |
-            ${{ secrets.WEB_APP_CLONE_SCRIPT_TEST }}
-            npm run deploy:test
+          with:
+            host: ${{ secrets.WEB_APP_HOST_TEST }}
+            username: ${{ secrets.WEB_APP_USERNAME_TEST }}
+            key: ${{ secrets.WEB_APP_KEY_TEST }}
+            port: 22
+            script: |
+              sudo service nginx restart
