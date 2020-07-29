@@ -5,10 +5,10 @@ import { Icon } from '@/components';
 
 import styles from './menuItemRender.less';
 
-function MenuItemRender(props: any): React.ReactElement {
+function MenuItemRender(props: any): React.ReactNode {
   let { path } = props;
-  if (path === '/settings/:organization_id') path = '/settings/current';
   if (path === '/issue') path = '/issue?project_id=current';
+
   return (
     <div className={styles.root}>
       <Icon type={props.icon as string} style={{ fontSize: 24 }} />

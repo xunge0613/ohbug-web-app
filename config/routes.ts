@@ -45,11 +45,6 @@ export default [
     path: '/settings/:organization_id',
     component: '@/pages/Settings',
     wrappers: ['@/wrappers/auth'],
-    // layout
-    menu: {
-      name: '团队设置',
-      icon: 'icon-ohbug-settings-3-line',
-    },
     layout: {
       hideMenu: true,
       hideNav: true,
