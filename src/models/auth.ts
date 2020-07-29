@@ -2,6 +2,7 @@ import { history } from 'umi';
 
 import type { Model } from '@/interfaces';
 import api from '@/api';
+import { setAuth, clearAuth } from '@/utils';
 
 export interface AuthModelState {
   oauth?: {
@@ -46,7 +47,9 @@ const auth: AuthModel = {
         mobile,
         captcha,
       });
+
       if (data) {
+        setAuth(data);
         history.push('/organization-project');
       }
     },
@@ -80,11 +83,9 @@ const auth: AuthModel = {
       }
     },
 
-    *logout(_, { call }) {
-      const data = yield call(api.auth.logout);
-      if (data) {
-        history.push('/');
-      }
+    logout() {
+      clearAuth();
+      history.push('/');
     },
   },
 };

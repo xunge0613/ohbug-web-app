@@ -70,7 +70,7 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
 
     const payload = {
       ...values,
-      captcha: parseInt(values.captcha, 10),
+      captcha: values.captcha,
     };
     if (oauth) {
       payload.oauthType = oauth.oauthType;

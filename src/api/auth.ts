@@ -5,7 +5,7 @@ interface Captcha {
 }
 interface Base {
   mobile: string;
-  captcha: number;
+  captcha: string;
 }
 type SignUp = Base;
 type Login = Base;
@@ -14,7 +14,7 @@ interface Github {
 }
 interface BindUser {
   mobile: string;
-  captcha: number;
+  captcha: string;
   oauthType: 'github';
   oauthUserDetail: any;
 }
@@ -42,10 +42,6 @@ const auth = {
   },
   bindUser: async (data: BindUser): Promise<boolean> => {
     const res = await request('/auth/bindUser', { method: 'post', data });
-    return res;
-  },
-  logout: async (): Promise<boolean> => {
-    const res = await request('/auth/logout', { method: 'post' });
     return res;
   },
 };

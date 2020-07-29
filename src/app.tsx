@@ -17,6 +17,7 @@ import {
   rightContentRender,
 } from '@/components';
 import { ICONFONT_URL } from '@/config';
+import { getAuth } from '@/utils';
 
 import chartTheme from './styles/chart.json';
 import './styles';
@@ -58,6 +59,7 @@ function getResponse(ctx: any) {
 export const request: RequestConfig = {
   prefix: '/v1',
   timeout: 10000,
+  headers: { Authorization: `bearer ${getAuth()?.token}` },
   middlewares: [
     async function (ctx, next) {
       const { req } = ctx;
