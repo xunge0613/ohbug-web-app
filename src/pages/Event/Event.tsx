@@ -35,12 +35,6 @@ const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
           </Row>
         ),
       },
-      {
-        key: 'replay',
-        tab: 'replay',
-        disabled: !event?.replay,
-        element: <div>reply</div>,
-      },
     ],
     [event, issue],
   );
@@ -79,10 +73,10 @@ const Event: React.FC = () => {
   return (
     <BasicLayout>
       {/* 标题信息 */}
-      <Title event={event} issue={issue} />
+      {event && issue && <Title event={event} issue={issue} />}
 
       {/* tab */}
-      <EventTab event={event} issue={issue} />
+      {event && issue && <EventTab event={event} issue={issue} />}
 
       {/* <Description /> */}
     </BasicLayout>

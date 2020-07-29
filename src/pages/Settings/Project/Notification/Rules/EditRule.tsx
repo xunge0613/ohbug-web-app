@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'umi';
 import { Modal, Form, Input, Select, InputNumber, Tag, Space } from 'antd';
-import { types } from '@ohbug/core';
+import { types } from '@ohbug/browser';
 
 import { RootState, NotificationRule, NotificationRuleLevel } from '@/interfaces';
 import { IconButton } from '@/components';
@@ -226,7 +226,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
                               noStyle
                             >
                               <Select dropdownMatchSelectWidth={false}>
-                                {Object.values(types).map((t) => (
+                                {Object.values(types).map((t: any) => (
                                   <Select.Option value={t} key={t}>
                                     {t}
                                   </Select.Option>

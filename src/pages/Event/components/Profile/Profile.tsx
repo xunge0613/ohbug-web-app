@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 import type { EventModelState } from '@/interfaces';
 import { Icon, RelativeTime } from '@/components';
-import { getTagsInfoByTags } from '@/utils';
+import { getTagsInfo } from '@/utils';
 
 import ProgressCard from '../ProgressCard';
 
@@ -27,52 +27,69 @@ interface ProfileProps {
   event: EventModelState['current'];
 }
 const Profile: React.FC<ProfileProps> = ({ event }) => {
-  const tagsInfo = React.useMemo(() => getTagsInfoByTags(event?.tags), [event]);
+  const tagsInfo = React.useMemo(() => getTagsInfo(event?.device), [event]);
 
-  const tooltipTagsList = React.useMemo(
-    () =>
-      event
-        ? [
-            {
-              key: 'time',
-              title: `发生时间: ${dayjs(event.timestamp).format(`YYYY-MM-DD HH:mm:ss`)}`,
-              value: <RelativeTime time={event.timestamp} />,
-              icon: <Icon type="icon-ohbug-time-line" />,
-            },
-            {
-              key: 'uuid',
-              title: `UUID: ${event.user.uuid}`,
-              value: event.user.uuid,
-              icon: <Icon type="icon-ohbug-id-line" />,
-            },
-            {
-              key: 'ip',
-              title: `IP: ${event.user.ip_address}`,
-              value: event.user.ip_address,
-              icon: <Icon type="icon-ohbug-ip-line" />,
-            },
-            {
-              key: 'title',
-              title: `标题: ${event.tags.title}`,
-              value: event.tags.title,
-              icon: <Icon type="icon-ohbug-title-fill" />,
-            },
-            {
-              key: 'url',
-              title: `URL: ${event.tags.url}`,
-              value: event.tags.url,
-              icon: <Icon type="icon-ohbug-links-line" />,
-            },
-            {
-              key: 'language',
-              title: `Language: ${event.tags.language}`,
-              value: event.tags.language,
-              icon: <Icon type="icon-ohbug-global-line" />,
-            },
-          ]
-        : [],
-    [event],
-  );
+  const tooltipTagsList = React.useMemo(() => {
+    const result = [];
+    if (event?.timestamp) {
+      result.push({
+        key: 'time',
+        title: `发生时间: ${dayjs(event.timestamp).format(`YYYY-MM-DD HH:mm:ss`)}`,
+        value: <RelativeTime time={event.timestamp} />,
+        icon: <Icon type="icon-ohbug-time-line" />,
+      });
+    }
+    if (event?.user?.uuid) {
+      result.push({
+        key: 'uuid',
+        title: `UUID: ${event?.user?.uuid}`,
+        value: event?.user?.uuid,
+        icon: <Icon type="icon-ohbug-id-line" />,
+      });
+    }
+    if (event?.user?.ip_address) {
+      result.push({
+        key: 'ip',
+        title: `IP: ${event?.user?.ip_address}`,
+        value: event?.user?.ip_address,
+        icon: <Icon type="icon-ohbug-ip-line" />,
+      });
+    }
+    if (event?.device?.title) {
+      result.push({
+        key: 'title',
+        title: `标题: ${event.device.title}`,
+        value: event.device.title,
+        icon: <Icon type="icon-ohbug-title-fill" />,
+      });
+    }
+    if (event?.device?.url) {
+      result.push({
+        key: 'url',
+        title: `URL: ${event.device.url}`,
+        value: event.device.url,
+        icon: <Icon type="icon-ohbug-links-line" />,
+      });
+    }
+    if (event?.device?.language) {
+      result.push({
+        key: 'language',
+        title: `Language: ${event.device.language}`,
+        value: event.device.language,
+        icon: <Icon type="icon-ohbug-global-line" />,
+      });
+    }
+    if (event?.releaseStage) {
+      result.push({
+        key: 'releaseStage',
+        title: `ReleaseStage: ${event.releaseStage}`,
+        value: event.releaseStage,
+        icon: <Icon type="icon-ohbug-leaf-line" />,
+      });
+    }
+
+    return result;
+  }, [event]);
 
   const loading = !event;
 

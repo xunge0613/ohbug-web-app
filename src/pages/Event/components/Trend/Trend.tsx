@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'umi';
 import dayjs from 'dayjs';
 
 import type { RootState, IssueModelState } from '@/interfaces';
-import { useUpdateEffect } from '@/hooks';
 import { MiniChart } from '@/components';
 
 import HoverCard from '../HoverCard';
@@ -17,7 +16,7 @@ interface TrendProps {
 const Trend: React.FC<TrendProps> = ({ issue }) => {
   const dispatch = useDispatch();
 
-  useUpdateEffect(() => {
+  React.useEffect(() => {
     if (issue) {
       const ids = [issue.id];
       dispatch({

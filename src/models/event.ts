@@ -4,12 +4,7 @@ import type { SourceMapTraceCode } from 'source-map-trace/dist/source-map-trace'
 import type { Model } from '@/interfaces';
 import api from '@/api';
 
-interface EventUser {
-  ip_address: string;
-  uuid: string;
-}
 export interface Event<T> extends OhbugEvent<T> {
-  user: EventUser;
   // replay
   replay?: {
     data: any;

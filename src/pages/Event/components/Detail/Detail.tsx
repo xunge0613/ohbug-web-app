@@ -52,7 +52,9 @@ const Detail: React.FC<DetailProps> = ({ event }) => {
           <Descriptions title="HTTP 信息" column={1} size="small" bordered>
             <Descriptions.Item label="method">{event.detail.req.method}</Descriptions.Item>
             <Descriptions.Item label="url">{event.detail.req.url}</Descriptions.Item>
-            <Descriptions.Item label="data">{event.detail.req.data}</Descriptions.Item>
+            <Descriptions.Item label="data">
+              {JSON.stringify(event.detail.req.data)}
+            </Descriptions.Item>
 
             <Descriptions.Item label="status">{event.detail.res.status}</Descriptions.Item>
             <Descriptions.Item label="statusText">{event.detail.res.statusText}</Descriptions.Item>

@@ -12,5 +12,6 @@ module.exports = {
     'no-nested-ternary': 'off',
     'global-require': 'off',
     'func-names': 'off',
+    '@typescript-eslint/naming-convention': 'off',
   },
 };
