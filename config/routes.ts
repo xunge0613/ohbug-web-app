@@ -94,6 +94,11 @@ export default [
       },
       {
         exact: true,
+        path: '/settings/:organization_id/project/:project_id/sourcemap',
+        component: '@/pages/Settings/Project/SourceMap',
+      },
+      {
+        exact: true,
         path: '/settings/:organization_id/project/:project_id/members',
         component: '@/pages/Settings/Project/Members',
       },

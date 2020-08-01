@@ -9,6 +9,7 @@ import analysis from './analysis';
 import view from './view';
 import notification from './notification';
 import invite from './invite';
+import sourceMap from './sourceMap';
 
 const api = {
   project,
@@ -22,6 +23,7 @@ const api = {
   view,
   notification,
   invite,
+  sourceMap,
 };
 
 export default api;

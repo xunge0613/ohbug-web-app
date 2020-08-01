@@ -55,11 +55,11 @@ const projectMenuList = (project_id?: number | string): MenuList => [
       },
     ],
   },
-  // {
-  //   label: 'SourceMap',
-  //   key: `project/${project_id}/sourcemap`,
-  //   path: `/project/${project_id}/sourcemap`,
-  // },
+  {
+    label: 'SourceMap',
+    key: `project/${project_id}/sourcemap`,
+    path: `/project/${project_id}/sourcemap`,
+  },
   {
     label: '成员列表',
     key: `project/${project_id}/members`,

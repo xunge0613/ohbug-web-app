@@ -1,7 +1,7 @@
 @import '~@/styles/theme.less';
 
-@card-width: 175px;
-@card-height: 80px;
+@card-width: 160px;
+@card-height: 60px;
 @progress-width: 40px;
 
 .root {
@@ -26,8 +26,13 @@
     overflow: hidden;
 
     .content {
+      flex-direction: column;
+      justify-content: space-around;
+      .flex();
+
       float: left;
       width: @card-width - @progress-width;
+      height: 100%;
       padding: 6px 20px;
 
       .title {

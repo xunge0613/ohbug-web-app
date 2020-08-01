@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import styles from './ProgressCard.less';
 
 interface ProgressCardProps {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   title: string;
   description: string;
   percent?: number;
@@ -23,7 +23,7 @@ const ProgressCard: React.FC<ProgressCardProps> = ({ icon, title, description, p
     <Card className={styles.root}>
       <div className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.icon}>{icon}</div>
+          {icon && <div className={styles.icon}>{icon}</div>}
           <Typography.Title className={styles.title} level={4}>
             {title}
           </Typography.Title>

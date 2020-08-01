@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 import type { EventModelState } from '@/interfaces';
 import { Icon, RelativeTime } from '@/components';
-import { getTagsInfo } from '@/utils';
+import { getDeviceInfo } from '@/utils';
 
 import ProgressCard from '../ProgressCard';
 
@@ -27,7 +27,7 @@ interface ProfileProps {
   event: EventModelState['current'];
 }
 const Profile: React.FC<ProfileProps> = ({ event }) => {
-  const tagsInfo = React.useMemo(() => getTagsInfo(event?.device), [event]);
+  const deviceInfo = React.useMemo(() => getDeviceInfo(event?.device), [event]);
 
   const tooltipTagsList = React.useMemo(() => {
     const result = [];
@@ -99,15 +99,13 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         <Skeleton loading={loading}>
           {/* 浏览器 */}
           <ProgressCard
-            icon={<Icon type="icon-ohbug-chrome-line" style={{ fontSize: 20 }} />}
-            title={tagsInfo?.browser?.name}
-            description={tagsInfo?.browser?.version?.original}
+            title={deviceInfo?.browser?.name}
+            description={deviceInfo?.browser?.version?.original}
           />
           {/* 系统 */}
           <ProgressCard
-            icon={<Icon type="icon-ohbug-apple-fill" style={{ fontSize: 20 }} />}
-            title={tagsInfo?.os?.name}
-            description={tagsInfo?.os?.version?.original}
+            title={deviceInfo?.os?.name}
+            description={deviceInfo?.os?.version?.original}
           />
         </Skeleton>
       </div>

@@ -1,7 +1,7 @@
 import * as UA from 'ua-device';
 import type { OhbugDevice } from '@ohbug/types';
 
-export function getTagsInfo(data?: OhbugDevice) {
+export function getDeviceInfo(data?: OhbugDevice) {
   if (data) {
     const { url, title, version, language, platform, userAgent } = data;
     const { browser, engine, os, device } = new UA(userAgent);

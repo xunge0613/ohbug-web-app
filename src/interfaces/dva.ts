@@ -14,6 +14,7 @@ import type {
   ViewModelState,
   NotificationModelState,
   InviteModelState,
+  SourceMapModelState,
 } from 'umi';
 
 export interface Model<S = any> {
@@ -42,6 +43,7 @@ export type RootState = {
   view: ViewModelState;
   notification: NotificationModelState;
   invite: InviteModelState;
+  sourceMap: SourceMapModelState;
 } & {
   loading: Loading;
 };

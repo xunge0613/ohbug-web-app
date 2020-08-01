@@ -58,7 +58,7 @@ export function getMessageAndIconByActionType(
       };
     case 'console':
       return {
-        message: `[${action.message}] ${action.data}`,
+        message: `[${action.message}] ${JSON.stringify(action.data)}`,
         icon: <Icon type="icon-ohbug-terminal-box-line" />,
       };
     default:

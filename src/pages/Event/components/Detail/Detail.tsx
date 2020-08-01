@@ -3,8 +3,9 @@ import { Card, Descriptions, Timeline, Tooltip } from 'antd';
 import dayjs from 'dayjs';
 
 import type { EventModelState } from '@/interfaces';
-import { StackInfo, Icon } from '@/components';
+import { Icon } from '@/components';
 
+import StackInfo from '../StackInfo';
 import { getMessageAndIconByActionType } from './core';
 
 import styles from './Detail.less';
