@@ -81,6 +81,9 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
       type: `auth/${type}`,
       payload,
     });
+
+    setTiming(false);
+    setCount(countDown);
   }, []);
 
   const SubmitButtonText = React.useMemo(() => {

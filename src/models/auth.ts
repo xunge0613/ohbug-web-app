@@ -2,7 +2,7 @@ import { history } from 'umi';
 
 import type { Model } from '@/interfaces';
 import api from '@/api';
-import { setAuth, clearAuth } from '@/utils';
+import { setAuth, clearAuth, getAuth } from '@/utils';
 
 export interface AuthModelState {
   oauth?: {
@@ -50,7 +50,8 @@ const auth: AuthModel = {
 
       if (data) {
         setAuth(data);
-        history.push('/organization-project');
+        const hasAuth = getAuth();
+        if (hasAuth) history.push('/organization-project');
       }
     },
 
