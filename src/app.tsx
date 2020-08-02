@@ -1,3 +1,4 @@
+import './wdyr';
 import React from 'react';
 import ConfigProvider from 'antd/lib/config-provider';
 import { ConfigProvider as ConfigProvider2 } from 'antd';

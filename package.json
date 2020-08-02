@@ -21,6 +21,7 @@
     "@ohbug/core": "^1.0.0-alpha.0",
     "@umijs/preset-react": "^1.5.14",
     "@umijs/test": "^3.2.14",
+    "@welldone-software/why-did-you-render": "^4.2.7",
     "ahooks": "^2.4.0",
     "antd": "^4.5.1",
     "clsx": "^1.1.0",
