@@ -118,17 +118,6 @@ export default [
   //     icon: 'coffee',
   //   },
   // },
-  // {
-  //   exact: true,
-  //   path: '/dashboard',
-  //   component: '@/pages/Dashboard',
-  //   wrappers: ['@/wrappers/auth'],
-  //   // layout
-  //   menu: {
-  //     name: '仪表盘 Dashboard',
-  //     icon: 'dashboard',
-  //   },
-  // },
   {
     exact: true,
     path: '/login',

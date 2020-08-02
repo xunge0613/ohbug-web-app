@@ -1,9 +1,9 @@
 import React from 'react';
 import { PageHeader, Button } from 'antd';
-import { PlusCircleOutlined } from '@ant-design/icons';
 import { history, useDispatch, useSelector } from 'umi';
 
 import BasicLayout from '@/layouts/Basic';
+import { Icon } from '@/components';
 import type { RootState, ProjectModelState, OrganizationModelState } from '@/interfaces';
 
 import OrganizationTree from './components/OrganizationTree';
@@ -39,10 +39,16 @@ const OrganizationProject: React.FC<ProjectPageProps> = () => {
         <PageHeader
           title={
             <div className={styles.title}>
-              <Button icon={<PlusCircleOutlined />} onClick={handleCreateOrganization}>
+              <Button
+                icon={<Icon type="icon-ohbug-add-circle-line" />}
+                onClick={handleCreateOrganization}
+              >
                 创建团队
               </Button>
-              <Button icon={<PlusCircleOutlined />} onClick={handleCreateProject}>
+              <Button
+                icon={<Icon type="icon-ohbug-add-circle-line" />}
+                onClick={handleCreateProject}
+              >
                 创建项目
               </Button>
             </div>

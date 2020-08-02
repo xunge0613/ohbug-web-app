@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 
 // @ts-ignore
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin'; // eslint-disable-line
@@ -43,6 +43,25 @@ const devtool = process.env.NODE_ENV === 'production' ? false : 'cheap-module-so
 // 替换压缩器为 esbuild
 const esbuild = {};
 
+const externals = {
+  echarts: 'window.echarts',
+  react: 'window.React',
+  'react-dom': 'window.ReactDOM',
+};
+const { ENV_TAG } = process.env;
+const scripts =
+  ENV_TAG === 'development'
+    ? [
+        'https://cdn.jsdelivr.net/npm/echarts@4.8.0/dist/echarts.js',
+        'https://cdn.jsdelivr.net/npm/react@16.13.1/umd/react.development.js',
+        'https://cdn.jsdelivr.net/npm/react-dom@16.13.1/umd/react-dom.development.js',
+      ]
+    : [
+        'https://cdn.jsdelivr.net/npm/echarts@4.8.0/dist/echarts.min.js',
+        'https://cdn.jsdelivr.net/npm/react@16.13.1/umd/react.production.min.js',
+        'https://cdn.jsdelivr.net/npm/react-dom@16.13.1/umd/react-dom.production.min.js',
+      ];
+
 const build = {
   dynamicImport,
   ignoreMomentLocale,
@@ -52,6 +71,8 @@ const build = {
   nodeModulesTransform,
   devtool,
   esbuild,
+  externals,
+  scripts,
 };
 
 export default build;

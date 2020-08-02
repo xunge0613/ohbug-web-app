@@ -1,7 +1,7 @@
 import React from 'react';
 import { Radio } from 'antd';
 import clsx from 'clsx';
-import type { SourceMapTraceCode } from 'source-map-trace/dist/source-map-trace';
+import type { SourceMapTraceCode } from 'source-map-trace/dist/interfaces';
 
 import styles from './StackInfo.less';
 

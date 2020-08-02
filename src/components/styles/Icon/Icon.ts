@@ -5,7 +5,7 @@ const Icon = createFromIconfontCN({
   scriptUrl: ICONFONT_URL,
   extraCommonProps: {
     style: {
-      fontSize: 14,
+      fontSize: 16,
     },
   },
 });

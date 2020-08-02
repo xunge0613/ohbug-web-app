@@ -1,11 +1,11 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
-import { MobileOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector, Link } from 'umi';
 import type { AuthModelState } from 'umi';
 
 import { useUpdateEffect } from '@/hooks';
 import { RootState } from '@/interfaces';
+import { Icon } from '@/components';
 
 import styles from './MobileLoginForm.less';
 
@@ -136,7 +136,7 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
         ]}
       >
         <Input
-          prefix={<MobileOutlined className={styles.inputPrefixIcon} />}
+          prefix={<Icon className={styles.inputPrefixIcon} type="icon-ohbug-smartphone-line" />}
           size="large"
           placeholder="请输入手机号码"
         />
@@ -158,7 +158,7 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
         ]}
       >
         <Input
-          prefix={<LockOutlined className={styles.inputPrefixIcon} />}
+          prefix={<Icon className={styles.inputPrefixIcon} type="icon-ohbug-lock-line" />}
           size="large"
           placeholder="请输入验证码"
           suffix={
