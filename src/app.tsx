@@ -15,6 +15,7 @@ import {
   menuItemRender,
   renderEmpty,
   rightContentRender,
+  errorHandler,
 } from '@/components';
 import { ICONFONT_URL } from '@/config';
 import { getAuth } from '@/utils';
@@ -75,4 +76,5 @@ export const request: RequestConfig = {
       ctx.res = response;
     },
   ],
+  errorHandler,
 };
