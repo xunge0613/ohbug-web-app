@@ -53,6 +53,7 @@ const CreateProject: React.FC = () => {
         <Form.Item
           label="项目类型"
           name="type"
+          initialValue="JavaScript"
           rules={[
             {
               required: true,
@@ -62,7 +63,7 @@ const CreateProject: React.FC = () => {
         >
           <Select placeholder="请选择项目类型">
             <Select.Option value="JavaScript">JavaScript</Select.Option>
-            <Select.Option value="NodeJS">NodeJS</Select.Option>
+            {/* <Select.Option value="NodeJS">NodeJS</Select.Option> */}
           </Select>
         </Form.Item>
 
