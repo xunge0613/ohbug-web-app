@@ -26,9 +26,11 @@ const Issue: React.FC<IssueDashPageProps> = () => {
     (current) => {
       dispatch({
         type: 'issue/searchIssues',
-        payload: { page: current - 1 },
-        // @ts-ignore
-        project_id: location?.query?.project_id,
+        payload: {
+          page: current - 1,
+          // @ts-ignore
+          project_id: location?.query?.project_id,
+        },
       });
     },
     [dispatch],

@@ -102,7 +102,7 @@ const issue: IssueModel = {
         });
 
         const res = yield call(api.issue.getMany, {
-          project_id: project_id === 'current' ? project.id : project_id,
+          project_id: project_id === 'current' ? project?.id : project_id,
           page,
           start,
           end,
