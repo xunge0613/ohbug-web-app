@@ -32,16 +32,6 @@ const auth: AuthModel = {
       });
     },
 
-    *signup({ payload: { mobile, captcha } }, { call }) {
-      const data = yield call(api.auth.signup, {
-        mobile,
-        captcha,
-      });
-      if (data) {
-        history.push('/organization-project');
-      }
-    },
-
     *login({ payload: { mobile, captcha } }, { call }) {
       const data = yield call(api.auth.login, {
         mobile,
@@ -52,6 +42,7 @@ const auth: AuthModel = {
         setAuth(data);
         const hasAuth = getAuth();
         if (hasAuth) history.push('/organization-project');
+        window.location.reload();
       }
     },
 
@@ -86,7 +77,9 @@ const auth: AuthModel = {
 
     logout() {
       clearAuth();
-      history.push('/');
+      setTimeout(() => {
+        history.push('/');
+      }, 0);
     },
   },
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Space, Button } from 'antd';
-import { useLocation, useDispatch, useSelector, Link } from 'umi';
+import { useLocation, useDispatch, useSelector } from 'umi';
 
 import { oauth2GithubHref } from '@/config';
 import { useMount, useToggle, useInvite } from '@/hooks';
@@ -69,10 +69,6 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
           {/* > */}
           {/*  微信登录 */}
           {/* </Button> */}
-
-          <span>
-            没有账号？ <Link to="/signup">注册</Link>
-          </span>
         </Space>
       ) : (
         <>

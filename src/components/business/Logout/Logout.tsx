@@ -11,7 +11,7 @@ const Logout: React.FC = () => {
 
   return (
     <div className={styles.root} onClick={handleLogout}>
-      Logout
+      退出登录
     </div>
   );
 };

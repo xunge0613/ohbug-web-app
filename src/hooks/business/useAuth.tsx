@@ -24,11 +24,12 @@ export const useAuth = (): UseAuth => {
   const project = useSelector<RootState, Project>((state) => state.project.current!);
   const invite = useSelector<RootState, Invite>((state) => state.invite.current!);
 
-  async function getUserInfo(): Promise<void> {
+  function getUserInfo() {
     try {
-      if (!user || !Object.keys(user).length) {
+      if (auth && (!user || !Object.keys(user).length)) {
         // 没有 user 信息 需要获取
-        await dispatch({ type: 'user/get' });
+        const { id } = auth!;
+        dispatch({ type: 'user/get', payload: { id } });
       } else if (pathname === '/login') {
         // 已经有了 user 信息
         history.replace('/');
@@ -36,7 +37,7 @@ export const useAuth = (): UseAuth => {
         // 有了 user 没有 organization
         setLogin(true);
         history.replace('/create-organization');
-      } else {
+      } else if (user) {
         setLogin(true);
       }
     } catch (error) {
@@ -44,26 +45,24 @@ export const useAuth = (): UseAuth => {
     }
   }
   React.useEffect(() => {
-    (async () => {
-      if (!auth) {
-        // 未登录状态
-        setLogin(false);
+    if (!auth) {
+      // 未登录状态
+      setLogin(false);
 
-        if (pathname !== '/login') {
-          history.replace('/login');
-        }
-      } else {
-        // 登录状态
-        await getUserInfo();
-
-        if (invite) {
-          await dispatch({
-            type: 'invite/bind',
-          });
-        }
+      if (pathname !== '/login') {
+        history.replace('/login');
       }
-    })();
-  }, [user, organization, project, invite]);
+    } else {
+      // 登录状态
+      getUserInfo();
+
+      if (invite) {
+        dispatch({
+          type: 'invite/bind',
+        });
+      }
+    }
+  }, [auth, user, organization, project, invite]);
 
   return { isLogin };
 };

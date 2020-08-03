@@ -7,7 +7,6 @@ interface Base {
   mobile: string;
   captcha: string;
 }
-type SignUp = Base;
 type Login = Base;
 interface Github {
   code: string;
@@ -26,10 +25,6 @@ const auth = {
   },
   verify: async (data: Base): Promise<boolean> => {
     const res = await request('/auth/verify', { method: 'get', params: data });
-    return res;
-  },
-  signup: async (data: Captcha): Promise<boolean> => {
-    const res = await request('/auth/signup', { method: 'post', data });
     return res;
   },
   login: async (data: Login): Promise<boolean> => {

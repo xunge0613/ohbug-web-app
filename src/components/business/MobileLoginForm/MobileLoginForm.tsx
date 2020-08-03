@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
-import { useDispatch, useSelector, Link } from 'umi';
+import { useDispatch, useSelector } from 'umi';
 import type { AuthModelState } from 'umi';
 
 import { useUpdateEffect } from '@/hooks';
@@ -11,7 +11,7 @@ import styles from './MobileLoginForm.less';
 
 const COUNTDOWN = 90;
 
-type FormType = 'login' | 'signup' | 'bindUser';
+type FormType = 'login' | 'bindUser';
 interface MobileLoginFormFormProps {
   // 倒计时时间
   countDown?: number;
@@ -90,32 +90,10 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
     switch (type) {
       case 'login':
         return '登录';
-      case 'signup':
-        return '注册';
       case 'bindUser':
         return '绑定用户';
       default:
         return '';
-    }
-  }, [type]);
-  const SubText = React.useMemo(() => {
-    switch (type) {
-      case 'login':
-        return (
-          <span>
-            没有账号？ <Link to="/signup">注册</Link>
-          </span>
-        );
-      case 'signup':
-        return (
-          <span>
-            已有账号？ <Link to="/login">登录</Link>
-          </span>
-        );
-      case 'bindUser':
-        return null;
-      default:
-        return null;
     }
   }, [type]);
 
@@ -174,8 +152,6 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
           {SubmitButtonText}
         </Button>
       </Form.Item>
-
-      <Form.Item noStyle>{SubText}</Form.Item>
     </Form>
   );
 };

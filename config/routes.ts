@@ -130,16 +130,6 @@ export default [
   },
   {
     exact: true,
-    path: '/signup',
-    component: '@/pages/SignUp',
-    layout: {
-      hideMenu: true,
-      hideNav: true,
-      hideFooter: true,
-    },
-  },
-  {
-    exact: true,
     path: '/bindUser',
     component: '@/pages/BindUser',
     layout: {
