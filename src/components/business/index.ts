@@ -1,4 +1,3 @@
-export { default as CreateProject } from './CreateProject';
 export { default as Invite } from './Invite';
 export { default as InviteProject } from './InviteProject';
 export { default as LoginTemplate } from './LoginTemplate';

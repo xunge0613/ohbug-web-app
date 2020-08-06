@@ -151,6 +151,17 @@ export default [
   },
   {
     exact: true,
+    path: '/create-project',
+    component: '@/pages/CreateProject',
+    wrappers: ['@/wrappers/auth'],
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+      hideFooter: true,
+    },
+  },
+  {
+    exact: true,
     path: '/invite',
     component: '@/pages/Invite',
     layout: {

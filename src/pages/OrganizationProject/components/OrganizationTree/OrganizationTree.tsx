@@ -9,7 +9,6 @@ import type { TreeDataSource } from '@/components';
 import { getPlatformLogo } from '@/utils';
 
 import styles from './OrganizationTree.less';
-import {} from '@/interfaces';
 
 interface OrganizationTreeProps {
   organization: Organization;

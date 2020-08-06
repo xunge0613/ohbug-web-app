@@ -1,8 +1,8 @@
 import React from 'react';
-import { Drawer, Form, Input, Button, Select } from 'antd';
-import { useDispatch, useSelector } from 'umi';
+import { useDispatch } from 'umi';
+import { Form, Input, Button, Select } from 'antd';
 
-import type { RootState, ProjectModelState } from '@/interfaces';
+import { LoginTemplate } from '@/components';
 
 import styles from './CreateProject.less';
 
@@ -16,23 +16,14 @@ const CreateProject: React.FC = () => {
     [dispatch],
   );
 
-  const project = useSelector<RootState, ProjectModelState>((state) => state.project);
-  const visible = project.createProjectVisible;
-  const handleClose = React.useCallback(() => {
-    dispatch({ type: 'project/handleCreateProjectVisible', payload: false });
-  }, [dispatch]);
-
   return (
-    <Drawer
+    <LoginTemplate
       className={styles.root}
       title="创建项目"
-      placement="right"
-      closable
-      width={340}
-      visible={visible}
-      onClose={handleClose}
+      subTitle="项目隶属于团队，是为了将事件按照需求分类。通常一个 APP 对应一个项目。"
+      figure={require('@/static/images/create_organization_figure.svg')}
     >
-      <Form onFinish={handleFinish} hideRequiredMark>
+      <Form className={styles.form} onFinish={handleFinish} hideRequiredMark>
         <Form.Item
           label="项目名称"
           name="name"
@@ -71,7 +62,7 @@ const CreateProject: React.FC = () => {
           创建项目
         </Button>
       </Form>
-    </Drawer>
+    </LoginTemplate>
   );
 };
 

@@ -21,7 +21,6 @@ export interface Project {
   admin: User;
 }
 export interface ProjectModelState {
-  createProjectVisible: boolean;
   data: Project[];
   current?: Project;
   currentTrend?: ProjectTrend;
@@ -33,7 +32,6 @@ export interface ProjectModel extends Model<ProjectModelState> {
 const project: ProjectModel = {
   namespace: 'project',
   state: {
-    createProjectVisible: false,
     data: [],
     current: undefined,
   },
@@ -46,19 +44,6 @@ const project: ProjectModel = {
     },
   },
   effects: {
-    *handleCreateProjectVisible({ payload }, { select, put }) {
-      const user = yield select((state: RootState) => state.user.current);
-      const hasAuth = Boolean(Object.keys(user).length);
-      if (hasAuth) {
-        yield put({
-          type: 'setState',
-          payload: {
-            createProjectVisible: payload,
-          },
-        });
-      }
-    },
-
     *create({ payload: { name, type } }, { select, call, put }) {
       const admin_id = yield select((state: RootState) => state.user.current?.id);
       const organization_id = yield select((state: RootState) => state.organization?.current?.id);

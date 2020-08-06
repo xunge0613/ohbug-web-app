@@ -11,7 +11,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/es/storage/session';
 
 import {
-  CreateProject,
   UserSetting,
   footerRender,
   menuHeaderRender,
@@ -45,7 +44,6 @@ export function rootContainer(container: React.ReactNode) {
   return (
     <ConfigProvider renderEmpty={renderEmpty}>
       <ConfigProvider2 renderEmpty={renderEmpty}>
-        <CreateProject />
         <UserSetting />
         {container}
       </ConfigProvider2>

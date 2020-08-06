@@ -29,7 +29,7 @@ const OrganizationProject: React.FC<ProjectPageProps> = () => {
     history.push('/create-organization');
   }, [dispatch]);
   const handleCreateProject = React.useCallback(() => {
-    dispatch({ type: 'project/handleCreateProjectVisible', payload: true });
+    history.push('/create-project');
   }, [dispatch]);
 
   return (
