@@ -7,7 +7,6 @@ import echarts from 'echarts';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
-import { createLogger } from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/es/storage/session';
 
@@ -103,7 +102,6 @@ const persistEnhancer = () => (createStore: any) => (
 };
 export const dva = {
   config: {
-    onAction: [createLogger()],
     extraEnhancers: [persistEnhancer()],
   },
 };

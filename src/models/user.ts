@@ -49,25 +49,20 @@ const user: UserModel = {
                   current: data,
                 },
               });
-              // 若用户没有 Organization 则跳至 new 页面
-              if (!data.organizations || !data.organizations.length) {
-                history.replace('/create-organization');
-              } else {
-                const currentOrganization = yield select(
-                  (state: RootState) => state.organization.current,
-                );
-                const organizations = yield select((state: RootState) => state.organization.data);
-                if (!currentOrganization && !organizations) {
-                  // 得到 Organization 信息
-                  yield put({
-                    type: 'organization/setOrganizations',
-                    payload: data.organizations,
-                  });
-                  yield put({
-                    type: 'organization/setCurrentOrganization',
-                    payload: data.organizations[0],
-                  });
-                }
+              const currentOrganization = yield select(
+                (state: RootState) => state.organization.current,
+              );
+              const organizations = yield select((state: RootState) => state.organization.data);
+              if (!currentOrganization && !organizations) {
+                // 得到 Organization 信息
+                yield put({
+                  type: 'organization/setOrganizations',
+                  payload: data.organizations,
+                });
+                yield put({
+                  type: 'organization/setCurrentOrganization',
+                  payload: data.organizations[0],
+                });
               }
             }
           }

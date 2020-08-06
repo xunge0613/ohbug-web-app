@@ -33,10 +33,10 @@ export const useAuth = (): UseAuth => {
       } else if (pathname === '/login') {
         // 已经有了 user 信息
         history.replace('/');
-      } else if (!user.organizations?.length) {
+      } else if (!user.organizations?.length && !organization) {
         // 有了 user 没有 organization
-        setLogin(true);
         history.replace('/create-organization');
+        setLogin(true);
       } else if (user) {
         setLogin(true);
       }
@@ -62,7 +62,7 @@ export const useAuth = (): UseAuth => {
         });
       }
     }
-  }, [auth, user, organization, project, invite]);
+  }, [user, organization, project, invite]);
 
   return { isLogin };
 };
