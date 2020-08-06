@@ -1,17 +1,32 @@
 import React from 'react';
-import { Typography } from 'antd';
-
-import { Image } from '@/components';
+import { Empty, Button } from 'antd';
+import { useLocation } from 'umi';
 
 import styles from './renderEmpty.less';
 
-const renderEmpty = () => (
-  <div className={styles.root}>
-    <Typography.Text type="secondary">没有数据啦</Typography.Text>
-    <div className={styles.img}>
-      <Image src={require('@/static/images/data_not_found.svg')} alt="Data Not Found" />
-    </div>
-  </div>
-);
+const renderEmpty = (componentName?: string) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const location = useLocation();
+
+  let description: React.ReactNode;
+  let children: React.ReactNode;
+  if (componentName === 'List' && location.pathname === '/issue') {
+    // issue
+    description = <span>Ohbug 正等待接收您的第一个事件。</span>;
+    children = (
+      <div>
+        <Button type="link" size="large" href="/getting-started">
+          安装说明
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <Empty className={styles.root} image={Empty.PRESENTED_IMAGE_DEFAULT} description={description}>
+      {children}
+    </Empty>
+  );
+};
 
 export default renderEmpty;

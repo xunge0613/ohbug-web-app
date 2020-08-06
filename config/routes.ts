@@ -156,9 +156,15 @@ export default [
     wrappers: ['@/wrappers/auth'],
     layout: {
       hideMenu: true,
-      hideNav: true,
+      // hideNav: true,
       hideFooter: true,
     },
+  },
+  {
+    exact: true,
+    path: '/getting-started',
+    component: '@/pages/GettingStarted',
+    wrappers: ['@/wrappers/auth'],
   },
   {
     exact: true,

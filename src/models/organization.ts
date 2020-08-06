@@ -52,7 +52,7 @@ const organization: OrganizationModel = {
             type: 'setCurrentOrganization',
             payload: data,
           });
-          history.push('/');
+          history.push('/create-project');
         }
       }
     },

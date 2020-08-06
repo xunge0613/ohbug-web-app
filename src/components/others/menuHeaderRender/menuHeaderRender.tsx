@@ -59,25 +59,25 @@ function MenuHeaderRender(): React.ReactElement {
           <h3>项目</h3>
           <Skeleton loading={!projects}>
             <div className={styles.list}>
-              {projects.map((item) => (
-                <div
-                  className={styles.item}
-                  key={item.id}
-                  onClick={() => {
-                    dispatch({
-                      type: 'project/setState',
-                      payload: {
-                        current: project,
-                      },
-                    });
-                    setFalse();
-                    history.push(`/issue?project_id=${item.id}`);
-                  }}
-                >
-                  <Avatar className={styles.avatar} src={getPlatformLogo(item.type)} />
-                  {item.name}
-                </div>
-              ))}
+              {projects.map((item) => {
+                function handleClick() {
+                  dispatch({
+                    type: 'project/setState',
+                    payload: {
+                      current: item,
+                    },
+                  });
+                  history.push(`/issue?project_id=${item.id}`);
+                  setFalse();
+                }
+
+                return (
+                  <div className={styles.item} key={item.id} onClick={handleClick}>
+                    <Avatar className={styles.avatar} src={getPlatformLogo(item.type)} />
+                    {item.name}
+                  </div>
+                );
+              })}
             </div>
           </Skeleton>
         </div>

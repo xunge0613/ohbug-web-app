@@ -55,14 +55,11 @@ const project: ProjectModel = {
           admin_id,
           organization_id,
         });
-        yield put({ type: 'handleCreateProjectVisible', payload: false });
         if (data) {
-          // yield put({
-          //   type: 'getAllProjectByOrganizationId',
-          // });
-          // 这里强制刷新下 重新获取 projects 的同时更新下 tree 组件的样式
-          window.location.reload();
-          history.push('/');
+          yield put({
+            type: 'getAllProjectByOrganizationId',
+          });
+          history.push('/getting-started');
         }
       }
     },
