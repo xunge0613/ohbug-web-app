@@ -33,6 +33,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "rrweb-player": "^0.4.3",
     "source-map-trace": "^0.1.2",
     "ua-device": "^0.1.10",

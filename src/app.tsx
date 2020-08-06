@@ -7,6 +7,9 @@ import echarts from 'echarts';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
+import { createLogger } from 'redux-logger';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/es/storage/session';
 
 import {
   CreateProject,
@@ -78,4 +81,29 @@ export const request: RequestConfig = {
     },
   ],
   errorHandler,
+};
+
+const persistConfig = {
+  timeout: 1000,
+  key: 'root',
+  whitelist: ['organization', 'project'],
+  storage,
+};
+const persistEnhancer = () => (createStore: any) => (
+  reducer: any,
+  initialState: any,
+  enhancer: any,
+) => {
+  const store = createStore(persistReducer(persistConfig, reducer), initialState, enhancer);
+  const persist = persistStore(store, null);
+  return {
+    persist,
+    ...store,
+  };
+};
+export const dva = {
+  config: {
+    onAction: [createLogger()],
+    extraEnhancers: [persistEnhancer()],
+  },
 };

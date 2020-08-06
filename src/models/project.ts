@@ -115,16 +115,13 @@ const project: ProjectModel = {
                 data,
               },
             });
-            const current = yield select((state: RootState) => state.project.current);
-            if (!current) {
-              yield put({
-                type: 'setState',
-                payload: {
-                  // 默认取第一项为当前 project
-                  current: data[0],
-                },
-              });
-            }
+            yield put({
+              type: 'setState',
+              payload: {
+                // 默认取第一项为当前 project
+                current: data[0],
+              },
+            });
           }
         }
       }
