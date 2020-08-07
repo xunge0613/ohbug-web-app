@@ -64,16 +64,18 @@ const Setting: React.FC = () => {
       askNotificationPermission()
         .then(() => {
           registerServiceWorker().then((subscribeOptions) => {
-            dispatch({
-              type: 'notification/setting/update',
-              payload: {
-                project_id,
-                browser: {
-                  open: checked,
-                  data: JSON.parse(JSON.stringify(subscribeOptions)),
+            if (subscribeOptions) {
+              dispatch({
+                type: 'notification/setting/update',
+                payload: {
+                  project_id,
+                  browser: {
+                    open: checked,
+                    data: JSON.parse(JSON.stringify(subscribeOptions)),
+                  },
                 },
-              },
-            });
+              });
+            }
           });
         })
         .catch((err) => {
@@ -198,6 +200,16 @@ const Setting: React.FC = () => {
                     </Form.Item>
                   </div>
                 ))}
+                {fields.length === 0 && (
+                  <IconButton
+                    style={{ marginBottom: 16 }}
+                    onClick={() => {
+                      operation.add();
+                    }}
+                    icon="icon-ohbug-add-circle-line"
+                    size="small"
+                  />
+                )}
               </Space>
             )}
           </Form.List>
@@ -222,9 +234,7 @@ const Setting: React.FC = () => {
             </div>
           }
         >
-          <span>
-            {browserDisabled ? `当前浏览器不支持浏览器通知，建议切换至 Chrome 浏览器` : ''}
-          </span>
+          <span>{browserDisabled ? `当前浏览器不支持浏览器通知` : ''}</span>
         </Zone>
 
         <Zone
