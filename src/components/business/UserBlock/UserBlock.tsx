@@ -60,12 +60,12 @@ const UserBlock: React.FC<UserBlockProps> = () => {
   const menu = React.useMemo(() => {
     return (
       <Menu>
-        <Menu.Item className={styles.user}>
+        <div className={styles.user}>
           <div className={styles.info} style={{ display: 'inline-flex' }}>
             <Typography.Text strong>{user?.name}</Typography.Text>
             <Typography.Text type="secondary">{user?.email}</Typography.Text>
           </div>
-        </Menu.Item>
+        </div>
 
         <Menu.Divider />
 
@@ -85,7 +85,12 @@ const UserBlock: React.FC<UserBlockProps> = () => {
   }, [user]);
 
   return (
-    <Dropdown trigger={['click']} overlay={menu} placement="bottomRight">
+    <Dropdown
+      trigger={['click']}
+      overlay={menu}
+      overlayStyle={{ width: 150 }}
+      placement="bottomRight"
+    >
       <div className={styles.root}>
         <Avatar src={user?.avatar || avatar}>{user?.name?.[0]}</Avatar>
         <Icon type="icon-ohbug-arrow-down-s-fill" />
