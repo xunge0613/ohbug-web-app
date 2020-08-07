@@ -1,12 +1,11 @@
 import React from 'react';
 import { Empty, Button } from 'antd';
-import { useLocation } from 'umi';
+import { history } from 'umi';
 
 import styles from './renderEmpty.less';
 
 const renderEmpty = (componentName?: string) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const location = useLocation();
+  const { location } = history;
 
   let description: React.ReactNode;
   let children: React.ReactNode;
