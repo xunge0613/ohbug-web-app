@@ -97,10 +97,10 @@ const Invite: React.FC<InviteProps> = ({ projects, organization_id, user, visibl
             onChange={(e) => setMemberState(e.target.value)}
           >
             <Space direction="vertical">
-              <div className={styles.radioItem}>
-                <Radio value="sub_admin">管理员</Radio>
-                <Typography.Text type="secondary">创建、删除项目/管理成员</Typography.Text>
-              </div>
+              {/* <div className={styles.radioItem}> */}
+              {/*  <Radio value="sub_admin">管理员</Radio> */}
+              {/*  <Typography.Text type="secondary">创建、删除项目/管理成员</Typography.Text> */}
+              {/* </div> */}
               <div className={styles.radioItem}>
                 <Radio value="default">查看着</Radio>
                 <Typography.Text type="secondary">查看Issue</Typography.Text>
