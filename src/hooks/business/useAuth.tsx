@@ -33,7 +33,7 @@ export const useAuth = (): UseAuth => {
       } else if (pathname === '/login') {
         // 已经有了 user 信息
         history.replace('/');
-      } else if (!user.organizations?.length && !organization) {
+      } else if (!user.organizations?.length && !organization && !invite) {
         // 有了 user 没有 organization
         history.replace('/create-organization');
         setLogin(true);

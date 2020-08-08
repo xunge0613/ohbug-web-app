@@ -28,7 +28,12 @@ const Invite: React.FC = () => {
   );
   const loading = useSelector<RootState, boolean>((state) => state.loading.effects['invite/get']!);
   const handleJoinClick = React.useCallback(() => {
-    history.push('/login', { uuid });
+    history.push({
+      pathname: '/login',
+      query: {
+        invite: uuid,
+      },
+    });
   }, []);
 
   return (

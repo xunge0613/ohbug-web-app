@@ -19,7 +19,7 @@ function useLoginRedirect() {
   const { query } = useLocation();
 
   useMount(() => {
-    if (query && Object.keys(query).length) {
+    if (query && 'code' in query && 'state' in query) {
       dispatch({ type: 'auth/github', payload: query });
     }
   });

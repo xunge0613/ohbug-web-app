@@ -83,7 +83,7 @@ export const request: RequestConfig = {
 const persistConfig = {
   timeout: 1000,
   key: 'root',
-  whitelist: ['organization', 'project'],
+  whitelist: ['organization', 'project', 'invite'],
   storage,
 };
 const persistEnhancer = () => (createStore: any) => (

@@ -84,11 +84,13 @@ const project: ProjectModel = {
 
     *getAllProjectByOrganizationId(_, { select, call, put }) {
       const organization = yield select((state: RootState) => state.organization.current);
+      const user = yield select((state: RootState) => state.user.current);
       if (organization) {
         const organization_id = organization.id;
         if (organization_id) {
           const data = yield call(api.project.getAll, {
             organization_id,
+            user_id: user.id,
           });
           if (data) {
             yield put({

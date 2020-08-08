@@ -16,6 +16,7 @@ interface Update {
 }
 interface GetAll {
   organization_id: number;
+  user_id: number;
 }
 interface Trend {
   project_id: number;

@@ -10,6 +10,5 @@ export function setAuth(payload: AuthorizationPayload) {
   return localStorage.setItem(AUTH_KEY, JSON.stringify(payload));
 }
 export function clearAuth() {
-  sessionStorage.removeItem('persist:root');
   return localStorage.removeItem(AUTH_KEY);
 }

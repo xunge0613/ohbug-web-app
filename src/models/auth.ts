@@ -41,7 +41,10 @@ const auth: AuthModel = {
       if (data) {
         setAuth(data);
         const hasAuth = getAuth();
-        if (hasAuth) history.push('/organization-project');
+        if (hasAuth) {
+          sessionStorage.removeItem('persist:root');
+          history.push('/organization-project');
+        }
         window.location.reload();
       }
     },
@@ -49,6 +52,7 @@ const auth: AuthModel = {
     *github({ payload }, { call, put }) {
       const data = yield call(api.auth.github, payload);
       if (data === true) {
+        sessionStorage.removeItem('persist:root');
         history.push('/organization-project');
       } else if (data instanceof Object) {
         // 约定 data 为 object 即为 oauth 登录成功但是没有绑定用户
@@ -77,6 +81,7 @@ const auth: AuthModel = {
 
     logout() {
       clearAuth();
+      sessionStorage.removeItem('persist:root');
       setTimeout(() => {
         history.push('/');
       }, 0);
