@@ -5,6 +5,7 @@ import { useSelector, useParams } from 'umi';
 import { RootState, Project, User, Organization } from '@/interfaces';
 import { Zone, User as UserComponent, Invite } from '@/components';
 import { useBoolean } from '@/hooks';
+import { isAdmin } from '../../utils';
 
 import styles from './Members.less';
 
@@ -33,7 +34,14 @@ const Members: React.FC = () => {
         organization_id={organization_id}
         user={user}
       />
-      <Zone title="成员列表" extra={<Button onClick={inviteModalShow}>邀请成员</Button>}>
+      <Zone
+        title="成员列表"
+        extra={
+          isAdmin(organization?.admin?.id, user?.id) ? (
+            <Button onClick={inviteModalShow}>邀请成员</Button>
+          ) : null
+        }
+      >
         <Table<User>
           dataSource={organization.users}
           rowKey={(record) => record.id!}
@@ -48,7 +56,7 @@ const Members: React.FC = () => {
           <Table.Column<User>
             title="身份"
             render={(item) => (
-              <span>{item?.id === organization?.admin?.id ? '拥有者' : '成员'}</span>
+              <span>{isAdmin(organization?.admin?.id, item?.id) ? '拥有者' : '成员'}</span>
             )}
           />
         </Table>
