@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useParams, useSelector } from 'umi';
-import { Row, Col, Tabs } from 'antd';
+import { Row, Col, Tabs, Radio } from 'antd';
 
-import { useMount } from '@/hooks';
 import BasicLayout from '@/layouts/Basic';
 import type { RootState, EventModelState, IssueModelState } from '@/interfaces';
 
+import { history } from '@/interfaces';
 import Title from './components/Title';
 import Profile from './components/Profile';
 import Detail from './components/Detail';
@@ -38,8 +38,26 @@ const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
     ],
     [event, issue],
   );
+  const handlePreviousClick = React.useCallback(() => {
+    if (event?.previous) history.push(`/issue/${issue?.id}/event/${event?.previous?.document_id}`);
+  }, [event]);
+  const handleNextClick = React.useCallback(() => {
+    if (event?.next) history.push(`/issue/${issue?.id}/event/${event?.next?.document_id}`);
+  }, [event]);
+
   return (
-    <Tabs>
+    <Tabs
+      tabBarExtraContent={
+        <Radio.Group size="small">
+          <Radio.Button disabled={!event?.previous} onClick={handlePreviousClick}>
+            {'< Older'}
+          </Radio.Button>
+          <Radio.Button disabled={!event?.next} onClick={handleNextClick}>
+            {'Newer >'}
+          </Radio.Button>
+        </Radio.Group>
+      }
+    >
       {tabList.map((tab) => (
         <Tabs.TabPane tab={tab.tab} key={tab.key}>
           {tab.element}
@@ -53,19 +71,20 @@ const Event: React.FC = () => {
   const dispatch = useDispatch();
   const { issue_id, event_id } = useParams();
 
-  useMount(() => {
+  React.useEffect(() => {
     if (event_id === 'latest' && issue_id) {
       dispatch({ type: 'event/getLatestEvent', payload: { issue_id } });
-      dispatch({ type: 'issue/get', payload: { issue_id } });
     } else {
       dispatch({
         type: 'event/get',
         payload: {
           event_id,
+          issue_id,
         },
       });
     }
-  });
+    dispatch({ type: 'issue/get', payload: { issue_id } });
+  }, [event_id, issue_id]);
 
   const event = useSelector<RootState, EventModelState['current']>((state) => state.event.current);
   const issue = useSelector<RootState, IssueModelState['current']>((state) => state.issue.current);

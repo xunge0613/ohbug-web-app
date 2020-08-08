@@ -4,6 +4,10 @@ import type { SourceMapTraceCode } from 'source-map-trace/dist/interfaces';
 import type { Model } from '@/interfaces';
 import api from '@/api';
 
+interface Document {
+  document_id: string;
+  index: string;
+}
 export interface Event<T> extends OhbugEvent<T> {
   // replay
   replay?: {
@@ -11,6 +15,8 @@ export interface Event<T> extends OhbugEvent<T> {
   };
   // source
   source?: SourceMapTraceCode[];
+  next?: Document;
+  previous?: Document;
 }
 
 export interface EventModelState {
@@ -32,9 +38,10 @@ const event: EventModel = {
     },
   },
   effects: {
-    *get({ payload: { event_id } }, { call, put }) {
+    *get({ payload: { event_id, issue_id } }, { call, put }) {
       const data = yield call(api.event.get, {
         event_id,
+        issue_id,
       });
       if (data) {
         yield put({ type: 'setCurrentEvent', payload: data });

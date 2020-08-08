@@ -2,7 +2,8 @@ import { request } from 'umi';
 import type { Event } from 'umi';
 
 interface Get {
-  event_id: string | number;
+  event_id: string;
+  issue_id: string | number;
 }
 interface GetLatest {
   issue_id: string | number;
@@ -10,9 +11,12 @@ interface GetLatest {
 
 const event = {
   get: async (data: Get): Promise<Event<any> | void> => {
-    const { event_id } = data;
+    const { event_id, issue_id } = data;
     const res = await request(`/events/${event_id}`, {
       method: 'get',
+      params: {
+        issue_id,
+      },
     });
     return res;
   },
