@@ -40,8 +40,11 @@ const nodeModulesTransform = {
 // 开发环境禁用 sourcemap
 const devtool = process.env.NODE_ENV === 'production' ? false : 'cheap-module-source-map';
 
-// 替换压缩器为 esbuild
-const esbuild = {};
+const lessLoader = {
+  lessOptions: {
+    javascriptEnabled: true,
+  },
+};
 
 const externals = {
   echarts: 'window.echarts',
@@ -70,7 +73,7 @@ const build = {
   forkTSChecker,
   nodeModulesTransform,
   devtool,
-  esbuild,
+  lessLoader,
   externals,
   scripts,
 };
