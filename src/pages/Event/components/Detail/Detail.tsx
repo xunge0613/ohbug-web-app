@@ -28,7 +28,7 @@ const Detail: React.FC<DetailProps> = ({ event }) => {
       {/* uncaughtError */}
       {event?.detail.stack && (
         <Card className={styles.descriptions} title="堆栈信息" loading={loading}>
-          <StackInfo stack={event.detail.stack} source={event.source} />
+          <StackInfo stack={event.detail.stack} source={event?.source} />
         </Card>
       )}
       {/* resourceError */}

@@ -1,5 +1,5 @@
 import type { OhbugEvent } from '@ohbug/types';
-import type { SourceMapTraceCode } from 'source-map-trace/dist/interfaces';
+import type { Result } from 'source-map-trace/dist/interfaces';
 
 import type { Model } from '@/interfaces';
 import api from '@/api';
@@ -14,7 +14,7 @@ export interface Event<T> extends OhbugEvent<T> {
     data: any;
   };
   // source
-  source?: SourceMapTraceCode[];
+  source?: Result;
   next?: Document;
   previous?: Document;
 }
