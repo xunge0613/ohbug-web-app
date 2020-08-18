@@ -10,7 +10,7 @@ export function useInvite() {
   const { query } = useLocation();
   const invite = useSelector<RootState, InviteModelState['current']>((s) => s.invite.current);
   useMount(() => {
-    if (!invite) {
+    if (!invite && query && 'invite' in query) {
       dispatch({
         type: 'invite/get',
         payload: {

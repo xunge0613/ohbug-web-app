@@ -21,6 +21,7 @@ import {
 } from '@/components';
 import { ICONFONT_URL } from '@/config';
 import { getAuth } from '@/utils';
+import OhbugErrorBoundary from './ohbug';
 
 import chartTheme from './styles/chart.json';
 import './styles';
@@ -42,12 +43,14 @@ export const layout = {
 
 export function rootContainer(container: React.ReactNode) {
   return (
-    <ConfigProvider renderEmpty={renderEmpty}>
-      <ConfigProvider2 renderEmpty={renderEmpty}>
-        <UserSetting />
-        {container}
-      </ConfigProvider2>
-    </ConfigProvider>
+    <OhbugErrorBoundary>
+      <ConfigProvider renderEmpty={renderEmpty}>
+        <ConfigProvider2 renderEmpty={renderEmpty}>
+          <UserSetting />
+          {container}
+        </ConfigProvider2>
+      </ConfigProvider>
+    </OhbugErrorBoundary>
   );
 }
 

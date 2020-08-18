@@ -62,6 +62,8 @@ const user: UserModel = {
                   payload: data.organizations[0],
                 });
               }
+            } else {
+              throw new Error('没有找到用户id，请重新登录');
             }
           }
         } else {
