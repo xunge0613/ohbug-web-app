@@ -31,20 +31,13 @@ const Email: React.FC<Props> = ({ user }) => {
         rules={[
           { required: true, message: '请输入邮箱！' },
           {
-            validator(rule, value) {
-              if (
-                !value ||
-                /^[A-Za-z0-9]+([_.][A-Za-z0-9]+)*@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/.test(value)
-              ) {
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error('手机号格式不合法'));
-            },
+            type: 'email',
+            message: '输入内容不合法！',
           },
         ]}
         hasFeedback
       >
-        <Input />
+        <Input maxLength={100} />
       </Form.Item>
       <Form.Item
         label="再次输入邮箱"
@@ -63,7 +56,7 @@ const Email: React.FC<Props> = ({ user }) => {
         ]}
         hasFeedback
       >
-        <Input />
+        <Input maxLength={100} />
       </Form.Item>
 
       <Form.Item>

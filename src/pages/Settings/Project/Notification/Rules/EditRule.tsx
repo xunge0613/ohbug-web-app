@@ -125,8 +125,18 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
         onFinish={handleFinish}
         hideRequiredMark
       >
-        <Form.Item label="名称" name="name" rules={[{ required: true, message: '请输入通知名称' }]}>
-          <Input />
+        <Form.Item
+          label="名称"
+          name="name"
+          rules={[
+            { required: true, message: '请输入通知名称' },
+            {
+              max: 24,
+              message: '通知规则名称最多为24个字符',
+            },
+          ]}
+        >
+          <Input maxLength={24} />
         </Form.Item>
 
         <Form.Item
@@ -219,6 +229,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
                       <Form.Item name={[field.name, 'message']} noStyle>
                         <Input
                           placeholder="message..."
+                          maxLength={120}
                           addonBefore={
                             <Form.Item
                               name={[field.name, 'type']}

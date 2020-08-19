@@ -96,7 +96,6 @@ const DangerZone: React.FC<DangerZoneProps> = ({ organization }) => {
                 { required: true, message: '请输入组织名称' },
                 {
                   validator(rule, value) {
-                    // 验证 6 位数字
                     if (value === organization?.name) {
                       return Promise.resolve();
                     }

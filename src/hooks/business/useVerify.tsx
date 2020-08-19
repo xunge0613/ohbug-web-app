@@ -94,6 +94,7 @@ export function useVerify() {
           <Input
             size="large"
             placeholder="请输入验证码"
+            maxLength={6}
             suffix={
               <Button disabled={timing} onClick={handleGetCaptcha} type="link" size="small">
                 {timing ? `${count} 秒` : '获取验证码'}

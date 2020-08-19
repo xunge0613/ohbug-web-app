@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from 'antd';
-import { types } from '@ohbug/core';
+import { types } from '@ohbug/browser';
 
 import styles from './Search.less';
 

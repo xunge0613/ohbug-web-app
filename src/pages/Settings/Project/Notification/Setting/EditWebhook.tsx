@@ -130,7 +130,7 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
             },
           ]}
         >
-          <Input />
+          <Input maxLength={1000} />
         </Form.Item>
 
         <Form.List name="at">
@@ -149,7 +149,7 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
                 {fields.map((field: any, index: number) => (
                   <Space key={field.key}>
                     <Form.Item name={[field.name, 'value']} noStyle>
-                      <Input />
+                      <Input maxLength={100} />
                     </Form.Item>
                     {fields.length > 0 ? (
                       <IconButton
