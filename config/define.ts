@@ -22,7 +22,7 @@ if (ENV_TAG === 'production') {
   define = {
     baseURL: '//api.ohbug.net',
     oauth2GithubClientId: '05adfe1b68c1c92dda44',
-    ohbugApiKey: '',
+    ohbugApiKey: 'dd1ab3ece8e2ee86089af3123d57341efaec625e853d824aba54a60fbcbbe314',
     ohbugEndpoint: 'https://api.ohbug.net/report',
   };
 }
