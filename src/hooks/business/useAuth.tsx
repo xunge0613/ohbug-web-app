@@ -55,12 +55,6 @@ export const useAuth = (): UseAuth => {
     } else {
       // 登录状态
       getUserInfo();
-
-      if (invite) {
-        dispatch({
-          type: 'invite/bind',
-        });
-      }
     }
   }, [user, organization, project, invite]);
 

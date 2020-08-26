@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'umi';
 import type { AuthModelState } from 'umi';
 
 import { useUpdateEffect } from '@/hooks';
-import { RootState } from '@/interfaces';
+import { Invite, RootState } from '@/interfaces';
 import { Icon } from '@/components';
 
 import styles from './MobileLoginForm.less';
@@ -21,6 +21,8 @@ interface MobileLoginFormFormProps {
 const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNTDOWN, type }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+
+  const invite = useSelector<RootState, Invite>((state) => state.invite.current!);
 
   const [checkCaptcha, setCheckCaptcha] = React.useState<boolean>(false);
   useUpdateEffect(() => {
@@ -65,26 +67,35 @@ const MobileLoginForm: React.FC<MobileLoginFormFormProps> = ({ countDown = COUNT
   }, []);
 
   const oauth = useSelector<RootState, AuthModelState['oauth']>((state) => state.auth.oauth);
-  const handleFinish = React.useCallback((values) => {
-    setCheckCaptcha(true);
+  const handleFinish = React.useCallback(
+    (values) => {
+      setCheckCaptcha(true);
 
-    const payload = {
-      ...values,
-      captcha: values.captcha,
-    };
-    if (oauth) {
-      payload.oauthType = oauth.oauthType;
-      payload.oauthUserDetail = oauth.oauthUserDetail;
-    }
+      const payload = {
+        ...values,
+        captcha: values.captcha,
+      };
+      if (oauth) {
+        payload.oauthType = oauth.oauthType;
+        payload.oauthUserDetail = oauth.oauthUserDetail;
+      }
 
-    dispatch({
-      type: `auth/${type}`,
-      payload,
-    });
+      if (invite) {
+        dispatch({
+          type: 'invite/bind',
+        });
+      }
 
-    setTiming(false);
-    setCount(countDown);
-  }, []);
+      dispatch({
+        type: `auth/${type}`,
+        payload,
+      });
+
+      setTiming(false);
+      setCount(countDown);
+    },
+    [invite],
+  );
 
   const SubmitButtonText = React.useMemo(() => {
     switch (type) {
