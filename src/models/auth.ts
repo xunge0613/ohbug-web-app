@@ -3,6 +3,7 @@ import { history } from 'umi';
 import type { Model } from '@/interfaces';
 import api from '@/api';
 import { setAuth, clearAuth, getAuth } from '@/utils';
+import { RootState } from '@/interfaces';
 
 export interface AuthModelState {
   oauth?: {
@@ -32,7 +33,14 @@ const auth: AuthModel = {
       });
     },
 
-    *login({ payload: { mobile, captcha } }, { call }) {
+    *login({ payload: { mobile, captcha } }, { select, call, put }) {
+      const invite = yield select((state: RootState) => state.invite.current);
+      if (invite) {
+        yield put({
+          type: 'invite/bind',
+        });
+      }
+
       const data = yield call(api.auth.login, {
         mobile,
         captcha,

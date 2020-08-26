@@ -62,9 +62,10 @@ const user: UserModel = {
                 if (cachedID) {
                   yield put({
                     type: 'organization/setCurrentOrganization',
-                    payload: data.organizations.find(
-                      ({ id: org_id }: Organization) => org_id === parseInt(cachedID, 10),
-                    ),
+                    payload:
+                      data.organizations.find(
+                        ({ id: org_id }: Organization) => org_id === parseInt(cachedID, 10),
+                      ) || data.organizations[0],
                   });
                 } else {
                   yield put({
