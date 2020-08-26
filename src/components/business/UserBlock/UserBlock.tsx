@@ -88,7 +88,7 @@ const UserBlock: React.FC<UserBlockProps> = () => {
     <Dropdown
       trigger={['click']}
       overlay={menu}
-      overlayStyle={{ width: 150 }}
+      overlayStyle={{ minWidth: 150 }}
       placement="bottomRight"
     >
       <div className={styles.root}>

@@ -3,6 +3,7 @@ import type { User, Project } from 'umi';
 
 import type { Model, RootState } from '@/interfaces';
 import api from '@/api';
+import { setCurrentOrganization } from '@/utils';
 
 export interface Organization {
   id?: number;
@@ -138,6 +139,7 @@ const organization: OrganizationModel = {
           current: payload,
         },
       });
+      setCurrentOrganization(payload?.id);
       yield put({
         type: 'project/getAllProjectByOrganizationId',
       });

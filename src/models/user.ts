@@ -2,6 +2,7 @@ import { history } from 'umi';
 
 import type { Model, Organization, RootState } from '@/interfaces';
 import api from '@/api';
+import { getCurrentOrganization } from '@/utils';
 
 export interface User {
   id?: number;
@@ -57,10 +58,20 @@ const user: UserModel = {
                 payload: data.organizations,
               });
               if (!currentOrganization) {
-                yield put({
-                  type: 'organization/setCurrentOrganization',
-                  payload: data.organizations[0],
-                });
+                const cachedID = getCurrentOrganization();
+                if (cachedID) {
+                  yield put({
+                    type: 'organization/setCurrentOrganization',
+                    payload: data.organizations.find(
+                      ({ id: org_id }: Organization) => org_id === parseInt(cachedID, 10),
+                    ),
+                  });
+                } else {
+                  yield put({
+                    type: 'organization/setCurrentOrganization',
+                    payload: data.organizations[0],
+                  });
+                }
               }
             } else {
               throw new Error('没有找到用户id，请重新登录');
