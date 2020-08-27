@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useParams, useSelector } from 'umi';
 import { Row, Col, Tabs, Radio } from 'antd';
+import ReactJson from 'react-json-view';
 
 import BasicLayout from '@/layouts/Basic';
 import type { RootState, EventModelState, IssueModelState } from '@/interfaces';
@@ -17,8 +18,8 @@ interface EventTabProps {
   issue: IssueModelState['current'];
 }
 const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
-  const tabList = React.useMemo(
-    () => [
+  const tabList = React.useMemo(() => {
+    const base = [
       {
         key: 'detail',
         tab: 'detail',
@@ -35,9 +36,32 @@ const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
           </Row>
         ),
       },
-    ],
-    [event, issue],
-  );
+    ];
+    if (event?.metaData) {
+      Object.keys(event.metaData).forEach((key) => {
+        base.push({
+          key,
+          tab: key,
+          disabled: false,
+          element: (
+            <ReactJson
+              src={event.metaData[key]}
+              theme="summerfruit:inverted"
+              indentWidth={2}
+              collapsed={2}
+              style={{
+                fontFamily: 'JetBrains Mono, -apple-system, BlinkMacSystemFont, monospace, Roboto',
+                background: 'none',
+                maxHeight: '60vh',
+                overflowY: 'auto',
+              }}
+            />
+          ),
+        });
+      });
+    }
+    return base;
+  }, [event, issue]);
   const handlePreviousClick = React.useCallback(() => {
     if (event?.previous) history.push(`/issue/${issue?.id}/event/${event?.previous?.document_id}`);
   }, [event]);

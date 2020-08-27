@@ -33,6 +33,7 @@
     "path-to-regexp": "^6.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-json-view": "^1.19.1",
     "react-syntax-highlighter": "^13.5.0",
     "redux-persist": "^6.0.0",
     "rrweb-player": "^0.5.2",
