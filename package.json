@@ -23,7 +23,6 @@
     "@types/react-syntax-highlighter": "^11.0.4",
     "@umijs/preset-react": "^1.5.21",
     "@umijs/test": "^3.2.16",
-    "@welldone-software/why-did-you-render": "^4.3.1",
     "ahooks": "^2.5.0",
     "antd": "^4.5.4",
     "clsx": "^1.1.0",
