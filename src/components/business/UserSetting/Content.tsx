@@ -6,7 +6,7 @@ import { useBoolean } from '@/hooks';
 import { IconButton } from '@/components';
 import { getDefaultAvatar } from '@/utils';
 
-import { Name, Email } from './components';
+import { Name } from './components';
 
 import styles from './UserSetting.less';
 
@@ -39,21 +39,6 @@ const Content: React.FC<ContentProps> = ({ user }) => {
           />
         ),
         children: <Name user={user} />,
-      },
-      {
-        key: 'email',
-        label: '邮箱',
-        value: user.email,
-        actions: (
-          <IconButton
-            icon="icon-ohbug-pencil-line"
-            onClick={() => {
-              setCurrentItemKey('email');
-              childrenDrawerOpen();
-            }}
-          />
-        ),
-        children: <Email user={user} />,
       },
       // {
       //   key: 'password',

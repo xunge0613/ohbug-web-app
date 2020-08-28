@@ -4,7 +4,9 @@ import type { InviteModelState } from 'umi';
 import { RootState } from '@/interfaces';
 import { useMount } from '@/hooks';
 
-export function useInvite() {
+type Type = 'login' | 'signup';
+
+export function useInvite(type?: Type) {
   const dispatch = useDispatch();
   // @ts-ignore
   const { query } = useLocation();
@@ -27,8 +29,14 @@ export function useInvite() {
     };
   }
 
+  if (type === 'signup') {
+    return {
+      isInvite: false,
+      subTitle: '注册账号开始全面监控您的应用。',
+    };
+  }
   return {
     isInvite: false,
-    subTitle: '登录帐户以开始全面监控您的应用。',
+    subTitle: '登录账号以开始全面监控您的应用。',
   };
 }

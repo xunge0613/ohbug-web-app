@@ -120,6 +120,25 @@ export default [
   // },
   {
     exact: true,
+    path: '/signup',
+    component: '@/pages/SignUp',
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+      hideFooter: true,
+    },
+  },
+  {
+    exact: true,
+    path: '/activate',
+    component: '@/pages/Activate',
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+    },
+  },
+  {
+    exact: true,
     path: '/login',
     component: '@/pages/LogIn',
     layout: {

@@ -11,9 +11,9 @@ import styles from './UserSetting.less';
 const UserSetting: React.FC = () => {
   const dispatch = useDispatch();
 
-  const user = useSelector<RootState, User>((state) => state.user.current!);
+  const user = useSelector<RootState, User>((state) => state.user?.current!);
 
-  const visible = useSelector<RootState, boolean>((state) => state.user.userSettingVisible);
+  const visible = useSelector<RootState, boolean>((state) => state.user?.userSettingVisible);
   const handleClose = React.useCallback(() => {
     dispatch({
       type: 'user/setState',

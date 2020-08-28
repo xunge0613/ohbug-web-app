@@ -2,15 +2,16 @@ import { history } from 'umi';
 
 import type { Model, Organization, RootState } from '@/interfaces';
 import api from '@/api';
-import { getCurrentOrganization } from '@/utils';
+import { getCurrentOrganization, activationNotification } from '@/utils';
 
 export interface User {
   id?: number;
-  name?: string;
-  mobile?: '15563685309';
   email?: string;
+  name?: string;
+  mobile?: string;
   avatar?: string;
-  createdAt?: '2020-06-02T01:13:38.629Z';
+  activated?: boolean;
+  createdAt?: string;
   organizations?: Organization[];
 }
 export interface UserModelState {
@@ -73,6 +74,10 @@ const user: UserModel = {
                     payload: data.organizations[0],
                   });
                 }
+              }
+              // 未激活状态
+              if (!data.activated) {
+                activationNotification(data.email);
               }
             } else {
               throw new Error('没有找到用户id，请重新登录');

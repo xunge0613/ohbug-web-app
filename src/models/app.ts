@@ -1,4 +1,4 @@
-import { message } from 'antd';
+import { message, notification } from 'antd';
 
 import type { Model } from '@/interfaces';
 
@@ -14,6 +14,10 @@ const app: AppModel = {
     },
     info({ payload }) {
       message.info(payload);
+    },
+    notification({ payload: { type, config } }) {
+      // @ts-ignore
+      notification?.[type]?.(config);
     },
   },
 };

@@ -3,7 +3,7 @@ import { Typography, Avatar } from 'antd';
 import { useSelector, Link } from 'umi';
 
 import type { RootState, AuthModelState } from '@/interfaces';
-import { LoginTemplate, MobileLoginForm } from '@/components';
+import { LoginTemplate, LoginForm } from '@/components';
 
 import styles from './BindUser.less';
 
@@ -19,7 +19,7 @@ const BindUser: React.FC = () => {
         </div>
       )}
       <div>
-        <MobileLoginForm type="bindUser" />
+        <LoginForm type="bindUser" />
         已有账号？ <Link to="/login">登陆</Link>
       </div>
     </LoginTemplate>

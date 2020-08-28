@@ -1,10 +1,10 @@
 import React from 'react';
-import { Space, Button } from 'antd';
+import { Button } from 'antd';
 import { useLocation, useDispatch, useSelector } from 'umi';
 
 import { oauth2GithubHref } from '@/config';
-import { useMount, useToggle, useInvite } from '@/hooks';
-import { MobileLoginForm, Icon, LoginTemplate } from '@/components';
+import { useMount, useInvite } from '@/hooks';
+import { LoginForm, Icon, LoginTemplate } from '@/components';
 import type { RootState } from '@/interfaces';
 
 import styles from './LogIn.less';
@@ -33,52 +33,17 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
     (state) => !!state.loading.effects['auth/github']!,
   );
 
-  const [loginBoxVisible, { toggle: toggleLoginBoxVisible }] = useToggle(true);
-  const handleLoginWithMobileClick = React.useCallback(() => {
-    toggleLoginBoxVisible(false);
-  }, []);
-  const handleBackLoginBoxClick = React.useCallback(() => {
-    toggleLoginBoxVisible(true);
-  }, []);
-
   return (
     <LoginTemplate className={styles.root} loading={loading} title="Login" subTitle={subTitle}>
-      {loginBoxVisible ? (
-        <Space className={styles.loginBox} direction="vertical" size="middle">
-          <Button
-            block
-            size="large"
-            icon={<Icon type="icon-ohbug-smartphone-fill" />}
-            onClick={handleLoginWithMobileClick}
-          >
-            手机登录
-          </Button>
-          <Button
-            block
-            size="large"
-            href={oauth2GithubHref}
-            icon={<Icon type="icon-ohbug-github-fill" style={{ color: '#24292e' }} />}
-          >
-            Github 登录
-          </Button>
-          {/* <Button */}
-          {/*  block */}
-          {/*  size="large" */}
-          {/*  href="#" */}
-          {/*  icon={<Icon type="icon-ohbug-wechat-fill" style={{ color: '#1AAD19' }} />} */}
-          {/* > */}
-          {/*  微信登录 */}
-          {/* </Button> */}
-        </Space>
-      ) : (
-        <>
-          <MobileLoginForm type="login" />
-          <Button type="link" onClick={handleBackLoginBoxClick}>
-            <Icon type="icon-ohbug-arrow-left-s-line" />
-            所有登录选项
-          </Button>
-        </>
-      )}
+      <LoginForm type="login" />
+
+      <Button
+        type="text"
+        href={oauth2GithubHref}
+        icon={<Icon type="icon-ohbug-github-fill" style={{ color: '#24292e' }} />}
+      >
+        Github 登录
+      </Button>
 
       {children}
     </LoginTemplate>

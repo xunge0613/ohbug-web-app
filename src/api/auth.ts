@@ -1,13 +1,18 @@
 import { request } from 'umi';
 
-interface Captcha {
-  mobile: string;
-}
 interface Base {
-  mobile: string;
+  email: string;
+}
+interface Signup extends Base {
+  name: string;
+  password: string;
+}
+interface Activate {
   captcha: string;
 }
-type Login = Base;
+interface Login extends Base {
+  password: string;
+}
 interface Github {
   code: string;
 }
@@ -19,23 +24,27 @@ interface BindUser {
 }
 
 const auth = {
-  captcha: async (data: Captcha): Promise<number> => {
-    const res = await request('/auth/captcha', { method: 'get', params: data });
+  signup: async (data: Signup) => {
+    const res = await request('/auth/signup', { method: 'post', data });
     return res;
   },
-  verify: async (data: Base): Promise<boolean> => {
-    const res = await request('/auth/verify', { method: 'get', params: data });
+  activate: async (data: Activate) => {
+    const res = await request('/auth/activate', { method: 'post', data });
     return res;
   },
-  login: async (data: Login): Promise<boolean> => {
+  sendActivationEmail: async (data: Base) => {
+    const res = await request('/auth/sendActivationEmail', { method: 'post', data });
+    return res;
+  },
+  login: async (data: Login) => {
     const res = await request('/auth/login', { method: 'post', data });
     return res;
   },
-  github: async (data: Github): Promise<boolean> => {
+  github: async (data: Github) => {
     const res = await request('/auth/github', { method: 'post', data });
     return res;
   },
-  bindUser: async (data: BindUser): Promise<boolean> => {
+  bindUser: async (data: BindUser) => {
     const res = await request('/auth/bindUser', { method: 'post', data });
     return res;
   },

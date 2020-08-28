@@ -2,7 +2,7 @@ export { default as Invite } from './Invite';
 export { default as InviteProject } from './InviteProject';
 export { default as LoginTemplate } from './LoginTemplate';
 export { default as Logout } from './Logout';
-export { default as MobileLoginForm } from './MobileLoginForm';
+export { default as LoginForm } from './LoginForm';
 export { default as SwitchOrganization } from './SwitchOrganization';
 export { default as User } from './User';
 export { default as UserBlock } from './UserBlock';

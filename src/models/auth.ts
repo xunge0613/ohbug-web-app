@@ -1,9 +1,8 @@
 import { history } from 'umi';
 
-import type { Model } from '@/interfaces';
+import type { Model, RootState } from '@/interfaces';
 import api from '@/api';
 import { setAuth, clearAuth, getAuth } from '@/utils';
-import { RootState } from '@/interfaces';
 
 export interface AuthModelState {
   oauth?: {
@@ -13,6 +12,16 @@ export interface AuthModelState {
 }
 export interface AuthModel extends Model<AuthModelState> {
   namespace: 'auth';
+}
+
+function login(data: any) {
+  setAuth(data);
+  const hasAuth = getAuth();
+  if (hasAuth) {
+    sessionStorage.removeItem('persist:root');
+    history.push('/organization-project');
+  }
+  window.location.reload();
 }
 
 const auth: AuthModel = {
@@ -27,13 +36,32 @@ const auth: AuthModel = {
     },
   },
   effects: {
-    *captcha({ payload: { mobile } }, { call }) {
-      yield call(api.auth.captcha, {
-        mobile,
+    *signup({ payload: { email, name, password } }, { call }) {
+      const data = yield call(api.auth.signup, {
+        email,
+        name,
+        password,
       });
+
+      if (data) {
+        login(data);
+      }
     },
 
-    *login({ payload: { mobile, captcha } }, { select, call, put }) {
+    *sendActivationEmail({ payload: { email } }, { call, put }) {
+      const data = yield call(api.auth.sendActivationEmail, {
+        email,
+      });
+
+      if (data) {
+        yield put({
+          type: 'app/info',
+          payload: '发送激活邮件成功，请前往邮箱检查邮件',
+        });
+      }
+    },
+
+    *login({ payload: { email, password } }, { select, call, put }) {
       const invite = yield select((state: RootState) => state.invite.current);
       if (invite) {
         yield put({
@@ -42,18 +70,12 @@ const auth: AuthModel = {
       }
 
       const data = yield call(api.auth.login, {
-        mobile,
-        captcha,
+        email,
+        password,
       });
 
       if (data) {
-        setAuth(data);
-        const hasAuth = getAuth();
-        if (hasAuth) {
-          sessionStorage.removeItem('persist:root');
-          history.push('/organization-project');
-        }
-        window.location.reload();
+        login(data);
       }
     },
 
