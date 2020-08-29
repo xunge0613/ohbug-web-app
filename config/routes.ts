@@ -149,6 +149,16 @@ export default [
   },
   {
     exact: true,
+    path: '/reset',
+    component: '@/pages/Reset',
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+      hideFooter: true,
+    },
+  },
+  {
+    exact: true,
     path: '/bindUser',
     component: '@/pages/BindUser',
     layout: {

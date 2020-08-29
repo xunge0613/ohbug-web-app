@@ -193,9 +193,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ type }) => {
           </>
         )}
         {type === 'login' && (
-          <>
-            没有账号？<Link to="/signup">注册</Link>
-          </>
+          <div className={styles.actions}>
+            <span>
+              没有账号？<Link to="/signup">注册</Link>
+            </span>
+            <Link to="/reset">忘记密码</Link>
+          </div>
         )}
       </Form.Item>
     </Form>

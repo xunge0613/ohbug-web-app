@@ -13,6 +13,11 @@ interface Activate {
 interface Login extends Base {
   password: string;
 }
+interface Captcha extends Base {}
+interface Reset extends Base {
+  password: string;
+  captcha: string;
+}
 interface Github {
   code: string;
 }
@@ -38,6 +43,21 @@ const auth = {
   },
   login: async (data: Login) => {
     const res = await request('/auth/login', { method: 'post', data });
+    return res;
+  },
+  captcha: async (data: Captcha) => {
+    const res = await request('/auth/captcha', { method: 'get', params: data });
+    return res;
+  },
+  reset: async (data: Reset) => {
+    const res = await request('/auth/reset', {
+      method: 'post',
+      data: {
+        email: data.email,
+        password: data.password,
+        captcha: data.captcha,
+      },
+    });
     return res;
   },
   github: async (data: Github) => {
