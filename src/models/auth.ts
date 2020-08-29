@@ -79,20 +79,10 @@ const auth: AuthModel = {
       }
     },
 
-    *github({ payload }, { call, put }) {
+    *github({ payload }, { call }) {
       const data = yield call(api.auth.github, payload);
-      if (data === true) {
-        sessionStorage.removeItem('persist:root');
-        history.push('/organization-project');
-      } else if (data instanceof Object) {
-        // 约定 data 为 object 即为 oauth 登录成功但是没有绑定用户
-        yield put({
-          type: 'setOauth',
-          payload: {
-            oauthType: 'github',
-            oauthUserDetail: data,
-          },
-        });
+      if (data) {
+        login(data);
       }
     },
 
