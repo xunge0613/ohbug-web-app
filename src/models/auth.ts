@@ -93,13 +93,12 @@ const auth: AuthModel = {
             oauthUserDetail: data,
           },
         });
-        history.push('/bindUser');
       }
     },
 
-    *bindUser({ payload: { mobile, captcha, oauthType, oauthUserDetail } }, { call }) {
+    *bindUser({ payload: { email, captcha, oauthType, oauthUserDetail } }, { call }) {
       const data = yield call(api.auth.bindUser, {
-        mobile,
+        email,
         captcha,
         oauthType,
         oauthUserDetail,

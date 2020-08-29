@@ -8,7 +8,7 @@ import { Icon } from '@/components';
 
 import styles from './LoginForm.less';
 
-type FormType = 'login' | 'signup' | 'bindUser';
+type FormType = 'login' | 'signup';
 interface LoginFormProps {
   type: FormType;
 }
@@ -36,8 +36,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ type }) => {
         return '登录';
       case 'signup':
         return '注册';
-      case 'bindUser':
-        return '绑定用户';
       default:
         return '';
     }

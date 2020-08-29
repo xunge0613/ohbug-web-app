@@ -22,7 +22,7 @@ interface Github {
   code: string;
 }
 interface BindUser {
-  mobile: string;
+  email: string;
   captcha: string;
   oauthType: 'github';
   oauthUserDetail: any;
