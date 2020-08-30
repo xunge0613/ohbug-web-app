@@ -5,11 +5,12 @@ import { useSelector, useParams } from 'umi';
 import { RootState, Project, User, Organization } from '@/interfaces';
 import { Zone, User as UserComponent, InviteProject } from '@/components';
 import { useBoolean } from '@/hooks';
-import { isAdmin } from '../../utils';
+import { isAdmin } from '@/utils';
 
 import styles from './Members.less';
 
 const Members: React.FC = () => {
+  // @ts-ignore
   const { project_id, organization_id } = useParams();
   const project = useSelector<RootState, Project>(
     // eslint-disable-next-line eqeqeq

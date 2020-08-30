@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import { getDvaApp } from '@@/plugin-dva/exports';
+import { getDvaApp } from 'umi';
 
 export function activationNotification(email: string) {
   const dva = getDvaApp();

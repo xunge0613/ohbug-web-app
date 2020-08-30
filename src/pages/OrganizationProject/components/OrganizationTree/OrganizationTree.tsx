@@ -3,10 +3,16 @@ import { Card, Typography } from 'antd';
 import { ConfigContext } from 'antd/lib/config-provider';
 import { history, useDispatch, useSelector } from 'umi';
 
-import type { RootState, ProjectModelState, Organization, Project } from '@/interfaces';
+import type {
+  RootState,
+  ProjectModelState,
+  Organization,
+  Project,
+  User as IUser,
+} from '@/interfaces';
 import { SwitchOrganization, Tree, Image, IconButton, User } from '@/components';
 import type { TreeDataSource } from '@/components';
-import { getPlatformLogo } from '@/utils';
+import { getPlatformLogo, isAdmin } from '@/utils';
 
 import styles from './OrganizationTree.less';
 
@@ -25,6 +31,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
   const currentProject = useSelector<RootState, ProjectModelState['current']>(
     (state) => state.project.current,
   );
+  const user_current = useSelector<RootState, IUser>((state) => state?.user?.current!);
 
   const dataSource = React.useMemo<TreeDataSource<DataSourceValue>>(() => {
     return {
@@ -40,15 +47,17 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
             className={styles.head}
             title={<SwitchOrganization desc={value.desc} />}
             extra={
-              <div className={styles.extra}>
-                <IconButton
-                  spin
-                  icon="icon-ohbug-settings-3-line"
-                  onClick={() => {
-                    history.push(`settings/${organization.id}`);
-                  }}
-                />
-              </div>
+              isAdmin(organization?.admin?.id, user_current?.id) && (
+                <div className={styles.extra}>
+                  <IconButton
+                    spin
+                    icon="icon-ohbug-settings-3-line"
+                    onClick={() => {
+                      history.push(`settings/${organization.id}`);
+                    }}
+                  />
+                </div>
+              )
             }
           >
             <Typography.Text type="secondary">{value.others}</Typography.Text>
