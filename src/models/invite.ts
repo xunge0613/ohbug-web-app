@@ -2,6 +2,7 @@ import type { User, Organization } from 'umi';
 import type { Model } from '@/interfaces';
 import api from '@/api';
 import { RootState } from '@/interfaces';
+import { getAuth } from '@/utils';
 
 export interface Invite {
   uuid: string;
@@ -39,12 +40,13 @@ const invite: InviteModel = {
 
     *bind(_, { select, call }) {
       const { uuid } = yield select((state: RootState) => state.invite.current);
-      const { id: user_id } = yield select((state: RootState) => state.user.current);
+      const user = yield select((state: RootState) => state.user.current);
+      const auth = getAuth();
 
-      if (uuid && user_id) {
+      if (uuid && (user?.user_id || auth?.id)) {
         yield call(api.invite.bind, {
           uuid,
-          user_id,
+          user_id: user?.user_id || auth?.id,
         });
       }
     },

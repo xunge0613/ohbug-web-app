@@ -62,13 +62,6 @@ const auth: AuthModel = {
     },
 
     *login({ payload: { email, password } }, { select, call, put }) {
-      const invite = yield select((state: RootState) => state.invite.current);
-      if (invite) {
-        yield put({
-          type: 'invite/bind',
-        });
-      }
-
       const data = yield call(api.auth.login, {
         email,
         password,
@@ -77,12 +70,26 @@ const auth: AuthModel = {
       if (data) {
         login(data);
       }
+
+      const invite = yield select((state: RootState) => state.invite.current);
+      if (invite) {
+        yield put({
+          type: 'invite/bind',
+        });
+      }
     },
 
-    *github({ payload }, { call }) {
+    *github({ payload }, { select, call, put }) {
       const data = yield call(api.auth.github, payload);
       if (data) {
         login(data);
+      }
+
+      const invite = yield select((state: RootState) => state.invite.current);
+      if (invite) {
+        yield put({
+          type: 'invite/bind',
+        });
       }
     },
 
