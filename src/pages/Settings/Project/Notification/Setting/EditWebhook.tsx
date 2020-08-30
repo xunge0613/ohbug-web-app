@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDispatch, useSelector, Link } from 'umi';
-import { Modal, Form, Input, Space, Tooltip } from 'antd';
+import { useDispatch, useSelector } from 'umi';
+import { Modal, Form, Input, Space, Tooltip, Button } from 'antd';
 
 import { RootState, NotificationSettingWebHook } from '@/interfaces';
 import { useUpdateEffect } from '@/hooks';
@@ -186,9 +186,9 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
         </Form.List>
 
         <Form.Item label="参考文档" colon={false}>
-          <Link to="/" style={{ textDecoration: 'underline' }}>
-            钉钉接入指引
-          </Link>
+          <Button type="link" href="//ohbug.net/docs/dashboard/SettingProject" target="_blank">
+            接入指引
+          </Button>
         </Form.Item>
       </Form>
     </Modal>
