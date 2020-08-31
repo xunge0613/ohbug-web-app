@@ -46,14 +46,14 @@ const UserBlock: React.FC<UserBlockProps> = () => {
           window.open('//ohbug.net/docs');
         },
       },
-      {
-        value: 'feedback',
-        label: '反馈问题',
-        icon: <Icon type="icon-ohbug-feedback-line" />,
-        onClick: () => {
-          window.open('//ohbug.net/feedback');
-        },
-      },
+      // {
+      //   value: 'feedback',
+      //   label: '反馈问题',
+      //   icon: <Icon type="icon-ohbug-feedback-line" />,
+      //   onClick: () => {
+      //     window.open('//ohbug.net/feedback');
+      //   },
+      // },
     ],
     [],
   );

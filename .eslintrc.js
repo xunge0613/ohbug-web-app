@@ -13,5 +13,6 @@ module.exports = {
     'global-require': 'off',
     'func-names': 'off',
     '@typescript-eslint/naming-convention': 'off',
+    'no-script-url': 'off',
   },
 };

@@ -1,5 +1,5 @@
 const layout = {
-  title: 'ohbug',
+  title: 'Ohbug',
   logo: '/logo.svg',
   navTheme: 'dark',
 };
