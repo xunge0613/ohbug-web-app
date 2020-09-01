@@ -85,6 +85,7 @@ interface SettingsProps {
 }
 const Settings: React.FC<SettingsProps> = ({ children }) => {
   const match = useRouteMatch();
+  // @ts-ignore
   const { organization_id } = useParams();
   const location = useLocation();
 

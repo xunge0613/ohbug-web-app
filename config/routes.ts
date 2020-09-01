@@ -206,6 +206,16 @@ export default [
     },
   },
   {
+    exact: true,
+    path: '/403',
+    component: '@/pages/NotAuthorized',
+    layout: {
+      hideMenu: true,
+      hideNav: true,
+      hideFooter: true,
+    },
+  },
+  {
     redirect: '/404',
   },
 ];

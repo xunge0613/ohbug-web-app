@@ -2,8 +2,10 @@ import React from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
 import { useDispatch, useSelector, useParams, history } from 'umi';
 
-import { RootState, Organization } from '@/interfaces';
+import { RootState, Organization, User } from '@/interfaces';
 import { Zone } from '@/components';
+import { useAccess } from '@/hooks';
+import { isAdmin } from '@/utils';
 
 import DangerZone from './DangerZone';
 
@@ -12,15 +14,17 @@ import styles from './Profile.less';
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
 
+  // @ts-ignore
   const { organization_id } = useParams();
   if (!organization_id) history.push('/404');
-
   const organization = useSelector<RootState, Organization>(
     (state) =>
       // eslint-disable-next-line eqeqeq
       state.organization?.data?.find((org) => org.id == organization_id)!,
   );
+  const user = useSelector<RootState, User>((state) => state?.user?.current!);
   if (!organization) history.push('/404');
+  useAccess(isAdmin(organization?.admin?.id, user?.id));
 
   const [form] = Form.useForm();
   const handleFinish = React.useCallback(

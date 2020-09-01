@@ -2,15 +2,24 @@ import React from 'react';
 import { List, Avatar } from 'antd';
 import { useSelector, history, useParams } from 'umi';
 
-import { RootState, Project } from '@/interfaces';
+import { RootState, Project, Organization, User } from '@/interfaces';
 import { Zone, IconButton } from '@/components';
-import { getPlatformLogo } from '@/utils';
+import { getPlatformLogo, isAdmin } from '@/utils';
+import { useAccess } from '@/hooks';
 
 import styles from './Projects.less';
 
 const Projects: React.FC = () => {
+  // @ts-ignore
   const { organization_id } = useParams();
   if (!organization_id) history.push('/404');
+  const organization = useSelector<RootState, Organization>(
+    (state) =>
+      // eslint-disable-next-line eqeqeq
+      state.organization?.data?.find((org) => org.id == organization_id)!,
+  );
+  const user = useSelector<RootState, User>((state) => state?.user?.current!);
+  useAccess(isAdmin(organization?.admin?.id, user?.id));
 
   const projects = useSelector<RootState, Project[]>(
     // eslint-disable-next-line eqeqeq

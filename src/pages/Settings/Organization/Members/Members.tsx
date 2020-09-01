@@ -4,7 +4,7 @@ import { useSelector, useParams } from 'umi';
 
 import { RootState, Project, User, Organization } from '@/interfaces';
 import { Zone, User as UserComponent, Invite } from '@/components';
-import { useBoolean } from '@/hooks';
+import { useAccess, useBoolean } from '@/hooks';
 import { isAdmin } from '@/utils';
 
 import styles from './Members.less';
@@ -22,9 +22,12 @@ const Members: React.FC = () => {
     (state) => state.organization?.data?.find((org) => org.id == organization_id)?.projects!,
   );
   const user = useSelector<RootState, User>((state) => state?.user?.current!);
+
   const [inviteVisible, { setTrue: inviteModalShow, setFalse: inviteModalOnCancel }] = useBoolean(
     false,
   );
+
+  useAccess(isAdmin(organization?.admin?.id, user?.id));
 
   return (
     <section className={styles.root}>
