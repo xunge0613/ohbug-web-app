@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'umi';
-import { Modal, Form, Input, Select, InputNumber, Tag, Space } from 'antd';
+import { Modal, Form, Input, Select, InputNumber, Tag, Space, Tooltip } from 'antd';
 import { types } from '@ohbug/browser';
 
 import { RootState, NotificationRule, NotificationRuleLevel } from '@/interfaces';
@@ -213,11 +213,19 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
         {[
           {
             name: 'whiteList',
-            label: '白名单',
+            label: (
+              <Tooltip title="若在白名单则不论是否符合区间内的数量匹配直接触发通知任务">
+                <span>白名单</span>
+              </Tooltip>
+            ),
           },
           {
             name: 'blackList',
-            label: '黑名单',
+            label: (
+              <Tooltip title="若在黑名单则不论是否符合区间内的数量匹配直接不触发通知任务">
+                <span>黑名单</span>
+              </Tooltip>
+            ),
           },
         ].map((item) => (
           <Form.List name={item.name} key={item.name}>

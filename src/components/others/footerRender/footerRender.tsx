@@ -45,7 +45,7 @@ function footerRender(props: any) {
               </div>
             }
           >
-            <Button className={styles.link} type="link" href="javascript:void(0);">
+            <Button className={styles.link} type="link" href="#">
               Feedback
             </Button>
           </Popover>
