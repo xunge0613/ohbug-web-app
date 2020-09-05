@@ -10,6 +10,7 @@ import styles from './Profile.less';
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
 
+  // @ts-ignore
   const { organization_id, project_id } = useParams();
   const project = useSelector<RootState, Project>(
     (state) =>

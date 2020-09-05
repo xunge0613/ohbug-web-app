@@ -1,34 +1,19 @@
 import React from 'react';
-import { Skeleton, Tooltip, Tag } from 'antd';
+import { Skeleton } from 'antd';
 import dayjs from 'dayjs';
 
 import type { EventModelState } from '@/interfaces';
 import { Icon, RelativeTime } from '@/components';
-import { getDeviceInfo } from '@/utils';
 
-import ProgressCard from '../ProgressCard';
+import Cards from './components/Cards';
+import TooltipTags from './components/TooltipTags';
 
 import styles from './Profile.less';
-
-interface TooltipTags {
-  title: React.ReactChild;
-  value: any;
-  icon: React.ReactNode;
-}
-const TooltipTags: React.FC<TooltipTags> = ({ title, value, icon }) => (
-  <Tooltip title={title}>
-    <Tag icon={icon} color="default">
-      {value}
-    </Tag>
-  </Tooltip>
-);
 
 interface ProfileProps {
   event: EventModelState['current'];
 }
 const Profile: React.FC<ProfileProps> = ({ event }) => {
-  const deviceInfo = React.useMemo(() => getDeviceInfo(event?.device), [event]);
-
   const tooltipTagsList = React.useMemo(() => {
     const result = [];
     if (event?.timestamp) {
@@ -87,6 +72,18 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         icon: <Icon type="icon-ohbug-leaf-line" />,
       });
     }
+    if (
+      event?.device?.device?.screenWidth &&
+      event?.device?.device?.screenHeight &&
+      event?.device?.device?.pixelRatio
+    ) {
+      result.push({
+        key: 'dpi',
+        title: `分辨率: ${event?.device?.device?.screenWidth} × ${event?.device?.device?.screenHeight} @ ${event?.device?.device?.pixelRatio}x`,
+        value: `${event?.device?.device?.screenWidth} × ${event?.device?.device?.screenHeight} @ ${event?.device?.device?.pixelRatio}x`,
+        icon: <Icon type="icon-ohbug-computer-line" />,
+      });
+    }
 
     return result;
   }, [event]);
@@ -96,18 +93,7 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
   return (
     <div className={styles.root}>
       <div className={styles.progressBox}>
-        <Skeleton loading={loading}>
-          {/* 浏览器 */}
-          <ProgressCard
-            title={deviceInfo?.browser?.name}
-            description={deviceInfo?.browser?.version?.original}
-          />
-          {/* 系统 */}
-          <ProgressCard
-            title={deviceInfo?.os?.name}
-            description={deviceInfo?.os?.version?.original}
-          />
-        </Skeleton>
+        <Cards event={event} />
       </div>
 
       <div className={styles.tagsBox}>

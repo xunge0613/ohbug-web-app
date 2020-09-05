@@ -93,6 +93,7 @@ const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
 
 const Event: React.FC = () => {
   const dispatch = useDispatch();
+  // @ts-ignore
   const { issue_id, event_id } = useParams();
 
   React.useEffect(() => {

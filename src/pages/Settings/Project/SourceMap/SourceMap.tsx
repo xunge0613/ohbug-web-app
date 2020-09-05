@@ -11,6 +11,7 @@ import styles from './SourceMap.less';
 
 const SourceMapCompnent: React.FC = () => {
   const dispatch = useDispatch();
+  // @ts-ignore
   const { project_id } = useParams();
 
   const project = useSelector<RootState, Project>(

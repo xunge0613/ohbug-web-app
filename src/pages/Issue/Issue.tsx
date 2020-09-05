@@ -116,6 +116,7 @@ const Issue: React.FC<IssueDashPageProps> = () => {
             renderItem={(item) => {
               const chartData = trend?.data?.find((v) => parseInt(v.issue_id, 10) === item.id)
                 ?.buckets;
+
               return (
                 <List.Item>
                   <Skeleton title loading={loading} active>
@@ -143,6 +144,11 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                           {item.metadata.others && (
                             <Typography.Text>{item.metadata.others}</Typography.Text>
                           )}
+                          {!item.metadata.message &&
+                            !item.metadata.others &&
+                            item.metadata.stack && (
+                              <Typography.Text>{item.metadata.stack}</Typography.Text>
+                            )}
                         </Typography.Paragraph>
                       }
                     />

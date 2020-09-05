@@ -13,6 +13,7 @@ import styles from './Setting.less';
 
 const Setting: React.FC = () => {
   const dispatch = useDispatch();
+  // @ts-ignore
   const { project_id } = useParams();
   const [form] = Form.useForm();
   const [currentRule, setCurrentRule] = React.useState<NotificationSettingWebHook | undefined>(

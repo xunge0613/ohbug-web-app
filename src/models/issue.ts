@@ -5,7 +5,9 @@ interface MetaData {
   type: string;
   message: string;
   filename?: string;
+  stack?: string;
   others?: string;
+  [key: string]: any;
 }
 export interface Issue {
   id: number;
