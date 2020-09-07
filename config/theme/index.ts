@@ -18,8 +18,4 @@ export default {
   '@tabs-card-tab-active-border-top': '2px solid @primary-color',
   '@switch-color': '@info-color',
   '@wave-animation-width': '5px',
-  '@alert-success-border-color': "~`colorPalette('@{success-color}', 1) `",
-  '@alert-info-border-color': "~`colorPalette('@{info-color}', 1) `",
-  '@alert-warning-border-color': "~`colorPalette('@{warning-color}', 1) `",
-  '@alert-error-border-color': "~`colorPalette('@{error-color}', 1) `",
 };
