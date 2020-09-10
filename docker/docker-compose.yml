@@ -1,13 +1,13 @@
 version: '3.7'
 
 services:
-  web-app:
+  ohbug-web-app:
     image: ohbug/ohbug-web-app:latest
     restart: always
     volumes:
       - /usr/src/app
-      - ./docker/nginx/certs:/etc/ssl/certs
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/ssl/certs
+      - ./nginx/conf.d:/etc/nginx/conf.d
     ports:
       - 80:80
       - 443:443
