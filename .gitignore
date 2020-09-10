@@ -35,7 +35,9 @@ lerna-debug.log*
 
 # config
 .env
-.env.local
+.env*
+certs
+https.conf
 
 # umi
 /src/.umi
