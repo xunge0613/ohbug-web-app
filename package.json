@@ -1,12 +1,23 @@
 {
-  "private": true,
+  "name": "ohbug-web-app",
+  "version": "1.0.0",
+  "description": "Ohbug Web APP",
+  "author": "chenyueban <jasonchan0527@gmail.com>",
+  "homepage": "https://github.com/ohbug-org/ohbug-web-app",
+  "bugs": {
+    "url": "https://github.com/ohbug-org/ohbug-web-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ohbug-org/ohbug-web-app"
+  },
+  "license": "Apache-2.0",
   "scripts": {
     "postinstall": "umi g tmp",
     "prebuild": "rimraf dist",
     "start": "cross-env ENV_TAG=development PORT=8888 umi dev",
     "build": "cross-env ENV_TAG=production umi build",
     "build:analyze": "cross-env ANALYZE=1 umi build",
-    "docker:prod": "docker-compose -f ./docker/docker-compose.yml up --build -d",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",

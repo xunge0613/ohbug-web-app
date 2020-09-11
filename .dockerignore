@@ -1,3 +1,5 @@
+.git
+
 # compiled output
 /dist
 /node_modules
@@ -36,5 +38,10 @@ lerna-debug.log*
 # config
 .env
 .env*
+certs
+https.conf
 
-.git
+# umi
+/src/.umi
+/src/.umi-production
+/src/.umi-test

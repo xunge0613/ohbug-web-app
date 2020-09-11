@@ -1,4 +1,4 @@
-# umi project
+# ohbug-web-app
 
 ## Getting Started
 
@@ -12,4 +12,10 @@ Start the dev server,
 
 ```bash
 $ yarn start
+```
+
+Build
+
+```bash
+$ yarn build
 ```
