@@ -1,21 +1,21 @@
-import React from 'react';
-import { useDispatch, useParams, useSelector } from 'umi';
-import { Row, Col, Tabs, Radio } from 'antd';
-import ReactJson from 'react-json-view';
+import React from 'react'
+import { useDispatch, useParams, useSelector } from 'umi'
+import { Row, Col, Tabs, Radio } from 'antd'
+import ReactJson from 'react-json-view'
 
-import BasicLayout from '@/layouts/Basic';
-import type { RootState, EventModelState, IssueModelState } from '@/interfaces';
+import BasicLayout from '@/layouts/Basic'
+import type { RootState, EventModelState, IssueModelState } from '@/interfaces'
 
-import { history } from '@/interfaces';
-import Title from './components/Title';
-import Profile from './components/Profile';
-import Detail from './components/Detail';
-import Trend from './components/Trend';
+import { history } from '@/interfaces'
+import Title from './components/Title'
+import Profile from './components/Profile'
+import Detail from './components/Detail'
+import Trend from './components/Trend'
 // import Description from './components/Description';
 
 interface EventTabProps {
-  event: EventModelState['current'];
-  issue: IssueModelState['current'];
+  event: EventModelState['current']
+  issue: IssueModelState['current']
 }
 const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
   const tabList = React.useMemo(() => {
@@ -36,7 +36,7 @@ const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
           </Row>
         ),
       },
-    ];
+    ]
     if (event?.metaData) {
       Object.keys(event.metaData).forEach((key) => {
         base.push({
@@ -50,30 +50,36 @@ const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
               indentWidth={2}
               collapsed={2}
               style={{
-                fontFamily: 'JetBrains Mono, -apple-system, BlinkMacSystemFont, monospace, Roboto',
+                fontFamily:
+                  'JetBrains Mono, -apple-system, BlinkMacSystemFont, monospace, Roboto',
                 background: 'none',
                 maxHeight: '60vh',
                 overflowY: 'auto',
               }}
             />
           ),
-        });
-      });
+        })
+      })
     }
-    return base;
-  }, [event, issue]);
+    return base
+  }, [event, issue])
   const handlePreviousClick = React.useCallback(() => {
-    if (event?.previous) history.push(`/issue/${issue?.id}/event/${event?.previous?.document_id}`);
-  }, [event]);
+    if (event?.previous)
+      history.push(`/issue/${issue?.id}/event/${event?.previous?.id}`)
+  }, [event])
   const handleNextClick = React.useCallback(() => {
-    if (event?.next) history.push(`/issue/${issue?.id}/event/${event?.next?.document_id}`);
-  }, [event]);
+    if (event?.next)
+      history.push(`/issue/${issue?.id}/event/${event?.next?.id}`)
+  }, [event])
 
   return (
     <Tabs
       tabBarExtraContent={
         <Radio.Group size="small">
-          <Radio.Button disabled={!event?.previous} onClick={handlePreviousClick}>
+          <Radio.Button
+            disabled={!event?.previous}
+            onClick={handlePreviousClick}
+          >
             {'< Older'}
           </Radio.Button>
           <Radio.Button disabled={!event?.next} onClick={handleNextClick}>
@@ -88,17 +94,17 @@ const EventTab: React.FC<EventTabProps> = ({ event, issue }) => {
         </Tabs.TabPane>
       ))}
     </Tabs>
-  );
-};
+  )
+}
 
 const Event: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   // @ts-ignore
-  const { issue_id, event_id } = useParams();
+  const { issue_id, event_id } = useParams()
 
   React.useEffect(() => {
     if (event_id === 'latest' && issue_id) {
-      dispatch({ type: 'event/getLatestEvent', payload: { issue_id } });
+      dispatch({ type: 'event/getLatestEvent', payload: { issue_id } })
     } else {
       dispatch({
         type: 'event/get',
@@ -106,13 +112,17 @@ const Event: React.FC = () => {
           event_id,
           issue_id,
         },
-      });
+      })
     }
-    dispatch({ type: 'issue/get', payload: { issue_id } });
-  }, [event_id, issue_id]);
+    dispatch({ type: 'issue/get', payload: { issue_id } })
+  }, [event_id, issue_id])
 
-  const event = useSelector<RootState, EventModelState['current']>((state) => state.event.current);
-  const issue = useSelector<RootState, IssueModelState['current']>((state) => state.issue.current);
+  const event = useSelector<RootState, EventModelState['current']>(
+    (state) => state.event.current
+  )
+  const issue = useSelector<RootState, IssueModelState['current']>(
+    (state) => state.issue.current
+  )
 
   return (
     <BasicLayout>
@@ -124,7 +134,7 @@ const Event: React.FC = () => {
 
       {/* <Description /> */}
     </BasicLayout>
-  );
-};
+  )
+}
 
-export default Event;
+export default Event

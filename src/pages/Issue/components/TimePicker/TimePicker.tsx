@@ -1,19 +1,19 @@
-import React from 'react';
-import { DatePicker } from 'antd';
-import { useDispatch, useLocation } from 'umi';
-import dayjs from 'dayjs';
+import React from 'react'
+import { DatePicker } from 'antd'
+import { useDispatch, useLocation } from 'umi'
+import dayjs from 'dayjs'
 
-const today = [dayjs().subtract(23, 'hour'), dayjs()];
-const twoWeeks = [dayjs().subtract(13, 'day'), dayjs()];
-const defaultValue = twoWeeks;
+const today = [dayjs().subtract(23, 'hour'), dayjs()]
+const twoWeeks = [dayjs().subtract(13, 'day'), dayjs()]
+const defaultValue = twoWeeks
 const ranges = {
   当日: today,
   近两周: twoWeeks,
-};
+}
 
 const TimePicker: React.FC = () => {
-  const dispatch = useDispatch();
-  const location = useLocation() as any;
+  const dispatch = useDispatch()
+  const location = useLocation() as any
 
   React.useEffect(() => {
     dispatch({
@@ -25,12 +25,12 @@ const TimePicker: React.FC = () => {
         // @ts-ignore
         project_id: location?.query?.project_id,
       },
-    });
-  }, [location?.query?.project_id]);
+    })
+  }, [location?.query?.project_id])
 
   const handleTimeChange = React.useCallback(
     (dates: any) => {
-      const [start, end] = dates;
+      const [start, end] = dates
       dispatch({
         type: 'issue/searchIssues',
         payload: {
@@ -40,10 +40,10 @@ const TimePicker: React.FC = () => {
           // @ts-ignore
           project_id: location?.query?.project_id,
         },
-      });
+      })
     },
-    [location],
-  );
+    [location]
+  )
 
   return (
     <DatePicker.RangePicker
@@ -52,7 +52,7 @@ const TimePicker: React.FC = () => {
       ranges={ranges as any}
       onChange={handleTimeChange}
     />
-  );
-};
+  )
+}
 
-export default TimePicker;
+export default TimePicker

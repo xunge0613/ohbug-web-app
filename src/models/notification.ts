@@ -1,83 +1,88 @@
-import type { Model } from '@/interfaces';
-import api from '@/api';
+import type { Model } from '@/interfaces'
+import api from '@/api'
 
 // 通知规则相关的数据 两种方式
 // 1. 指标 每段时间
 // 2. 区间 最多4个区间
 interface NotificationRuleIndicator {
-  interval: number; // 间隔时间
-  percentage: number; // 增长百分比
+  interval: number // 间隔时间
+  percentage: number // 增长百分比
 }
 type NotificationRuleRange = {
-  range1: number;
-  range2: number;
-  range3: number;
-  range4: number;
-};
-export type NotificationRuleData = NotificationRuleIndicator | NotificationRuleRange;
+  range1: number
+  range2: number
+  range3: number
+  range4: number
+}
+export type NotificationRuleData =
+  | NotificationRuleIndicator
+  | NotificationRuleRange
 
 interface NotificationRuleItem {
-  type: string;
-  message: string;
+  type: string
+  message: string
 }
-export type NotificationRuleWhiteList = NotificationRuleItem[];
-export type NotificationRuleBlackList = NotificationRuleItem[];
+export type NotificationRuleWhiteList = NotificationRuleItem[]
+export type NotificationRuleBlackList = NotificationRuleItem[]
 
-export type NotificationRuleLevel = 'serious' | 'warning' | 'default';
+export type NotificationRuleLevel = 'serious' | 'warning' | 'default'
 
 interface NotificationSettingEmail {
-  email: string;
-  open: boolean;
+  email: string
+  open: boolean
 }
-export type NotificationSettingEmails = NotificationSettingEmail[];
+export type NotificationSettingEmails = NotificationSettingEmail[]
 export type NotificationSettingBrowser = {
-  open: boolean;
+  open: boolean
   data: {
-    endpoint: string;
+    endpoint: string
     keys: {
-      p256dh: string;
-      auth: string;
-    };
-    expirationTime: string | null;
-  } | null;
-};
-export type NotificationSettingWebHookType = 'dingtalk' | 'wechat_work' | 'others';
-export interface NotificationSettingWebHook {
-  id: string;
-  type: NotificationSettingWebHookType;
-  name: string;
-  link: string;
-  open: boolean;
-  at?: { value: string }[];
+      p256dh: string
+      auth: string
+    }
+    expirationTime: string | null
+  } | null
 }
-export type NotificationSettingWebHooks = NotificationSettingWebHook[];
+export type NotificationSettingWebHookType =
+  | 'dingtalk'
+  | 'wechat_work'
+  | 'others'
+export interface NotificationSettingWebHook {
+  id: string
+  type: NotificationSettingWebHookType
+  name: string
+  link: string
+  open: boolean
+  at?: { value: string }[]
+}
+export type NotificationSettingWebHooks = NotificationSettingWebHook[]
 
 export interface NotificationRule {
-  id?: number;
-  name?: string;
-  data?: NotificationRuleData;
-  whiteList?: NotificationRuleWhiteList;
-  blackList?: NotificationRuleBlackList;
-  level?: NotificationRuleLevel;
-  interval?: number;
-  open?: boolean;
-  recently?: Date;
-  count?: number;
+  id?: number
+  name?: string
+  data?: NotificationRuleData
+  whiteList?: NotificationRuleWhiteList
+  blackList?: NotificationRuleBlackList
+  level?: NotificationRuleLevel
+  interval?: number
+  open?: boolean
+  recently?: Date
+  count?: number
 }
 
 export interface NotificationSetting {
-  id?: number;
-  emails?: NotificationSettingEmails;
-  browser?: NotificationSettingBrowser;
-  webhooks?: NotificationSettingWebHooks;
+  id?: number
+  emails?: NotificationSettingEmails
+  browser?: NotificationSettingBrowser
+  webhooks?: NotificationSettingWebHooks
 }
 
 export interface NotificationModelState {
-  ruleData: NotificationRule[];
-  settingData?: NotificationSetting;
+  ruleData: NotificationRule[]
+  settingData?: NotificationSetting
 }
 export interface NotificationModel extends Model<NotificationModelState> {
-  namespace: 'notification';
+  namespace: 'notification'
 }
 
 const notification: NotificationModel = {
@@ -90,13 +95,24 @@ const notification: NotificationModel = {
       return {
         ...state,
         ...action.payload,
-      };
+      }
     },
   },
   effects: {
     'rules/create': function* (
-      { payload: { project_id, name, data, whiteList, blackList, level, interval, open = true } },
-      { call, put },
+      {
+        payload: {
+          project_id,
+          name,
+          data,
+          whiteList,
+          blackList,
+          level,
+          interval,
+          open = true,
+        },
+      },
+      { call, put }
     ) {
       if (project_id) {
         const result = yield call(api.notification.createRule, {
@@ -108,14 +124,14 @@ const notification: NotificationModel = {
           level,
           interval,
           open,
-        });
+        })
         if (result) {
           yield put({
             type: 'rules/get',
             payload: {
               project_id,
             },
-          });
+          })
         }
       }
     },
@@ -124,21 +140,33 @@ const notification: NotificationModel = {
       if (project_id) {
         const result = yield call(api.notification.getRules, {
           project_id,
-        });
+        })
         if (result) {
           yield put({
             type: 'setState',
             payload: {
               ruleData: result,
             },
-          });
+          })
         }
       }
     },
 
     'rules/update': function* (
-      { payload: { project_id, rule_id, name, data, whiteList, blackList, level, interval, open } },
-      { call, put },
+      {
+        payload: {
+          project_id,
+          rule_id,
+          name,
+          data,
+          whiteList,
+          blackList,
+          level,
+          interval,
+          open,
+        },
+      },
+      { call, put }
     ) {
       if (rule_id) {
         const result = yield call(api.notification.updateRule, {
@@ -150,30 +178,33 @@ const notification: NotificationModel = {
           level,
           interval,
           open,
-        });
+        })
         if (result) {
           yield put({
             type: 'rules/get',
             payload: {
               project_id,
             },
-          });
+          })
         }
       }
     },
 
-    'rules/delete': function* ({ payload: { project_id, rule_id } }, { call, put }) {
+    'rules/delete': function* (
+      { payload: { project_id, rule_id } },
+      { call, put }
+    ) {
       if (rule_id) {
         const result = yield call(api.notification.deleteRule, {
           rule_id,
-        });
+        })
         if (result) {
           yield put({
             type: 'rules/get',
             payload: {
               project_id,
             },
-          });
+          })
         }
       }
     },
@@ -182,21 +213,21 @@ const notification: NotificationModel = {
       if (project_id) {
         const result = yield call(api.notification.getSetting, {
           project_id,
-        });
+        })
         if (result) {
           yield put({
             type: 'setState',
             payload: {
               settingData: result,
             },
-          });
+          })
         }
       }
     },
 
     'setting/update': function* (
       { payload: { project_id, emails, browser, webhooks } },
-      { call, put },
+      { call, put }
     ) {
       if (project_id) {
         const result = yield call(api.notification.updateSetting, {
@@ -204,21 +235,21 @@ const notification: NotificationModel = {
           emails,
           browser,
           webhooks,
-        });
+        })
         if (result) {
           yield put({
             type: 'setting/get',
             payload: {
               project_id,
             },
-          });
+          })
         }
       }
     },
 
     'setting/webhooks/create': function* (
       { payload: { project_id, type, name, link, open, at } },
-      { call, put },
+      { call, put }
     ) {
       if (project_id) {
         const result = yield call(api.notification.createSettingWebhook, {
@@ -228,21 +259,21 @@ const notification: NotificationModel = {
           link,
           open,
           at,
-        });
+        })
         if (result) {
           yield put({
             type: 'setting/get',
             payload: {
               project_id,
             },
-          });
+          })
         }
       }
     },
 
     'setting/webhooks/update': function* (
       { payload: { project_id, id, type, name, link, open, at } },
-      { call, put },
+      { call, put }
     ) {
       if (project_id && id) {
         const result = yield call(api.notification.updateSettingWebhook, {
@@ -253,35 +284,38 @@ const notification: NotificationModel = {
           link,
           open,
           at,
-        });
+        })
         if (result) {
           yield put({
             type: 'setting/get',
             payload: {
               project_id,
             },
-          });
+          })
         }
       }
     },
 
-    'setting/webhooks/delete': function* ({ payload: { project_id, id } }, { call, put }) {
+    'setting/webhooks/delete': function* (
+      { payload: { project_id, id } },
+      { call, put }
+    ) {
       if (project_id && id) {
         const result = yield call(api.notification.deleteSettingWebhook, {
           project_id,
           id,
-        });
+        })
         if (result) {
           yield put({
             type: 'setting/get',
             payload: {
               project_id,
             },
-          });
+          })
         }
       }
     },
   },
-};
+}
 
-export default notification;
+export default notification

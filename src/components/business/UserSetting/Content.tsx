@@ -1,27 +1,28 @@
-import React from 'react';
-import { Avatar, Drawer, List } from 'antd';
+import React from 'react'
+import { Avatar, Drawer, List } from 'antd'
 
-import type { User } from '@/interfaces';
-import { useBoolean } from '@/hooks';
-import { IconButton } from '@/components';
-import { getDefaultAvatar } from '@/utils';
+import type { User } from '@/interfaces'
+import { useBoolean } from '@/hooks'
+import { IconButton } from '@/components'
+import { getDefaultAvatar } from '@/utils'
 
-import { Name } from './components';
+import { Name } from './components'
 
-import styles from './UserSetting.less';
+import styles from './UserSetting.less'
 
 interface ContentProps {
-  user: User;
+  user: User
 }
 const Content: React.FC<ContentProps> = ({ user }) => {
-  const avatar = React.useMemo(() => user && getDefaultAvatar({ id: user.id, name: user.name }), [
-    user,
-  ]);
+  const avatar = React.useMemo(
+    () => user && getDefaultAvatar({ id: user.id, name: user.name }),
+    [user]
+  )
   const [
     childrenDrawerVisible,
     { setTrue: childrenDrawerOpen, setFalse: childrenDrawerClose },
-  ] = useBoolean(false);
-  const [currentItemKey, setCurrentItemKey] = React.useState<string>();
+  ] = useBoolean(false)
+  const [currentItemKey, setCurrentItemKey] = React.useState<string>()
 
   const data = React.useMemo(
     () => [
@@ -33,8 +34,8 @@ const Content: React.FC<ContentProps> = ({ user }) => {
           <IconButton
             icon="icon-ohbug-pencil-line"
             onClick={() => {
-              setCurrentItemKey('name');
-              childrenDrawerOpen();
+              setCurrentItemKey('name')
+              childrenDrawerOpen()
             }}
           />
         ),
@@ -62,12 +63,12 @@ const Content: React.FC<ContentProps> = ({ user }) => {
       //   actions: <IconButton icon="icon-ohbug-pencil-line" />,
       // },
     ],
-    [user, childrenDrawerOpen, setCurrentItemKey],
-  );
-  const currentItem = React.useMemo(() => data.find((item) => item.key === currentItemKey), [
-    data,
-    currentItemKey,
-  ]);
+    [user, childrenDrawerOpen, setCurrentItemKey]
+  )
+  const currentItem = React.useMemo(
+    () => data.find((item) => item.key === currentItemKey),
+    [data, currentItemKey]
+  )
 
   return (
     <>
@@ -79,7 +80,11 @@ const Content: React.FC<ContentProps> = ({ user }) => {
 
       <List className={styles.list} split={false}>
         {data.map((item) => (
-          <List.Item className={styles.item} extra={item.actions} key={item.key}>
+          <List.Item
+            className={styles.item}
+            extra={item.actions}
+            key={item.key}
+          >
             <span className={styles.label}>{item.label}</span>
             <span className={styles.value}>{item.value}</span>
           </List.Item>
@@ -96,7 +101,7 @@ const Content: React.FC<ContentProps> = ({ user }) => {
         {currentItem?.children}
       </Drawer>
     </>
-  );
-};
+  )
+}
 
-export default Content;
+export default Content

@@ -15,35 +15,35 @@ import type {
   NotificationModelState,
   InviteModelState,
   SourceMapModelState,
-} from 'umi';
+} from 'umi'
 
 export interface Model<S = any> {
-  namespace: string;
-  state?: S;
+  namespace: string
+  state?: S
   reducers?: {
-    [key: string]: Reducer<S>;
-  };
+    [key: string]: Reducer<S>
+  }
   effects?: {
-    [key: string]: Effect;
-  };
+    [key: string]: Effect
+  }
   subscriptions?: {
-    [key: string]: Subscription;
-  };
+    [key: string]: Subscription
+  }
 }
 
 export type RootState = {
-  auth: AuthModelState;
-  analysis: AnalysisModelState;
-  event: EventModelState;
-  feedback: FeedbackModelState;
-  issue: IssueModelState;
-  organization: OrganizationModelState;
-  project: ProjectModelState;
-  user: UserModelState;
-  view: ViewModelState;
-  notification: NotificationModelState;
-  invite: InviteModelState;
-  sourceMap: SourceMapModelState;
+  auth: AuthModelState
+  analysis: AnalysisModelState
+  event: EventModelState
+  feedback: FeedbackModelState
+  issue: IssueModelState
+  organization: OrganizationModelState
+  project: ProjectModelState
+  user: UserModelState
+  view: ViewModelState
+  notification: NotificationModelState
+  invite: InviteModelState
+  sourceMap: SourceMapModelState
 } & {
-  loading: Loading;
-};
+  loading: Loading
+}

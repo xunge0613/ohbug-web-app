@@ -1,25 +1,25 @@
-import { history } from 'umi';
-import type { User, Project } from 'umi';
+import { history } from 'umi'
+import type { User, Project } from 'umi'
 
-import type { Model, RootState } from '@/interfaces';
-import api from '@/api';
-import { setCurrentOrganization } from '@/utils';
+import type { Model, RootState } from '@/interfaces'
+import api from '@/api'
+import { setCurrentOrganization } from '@/utils'
 
 export interface Organization {
-  id?: number;
-  name?: string;
-  introduction?: string;
-  createdAt?: string;
-  admin?: User;
-  users?: User[];
-  projects?: Project[];
+  id?: number
+  name?: string
+  introduction?: string
+  createdAt?: string
+  admin?: User
+  users?: User[]
+  projects?: Project[]
 }
 export interface OrganizationModelState {
-  current?: Organization;
-  data?: Organization[];
+  current?: Organization
+  data?: Organization[]
 }
 export interface OrganizationModel extends Model<OrganizationModelState> {
-  namespace: 'organization';
+  namespace: 'organization'
 }
 
 const organization: OrganizationModel = {
@@ -30,94 +30,110 @@ const organization: OrganizationModel = {
       return {
         ...state,
         ...action.payload,
-      };
+      }
     },
   },
   effects: {
     *create({ payload: { name, introduction } }, { select, call, put }) {
-      const admin_id = yield select((state: RootState) => state.user.current?.id);
-      const organizations = yield select((state: RootState) => state.organization.data);
+      const admin_id = yield select(
+        (state: RootState) => state.user.current?.id
+      )
+      const organizations = yield select(
+        (state: RootState) => state.organization.data
+      )
 
       if (name && admin_id) {
         const data = yield call(api.organization.create, {
           name,
           introduction,
           admin_id,
-        });
+        })
         if (data) {
           yield put({
             type: 'setOrganizations',
             payload: [...(organizations || []), data],
-          });
+          })
           yield put({
             type: 'setCurrentOrganization',
             payload: data,
-          });
-          history.push('/create-project');
+          })
+          history.push('/create-project')
         }
       }
     },
 
-    *update({ payload: { name, introduction, avatar, organization_id } }, { select, call, put }) {
-      const organizations = yield select((state: RootState) => state.organization.data);
-      const { name: old_name, introduction: old_introduction } = organizations?.find(
+    *update(
+      { payload: { name, introduction, avatar, organization_id } },
+      { select, call, put }
+    ) {
+      const organizations = yield select(
+        (state: RootState) => state.organization.data
+      )
+      const {
+        name: old_name,
+        introduction: old_introduction,
+      } = organizations?.find(
         // eslint-disable-next-line eqeqeq
-        (org: Organization) => org.id == organization_id,
-      );
+        (org: Organization) => org.id == organization_id
+      )
       if (old_name !== name || old_introduction !== introduction) {
         const data = yield call(api.organization.update, {
           organization_id,
           name,
           introduction,
           avatar,
-        });
+        })
         if (data) {
           yield put({
             type: 'setOrganizations',
             payload: [...organizations, data],
-          });
+          })
           yield put({
             type: 'setCurrentOrganization',
             payload: data,
-          });
+          })
           yield put({
             type: 'app/info',
             payload: '更新团队信息成功',
-          });
+          })
         } else {
           yield put({
             type: 'app/error',
             payload: '更新团队信息失败',
-          });
+          })
         }
       } else {
         yield put({
           type: 'app/error',
           payload: '没有更改就请不要点更新啦~',
-        });
+        })
       }
     },
 
     *delete({ payload }, { select, call, put }) {
-      const organizations = yield select((state: RootState) => state.organization.data) || [];
+      const organizations = yield select(
+        (state: RootState) => state.organization.data
+      ) || []
       if (payload !== undefined) {
         const data = yield call(api.organization.delete, {
           organization_id: payload,
-        });
+        })
         if (data) {
-          const new_organizations = organizations.filter((org: Organization) => org.id !== payload);
+          const new_organizations = organizations.filter(
+            (org: Organization) => org.id !== payload
+          )
           yield put({
             type: 'setOrganizations',
             payload: new_organizations,
-          });
+          })
           yield put({
             type: 'setCurrentOrganization',
             payload: new_organizations[0],
-          });
+          })
           if (!new_organizations.length) {
-            history.goBack();
+            history.goBack()
           } else {
-            history.replace('/');
+            history.replace('/')
           }
         }
       }
@@ -129,7 +145,7 @@ const organization: OrganizationModel = {
         payload: {
           data: payload,
         },
-      });
+      })
     },
 
     *setCurrentOrganization({ payload }, { put }) {
@@ -138,13 +154,13 @@ const organization: OrganizationModel = {
         payload: {
           current: payload,
         },
-      });
-      setCurrentOrganization(payload?.id);
+      })
+      setCurrentOrganization(payload?.id)
       yield put({
         type: 'project/getAllProjectByOrganizationId',
-      });
+      })
     },
   },
-};
+}
 
-export default organization;
+export default organization

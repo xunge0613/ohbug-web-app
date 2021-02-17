@@ -12,7 +12,14 @@
     "color": ["#ff6f61", "#d95850", "#ebbd46", "#ffb248"],
     "borderColor": "#ccc",
     "borderWidth": 0,
-    "visualMapColor": ["#c94848", "#d95850", "#eb8146", "#ffb248", "#f2d643", "rgb(247,238,173)"],
+    "visualMapColor": [
+      "#c94848",
+      "#d95850",
+      "#eb8146",
+      "#ffb248",
+      "#f2d643",
+      "rgb(247,238,173)"
+    ],
     "legendTextColor": "#999999",
     "kColor": "#eb8146",
     "kColor0": "transparent",

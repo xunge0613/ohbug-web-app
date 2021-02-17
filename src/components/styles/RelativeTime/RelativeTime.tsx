@@ -1,11 +1,11 @@
-import React from 'react';
-import dayjs from 'dayjs';
+import React from 'react'
+import dayjs from 'dayjs'
 
 interface RelativeTimeProps {
-  time: string | undefined;
+  time: string | undefined
 }
 const RelativeTime: React.FC<RelativeTimeProps> = ({ time }) => {
-  return time ? <span>{dayjs(time).fromNow()}</span> : null;
-};
+  return time ? <span>{dayjs(time).fromNow()}</span> : null
+}
 
-export default RelativeTime;
+export default RelativeTime

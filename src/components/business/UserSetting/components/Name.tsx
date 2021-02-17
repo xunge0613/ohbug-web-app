@@ -1,26 +1,26 @@
-import React from 'react';
-import { Form, Input, Button } from 'antd';
+import React from 'react'
+import { Form, Input, Button } from 'antd'
 
-import type { User } from '@/interfaces';
-import { useRequest } from '@/hooks';
-import api from '@/api';
+import type { User } from '@/interfaces'
+import { useRequest } from '@/hooks'
+import api from '@/api'
 
 interface Props {
-  user: User;
+  user: User
 }
 const Name: React.FC<Props> = ({ user }) => {
-  const { run } = useRequest(api.user.update, { manual: true });
+  const { run } = useRequest(api.user.update, { manual: true })
   const handleFinish = React.useCallback(
     async (values) => {
       if (values) {
-        const result = await run({ id: user.id, ...values });
+        const result = await run({ id: user.id, ...values })
         if (result) {
-          window.location.reload();
+          window.location.reload()
         }
       }
     },
-    [run, user],
-  );
+    [run, user]
+  )
 
   return (
     <Form layout="vertical" hideRequiredMark onFinish={handleFinish}>
@@ -45,7 +45,7 @@ const Name: React.FC<Props> = ({ user }) => {
         </Button>
       </Form.Item>
     </Form>
-  );
-};
+  )
+}
 
-export default Name;
+export default Name

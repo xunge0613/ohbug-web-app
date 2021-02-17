@@ -1,20 +1,20 @@
-import React from 'react';
-import { useDispatch } from 'umi';
-import { Form, Input, Button, Select } from 'antd';
+import React from 'react'
+import { useDispatch } from 'umi'
+import { Form, Input, Button, Select } from 'antd'
 
-import { LoginTemplate } from '@/components';
+import { LoginTemplate } from '@/components'
 
-import styles from './CreateProject.less';
+import styles from './CreateProject.less'
 
 const CreateProject: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleFinish = React.useCallback(
     async (values) => {
-      dispatch({ type: 'project/create', payload: values });
+      dispatch({ type: 'project/create', payload: values })
     },
-    [dispatch],
-  );
+    [dispatch]
+  )
 
   return (
     <LoginTemplate
@@ -63,7 +63,7 @@ const CreateProject: React.FC = () => {
         </Button>
       </Form>
     </LoginTemplate>
-  );
-};
+  )
+}
 
-export default CreateProject;
+export default CreateProject

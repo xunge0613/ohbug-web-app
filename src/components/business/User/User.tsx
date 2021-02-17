@@ -1,34 +1,43 @@
-import React from 'react';
-import { Popover, Avatar } from 'antd';
-import dayjs from 'dayjs';
-import clsx from 'clsx';
+import React from 'react'
+import { Popover, Avatar } from 'antd'
+import dayjs from 'dayjs'
+import clsx from 'clsx'
 
-import { User } from '@/interfaces';
-import { getDefaultAvatar } from '@/utils';
+import { User } from '@/interfaces'
+import { getDefaultAvatar } from '@/utils'
 
-import styles from './User.less';
+import styles from './User.less'
 
 interface UserProps {
-  className?: string;
-  data: User;
-  hasName?: boolean;
+  className?: string
+  data: User
+  hasName?: boolean
 }
 const UserComponent: React.FC<UserProps> = ({ data, hasName, className }) => {
-  const avatar = React.useMemo(() => getDefaultAvatar({ id: data.id, name: data.name }), [data]);
+  const avatar = React.useMemo(
+    () => getDefaultAvatar({ id: data.id, name: data.name }),
+    [data]
+  )
   const content = React.useMemo(() => {
     return (
       <div className={styles.userContent}>
         <div className={styles.info}>
           <div className={styles.name}>{data.name}</div>
-          <div className={styles.time}>{dayjs(data.createdAt).fromNow()}加入</div>
+          <div className={styles.time}>
+            {dayjs(data.createdAt).fromNow()}加入
+          </div>
         </div>
-        <Avatar className={styles.avatar} src={data.avatar || avatar} size="large">
+        <Avatar
+          className={styles.avatar}
+          src={data.avatar || avatar}
+          size="large"
+        >
           {data.name?.[0]}
         </Avatar>
       </div>
-    );
-  }, [data]);
-  const classes = React.useMemo(() => clsx(styles.root, className), [className]);
+    )
+  }, [data])
+  const classes = React.useMemo(() => clsx(styles.root, className), [className])
 
   return (
     <Popover content={content} trigger="hover">
@@ -37,7 +46,7 @@ const UserComponent: React.FC<UserProps> = ({ data, hasName, className }) => {
         {hasName && <span className={styles.name}>{data.name}</span>}
       </span>
     </Popover>
-  );
-};
+  )
+}
 
-export default UserComponent;
+export default UserComponent

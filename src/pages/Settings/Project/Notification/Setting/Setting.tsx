@@ -1,31 +1,35 @@
-import React from 'react';
-import { useDispatch, useParams, useSelector } from 'umi';
-import { Form, Switch, Input, Space, Button, Table, Modal } from 'antd';
+import React from 'react'
+import { useDispatch, useParams, useSelector } from 'umi'
+import { Form, Switch, Input, Space, Button, Table, Modal } from 'antd'
 
-import type { RootState, NotificationSetting, NotificationSettingWebHook } from '@/interfaces';
-import { Zone, IconButton } from '@/components';
-import { useUpdateEffect, useBoolean } from '@/hooks';
-import { registerServiceWorker, askNotificationPermission } from '@/utils';
+import type {
+  RootState,
+  NotificationSetting,
+  NotificationSettingWebHook,
+} from '@/interfaces'
+import { Zone, IconButton } from '@/components'
+import { useUpdateEffect, useBoolean } from '@/hooks'
+import { registerServiceWorker, askNotificationPermission } from '@/utils'
 
-import EditWebhook from './EditWebhook';
+import EditWebhook from './EditWebhook'
 
-import styles from './Setting.less';
+import styles from './Setting.less'
 
 const Setting: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   // @ts-ignore
-  const { project_id } = useParams();
-  const [form] = Form.useForm();
-  const [currentRule, setCurrentRule] = React.useState<NotificationSettingWebHook | undefined>(
-    undefined,
-  );
-  const [currentSwitch, setCurrentSwitch] = React.useState<number>();
+  const { project_id } = useParams()
+  const [form] = Form.useForm()
+  const [currentRule, setCurrentRule] = React.useState<
+    NotificationSettingWebHook | undefined
+  >(undefined)
+  const [currentSwitch, setCurrentSwitch] = React.useState<number>()
   const [browserDisabled] = React.useState<boolean>(() => {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
-      return false;
+      return false
     }
-    return true;
-  });
+    return true
+  })
 
   React.useEffect(() => {
     dispatch({
@@ -33,31 +37,31 @@ const Setting: React.FC = () => {
       payload: {
         project_id,
       },
-    });
-  }, [project_id]);
+    })
+  }, [project_id])
   const setting = useSelector<RootState, NotificationSetting>(
-    (state) => state.notification?.settingData!,
-  );
+    (state) => state.notification?.settingData!
+  )
   const browserSwitchLoading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects['notification/setting/update']!,
-  );
+    (state) => state.loading.effects['notification/setting/update']!
+  )
   const switchLoading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects['notification/setting/webhooks/update']!,
-  );
+    (state) => state.loading.effects['notification/setting/webhooks/update']!
+  )
 
   useUpdateEffect(() => {
     if (setting) {
       form.setFieldsValue({
         ...setting,
         browser: setting?.browser?.open,
-      });
+      })
     }
-  }, [setting]);
+  }, [setting])
 
   const [
     webhookModalVisible,
     { setTrue: webhookModalShow, setFalse: webhookModalOnCancel },
-  ] = useBoolean(false);
+  ] = useBoolean(false)
 
   const handleBrowserChange = React.useCallback((checked: boolean) => {
     if (checked === true) {
@@ -75,19 +79,19 @@ const Setting: React.FC = () => {
                     data: JSON.parse(JSON.stringify(subscribeOptions)),
                   },
                 },
-              });
+              })
             }
-          });
+          })
         })
         .catch((err) => {
           dispatch({
             type: 'app/error',
             payload: err.message,
-          });
+          })
           form.setFieldsValue({
             browser: false,
-          });
-        });
+          })
+        })
     } else {
       dispatch({
         type: 'notification/setting/update',
@@ -98,25 +102,25 @@ const Setting: React.FC = () => {
             data: null,
           },
         },
-      });
+      })
     }
-  }, []);
+  }, [])
   const handleFinish = React.useCallback(
     (values) => {
-      const payload: NotificationSetting = {};
+      const payload: NotificationSetting = {}
       if (form.isFieldTouched('emails')) {
-        payload.emails = values.emails;
+        payload.emails = values.emails
         dispatch({
           type: 'notification/setting/update',
           payload: {
             project_id,
             ...payload,
           },
-        });
+        })
       }
     },
-    [project_id],
-  );
+    [project_id]
+  )
 
   return (
     <section className={styles.root}>
@@ -133,7 +137,11 @@ const Setting: React.FC = () => {
               <Space direction="vertical">
                 {fields.map((field, index) => (
                   <div className={styles.emailLine} key={field.key}>
-                    <Space style={{ width: 500 }} align="center" key={field.key}>
+                    <Space
+                      style={{ width: 500 }}
+                      align="center"
+                      key={field.key}
+                    >
                       <Form.Item
                         name={[field.name, 'email']}
                         hasFeedback
@@ -146,7 +154,7 @@ const Setting: React.FC = () => {
                         <Input
                           maxLength={100}
                           onBlur={() => {
-                            form.submit();
+                            form.submit()
                           }}
                         />
                       </Form.Item>
@@ -154,11 +162,11 @@ const Setting: React.FC = () => {
                         <IconButton
                           style={{ marginBottom: 16 }}
                           onClick={() => {
-                            const emails = form.getFieldValue('emails');
+                            const emails = form.getFieldValue('emails')
                             // 判断当前行是否输入内容
                             if (!emails[index].email) {
                               // 没有内容 直接删除行
-                              operation.remove(field.name);
+                              operation.remove(field.name)
                             } else {
                               Modal.confirm({
                                 title: '请确认是否删除?',
@@ -166,10 +174,10 @@ const Setting: React.FC = () => {
                                 okType: 'danger',
                                 cancelText: '取消',
                                 onOk() {
-                                  operation.remove(field.name);
-                                  setTimeout(form.submit, 0);
+                                  operation.remove(field.name)
+                                  setTimeout(form.submit, 0)
                                 },
-                              });
+                              })
                             }
                           }}
                           icon="icon-ohbug-indeterminate-circle-line"
@@ -180,7 +188,7 @@ const Setting: React.FC = () => {
                         <IconButton
                           style={{ marginBottom: 16 }}
                           onClick={() => {
-                            operation.add();
+                            operation.add()
                           }}
                           icon="icon-ohbug-add-circle-line"
                           size="small"
@@ -195,7 +203,7 @@ const Setting: React.FC = () => {
                     >
                       <Switch
                         onChange={() => {
-                          form.submit();
+                          form.submit()
                         }}
                       />
                     </Form.Item>
@@ -205,7 +213,7 @@ const Setting: React.FC = () => {
                   <IconButton
                     style={{ marginBottom: 16 }}
                     onClick={() => {
-                      operation.add();
+                      operation.add()
                     }}
                     icon="icon-ohbug-add-circle-line"
                     size="small"
@@ -245,8 +253,8 @@ const Setting: React.FC = () => {
               className={styles.addWebhook}
               icon="icon-ohbug-add-circle-line"
               onClick={() => {
-                setCurrentRule(undefined);
-                webhookModalShow();
+                setCurrentRule(undefined)
+                webhookModalShow()
               }}
             >
               +
@@ -264,7 +272,7 @@ const Setting: React.FC = () => {
                       {/* <Avatar></Avatar> */}
                       <span>{item.name}</span>
                     </span>
-                  );
+                  )
                 }}
               />
               <Table.Column
@@ -275,7 +283,7 @@ const Setting: React.FC = () => {
                       checked={item.open}
                       loading={switchLoading && currentSwitch === item?.id}
                       onChange={(checked) => {
-                        setCurrentSwitch(item?.id);
+                        setCurrentSwitch(item?.id)
                         dispatch({
                           type: 'notification/setting/webhooks/update',
                           payload: {
@@ -283,10 +291,10 @@ const Setting: React.FC = () => {
                             id: item.id,
                             open: checked,
                           },
-                        });
+                        })
                       }}
                     />
-                  );
+                  )
                 }}
               />
               <Table.Column
@@ -299,8 +307,8 @@ const Setting: React.FC = () => {
                         type="text"
                         size="small"
                         onClick={() => {
-                          setCurrentRule(item);
-                          webhookModalShow();
+                          setCurrentRule(item)
+                          webhookModalShow()
                         }}
                       >
                         修改
@@ -323,15 +331,15 @@ const Setting: React.FC = () => {
                                   id: item?.id,
                                   project_id,
                                 },
-                              });
+                              })
                             },
-                          });
+                          })
                         }}
                       >
                         删除
                       </Button>
                     </span>
-                  );
+                  )
                 }}
               />
             </Table>
@@ -339,7 +347,7 @@ const Setting: React.FC = () => {
         </Zone>
       </Form>
     </section>
-  );
-};
+  )
+}
 
-export default Setting;
+export default Setting

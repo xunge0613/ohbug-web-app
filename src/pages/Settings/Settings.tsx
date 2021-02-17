@@ -1,21 +1,27 @@
-import React from 'react';
-import { Card, Menu } from 'antd';
-import { useRouteMatch, useLocation, useParams, history, useSelector } from 'umi';
-import { pathToRegexp } from 'path-to-regexp';
+import React from 'react'
+import { Card, Menu } from 'antd'
+import {
+  useRouteMatch,
+  useLocation,
+  useParams,
+  history,
+  useSelector,
+} from 'umi'
+import { pathToRegexp } from 'path-to-regexp'
 
-import { Organization, RootState } from '@/interfaces';
-import BasicLayout from '@/layouts/Basic';
-import { IconButton } from '@/components';
+import { Organization, RootState } from '@/interfaces'
+import BasicLayout from '@/layouts/Basic'
+import { IconButton } from '@/components'
 
-import styles from './Settings.less';
+import styles from './Settings.less'
 
 interface MenuItem {
-  label: string;
-  key: string;
-  path?: string;
-  children?: MenuList;
+  label: string
+  key: string
+  path?: string
+  children?: MenuList
 }
-type MenuList = MenuItem[];
+type MenuList = MenuItem[]
 const organizationMenuList: MenuList = [
   {
     label: '团队设置',
@@ -32,7 +38,7 @@ const organizationMenuList: MenuList = [
     key: 'members',
     path: '/members',
   },
-];
+]
 const projectMenuList = (project_id?: number | string): MenuList => [
   {
     label: '项目设置',
@@ -65,8 +71,11 @@ const projectMenuList = (project_id?: number | string): MenuList => [
     key: `project/${project_id}/members`,
     path: `/project/${project_id}/members`,
   },
-];
-function renderMenu(menuList: MenuList, handleItemClick: (item: MenuItem) => void) {
+]
+function renderMenu(
+  menuList: MenuList,
+  handleItemClick: (item: MenuItem) => void
+) {
   return menuList.map((item) =>
     Array.isArray(item.children) ? (
       <Menu.SubMenu key={item.key} title={item.label}>
@@ -76,67 +85,82 @@ function renderMenu(menuList: MenuList, handleItemClick: (item: MenuItem) => voi
       <Menu.Item key={item.key} onClick={() => handleItemClick(item)}>
         {item.label}
       </Menu.Item>
-    ),
-  );
+    )
+  )
 }
 
 interface SettingsProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 const Settings: React.FC<SettingsProps> = ({ children }) => {
-  const match = useRouteMatch();
+  const match = useRouteMatch()
   // @ts-ignore
-  const { organization_id } = useParams();
-  const location = useLocation();
+  const { organization_id } = useParams()
+  const location = useLocation()
 
   const organization = useSelector<RootState, Organization>(
-    (state) => state.organization?.current!,
-  );
+    (state) => state.organization?.current!
+  )
   React.useEffect(() => {
     if (organization_id === 'current' && organization) {
-      history.replace(`/settings/${organization.id}`);
+      history.replace(`/settings/${organization.id}`)
     }
-  }, [organization]);
+  }, [organization])
 
-  const regexp = pathToRegexp('/settings/:organization_id/project/:project_id/(.*)');
+  const regexp = pathToRegexp(
+    '/settings/:organization_id/project/:project_id/(.*)'
+  )
   const isProjectSetting = React.useMemo(
-    () => location.pathname.includes('/project/') && match.url === `/settings/${organization_id}`,
-    [location, match, organization_id],
-  );
-  const project_id = React.useMemo(() => regexp.exec(location.pathname)?.[2], [regexp, location]);
+    () =>
+      location.pathname.includes('/project/') &&
+      match.url === `/settings/${organization_id}`,
+    [location, match, organization_id]
+  )
+  const project_id = React.useMemo(() => regexp.exec(location.pathname)?.[2], [
+    regexp,
+    location,
+  ])
   const menuList = React.useMemo(() => {
     if (isProjectSetting) {
-      return projectMenuList(project_id);
+      return projectMenuList(project_id)
     }
-    return organizationMenuList;
-  }, [isProjectSetting, project_id]);
+    return organizationMenuList
+  }, [isProjectSetting, project_id])
   const selectedKeys = React.useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, key] = location.pathname.split(`/settings/${organization_id}/`);
-    return [key];
-  }, [location, organization_id]);
+    const [, key] = location.pathname.split(`/settings/${organization_id}/`)
+    return [key]
+  }, [location, organization_id])
 
   const handleBack = React.useCallback(() => {
-    history.goBack();
-  }, []);
+    history.goBack()
+  }, [])
 
   return (
     <BasicLayout
       className={styles.root}
       pageHeader={
         <div className={styles.header}>
-          <IconButton icon="icon-ohbug-arrow-left-s-line" onClick={handleBack} />
+          <IconButton
+            icon="icon-ohbug-arrow-left-s-line"
+            onClick={handleBack}
+          />
         </div>
       }
     >
       <Card>
-        <Menu className={styles.leftMenu} selectedKeys={selectedKeys} mode="inline">
-          {renderMenu(menuList, (item) => history.replace(`${match.url}${item.path}`))}
+        <Menu
+          className={styles.leftMenu}
+          selectedKeys={selectedKeys}
+          mode="inline"
+        >
+          {renderMenu(menuList, (item) =>
+            history.replace(`${match.url}${item.path}`)
+          )}
         </Menu>
         <section className={styles.container}>{children}</section>
       </Card>
     </BasicLayout>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

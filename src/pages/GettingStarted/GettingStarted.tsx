@@ -1,17 +1,17 @@
-import React from 'react';
-import { useSelector } from 'umi';
-import { Typography, Button } from 'antd';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { githubGist as highlighterStyles } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import React from 'react'
+import { useSelector } from 'umi'
+import { Typography, Button } from 'antd'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { githubGist as highlighterStyles } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
-import type { ProjectModelState, RootState } from '@/interfaces';
+import type { ProjectModelState, RootState } from '@/interfaces'
 
-import styles from './GettingStarted.less';
+import styles from './GettingStarted.less'
 
 const GettingStarted: React.FC = () => {
   const project = useSelector<RootState, ProjectModelState['current']>(
-    (state) => state.project.current,
-  );
+    (state) => state.project.current
+  )
 
   return (
     <div className={styles.root}>
@@ -24,7 +24,8 @@ yarn add @ohbug/browser`}
       </SyntaxHighlighter>
 
       <Typography.Text>
-        紧接着在应用初始化的时候加载 <Typography.Text code>Ohbug Browser SDK</Typography.Text>：
+        紧接着在应用初始化的时候加载{' '}
+        <Typography.Text code>Ohbug Browser SDK</Typography.Text>：
       </Typography.Text>
 
       <SyntaxHighlighter language="javascript" style={highlighterStyles}>
@@ -37,7 +38,7 @@ Ohbug.init({ apiKey: '${project?.apiKey}' })`}
         进入问题列表
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default GettingStarted;
+export default GettingStarted

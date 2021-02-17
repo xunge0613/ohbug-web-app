@@ -5,10 +5,10 @@ export const intervalList = [
   { label: '3小时', value: 10800000 },
   { label: '6小时', value: 21600000 },
   { label: '12小时', value: 43200000 },
-];
+]
 
 export const levelList = [
   { label: '严重', value: 'serious', color: 'error' },
   { label: '警告', value: 'warning', color: 'warning' },
   { label: '默认', value: 'default', color: 'processing' },
-];
+]

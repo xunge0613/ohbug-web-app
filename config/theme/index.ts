@@ -18,4 +18,4 @@ export default {
   '@tabs-card-tab-active-border-top': '2px solid @primary-color',
   '@switch-color': '@info-color',
   '@wave-animation-width': '5px',
-};
+}

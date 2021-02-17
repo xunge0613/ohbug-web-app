@@ -1,1 +1,1 @@
-export { default } from './SourceMap';
+export { default } from './SourceMap'

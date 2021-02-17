@@ -1,28 +1,30 @@
-import React from 'react';
-import { Skeleton } from 'antd';
-import dayjs from 'dayjs';
+import React from 'react'
+import { Skeleton } from 'antd'
+import dayjs from 'dayjs'
 
-import type { EventModelState } from '@/interfaces';
-import { Icon, RelativeTime } from '@/components';
+import type { EventModelState } from '@/interfaces'
+import { Icon, RelativeTime } from '@/components'
 
-import Cards from './components/Cards';
-import TooltipTags from './components/TooltipTags';
+import Cards from './components/Cards'
+import TooltipTags from './components/TooltipTags'
 
-import styles from './Profile.less';
+import styles from './Profile.less'
 
 interface ProfileProps {
-  event: EventModelState['current'];
+  event: EventModelState['current']
 }
 const Profile: React.FC<ProfileProps> = ({ event }) => {
   const tooltipTagsList = React.useMemo(() => {
-    const result = [];
+    const result = []
     if (event?.timestamp) {
       result.push({
         key: 'time',
-        title: `发生时间: ${dayjs(event.timestamp).format(`YYYY-MM-DD HH:mm:ss`)}`,
+        title: `发生时间: ${dayjs(event.timestamp).format(
+          `YYYY-MM-DD HH:mm:ss`
+        )}`,
         value: <RelativeTime time={event.timestamp} />,
         icon: <Icon type="icon-ohbug-time-line" />,
-      });
+      })
     }
     if (event?.user?.uuid) {
       result.push({
@@ -30,7 +32,7 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         title: `UUID: ${event?.user?.uuid}`,
         value: event?.user?.uuid,
         icon: <Icon type="icon-ohbug-id-line" />,
-      });
+      })
     }
     if (event?.user?.ip_address) {
       result.push({
@@ -38,7 +40,7 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         title: `IP: ${event?.user?.ip_address}`,
         value: event?.user?.ip_address,
         icon: <Icon type="icon-ohbug-ip-line" />,
-      });
+      })
     }
     if (event?.device?.title) {
       result.push({
@@ -46,7 +48,7 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         title: `标题: ${event.device.title}`,
         value: event.device.title,
         icon: <Icon type="icon-ohbug-title-fill" />,
-      });
+      })
     }
     if (event?.device?.url) {
       result.push({
@@ -54,7 +56,7 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         title: `URL: ${event.device.url}`,
         value: event.device.url,
         icon: <Icon type="icon-ohbug-links-line" />,
-      });
+      })
     }
     if (event?.device?.language) {
       result.push({
@@ -62,7 +64,7 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         title: `Language: ${event.device.language}`,
         value: event.device.language,
         icon: <Icon type="icon-ohbug-global-line" />,
-      });
+      })
     }
     if (event?.releaseStage) {
       result.push({
@@ -70,7 +72,7 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         title: `ReleaseStage: ${event.releaseStage}`,
         value: event.releaseStage,
         icon: <Icon type="icon-ohbug-leaf-line" />,
-      });
+      })
     }
     if (
       event?.device?.device?.screenWidth &&
@@ -82,13 +84,13 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         title: `分辨率: ${event?.device?.device?.screenWidth} × ${event?.device?.device?.screenHeight} @ ${event?.device?.device?.pixelRatio}x`,
         value: `${event?.device?.device?.screenWidth} × ${event?.device?.device?.screenHeight} @ ${event?.device?.device?.pixelRatio}x`,
         icon: <Icon type="icon-ohbug-computer-line" />,
-      });
+      })
     }
 
-    return result;
-  }, [event]);
+    return result
+  }, [event])
 
-  const loading = !event;
+  const loading = !event
 
   return (
     <div className={styles.root}>
@@ -99,12 +101,17 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
       <div className={styles.tagsBox}>
         <Skeleton loading={loading}>
           {tooltipTagsList.map((item) => (
-            <TooltipTags key={item.key} title={item.title} value={item.value} icon={item.icon} />
+            <TooltipTags
+              key={item.key}
+              title={item.title}
+              value={item.value}
+              icon={item.icon}
+            />
           ))}
         </Skeleton>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

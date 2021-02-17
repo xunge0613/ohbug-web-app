@@ -1,20 +1,21 @@
-import React from 'react';
-import { Menu, Avatar, Typography, Dropdown } from 'antd';
-import { useDispatch, useSelector } from 'umi';
+import React from 'react'
+import { Menu, Avatar, Typography, Dropdown } from 'antd'
+import { useDispatch, useSelector } from 'umi'
 
-import { Logout, Icon } from '@/components';
-import type { RootState, User } from '@/interfaces';
-import { getDefaultAvatar } from '@/utils';
+import { Logout, Icon } from '@/components'
+import type { RootState, User } from '@/interfaces'
+import { getDefaultAvatar } from '@/utils'
 
-import styles from './UserBlock.less';
+import styles from './UserBlock.less'
 
 interface UserBlockProps {}
 const UserBlock: React.FC<UserBlockProps> = () => {
-  const dispatch = useDispatch();
-  const user = useSelector<RootState, User>((state) => state.user.current!);
-  const avatar = React.useMemo(() => user && getDefaultAvatar({ id: user.id, name: user.name }), [
-    user,
-  ]);
+  const dispatch = useDispatch()
+  const user = useSelector<RootState, User>((state) => state.user.current!)
+  const avatar = React.useMemo(
+    () => user && getDefaultAvatar({ id: user.id, name: user.name }),
+    [user]
+  )
   const menuList = React.useMemo(
     () => [
       {
@@ -27,7 +28,7 @@ const UserBlock: React.FC<UserBlockProps> = () => {
             payload: {
               userSettingVisible: true,
             },
-          });
+          })
         },
       },
       {
@@ -35,7 +36,7 @@ const UserBlock: React.FC<UserBlockProps> = () => {
         label: '官网',
         icon: <Icon type="icon-ohbug-home-smile-line" />,
         onClick: () => {
-          window.open('//ohbug.net');
+          window.open('//ohbug.net')
         },
       },
       {
@@ -43,7 +44,7 @@ const UserBlock: React.FC<UserBlockProps> = () => {
         label: '文档',
         icon: <Icon type="icon-ohbug-book-read-line" />,
         onClick: () => {
-          window.open('//ohbug.net/docs');
+          window.open('//ohbug.net/docs')
         },
       },
       // {
@@ -55,8 +56,8 @@ const UserBlock: React.FC<UserBlockProps> = () => {
       //   },
       // },
     ],
-    [],
-  );
+    []
+  )
   const menu = React.useMemo(() => {
     return (
       <Menu>
@@ -81,8 +82,8 @@ const UserBlock: React.FC<UserBlockProps> = () => {
           <Logout />
         </Menu.Item>
       </Menu>
-    );
-  }, [user]);
+    )
+  }, [user])
 
   return (
     <Dropdown
@@ -96,7 +97,7 @@ const UserBlock: React.FC<UserBlockProps> = () => {
         <Icon type="icon-ohbug-arrow-down-s-fill" />
       </div>
     </Dropdown>
-  );
-};
+  )
+}
 
-export default UserBlock;
+export default UserBlock

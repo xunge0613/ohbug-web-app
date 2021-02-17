@@ -1,4 +1,4 @@
-import { history } from 'umi';
+import { history } from 'umi'
 
 /**
  * 用于判断是否有权限进入当前页面
@@ -7,6 +7,6 @@ import { history } from 'umi';
  */
 export const useAccess = (hasAuth: boolean) => {
   if (!hasAuth) {
-    history.push('/403');
+    history.push('/403')
   }
-};
+}

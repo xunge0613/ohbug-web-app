@@ -1,24 +1,29 @@
-import React from 'react';
-import { useDispatch, useParams, useSelector } from 'umi';
-import { Table, Tag, Switch, Button, Modal } from 'antd';
-import dayjs from 'dayjs';
+import React from 'react'
+import { useDispatch, useParams, useSelector } from 'umi'
+import { Table, Tag, Switch, Button, Modal } from 'antd'
+import dayjs from 'dayjs'
 
-import type { RootState, NotificationRule } from '@/interfaces';
-import { Zone } from '@/components';
-import { useBoolean } from '@/hooks';
+import type { RootState, NotificationRule } from '@/interfaces'
+import { Zone } from '@/components'
+import { useBoolean } from '@/hooks'
 
-import EditRule from './EditRule';
-import { levelList } from './Rules.core';
+import EditRule from './EditRule'
+import { levelList } from './Rules.core'
 
-import styles from './Rules.less';
+import styles from './Rules.less'
 
 const Rules: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   // @ts-ignore
-  const { project_id } = useParams();
-  const [modalVisible, { setTrue: modalShow, setFalse: modalOnCancel }] = useBoolean(false);
-  const [currentRule, setCurrentRule] = React.useState<NotificationRule | undefined>(undefined);
-  const [currentSwitch, setCurrentSwitch] = React.useState<number>();
+  const { project_id } = useParams()
+  const [
+    modalVisible,
+    { setTrue: modalShow, setFalse: modalOnCancel },
+  ] = useBoolean(false)
+  const [currentRule, setCurrentRule] = React.useState<
+    NotificationRule | undefined
+  >(undefined)
+  const [currentSwitch, setCurrentSwitch] = React.useState<number>()
 
   React.useEffect(() => {
     dispatch({
@@ -26,12 +31,14 @@ const Rules: React.FC = () => {
       payload: {
         project_id,
       },
-    });
-  }, [project_id]);
-  const rules = useSelector<RootState, NotificationRule[]>((state) => state.notification?.ruleData);
+    })
+  }, [project_id])
+  const rules = useSelector<RootState, NotificationRule[]>(
+    (state) => state.notification?.ruleData
+  )
   const switchLoading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects['notification/rules/update']!,
-  );
+    (state) => state.loading.effects['notification/rules/update']!
+  )
 
   return (
     <section className={styles.root}>
@@ -46,8 +53,8 @@ const Rules: React.FC = () => {
         extra={
           <Button
             onClick={() => {
-              setCurrentRule(undefined);
-              modalShow();
+              setCurrentRule(undefined)
+              modalShow()
             }}
           >
             新建通知规则
@@ -71,8 +78,10 @@ const Rules: React.FC = () => {
           <Table.Column<NotificationRule>
             title="通知类型"
             render={(item: NotificationRule) => {
-              const { color, label } = levelList.find((v) => v.value === item.level)!;
-              return <Tag color={color}>{label}</Tag>;
+              const { color, label } = levelList.find(
+                (v) => v.value === item.level
+              )!
+              return <Tag color={color}>{label}</Tag>
             }}
           />
           <Table.Column<NotificationRule>
@@ -92,7 +101,7 @@ const Rules: React.FC = () => {
                 checked={item?.open}
                 loading={switchLoading && currentSwitch === item?.id}
                 onChange={(checked) => {
-                  setCurrentSwitch(item?.id);
+                  setCurrentSwitch(item?.id)
                   dispatch({
                     type: 'notification/rules/update',
                     payload: {
@@ -100,7 +109,7 @@ const Rules: React.FC = () => {
                       rule_id: item.id,
                       open: checked,
                     },
-                  });
+                  })
                 }}
               />
             )}
@@ -114,8 +123,8 @@ const Rules: React.FC = () => {
                   type="text"
                   size="small"
                   onClick={() => {
-                    setCurrentRule(item);
-                    modalShow();
+                    setCurrentRule(item)
+                    modalShow()
                   }}
                 >
                   修改
@@ -138,9 +147,9 @@ const Rules: React.FC = () => {
                             rule_id: item?.id,
                             project_id,
                           },
-                        });
+                        })
                       },
-                    });
+                    })
                   }}
                 >
                   删除
@@ -151,7 +160,7 @@ const Rules: React.FC = () => {
         </Table>
       </Zone>
     </section>
-  );
-};
+  )
+}
 
-export default Rules;
+export default Rules

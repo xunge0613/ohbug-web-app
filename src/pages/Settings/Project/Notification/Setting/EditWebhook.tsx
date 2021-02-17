@@ -1,12 +1,12 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'umi';
-import { Modal, Form, Input, Space, Tooltip, Button } from 'antd';
+import React from 'react'
+import { useDispatch, useSelector } from 'umi'
+import { Modal, Form, Input, Space, Tooltip, Button } from 'antd'
 
-import { RootState, NotificationSettingWebHook } from '@/interfaces';
-import { useUpdateEffect } from '@/hooks';
-import { IconButton, RadioIconButton, Icon } from '@/components';
+import { RootState, NotificationSettingWebHook } from '@/interfaces'
+import { useUpdateEffect } from '@/hooks'
+import { IconButton, RadioIconButton, Icon } from '@/components'
 
-import styles from './EditWebhook.less';
+import styles from './EditWebhook.less'
 
 const typeList = [
   {
@@ -24,12 +24,12 @@ const typeList = [
     value: 'others',
     icon: 'icon-ohbug-webhook-others',
   },
-];
+]
 interface EditWebhookProps {
-  project_id: number | string;
-  visible: boolean;
-  onCancel: () => void;
-  initialValues?: NotificationSettingWebHook;
+  project_id: number | string
+  visible: boolean
+  onCancel: () => void
+  initialValues?: NotificationSettingWebHook
 }
 const EditWebhook: React.FC<EditWebhookProps> = ({
   project_id,
@@ -37,45 +37,47 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
   onCancel,
   initialValues,
 }) => {
-  const dispatch = useDispatch();
-  const [form] = Form.useForm();
-  const [type, setType] = React.useState(() => (initialValues ? 'update' : 'create'));
+  const dispatch = useDispatch()
+  const [form] = Form.useForm()
+  const [type, setType] = React.useState(() =>
+    initialValues ? 'update' : 'create'
+  )
   const confirmLoading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects[`notification/setting/webhooks/${type}`]!,
-  );
+    (state) => state.loading.effects[`notification/setting/webhooks/${type}`]!
+  )
 
   useUpdateEffect(() => {
-    setType(initialValues ? 'update' : 'create');
+    setType(initialValues ? 'update' : 'create')
 
     if (initialValues) {
-      form.setFieldsValue(initialValues);
+      form.setFieldsValue(initialValues)
     } else {
-      form.resetFields();
+      form.resetFields()
     }
-  }, [initialValues]);
+  }, [initialValues])
 
   const handleOk = React.useCallback(() => {
-    form.submit();
-  }, []);
+    form.submit()
+  }, [])
   const handleFinish = React.useCallback(
     (value) => {
       const payload = {
         project_id,
         open: true,
         ...value,
-      };
+      }
       if (type === 'update') {
-        payload.id = initialValues?.id;
+        payload.id = initialValues?.id
       }
       dispatch({
         type: `notification/setting/webhooks/${type}`,
         payload,
-      });
+      })
       // eslint-disable-next-line no-unused-expressions
-      onCancel?.();
+      onCancel?.()
     },
-    [type, initialValues?.id],
-  );
+    [type, initialValues?.id]
+  )
 
   return (
     <Modal
@@ -140,7 +142,10 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
                 <Tooltip title="负责人的联系方式，多用于@对应负责人，通常为手机号。">
                   <span>
                     负责人
-                    <Icon className={styles.tip} type="icon-ohbug-question-fill" />
+                    <Icon
+                      className={styles.tip}
+                      type="icon-ohbug-question-fill"
+                    />
                   </span>
                 </Tooltip>
               }
@@ -154,7 +159,7 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
                     {fields.length > 0 ? (
                       <IconButton
                         onClick={() => {
-                          operation.remove(field.name);
+                          operation.remove(field.name)
                         }}
                         icon="icon-ohbug-indeterminate-circle-line"
                         size="small"
@@ -163,7 +168,7 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
                     {fields.length < 3 && index === fields.length - 1 && (
                       <IconButton
                         onClick={() => {
-                          operation.add();
+                          operation.add()
                         }}
                         icon="icon-ohbug-add-circle-line"
                         size="small"
@@ -175,7 +180,7 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
               {fields.length === 0 && (
                 <IconButton
                   onClick={() => {
-                    operation.add();
+                    operation.add()
                   }}
                   icon="icon-ohbug-add-circle-line"
                   size="small"
@@ -186,13 +191,17 @@ const EditWebhook: React.FC<EditWebhookProps> = ({
         </Form.List>
 
         <Form.Item label="参考文档" colon={false}>
-          <Button type="link" href="//ohbug.net/docs/dashboard/SettingProject" target="_blank">
+          <Button
+            type="link"
+            href="//ohbug.net/docs/dashboard/SettingProject"
+            target="_blank"
+          >
             接入指引
           </Button>
         </Form.Item>
       </Form>
     </Modal>
-  );
-};
+  )
+}
 
-export default EditWebhook;
+export default EditWebhook

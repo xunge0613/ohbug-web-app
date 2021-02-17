@@ -1,27 +1,27 @@
-import { history } from 'umi';
+import { history } from 'umi'
 
-import type { Model, RootState } from '@/interfaces';
-import api from '@/api';
-import { setAuth, clearAuth, getAuth } from '@/utils';
+import type { Model, RootState } from '@/interfaces'
+import api from '@/api'
+import { setAuth, clearAuth, getAuth } from '@/utils'
 
 export interface AuthModelState {
   oauth?: {
-    oauthType: 'github';
-    oauthUserDetail: any;
-  };
+    oauthType: 'github'
+    oauthUserDetail: any
+  }
 }
 export interface AuthModel extends Model<AuthModelState> {
-  namespace: 'auth';
+  namespace: 'auth'
 }
 
 function login(data: any) {
-  setAuth(data);
-  const hasAuth = getAuth();
+  setAuth(data)
+  const hasAuth = getAuth()
   if (hasAuth) {
-    sessionStorage.removeItem('persist:root');
-    history.push('/organization-project');
+    sessionStorage.removeItem('persist:root')
+    history.push('/organization-project')
   }
-  window.location.reload();
+  window.location.reload()
 }
 
 const auth: AuthModel = {
@@ -32,7 +32,7 @@ const auth: AuthModel = {
       return {
         ...state,
         oauth: action.payload,
-      };
+      }
     },
   },
   effects: {
@@ -41,23 +41,23 @@ const auth: AuthModel = {
         email,
         name,
         password,
-      });
+      })
 
       if (data) {
-        login(data);
+        login(data)
       }
     },
 
     *sendActivationEmail({ payload: { email } }, { call, put }) {
       const data = yield call(api.auth.sendActivationEmail, {
         email,
-      });
+      })
 
       if (data) {
         yield put({
           type: 'app/info',
           payload: '发送激活邮件成功，请前往邮箱检查邮件',
-        });
+        })
       }
     },
 
@@ -65,54 +65,57 @@ const auth: AuthModel = {
       const data = yield call(api.auth.login, {
         email,
         password,
-      });
+      })
 
       if (data) {
-        login(data);
+        login(data)
       }
 
-      const invite = yield select((state: RootState) => state.invite.current);
+      const invite = yield select((state: RootState) => state.invite.current)
       if (invite) {
         yield put({
           type: 'invite/bind',
-        });
+        })
       }
     },
 
     *github({ payload }, { select, call, put }) {
-      const data = yield call(api.auth.github, payload);
+      const data = yield call(api.auth.github, payload)
       if (data) {
-        login(data);
+        login(data)
       }
 
-      const invite = yield select((state: RootState) => state.invite.current);
+      const invite = yield select((state: RootState) => state.invite.current)
       if (invite) {
         yield put({
           type: 'invite/bind',
-        });
+        })
       }
     },
 
-    *bindUser({ payload: { email, captcha, oauthType, oauthUserDetail } }, { call }) {
+    *bindUser(
+      { payload: { email, captcha, oauthType, oauthUserDetail } },
+      { call }
+    ) {
       const data = yield call(api.auth.bindUser, {
         email,
         captcha,
         oauthType,
         oauthUserDetail,
-      });
+      })
       if (data) {
-        history.push('/organization-project');
+        history.push('/organization-project')
       }
     },
 
     logout() {
-      clearAuth();
-      sessionStorage.removeItem('persist:root');
+      clearAuth()
+      sessionStorage.removeItem('persist:root')
       setTimeout(() => {
-        history.push('/');
-      }, 0);
+        history.push('/')
+      }, 0)
     },
   },
-};
+}
 
-export default auth;
+export default auth

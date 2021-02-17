@@ -1,5 +1,10 @@
 export default [
-  { exact: true, path: '/', wrappers: ['@/wrappers/auth'], redirect: '/organization-project' },
+  {
+    exact: true,
+    path: '/',
+    wrappers: ['@/wrappers/auth'],
+    redirect: '/organization-project',
+  },
   {
     exact: true,
     path: '/organization-project',
@@ -84,12 +89,14 @@ export default [
       },
       {
         exact: true,
-        path: '/settings/:organization_id/project/:project_id/notification_rules',
+        path:
+          '/settings/:organization_id/project/:project_id/notification_rules',
         component: '@/pages/Settings/Project/Notification/Rules',
       },
       {
         exact: true,
-        path: '/settings/:organization_id/project/:project_id/notification_setting',
+        path:
+          '/settings/:organization_id/project/:project_id/notification_setting',
         component: '@/pages/Settings/Project/Notification/Setting',
       },
       {
@@ -218,4 +225,4 @@ export default [
   {
     redirect: '/404',
   },
-];
+]

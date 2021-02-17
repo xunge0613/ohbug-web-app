@@ -1,36 +1,41 @@
-import React from 'react';
-import { useDispatch, useParams, useSelector } from 'umi';
-import { Button, Modal, Table } from 'antd';
-import dayjs from 'dayjs';
+import React from 'react'
+import { useDispatch, useParams, useSelector } from 'umi'
+import { Button, Modal, Table } from 'antd'
+import dayjs from 'dayjs'
 
-import { RootState, Project, SourceMap, SourceMapModelState } from '@/interfaces';
-import { Zone } from '@/components';
-import { useMount } from '@/hooks';
+import {
+  RootState,
+  Project,
+  SourceMap,
+  SourceMapModelState,
+} from '@/interfaces'
+import { Zone } from '@/components'
+import { useMount } from '@/hooks'
 
-import styles from './SourceMap.less';
+import styles from './SourceMap.less'
 
 const SourceMapCompnent: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   // @ts-ignore
-  const { project_id } = useParams();
+  const { project_id } = useParams()
 
   const project = useSelector<RootState, Project>(
     // eslint-disable-next-line eqeqeq
-    (state) => state?.project?.data?.find((pro) => pro.id == project_id)!,
-  );
+    (state) => state?.project?.data?.find((pro) => pro.id == project_id)!
+  )
   const dataSource = useSelector<RootState, SourceMapModelState['data']>(
-    (state) => state.sourceMap?.data,
-  );
+    (state) => state.sourceMap?.data
+  )
   const loading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects['sourceMap/get']!,
-  );
+    (state) => state.loading.effects['sourceMap/get']!
+  )
 
   useMount(() => {
     dispatch({
       type: 'sourceMap/get',
       payload: { project },
-    });
-  });
+    })
+  })
 
   return (
     <section className={styles.root}>
@@ -44,7 +49,11 @@ const SourceMapCompnent: React.FC = () => {
           <Table.Column<SourceMap>
             title="文件名"
             render={(item) => (
-              <span>{item?.data?.map(({ originalname }: any) => originalname).join(',')}</span>
+              <span>
+                {item?.data
+                  ?.map(({ originalname }: any) => originalname)
+                  .join(',')}
+              </span>
             )}
           />
           <Table.Column<SourceMap>
@@ -57,7 +66,11 @@ const SourceMapCompnent: React.FC = () => {
           />
           <Table.Column<SourceMap>
             title="上传时间"
-            render={(item) => <span>{dayjs(item?.createdAt).format('YYYY-MM-DD HH:mm:ss')}</span>}
+            render={(item) => (
+              <span>
+                {dayjs(item?.createdAt).format('YYYY-MM-DD HH:mm:ss')}
+              </span>
+            )}
           />
           <Table.Column<SourceMap>
             title="操作"
@@ -80,9 +93,9 @@ const SourceMapCompnent: React.FC = () => {
                             sourceMap_id: item?.id,
                             project,
                           },
-                        });
+                        })
                       },
-                    });
+                    })
                   }}
                 >
                   删除
@@ -93,7 +106,7 @@ const SourceMapCompnent: React.FC = () => {
         </Table>
       </Zone>
     </section>
-  );
-};
+  )
+}
 
-export default SourceMapCompnent;
+export default SourceMapCompnent

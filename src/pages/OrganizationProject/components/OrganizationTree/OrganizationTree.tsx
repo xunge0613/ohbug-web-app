@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card, Typography } from 'antd';
-import { ConfigContext } from 'antd/lib/config-provider';
-import { history, useDispatch, useSelector } from 'umi';
+import React from 'react'
+import { Card, Typography } from 'antd'
+import { ConfigContext } from 'antd/lib/config-provider'
+import { history, useDispatch, useSelector } from 'umi'
 
 import type {
   RootState,
@@ -9,29 +9,34 @@ import type {
   Organization,
   Project,
   User as IUser,
-} from '@/interfaces';
-import { SwitchOrganization, Tree, Image, IconButton, User } from '@/components';
-import type { TreeDataSource } from '@/components';
-import { getPlatformLogo, isAdmin } from '@/utils';
+} from '@/interfaces'
+import { SwitchOrganization, Tree, Image, IconButton, User } from '@/components'
+import type { TreeDataSource } from '@/components'
+import { getPlatformLogo, isAdmin } from '@/utils'
 
-import styles from './OrganizationTree.less';
+import styles from './OrganizationTree.less'
 
 interface OrganizationTreeProps {
-  organization: Organization;
-  projects: Project[];
+  organization: Organization
+  projects: Project[]
 }
 interface DataSourceValue {
-  title: string;
-  avatar?: string;
-  desc?: string;
-  others?: any;
+  title: string
+  avatar?: string
+  desc?: string
+  others?: any
 }
-const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, projects }) => {
-  const dispatch = useDispatch();
+const OrganizationTree: React.FC<OrganizationTreeProps> = ({
+  organization,
+  projects,
+}) => {
+  const dispatch = useDispatch()
   const currentProject = useSelector<RootState, ProjectModelState['current']>(
-    (state) => state.project.current,
-  );
-  const user_current = useSelector<RootState, IUser>((state) => state?.user?.current!);
+    (state) => state.project.current
+  )
+  const user_current = useSelector<RootState, IUser>(
+    (state) => state?.user?.current!
+  )
 
   const dataSource = React.useMemo<TreeDataSource<DataSourceValue>>(() => {
     return {
@@ -53,7 +58,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
                     spin
                     icon="icon-ohbug-settings-3-line"
                     onClick={() => {
-                      history.push(`settings/${organization.id}`);
+                      history.push(`settings/${organization.id}`)
                     }}
                   />
                 </div>
@@ -62,7 +67,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
           >
             <Typography.Text type="secondary">{value.others}</Typography.Text>
           </Card>
-        );
+        )
       },
       children: projects.map((project) => ({
         key: project.id,
@@ -79,8 +84,8 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
               payload: {
                 current: project,
               },
-            });
-            history.push(`/issue?project_id=${project.id}`);
+            })
+            history.push(`/issue?project_id=${project.id}`)
           }
 
           return (
@@ -108,7 +113,9 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
                   spin
                   icon="icon-ohbug-settings-3-line"
                   onClick={() => {
-                    history.push(`/settings/${organization.id}/project/${value.others.id}`);
+                    history.push(
+                      `/settings/${organization.id}/project/${value.others.id}`
+                    )
                   }}
                 />
               </div>
@@ -118,18 +125,18 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
                 ))}
               </div>
             </Card>
-          );
+          )
         },
       })),
-    };
-  }, [organization, projects]);
+    }
+  }, [organization, projects])
 
-  const [value, setValue] = React.useState(() => currentProject?.id);
+  const [value, setValue] = React.useState(() => currentProject?.id)
   const handleChange = React.useCallback((key) => {
-    setValue(key);
-  }, []);
+    setValue(key)
+  }, [])
 
-  const { renderEmpty } = React.useContext(ConfigContext);
+  const { renderEmpty } = React.useContext(ConfigContext)
 
   return (
     <Tree
@@ -143,7 +150,7 @@ const OrganizationTree: React.FC<OrganizationTreeProps> = ({ organization, proje
       lineClassName={styles.line}
       empty={renderEmpty('Tree')}
     />
-  );
-};
+  )
+}
 
-export default OrganizationTree;
+export default OrganizationTree

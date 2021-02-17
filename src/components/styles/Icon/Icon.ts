@@ -1,5 +1,5 @@
-import { createFromIconfontCN } from '@ant-design/icons';
-import { ICONFONT_URL } from '@/config';
+import { createFromIconfontCN } from '@ant-design/icons'
+import { ICONFONT_URL } from '@/config'
 
 const Icon = createFromIconfontCN({
   scriptUrl: ICONFONT_URL,
@@ -8,6 +8,6 @@ const Icon = createFromIconfontCN({
       fontSize: 16,
     },
   },
-});
+})
 
-export default Icon;
+export default Icon

@@ -1,21 +1,23 @@
-import React from 'react';
-import { useLocation, Link } from 'umi';
+import React from 'react'
+import { useLocation, Link } from 'umi'
 
-import BasicLayout from '@/layouts/Basic';
-import { useRequest } from '@/hooks';
-import api from '@/api';
-import { Loading } from '@/components';
+import BasicLayout from '@/layouts/Basic'
+import { useRequest } from '@/hooks'
+import api from '@/api'
+import { Loading } from '@/components'
 
 const Activate: React.FC = () => {
-  const location = useLocation() as any;
-  const captcha = location?.query?.captcha;
+  const location = useLocation() as any
+  const captcha = location?.query?.captcha
 
-  const { run, data, error, loading } = useRequest(api.auth.activate, { manual: true });
+  const { run, data, error, loading } = useRequest(api.auth.activate, {
+    manual: true,
+  })
   React.useEffect(() => {
     if (typeof captcha === 'string') {
-      run({ captcha });
+      run({ captcha })
     }
-  }, [captcha]);
+  }, [captcha])
 
   return (
     <BasicLayout>
@@ -26,7 +28,7 @@ const Activate: React.FC = () => {
 
       <Link to="/">前往 Ohbug 控制台</Link>
     </BasicLayout>
-  );
-};
+  )
+}
 
-export default Activate;
+export default Activate

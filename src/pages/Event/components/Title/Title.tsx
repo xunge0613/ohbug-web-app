@@ -1,11 +1,11 @@
-import React from 'react';
-import { Row, Col, Skeleton, Typography, Card, Statistic } from 'antd';
+import React from 'react'
+import { Row, Col, Skeleton, Typography, Card, Statistic } from 'antd'
 // import clsx from 'clsx';
 
-import type { EventModelState, IssueModelState } from '@/interfaces';
-import { Image } from '@/components';
+import type { EventModelState, IssueModelState } from '@/interfaces'
+import { Image } from '@/components'
 
-import styles from './Title.less';
+import styles from './Title.less'
 
 // interface TrendProps {
 //   data: number;
@@ -21,12 +21,12 @@ import styles from './Title.less';
 // };
 
 interface TitleProps {
-  event: EventModelState['current'];
-  issue: IssueModelState['current'];
+  event: EventModelState['current']
+  issue: IssueModelState['current']
 }
 const Title: React.FC<TitleProps> = ({ event, issue }) => {
-  const leftLoading = !event;
-  const rightLoading = !issue;
+  const leftLoading = !event
+  const rightLoading = !issue
   return (
     <Row className={styles.root} gutter={24}>
       <Col className={styles.left} xs={24} sm={24} md={18}>
@@ -71,7 +71,7 @@ const Title: React.FC<TitleProps> = ({ event, issue }) => {
         </Skeleton>
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default Title;
+export default Title

@@ -1,13 +1,13 @@
-type Type = 'JavaScript' | 'NodeJS' | string;
+type Type = 'JavaScript' | 'NodeJS' | string
 function getPlatformLogo(type: Type): string {
   switch (type) {
     case 'JavaScript':
-      return require('@/static/images/JavaScript.jpg'); // eslint-disable-line global-require
+      return require('@/static/images/JavaScript.jpg') // eslint-disable-line global-require
     case 'NodeJS':
-      return require('@/static/images/NodeJS.jpg'); // eslint-disable-line global-require
+      return require('@/static/images/NodeJS.jpg') // eslint-disable-line global-require
     default:
-      return require('@/static/images/JavaScript.jpg'); // eslint-disable-line global-require
+      return require('@/static/images/JavaScript.jpg') // eslint-disable-line global-require
   }
 }
 
-export default getPlatformLogo;
+export default getPlatformLogo

@@ -1,10 +1,10 @@
-import React from 'react';
-import { Tag, Tooltip } from 'antd';
+import React from 'react'
+import { Tag, Tooltip } from 'antd'
 
 interface TooltipTagsProps {
-  title: React.ReactChild;
-  value: any;
-  icon: React.ReactNode;
+  title: React.ReactChild
+  value: any
+  icon: React.ReactNode
 }
 const TooltipTags: React.FC<TooltipTagsProps> = ({ title, value, icon }) => (
   <Tooltip title={title}>
@@ -12,6 +12,6 @@ const TooltipTags: React.FC<TooltipTagsProps> = ({ title, value, icon }) => (
       {value}
     </Tag>
   </Tooltip>
-);
+)
 
-export default TooltipTags;
+export default TooltipTags

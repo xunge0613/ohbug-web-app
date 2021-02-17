@@ -1,1 +1,1 @@
-export { default } from './menuHeaderRender';
+export { default } from './menuHeaderRender'

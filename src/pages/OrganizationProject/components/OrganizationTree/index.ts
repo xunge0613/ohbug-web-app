@@ -1,1 +1,1 @@
-export { default } from './OrganizationTree';
+export { default } from './OrganizationTree'

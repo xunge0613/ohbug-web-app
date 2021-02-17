@@ -1,33 +1,33 @@
-import React from 'react';
-import { Form, Input, Button, Select, List, Typography } from 'antd';
-import { useDispatch, useSelector, useParams } from 'umi';
+import React from 'react'
+import { Form, Input, Button, Select, List, Typography } from 'antd'
+import { useDispatch, useSelector, useParams } from 'umi'
 
-import { RootState, Project } from '@/interfaces';
-import { Zone } from '@/components';
+import { RootState, Project } from '@/interfaces'
+import { Zone } from '@/components'
 
-import styles from './Profile.less';
+import styles from './Profile.less'
 
 const Profile: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   // @ts-ignore
-  const { organization_id, project_id } = useParams();
+  const { organization_id, project_id } = useParams()
   const project = useSelector<RootState, Project>(
     (state) =>
       state.organization?.data
         // eslint-disable-next-line eqeqeq
         ?.find((org) => org.id == organization_id)
         // eslint-disable-next-line eqeqeq
-        ?.projects?.find((pro) => pro.id == project_id)!,
-  );
+        ?.projects?.find((pro) => pro.id == project_id)!
+  )
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
   const handleFinish = React.useCallback(
     (values) => {
-      dispatch({ type: 'project/update', payload: { ...values, project_id } });
+      dispatch({ type: 'project/update', payload: { ...values, project_id } })
     },
-    [dispatch],
-  );
+    [dispatch]
+  )
 
   const dataSource = React.useMemo(
     () => [
@@ -48,13 +48,18 @@ const Profile: React.FC = () => {
         ],
       },
     ],
-    [project],
-  );
+    [project]
+  )
 
   return (
     <section className={styles.root}>
       <Zone title="项目基本信息">
-        <Form layout="vertical" form={form} hideRequiredMark onFinish={handleFinish}>
+        <Form
+          layout="vertical"
+          form={form}
+          hideRequiredMark
+          onFinish={handleFinish}
+        >
           <Form.Item
             className={styles.formItem}
             name="name"
@@ -106,13 +111,16 @@ const Profile: React.FC = () => {
           dataSource={dataSource}
           renderItem={(item) => (
             <List.Item actions={item.actions}>
-              <List.Item.Meta title={item.title} description={item.description} />
+              <List.Item.Meta
+                title={item.title}
+                description={item.description}
+              />
             </List.Item>
           )}
         />
       </Zone>
     </section>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

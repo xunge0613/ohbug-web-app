@@ -1,45 +1,53 @@
-import React from 'react';
-import { Row, Col, Form, Input, Button } from 'antd';
-import { useDispatch, useSelector, useParams, history } from 'umi';
+import React from 'react'
+import { Row, Col, Form, Input, Button } from 'antd'
+import { useDispatch, useSelector, useParams, history } from 'umi'
 
-import { RootState, Organization, User } from '@/interfaces';
-import { Zone } from '@/components';
-import { useAccess } from '@/hooks';
-import { isAdmin } from '@/utils';
+import { RootState, Organization, User } from '@/interfaces'
+import { Zone } from '@/components'
+import { useAccess } from '@/hooks'
+import { isAdmin } from '@/utils'
 
-import DangerZone from './DangerZone';
+import DangerZone from './DangerZone'
 
-import styles from './Profile.less';
+import styles from './Profile.less'
 
 const Profile: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   // @ts-ignore
-  const { organization_id } = useParams();
-  if (!organization_id) history.push('/404');
+  const { organization_id } = useParams()
+  if (!organization_id) history.push('/404')
   const organization = useSelector<RootState, Organization>(
     (state) =>
       // eslint-disable-next-line eqeqeq
-      state.organization?.data?.find((org) => org.id == organization_id)!,
-  );
-  const user = useSelector<RootState, User>((state) => state?.user?.current!);
-  if (!organization) history.push('/404');
-  useAccess(isAdmin(organization?.admin?.id, user?.id));
+      state.organization?.data?.find((org) => org.id == organization_id)!
+  )
+  const user = useSelector<RootState, User>((state) => state?.user?.current!)
+  if (!organization) history.push('/404')
+  useAccess(isAdmin(organization?.admin?.id, user?.id))
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
   const handleFinish = React.useCallback(
     (values) => {
-      dispatch({ type: 'organization/update', payload: { ...values, organization_id } });
+      dispatch({
+        type: 'organization/update',
+        payload: { ...values, organization_id },
+      })
     },
-    [dispatch],
-  );
+    [dispatch]
+  )
 
   return (
     <section className={styles.root}>
       <Zone title="团队基本信息">
         <Row gutter={16}>
           <Col span={12}>
-            <Form layout="vertical" form={form} hideRequiredMark onFinish={handleFinish}>
+            <Form
+              layout="vertical"
+              form={form}
+              hideRequiredMark
+              onFinish={handleFinish}
+            >
               <Form.Item
                 className={styles.formItem}
                 name="name"
@@ -70,7 +78,11 @@ const Profile: React.FC = () => {
                   },
                 ]}
               >
-                <Input.TextArea placeholder="非必填项" maxLength={140} autoSize />
+                <Input.TextArea
+                  placeholder="非必填项"
+                  maxLength={140}
+                  autoSize
+                />
               </Form.Item>
 
               <Form.Item className={styles.formItem}>
@@ -87,7 +99,7 @@ const Profile: React.FC = () => {
         <DangerZone organization={organization} />
       </Zone>
     </section>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

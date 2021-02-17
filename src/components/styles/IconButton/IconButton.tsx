@@ -1,17 +1,17 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from 'react'
+import clsx from 'clsx'
 
-import { Icon } from '@/components';
+import { Icon } from '@/components'
 
-import styles from './IconButton.less';
+import styles from './IconButton.less'
 
 interface IconButtonProps {
-  [key: string]: any;
-  spin?: boolean;
-  icon: string;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any;
-  size?: 'default' | 'small' | 'large';
-  type?: 'default' | 'primary';
+  [key: string]: any
+  spin?: boolean
+  icon: string
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any
+  size?: 'default' | 'small' | 'large'
+  type?: 'default' | 'primary'
 }
 const IconButton: React.FC<IconButtonProps> = ({
   spin,
@@ -29,12 +29,12 @@ const IconButton: React.FC<IconButtonProps> = ({
     [styles.sizeSmall]: size === 'small',
     [styles.sizeDefault]: size === 'default',
     [styles.sizeLarge]: size === 'large',
-  });
+  })
   return (
     <button className={classes} type="button" onClick={onClick} {...args}>
       <Icon type={icon} />
     </button>
-  );
-};
+  )
+}
 
-export default IconButton;
+export default IconButton

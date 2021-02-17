@@ -1,6 +1,6 @@
-import React from 'react';
-import { Result, Button } from 'antd';
-import { Link } from 'umi';
+import React from 'react'
+import { Result, Button } from 'antd'
+import { Link } from 'umi'
 
 export default () => (
   <Result
@@ -16,4 +16,4 @@ export default () => (
       </Link>
     }
   />
-);
+)

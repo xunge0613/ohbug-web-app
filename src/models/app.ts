@@ -1,25 +1,25 @@
-import { message, notification } from 'antd';
+import { message, notification } from 'antd'
 
-import type { Model } from '@/interfaces';
+import type { Model } from '@/interfaces'
 
 export interface AppModel extends Model {
-  namespace: 'app';
+  namespace: 'app'
 }
 
 const app: AppModel = {
   namespace: 'app',
   effects: {
     error({ payload }) {
-      message.error(payload, 5);
+      message.error(payload, 5)
     },
     info({ payload }) {
-      message.info(payload);
+      message.info(payload)
     },
     notification({ payload: { type, config } }) {
       // @ts-ignore
-      notification?.[type]?.(config);
+      notification?.[type]?.(config)
     },
   },
-};
+}
 
-export default app;
+export default app

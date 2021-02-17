@@ -1,21 +1,21 @@
-let url = '';
+let url = ''
 
 // eslint-disable-next-line no-restricted-globals
 self.addEventListener('push', function (event) {
-  const { title, body, link, icon } = event.data.json();
-  url = link;
+  const { title, body, link, icon } = event.data.json()
+  url = link
   event.waitUntil(
     // eslint-disable-next-line no-restricted-globals
     self.self.registration.showNotification(title, {
       body,
       icon,
-    }),
-  );
-});
+    })
+  )
+})
 
 // eslint-disable-next-line no-restricted-globals
 self.addEventListener('notificationclick', function (event) {
-  event.notification.close();
+  event.notification.close()
   event.waitUntil(
     // eslint-disable-next-line no-undef
     clients
@@ -26,8 +26,8 @@ self.addEventListener('notificationclick', function (event) {
         // eslint-disable-next-line no-undef
         if (clients.openWindow) {
           // eslint-disable-next-line no-undef
-          clients.openWindow(url);
+          clients.openWindow(url)
         }
-      }),
-  );
-});
+      })
+  )
+})

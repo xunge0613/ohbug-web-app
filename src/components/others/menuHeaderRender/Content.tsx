@@ -1,24 +1,32 @@
-import React from 'react';
-import { Drawer, Typography, Divider, Skeleton, Avatar } from 'antd';
-import { useDispatch, useSelector } from 'umi';
+import React from 'react'
+import { Drawer, Typography, Divider, Skeleton, Avatar } from 'antd'
+import { useDispatch, useSelector } from 'umi'
 
-import { RootState, ProjectModelState, OrganizationModelState, history } from '@/interfaces';
-import { Icon, IconButton, SwitchOrganization } from '@/components';
-import { useBoolean } from '@/hooks';
-import { getPlatformLogo } from '@/utils';
+import {
+  RootState,
+  ProjectModelState,
+  OrganizationModelState,
+  history,
+} from '@/interfaces'
+import { Icon, IconButton, SwitchOrganization } from '@/components'
+import { useBoolean } from '@/hooks'
+import { getPlatformLogo } from '@/utils'
 
-import styles from './menuHeaderRender.less';
+import styles from './menuHeaderRender.less'
 
 const Content: React.FC = () => {
-  const dispatch = useDispatch();
-  const [visible, { setTrue, setFalse }] = useBoolean(false);
-  const organization = useSelector<RootState, OrganizationModelState['current']>(
-    (state) => state.organization.current,
-  );
+  const dispatch = useDispatch()
+  const [visible, { setTrue, setFalse }] = useBoolean(false)
+  const organization = useSelector<
+    RootState,
+    OrganizationModelState['current']
+  >((state) => state.organization.current)
   const project = useSelector<RootState, ProjectModelState['current']>(
-    (state) => state.project.current,
-  );
-  const projects = useSelector<RootState, ProjectModelState['data']>((state) => state.project.data);
+    (state) => state.project.current
+  )
+  const projects = useSelector<RootState, ProjectModelState['data']>(
+    (state) => state.project.data
+  )
 
   return (
     <>
@@ -30,7 +38,9 @@ const Content: React.FC = () => {
             <Typography.Text className={styles.organization} ellipsis>
               {organization.name}
             </Typography.Text>
-            <Typography.Text className={styles.project}>{project.name}</Typography.Text>
+            <Typography.Text className={styles.project}>
+              {project.name}
+            </Typography.Text>
           </div>
         )}
       </div>
@@ -66,24 +76,31 @@ const Content: React.FC = () => {
                     payload: {
                       current: item,
                     },
-                  });
-                  history.push(`/issue?project_id=${item.id}`);
-                  setFalse();
+                  })
+                  history.push(`/issue?project_id=${item.id}`)
+                  setFalse()
                 }
 
                 return (
-                  <div className={styles.item} key={item.id} onClick={handleClick}>
-                    <Avatar className={styles.avatar} src={getPlatformLogo(item.type)} />
+                  <div
+                    className={styles.item}
+                    key={item.id}
+                    onClick={handleClick}
+                  >
+                    <Avatar
+                      className={styles.avatar}
+                      src={getPlatformLogo(item.type)}
+                    />
                     {item.name}
                   </div>
-                );
+                )
               })}
             </div>
           </Skeleton>
         </div>
       </Drawer>
     </>
-  );
-};
+  )
+}
 
-export default Content;
+export default Content

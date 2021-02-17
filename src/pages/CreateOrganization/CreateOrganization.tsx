@@ -1,45 +1,45 @@
-import React from 'react';
-import { useDispatch } from 'umi';
-import { Form, Input, Button, Divider } from 'antd';
+import React from 'react'
+import { useDispatch } from 'umi'
+import { Form, Input, Button, Divider } from 'antd'
 
-import { LoginTemplate } from '@/components';
+import { LoginTemplate } from '@/components'
 
-import styles from './CreateOrganization.less';
+import styles from './CreateOrganization.less'
 
 const CreateOrganization: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [verified, setVerified] = React.useState(false);
+  const [verified, setVerified] = React.useState(false)
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
 
   const handleFinish = React.useCallback(
     (values) => {
-      dispatch({ type: 'organization/create', payload: values });
-      setVerified(true);
+      dispatch({ type: 'organization/create', payload: values })
+      setVerified(true)
     },
-    [dispatch, setVerified],
-  );
+    [dispatch, setVerified]
+  )
   const handleFinishFailed = React.useCallback(() => {
-    setVerified(false);
-  }, [setVerified]);
+    setVerified(false)
+  }, [setVerified])
 
   const handleInputChange = React.useCallback(
     (e) => {
       form.setFieldsValue({
         [e.target.id]: e.target.value,
-      });
+      })
       form
         .validateFields()
         .then(() => {
-          setVerified(true);
+          setVerified(true)
         })
         .catch(() => {
-          setVerified(false);
-        });
+          setVerified(false)
+        })
     },
-    [form],
-  );
+    [form]
+  )
 
   return (
     <LoginTemplate
@@ -69,7 +69,11 @@ const CreateOrganization: React.FC = () => {
             },
           ]}
         >
-          <Input placeholder="例如：抓BUG小分队" onChange={handleInputChange} maxLength={12} />
+          <Input
+            placeholder="例如：抓BUG小分队"
+            onChange={handleInputChange}
+            maxLength={12}
+          />
         </Form.Item>
         <Form.Item
           label="团队简介"
@@ -91,12 +95,16 @@ const CreateOrganization: React.FC = () => {
 
         <Divider dashed />
 
-        <Button className={styles.submit} htmlType="submit" disabled={!verified}>
+        <Button
+          className={styles.submit}
+          htmlType="submit"
+          disabled={!verified}
+        >
           创建团队
         </Button>
       </Form>
     </LoginTemplate>
-  );
-};
+  )
+}
 
-export default CreateOrganization;
+export default CreateOrganization

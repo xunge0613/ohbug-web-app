@@ -1,23 +1,28 @@
-import React from 'react';
-import { Card, Typography } from 'antd';
-import clsx from 'clsx';
+import React from 'react'
+import { Card, Typography } from 'antd'
+import clsx from 'clsx'
 
-import styles from './ProgressCard.less';
+import styles from './ProgressCard.less'
 
 interface ProgressCardProps {
-  icon?: React.ReactNode;
-  title: string;
-  description: string;
-  percent?: number;
+  icon?: React.ReactNode
+  title: string
+  description: string
+  percent?: number
 }
-const ProgressCard: React.FC<ProgressCardProps> = ({ icon, title, description, percent }) => {
+const ProgressCard: React.FC<ProgressCardProps> = ({
+  icon,
+  title,
+  description,
+  percent,
+}) => {
   const progressStyles = React.useMemo(
     () =>
       clsx(styles.progress, {
         [styles.white]: percent && percent >= 60,
       }),
-    [percent],
-  );
+    [percent]
+  )
 
   return (
     <Card className={styles.root}>
@@ -40,7 +45,7 @@ const ProgressCard: React.FC<ProgressCardProps> = ({ icon, title, description, p
         )}
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default ProgressCard;
+export default ProgressCard

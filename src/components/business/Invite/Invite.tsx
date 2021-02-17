@@ -1,77 +1,87 @@
-import React from 'react';
-import { Modal, Button, Typography, Space, Radio, Checkbox } from 'antd';
-import type { User, Project } from 'umi';
+import React from 'react'
+import { Modal, Button, Typography, Space, Radio, Checkbox } from 'antd'
+import type { User, Project } from 'umi'
 
-import { useCounter, useControllableValue, useRequest } from '@/hooks';
-import { IconButton } from '@/components';
-import api from '@/api';
+import { useCounter, useControllableValue, useRequest } from '@/hooks'
+import { IconButton } from '@/components'
+import api from '@/api'
 
-import styles from './Invite.less';
+import styles from './Invite.less'
 
 const defaultValue = {
   memberState: 'default',
   projectCheckedList: [],
   projectCheckAll: false,
   projectIndeterminate: false,
-};
-interface InviteProps {
-  projects?: Project[];
-  organization_id?: number | string;
-  user?: User;
-  visible: boolean;
-  onCancel: () => void;
 }
-const Invite: React.FC<InviteProps> = ({ projects, organization_id, user, visible, onCancel }) => {
-  const [currentStep, { inc, dec, reset }] = useCounter(0, { min: 0, max: 2 });
+interface InviteProps {
+  projects?: Project[]
+  organization_id?: number | string
+  user?: User
+  visible: boolean
+  onCancel: () => void
+}
+const Invite: React.FC<InviteProps> = ({
+  projects,
+  organization_id,
+  user,
+  visible,
+  onCancel,
+}) => {
+  const [currentStep, { inc, dec, reset }] = useCounter(0, { min: 0, max: 2 })
   const [memberState, setMemberState] = useControllableValue(undefined, {
     defaultValue: defaultValue.memberState,
-  });
+  })
   const projectOptions = React.useMemo(
     () =>
       projects?.map((item) => ({
         label: item.name,
         value: item.id,
       })),
-    [projects],
-  );
-  const allProjectOptions = React.useMemo(() => projects?.map((item) => item.id), [projects]);
+    [projects]
+  )
+  const allProjectOptions = React.useMemo(
+    () => projects?.map((item) => item.id),
+    [projects]
+  )
   const [projectCheckedList, setProjectCheckedList] = React.useState<number[]>(
-    defaultValue.projectCheckedList,
-  );
+    defaultValue.projectCheckedList
+  )
   const [projectCheckAll, setProjectCheckAll] = React.useState<boolean>(
-    defaultValue.projectCheckAll,
-  );
-  const [projectIndeterminate, setProjectIndeterminate] = React.useState<boolean>(
-    defaultValue.projectIndeterminate,
-  );
+    defaultValue.projectCheckAll
+  )
+  const [
+    projectIndeterminate,
+    setProjectIndeterminate,
+  ] = React.useState<boolean>(defaultValue.projectIndeterminate)
   const handleProjectCheckedList = React.useCallback(
     (checkedList: number[]) => {
-      setProjectCheckedList(checkedList);
-      setProjectCheckAll(checkedList.length === allProjectOptions!.length);
+      setProjectCheckedList(checkedList)
+      setProjectCheckAll(checkedList.length === allProjectOptions!.length)
       setProjectIndeterminate(
-        !!checkedList.length && checkedList.length < allProjectOptions!.length,
-      );
+        !!checkedList.length && checkedList.length < allProjectOptions!.length
+      )
     },
-    [allProjectOptions],
-  );
+    [allProjectOptions]
+  )
   const handleProjectCheckAll = React.useCallback(
     (e) => {
-      setProjectCheckedList(e.target.checked ? allProjectOptions! : []);
-      setProjectCheckAll(e.target.checked);
-      setProjectIndeterminate(false);
+      setProjectCheckedList(e.target.checked ? allProjectOptions! : [])
+      setProjectCheckAll(e.target.checked)
+      setProjectIndeterminate(false)
     },
-    [allProjectOptions],
-  );
+    [allProjectOptions]
+  )
   const handleReset = React.useCallback(() => {
-    reset();
-    setProjectCheckedList(defaultValue.projectCheckedList);
-    setProjectCheckAll(defaultValue.projectCheckAll);
-    setProjectIndeterminate(defaultValue.projectIndeterminate);
-  }, []);
-  const { data, run } = useRequest(api.invite.url, { manual: true });
+    reset()
+    setProjectCheckedList(defaultValue.projectCheckedList)
+    setProjectCheckAll(defaultValue.projectCheckAll)
+    setProjectIndeterminate(defaultValue.projectIndeterminate)
+  }, [])
+  const { data, run } = useRequest(api.invite.url, { manual: true })
   const handleNext = React.useCallback(
     async (sendRequest: boolean = false) => {
-      inc();
+      inc()
       if (sendRequest) {
         // 发送请求 获取邀请链接
         if (organization_id && user) {
@@ -80,12 +90,12 @@ const Invite: React.FC<InviteProps> = ({ projects, organization_id, user, visibl
             projects: projectCheckedList,
             organization_id: Number(organization_id),
             inviter_id: user?.id!,
-          });
+          })
         }
       }
     },
-    [currentStep, memberState, projectCheckedList, organization_id, user],
-  );
+    [currentStep, memberState, projectCheckedList, organization_id, user]
+  )
 
   const steps = React.useMemo(() => {
     return [
@@ -127,7 +137,9 @@ const Invite: React.FC<InviteProps> = ({ projects, organization_id, user, visibl
           <Checkbox.Group
             className={styles.projectGroup}
             value={projectCheckedList}
-            onChange={(checkedList) => handleProjectCheckedList(checkedList as number[])}
+            onChange={(checkedList) =>
+              handleProjectCheckedList(checkedList as number[])
+            }
           >
             {projectOptions?.map((item) => (
               // eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for
@@ -151,7 +163,9 @@ const Invite: React.FC<InviteProps> = ({ projects, organization_id, user, visibl
       </div>,
       <div className={styles.step3}>
         <Space direction="vertical">
-          <Typography.Text className={styles.title}>将链接发给小伙伴就可以啦</Typography.Text>
+          <Typography.Text className={styles.title}>
+            将链接发给小伙伴就可以啦
+          </Typography.Text>
           {data && (
             <Typography.Text className={styles.copyableInput} copyable>
               {data}
@@ -163,7 +177,7 @@ const Invite: React.FC<InviteProps> = ({ projects, organization_id, user, visibl
           继续邀请
         </Button>
       </div>,
-    ];
+    ]
   }, [
     memberState,
     projectCheckAll,
@@ -173,7 +187,7 @@ const Invite: React.FC<InviteProps> = ({ projects, organization_id, user, visibl
     projectCheckedList,
     handleProjectCheckedList,
     data,
-  ]);
+  ])
 
   return (
     <Modal
@@ -199,7 +213,7 @@ const Invite: React.FC<InviteProps> = ({ projects, organization_id, user, visibl
     >
       <div className={styles.container}>{steps[currentStep]}</div>
     </Modal>
-  );
-};
+  )
+}
 
-export default Invite;
+export default Invite

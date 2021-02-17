@@ -1,26 +1,36 @@
-import React from 'react';
-import { Card, Space, List, Skeleton, Radio, Typography, Row, Col } from 'antd';
-import { Link, useLocation, useDispatch, useSelector } from 'umi';
-import dayjs from 'dayjs';
+import React from 'react'
+import { Card, Space, List, Skeleton, Radio, Typography, Row, Col } from 'antd'
+import { Link, useLocation, useDispatch, useSelector } from 'umi'
+import dayjs from 'dayjs'
 
-import BasicLayout from '@/layouts/Basic';
-import type { RootState, IssueModelState, ProjectModelState } from '@/interfaces';
-import { MiniChart, LineChart } from '@/components';
+import BasicLayout from '@/layouts/Basic'
+import type {
+  RootState,
+  IssueModelState,
+  ProjectModelState,
+} from '@/interfaces'
+import { MiniChart, LineChart } from '@/components'
 
-import TimePicker from './components/TimePicker';
+import TimePicker from './components/TimePicker'
 
-import styles from './Issue.less';
+import styles from './Issue.less'
 
 interface IssueDashPageProps {
-  children?: React.ReactNode;
+  children?: React.ReactNode
 }
 
 const Issue: React.FC<IssueDashPageProps> = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const issue = useSelector<RootState, IssueModelState['data']>((state) => state.issue.data);
-  const count = useSelector<RootState, IssueModelState['count']>((state) => state.issue.count);
-  const trend = useSelector<RootState, IssueModelState['trend']>((state) => state.issue.trend);
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const issue = useSelector<RootState, IssueModelState['data']>(
+    (state) => state.issue.data
+  )
+  const count = useSelector<RootState, IssueModelState['count']>(
+    (state) => state.issue.count
+  )
+  const trend = useSelector<RootState, IssueModelState['trend']>(
+    (state) => state.issue.trend
+  )
 
   const handleTablePaginationChange = React.useCallback(
     (current) => {
@@ -31,36 +41,37 @@ const Issue: React.FC<IssueDashPageProps> = () => {
           // @ts-ignore
           project_id: location?.query?.project_id,
         },
-      });
+      })
     },
-    [dispatch],
-  );
+    [dispatch]
+  )
 
-  const [trendValue, setTrendValue] = React.useState<'24h' | '14d'>('24h');
+  const [trendValue, setTrendValue] = React.useState<'24h' | '14d'>('24h')
   const handleTrendChange = React.useCallback(
     (e) => {
-      const period = e.target.value;
-      setTrendValue(period);
+      const period = e.target.value
+      setTrendValue(period)
 
-      const ids = issue?.map((v) => v.id);
+      const ids = issue?.map((v) => v.id)
       dispatch({
         type: 'issue/getTrends',
         payload: { ids, period },
-      });
+      })
     },
-    [issue],
-  );
+    [issue]
+  )
 
   const loading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects['issue/searchIssues']!,
-  );
+    (state) => state.loading.effects['issue/searchIssues']!
+  )
   const trendChartLoading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects['issue/getTrends']!,
-  );
+    (state) => state.loading.effects['issue/getTrends']!
+  )
 
-  const projectTrend = useSelector<RootState, ProjectModelState['currentTrend']>(
-    (state) => state.project.currentTrend,
-  );
+  const projectTrend = useSelector<
+    RootState,
+    ProjectModelState['currentTrend']
+  >((state) => state.project.currentTrend)
 
   return (
     <BasicLayout className={styles.root}>
@@ -114,8 +125,9 @@ const Issue: React.FC<IssueDashPageProps> = () => {
               </div>
             }
             renderItem={(item) => {
-              const chartData = trend?.data?.find((v) => parseInt(v.issue_id, 10) === item.id)
-                ?.buckets;
+              const chartData = trend?.data?.find(
+                (v) => parseInt(v?.issueId, 10) === item.id
+              )?.buckets
 
               return (
                 <List.Item>
@@ -139,26 +151,35 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                       description={
                         <Typography.Paragraph className={styles.desc} ellipsis>
                           {item.metadata.message && (
-                            <Typography.Text>{item.metadata.message}</Typography.Text>
+                            <Typography.Text>
+                              {item.metadata.message}
+                            </Typography.Text>
                           )}
                           {item.metadata.others && (
-                            <Typography.Text>{item.metadata.others}</Typography.Text>
+                            <Typography.Text>
+                              {item.metadata.others}
+                            </Typography.Text>
                           )}
                           {!item.metadata.message &&
                             !item.metadata.others &&
                             item.metadata.stack && (
-                              <Typography.Text>{item.metadata.stack}</Typography.Text>
+                              <Typography.Text>
+                                {item.metadata.stack}
+                              </Typography.Text>
                             )}
                         </Typography.Paragraph>
                       }
                     />
                     <Row className={styles.content} gutter={8}>
                       <Col span={6}>
-                        {dayjs(item.createdAt).fromNow()}-{dayjs(item.updatedAt).fromNow()}
+                        {dayjs(item.createdAt).fromNow()}-
+                        {dayjs(item.updatedAt).fromNow()}
                       </Col>
 
                       <Col span={4}>
-                        <Link to={`/issue/${item.id}/event/latest`}>{item.eventsCount}</Link>
+                        <Link to={`/issue/${item.id}/event/latest`}>
+                          {item.eventsCount}
+                        </Link>
                       </Col>
 
                       <Col span={4}>{item.usersCount}</Col>
@@ -173,13 +194,13 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                     </Row>
                   </Skeleton>
                 </List.Item>
-              );
+              )
             }}
           />
         </Card>
       </Space>
     </BasicLayout>
-  );
-};
+  )
+}
 
-export default Issue;
+export default Issue

@@ -1,69 +1,75 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from 'react'
+import clsx from 'clsx'
 
-import { useRect } from '@/hooks';
-import type { Col, Row, TreeDataSource } from './Tree.interface';
-import { TreeContext } from './Tree.context';
-import Line from './Line';
+import { useRect } from '@/hooks'
+import type { Col, Row, TreeDataSource } from './Tree.interface'
+import { TreeContext } from './Tree.context'
+import Line from './Line'
 
-import styles from './Tree.less';
+import styles from './Tree.less'
 
 export interface FlatDataSource {
   [key: string]: ({ parent: TreeDataSource<any>['key'] | null } & Omit<
     TreeDataSource<any>,
     'children'
-  >)[];
+  >)[]
 }
 export function expandDataSource(dataSource: TreeDataSource<any>) {
-  const flatDataSource: FlatDataSource = {};
+  const flatDataSource: FlatDataSource = {}
 
-  function walk(node: TreeDataSource<any>, row: number, parent: TreeDataSource<any>['key'] | null) {
-    const { key, value, children } = node;
-    if (!flatDataSource[row]) flatDataSource[row] = [];
+  function walk(
+    node: TreeDataSource<any>,
+    row: number,
+    parent: TreeDataSource<any>['key'] | null
+  ) {
+    const { key, value, children } = node
+    if (!flatDataSource[row]) flatDataSource[row] = []
     flatDataSource[row].push({
       key,
       value,
       render: node.render,
       parent,
-    });
+    })
 
     if (Array.isArray(children)) {
       children.forEach((child) => {
-        walk(child, row + 1, key);
-      });
+        walk(child, row + 1, key)
+      })
     }
   }
 
-  walk(dataSource, 0, null);
+  walk(dataSource, 0, null)
 
-  return flatDataSource;
+  return flatDataSource
 }
 
 interface NodeWrapperProps {
-  rowData: Row<any>;
-  colData: Col<any>;
+  rowData: Row<any>
+  colData: Col<any>
 }
 const NodeWrapper: React.FC<NodeWrapperProps> = ({ rowData, colData }) => {
-  const { row, rowNumber } = rowData;
-  const { col, colNumber } = colData;
+  const { row, rowNumber } = rowData
+  const { col, colNumber } = colData
 
-  const [rect, ref] = useRect<HTMLDivElement>();
-  const [parentRect, setParentRect] = React.useState();
+  const [rect, ref] = useRect<HTMLDivElement>()
+  const [parentRect, setParentRect] = React.useState()
   React.useLayoutEffect(() => {
     // 根据是否有 parent 判断是否为 head-node
     if (col.parent) {
       const parent: any = Array.from(
-        document.querySelectorAll<HTMLDivElement>(`.${styles.node}[data-node-key]`),
+        document.querySelectorAll<HTMLDivElement>(
+          `.${styles.node}[data-node-key]`
+        )
       ).find((node) => {
         // eslint-disable-next-line
-        return node.dataset.nodeKey == col.parent;
-      });
+        return node.dataset.nodeKey == col.parent
+      })
       // 计算当前 node 的位置信息和 parent node 的位置信息
       if (parent) {
-        setParentRect(parent?.getBoundingClientRect());
+        setParentRect(parent?.getBoundingClientRect())
       }
     }
-  }, [col.parent]);
+  }, [col.parent])
 
   const {
     currentNode,
@@ -74,22 +80,22 @@ const NodeWrapper: React.FC<NodeWrapperProps> = ({ rowData, colData }) => {
     lineClassName,
     nodeWidth,
     nodeSpace,
-  } = React.useContext(TreeContext);
+  } = React.useContext(TreeContext)
   const handleNodeClick = React.useCallback(() => {
-    handleSelectedNodeChange(col.key);
-  }, [col]);
+    handleSelectedNodeChange(col.key)
+  }, [col])
   // eslint-disable-next-line eqeqeq
-  const isCurrentNode = currentNode == col.key;
+  const isCurrentNode = currentNode == col.key
   const classes = React.useMemo(
     () =>
       clsx(styles.node, nodeClassName, {
         [selectedNodeClassName || '']: isCurrentNode,
       }),
-    [selectedNodeClassName, currentNode, col.key],
-  );
+    [selectedNodeClassName, currentNode, col.key]
+  )
 
-  const top = `calc(${nodeSpace} * ${rowNumber})`;
-  const left = `calc(100% / ${row.length} * ${colNumber} + (100% / ${row.length} - ${nodeWidth}) / 2)`;
+  const top = `calc(${nodeSpace} * ${rowNumber})`
+  const left = `calc(100% / ${row.length} * ${colNumber} + (100% / ${row.length} - ${nodeWidth}) / 2)`
 
   return (
     <>
@@ -111,80 +117,96 @@ const NodeWrapper: React.FC<NodeWrapperProps> = ({ rowData, colData }) => {
           {
             colNumber,
             col,
-          },
+          }
         )}
       </div>
       {col.parent && (
         <Line
-          className={clsx(lineClassName, { [selectedLineClassName || '']: isCurrentNode })}
+          className={clsx(lineClassName, {
+            [selectedLineClassName || '']: isCurrentNode,
+          })}
           start={getPositionByRect('bottom', parentRect)}
           end={getPositionByRect('top', rect)}
         />
       )}
     </>
-  );
-};
-export function render(flatDataSource: FlatDataSource, empty?: React.ReactNode) {
-  const flatDataSourceKeys = Object.keys(flatDataSource);
+  )
+}
+export function render(
+  flatDataSource: FlatDataSource,
+  empty?: React.ReactNode
+) {
+  const flatDataSourceKeys = Object.keys(flatDataSource)
   if (flatDataSourceKeys.length < 1) {
-    return empty;
+    return empty
   }
 
   return (
     <>
       {flatDataSourceKeys.map((rowNumber) => {
-        const row = flatDataSource[rowNumber];
+        const row = flatDataSource[rowNumber]
         return (
           <div className={styles.rowBox} key={rowNumber}>
             {row.map((col, index) => {
-              const colNumber = index;
+              const colNumber = index
 
               const rowData: Row<any> = {
                 row,
                 rowNumber: parseInt(rowNumber, 10),
-              };
+              }
               const colData: Col<any> = {
                 col,
                 colNumber,
-              };
-              return <NodeWrapper key={col.key} rowData={rowData} colData={colData} />;
+              }
+              return (
+                <NodeWrapper
+                  key={col.key}
+                  rowData={rowData}
+                  colData={colData}
+                />
+              )
             })}
           </div>
-        );
+        )
       })}
-      {flatDataSourceKeys.length === 1 && <div className={styles.empty}>{empty}</div>}
+      {flatDataSourceKeys.length === 1 && (
+        <div className={styles.empty}>{empty}</div>
+      )}
     </>
-  );
+  )
 }
 
-type PositionType = 'top' | 'bottom';
+type PositionType = 'top' | 'bottom'
 interface GetPositionByRectResult {
-  x?: number;
-  y?: number;
+  x?: number
+  y?: number
 }
-export function getPositionByRect(type: PositionType, rect?: DOMRect): GetPositionByRectResult {
+export function getPositionByRect(
+  type: PositionType,
+  rect?: DOMRect
+): GetPositionByRectResult {
   if (rect) {
-    const { x, y, width, height } = rect;
+    const { x, y, width, height } = rect
     switch (type) {
       case 'top':
         return {
           x: x + width / 2,
           y,
-        };
+        }
       case 'bottom':
         return {
           x: x + width / 2,
           y: y + height,
-        };
+        }
       default:
         return {
           x: undefined,
           y: undefined,
-        };
+        }
     }
   }
   return {
     x: undefined,
     y: undefined,
-  };
+  }
 }

@@ -1,63 +1,63 @@
-import React from 'react';
-import { Form, Button, Input, Row, Col } from 'antd';
-import { Link } from 'umi';
+import React from 'react'
+import { Form, Button, Input, Row, Col } from 'antd'
+import { Link } from 'umi'
 
-import { Icon, LoginTemplate } from '@/components';
-import { useRequest, useBoolean, useUpdateEffect } from '@/hooks';
-import api from '@/api';
+import { Icon, LoginTemplate } from '@/components'
+import { useRequest, useBoolean, useUpdateEffect } from '@/hooks'
+import api from '@/api'
 
-import styles from './Reset.less';
+import styles from './Reset.less'
 
 interface ResetPageProps {
-  children?: React.ReactNode;
+  children?: React.ReactNode
 }
-const COUNTDOWN = 90;
+const COUNTDOWN = 90
 const Reset: React.FC<ResetPageProps> = ({ children }) => {
-  const [form] = Form.useForm();
-  const [success, { setTrue, setFalse }] = useBoolean(false);
-  const { run: getCaptcha } = useRequest(api.auth.captcha, { manual: true });
-  const { run: reset } = useRequest(api.auth.reset, { manual: true });
+  const [form] = Form.useForm()
+  const [success, { setTrue, setFalse }] = useBoolean(false)
+  const { run: getCaptcha } = useRequest(api.auth.captcha, { manual: true })
+  const { run: reset } = useRequest(api.auth.reset, { manual: true })
 
-  const [count, setCount] = React.useState<number>(COUNTDOWN);
-  const [timing, { toggle: setTiming }] = useBoolean(false);
+  const [count, setCount] = React.useState<number>(COUNTDOWN)
+  const [timing, { toggle: setTiming }] = useBoolean(false)
   useUpdateEffect(() => {
-    let interval: number = 0;
+    let interval: number = 0
     if (timing) {
       interval = window.setInterval(() => {
         setCount((preSecond) => {
           if (preSecond <= 1) {
-            setTiming(false);
-            clearInterval(interval);
+            setTiming(false)
+            clearInterval(interval)
             // 重置秒数
-            return COUNTDOWN;
+            return COUNTDOWN
           }
-          return preSecond - 1;
-        });
-      }, 1000);
+          return preSecond - 1
+        })
+      }, 1000)
     }
-    return () => clearInterval(interval);
-  }, [timing]);
+    return () => clearInterval(interval)
+  }, [timing])
   // 发送获取验证码的请求，然后开始倒计时
   const handleGetCaptcha = React.useCallback(async () => {
-    const { email } = await form.validateFields(['email']);
+    const { email } = await form.validateFields(['email'])
     if (email) {
-      getCaptcha({ email });
+      getCaptcha({ email })
 
       // 开始倒计时
-      setTiming(true);
+      setTiming(true)
     }
-  }, []);
+  }, [])
 
   const handleFinish = React.useCallback(async (values) => {
     if (values) {
-      const result = await reset(values);
+      const result = await reset(values)
       if (result) {
-        setTrue();
+        setTrue()
       } else {
-        setFalse();
+        setFalse()
       }
     }
-  }, []);
+  }, [])
 
   return (
     <LoginTemplate className={styles.root} title="重置密码">
@@ -75,7 +75,12 @@ const Reset: React.FC<ResetPageProps> = ({ children }) => {
               ]}
             >
               <Input
-                prefix={<Icon className={styles.inputPrefixIcon} type="icon-ohbug-mail-fill" />}
+                prefix={
+                  <Icon
+                    className={styles.inputPrefixIcon}
+                    type="icon-ohbug-mail-fill"
+                  />
+                }
                 size="large"
                 placeholder="请输入邮箱"
                 maxLength={100}
@@ -133,25 +138,32 @@ const Reset: React.FC<ResetPageProps> = ({ children }) => {
               rules={[
                 { required: true, message: '请输入密码！' },
                 {
-                  validator(rule, value) {
-                    const passwordReg = /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?]/;
+                  validator(_, value) {
+                    const passwordReg = /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?]/
                     if (value) {
                       if (value.length < 8 || value.length > 30) {
-                        return Promise.reject(new Error('密码长度 8 - 30 位！'));
+                        return Promise.reject(new Error('密码长度 8 - 30 位！'))
                       }
                       if (!passwordReg.test(value)) {
-                        return Promise.reject(new Error('至少包含字母、数字、特殊字符中任意2种！'));
+                        return Promise.reject(
+                          new Error('至少包含字母、数字、特殊字符中任意2种！')
+                        )
                       }
-                      return Promise.resolve();
+                      return Promise.resolve()
                     }
-                    return Promise.reject(new Error('输入内容不合法！'));
+                    return Promise.reject(new Error('输入内容不合法！'))
                   },
                 },
               ]}
               hasFeedback
             >
               <Input.Password
-                prefix={<Icon className={styles.inputPrefixIcon} type="icon-ohbug-lock-fill" />}
+                prefix={
+                  <Icon
+                    className={styles.inputPrefixIcon}
+                    type="icon-ohbug-lock-fill"
+                  />
+                }
                 size="large"
                 placeholder="请输入密码"
                 minLength={8}
@@ -166,11 +178,11 @@ const Reset: React.FC<ResetPageProps> = ({ children }) => {
                   message: '请输入确认密码！',
                 },
                 ({ getFieldValue }) => ({
-                  validator(rule, value) {
+                  validator(_, value) {
                     if (!value || getFieldValue('password') === value) {
-                      return Promise.resolve();
+                      return Promise.resolve()
                     }
-                    return Promise.reject(new Error('您输入的两个密码不匹配！'));
+                    return Promise.reject(new Error('您输入的两个密码不匹配！'))
                   },
                 }),
               ]}
@@ -178,7 +190,12 @@ const Reset: React.FC<ResetPageProps> = ({ children }) => {
               hasFeedback
             >
               <Input.Password
-                prefix={<Icon className={styles.inputPrefixIcon} type="icon-ohbug-lock-fill" />}
+                prefix={
+                  <Icon
+                    className={styles.inputPrefixIcon}
+                    type="icon-ohbug-lock-fill"
+                  />
+                }
                 size="large"
                 placeholder="确认密码"
               />
@@ -200,7 +217,7 @@ const Reset: React.FC<ResetPageProps> = ({ children }) => {
       </Form>
       {children}
     </LoginTemplate>
-  );
-};
+  )
+}
 
-export default Reset;
+export default Reset

@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import Content from './Content';
+import Content from './Content'
 
 function MenuHeaderRender(): React.ReactElement {
-  return <Content />;
+  return <Content />
 }
 
-export default MenuHeaderRender;
+export default MenuHeaderRender

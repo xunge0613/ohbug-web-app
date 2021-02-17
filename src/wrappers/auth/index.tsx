@@ -1,12 +1,15 @@
-import React from 'react';
+import React from 'react'
 
-import { useAuth } from '@/hooks';
-import { Loading } from '@/components';
+import { useAuth } from '@/hooks'
+import { Loading } from '@/components'
 
-export default ({ children }: any) => {
-  const { isLogin } = useAuth();
+// @ts-ignore
+const Auth: React.FC = ({ children }) => {
+  const { isLogin } = useAuth()
   if (isLogin) {
-    return children;
+    return children
   }
-  return <Loading />;
-};
+  return <Loading />
+}
+
+export default Auth

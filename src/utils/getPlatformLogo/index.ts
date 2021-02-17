@@ -1,1 +1,1 @@
-export { default } from './getPlatformLogo';
+export { default } from './getPlatformLogo'

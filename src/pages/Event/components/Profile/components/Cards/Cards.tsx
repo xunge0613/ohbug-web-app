@@ -1,17 +1,17 @@
-import React from 'react';
-import { Skeleton } from 'antd';
-import type { OhbugEvent } from '@ohbug/types';
+import React from 'react'
+import { Skeleton } from 'antd'
+import type { OhbugEvent } from '@ohbug/types'
 
-import { getDeviceInfo } from '@/utils';
-import ProgressCard from '@/pages/Event/components/ProgressCard';
+import { getDeviceInfo } from '@/utils'
+import ProgressCard from '@/pages/Event/components/ProgressCard'
 
 interface CardsProps {
-  event?: OhbugEvent<any>;
+  event?: OhbugEvent<any>
 }
 
 const Cards: React.FC<CardsProps> = ({ event }) => {
-  const deviceInfo = React.useMemo(() => getDeviceInfo(event), [event]);
-  const loading = !event;
+  const deviceInfo = React.useMemo(() => getDeviceInfo(event), [event])
+  const loading = !event
 
   return (
     <Skeleton loading={loading}>
@@ -38,14 +38,20 @@ const Cards: React.FC<CardsProps> = ({ event }) => {
       )}
       {/* 品牌 */}
       {deviceInfo?.device && deviceInfo?.device?.brand && (
-        <ProgressCard title={deviceInfo?.device?.brand} description={deviceInfo?.device?.model} />
+        <ProgressCard
+          title={deviceInfo?.device?.brand}
+          description={deviceInfo?.device?.model}
+        />
       )}
       {/* 平台 */}
       {deviceInfo?.platform && (
-        <ProgressCard title={deviceInfo?.platform} description={deviceInfo?.system} />
+        <ProgressCard
+          title={deviceInfo?.platform}
+          description={deviceInfo?.system}
+        />
       )}
     </Skeleton>
-  );
-};
+  )
+}
 
-export default Cards;
+export default Cards

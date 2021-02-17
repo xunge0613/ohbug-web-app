@@ -1,2 +1,2 @@
-export * from './oauth2';
-export * from './others';
+export * from './oauth2'
+export * from './others'

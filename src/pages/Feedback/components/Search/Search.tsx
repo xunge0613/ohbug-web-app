@@ -1,22 +1,22 @@
-import React from 'react';
-import dayjs from 'dayjs';
-import { useDispatch } from 'umi';
+import React from 'react'
+import dayjs from 'dayjs'
+import { useDispatch } from 'umi'
 
-import { DatePicker } from '@/components';
+import { DatePicker } from '@/components'
 
-import styles from './Search.less';
+import styles from './Search.less'
 
 const Search: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleDatePickerChange = React.useCallback((_, dateStrings) => {
-    const start = dayjs(dateStrings[0]).toISOString();
-    const end = dayjs(dateStrings[1]).toISOString();
+    const start = dayjs(dateStrings[0]).toISOString()
+    const end = dayjs(dateStrings[1]).toISOString()
     dispatch({
       type: 'feedback/searchFeedbacks',
       payload: { page: 0, start, end },
-    });
-  }, []); //eslint-disable-line
+    })
+  }, []) //eslint-disable-line
 
   return (
     <div className={styles.root}>
@@ -31,7 +31,7 @@ const Search: React.FC = () => {
         onChange={handleDatePickerChange}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search

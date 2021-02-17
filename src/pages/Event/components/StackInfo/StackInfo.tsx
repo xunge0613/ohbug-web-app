@@ -1,20 +1,20 @@
-import React from 'react';
-import { Radio, Collapse } from 'antd';
-import clsx from 'clsx';
-import type { Result } from 'source-map-trace/dist/interfaces';
+import React from 'react'
+import { Radio, Collapse } from 'antd'
+import clsx from 'clsx'
+import type { Result } from 'source-map-trace/dist/interfaces'
 
-import styles from './StackInfo.less';
+import styles from './StackInfo.less'
 
 interface StackInfoProps {
-  stack: string;
-  source?: Result;
+  stack: string
+  source?: Result
 }
 
 const StackInfo: React.FC<StackInfoProps> = ({ stack, source }) => {
-  const [toggle, setToggle] = React.useState('raw');
+  const [toggle, setToggle] = React.useState('raw')
   const handleToggleChange = React.useCallback((e) => {
-    setToggle(e.target.value);
-  }, []);
+    setToggle(e.target.value)
+  }, [])
   const title = React.useMemo(() => {
     return (
       <div className={styles.title}>
@@ -25,12 +25,12 @@ const StackInfo: React.FC<StackInfoProps> = ({ stack, source }) => {
         <code className={styles.strong}>{source?.parsed?.line}:</code>
         <code className={styles.strong}>{source?.parsed?.column}</code>
       </div>
-    );
-  }, [source]);
+    )
+  }, [source])
   const content = React.useMemo((): React.ReactNode => {
     switch (toggle) {
       case 'raw':
-        return stack;
+        return stack
       case 'code':
         return (
           <Collapse
@@ -45,22 +45,22 @@ const StackInfo: React.FC<StackInfoProps> = ({ stack, source }) => {
                   ({ code, number, highlight }): React.ReactElement => {
                     const classes = clsx(styles.line, {
                       [styles.highlight]: highlight,
-                    });
+                    })
                     return (
                       <li className={classes} key={number}>
                         <span className={styles.code}>{code}</span>
                       </li>
-                    );
-                  },
+                    )
+                  }
                 )}
               </ol>
             </Collapse.Panel>
           </Collapse>
-        );
+        )
       default:
-        return null;
+        return null
     }
-  }, [source, stack, toggle, title]);
+  }, [source, stack, toggle, title])
 
   return (
     <div className={styles.root}>
@@ -78,7 +78,7 @@ const StackInfo: React.FC<StackInfoProps> = ({ stack, source }) => {
 
       <pre className={styles.playground}>{content}</pre>
     </div>
-  );
-};
+  )
+}
 
-export default StackInfo;
+export default StackInfo

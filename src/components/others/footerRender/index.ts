@@ -1,1 +1,1 @@
-export { default } from './footerRender';
+export { default } from './footerRender'

@@ -1,1 +1,1 @@
-export { default } from './SwitchOrganization';
+export { default } from './SwitchOrganization'

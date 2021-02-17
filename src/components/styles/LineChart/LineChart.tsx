@@ -1,45 +1,47 @@
-import React from 'react';
-import { Typography, Badge } from 'antd';
-import ReactEcharts from 'echarts-for-react';
-import type { EChartOption } from 'echarts';
-import dayjs from 'dayjs';
+import React from 'react'
+import { Typography, Badge } from 'antd'
+import ReactEcharts, { EChartsOption } from 'echarts-for-react'
+import dayjs from 'dayjs'
 
-import './LineChart.less';
+import './LineChart.less'
 
 // 判断时间是 近14天/近24h/其他时间
-export function switchTimeRange(start: Data | undefined, end: Data | undefined) {
-  const time_start = dayjs(start?.timestamp);
-  const time_end = dayjs(end?.timestamp);
-  const diff = time_end.diff(time_start, 'hour');
+export function switchTimeRange(
+  start: Data | undefined,
+  end: Data | undefined
+) {
+  const time_start = dayjs(start?.timestamp)
+  const time_end = dayjs(end?.timestamp)
+  const diff = time_end.diff(time_start, 'hour')
   // 312 23
   switch (diff) {
     // 14天
     case 312:
-      return 'YYYY-MM-DD';
+      return 'YYYY-MM-DD'
     // 24小时
     case 23:
-      return 'YYYY-MM-DD HH:mm:ss';
+      return 'YYYY-MM-DD HH:mm:ss'
     default:
-      return 'YYYY-MM-DD HH:mm:ss';
+      return 'YYYY-MM-DD HH:mm:ss'
   }
 }
 
 type Data = {
-  timestamp: number;
-  count: number;
-};
+  timestamp: number
+  count: number
+}
 interface LineChartProps {
-  data?: Data[];
-  loading?: boolean;
-  title?: string;
+  data?: Data[]
+  loading?: boolean
+  title?: string
 }
 
 const LineChart: React.FC<LineChartProps> = ({ data, loading, title }) => {
-  const option = React.useMemo<EChartOption | undefined>(() => {
+  const option = React.useMemo<EChartsOption | undefined>(() => {
     if (data) {
-      const start = data[0];
-      const end = data[data.length - 1];
-      const timeFormat = switchTimeRange(start, end);
+      const start = data[0]
+      const end = data[data.length - 1]
+      const timeFormat = switchTimeRange(start, end)
       return {
         dataset: {
           source: data,
@@ -56,7 +58,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, loading, title }) => {
           axisLabel: {
             lineHeight: 25,
             formatter(timestamp: number) {
-              return dayjs(timestamp).format(timeFormat);
+              return dayjs(timestamp).format(timeFormat)
             },
           },
         },
@@ -74,17 +76,17 @@ const LineChart: React.FC<LineChartProps> = ({ data, loading, title }) => {
           trigger: 'axis',
           padding: [8, 16],
           backgroundColor: 'rgba(50, 50, 50, 0.9)',
-          formatter(params) {
-            // @ts-ignore
-            const [{ value }] = params;
-            // @ts-ignore
-            const { timestamp, count } = value;
-            return `<div class="tooltip-time">${dayjs(timestamp).format(timeFormat)}</div>
+          formatter(params: any) {
+            const [{ value }] = params
+            const { timestamp, count } = value
+            return `<div class="tooltip-time">${dayjs(timestamp).format(
+              timeFormat
+            )}</div>
 
             <div class="tooltip-value">${count} issues</div>
 
             <span class="tooltip-arrow" />
-          `;
+          `
           },
           textStyle: {
             fontWeight: 'bolder',
@@ -136,10 +138,10 @@ const LineChart: React.FC<LineChartProps> = ({ data, loading, title }) => {
             },
           },
         ],
-      };
+      }
     }
-    return undefined;
-  }, [data]);
+    return undefined
+  }, [data])
 
   return data ? (
     <div>
@@ -157,7 +159,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, loading, title }) => {
         theme="ohbug"
       />
     </div>
-  ) : null;
-};
+  ) : null
+}
 
-export default LineChart;
+export default LineChart

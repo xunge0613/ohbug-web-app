@@ -1,8 +1,8 @@
-import React from 'react';
-import { Input } from 'antd';
-import { types } from '@ohbug/browser';
+import React from 'react'
+import { Input } from 'antd'
+import { types } from '@ohbug/browser'
 
-import styles from './Search.less';
+import styles from './Search.less'
 
 const SEARCH_OPTIONS = [
   {
@@ -35,14 +35,14 @@ const SEARCH_OPTIONS = [
     label: '设备',
     children: [],
   },
-];
+]
 
 interface SearchProps {}
 const Search: React.FC<SearchProps> = () => {
   const handleSearch = React.useCallback((value) => {
     // eslint-disable-next-line no-console
-    console.log(SEARCH_OPTIONS, value);
-  }, []);
+    console.log(SEARCH_OPTIONS, value)
+  }, [])
 
   return (
     <Input.Search
@@ -51,7 +51,7 @@ const Search: React.FC<SearchProps> = () => {
       placeholder="输入 $ 搜索"
       onSearch={handleSearch}
     />
-  );
-};
+  )
+}
 
-export default Search;
+export default Search

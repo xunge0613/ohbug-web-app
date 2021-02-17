@@ -1,23 +1,36 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'umi';
-import { Modal, Form, Input, Select, InputNumber, Tag, Space, Tooltip } from 'antd';
-import { types } from '@ohbug/browser';
+import React from 'react'
+import { useDispatch, useSelector } from 'umi'
+import {
+  Modal,
+  Form,
+  Input,
+  Select,
+  InputNumber,
+  Tag,
+  Space,
+  Tooltip,
+} from 'antd'
+import { types } from '@ohbug/browser'
 
-import { RootState, NotificationRule, NotificationRuleLevel } from '@/interfaces';
-import { IconButton } from '@/components';
-import { useUpdateEffect } from '@/hooks';
+import {
+  RootState,
+  NotificationRule,
+  NotificationRuleLevel,
+} from '@/interfaces'
+import { IconButton } from '@/components'
+import { useUpdateEffect } from '@/hooks'
 
-import { levelList, intervalList } from './Rules.core';
+import { levelList, intervalList } from './Rules.core'
 
 interface LevelComponentProps {
-  value?: NotificationRuleLevel;
-  onChange?: (key: NotificationRuleLevel) => void;
+  value?: NotificationRuleLevel
+  onChange?: (key: NotificationRuleLevel) => void
 }
 const LevelComponent: React.FC<LevelComponentProps> = ({ value, onChange }) => {
   const handleChange = React.useCallback((tag, checked) => {
     // eslint-disable-next-line no-unused-expressions
-    if (checked) onChange?.(tag);
-  }, []);
+    if (checked) onChange?.(tag)
+  }, [])
   return (
     <>
       {levelList.map((item) => (
@@ -30,18 +43,23 @@ const LevelComponent: React.FC<LevelComponentProps> = ({ value, onChange }) => {
         </Tag.CheckableTag>
       ))}
     </>
-  );
-};
-interface EditRuleProps {
-  project_id: number | string;
-  visible: boolean;
-  onCancel: () => void;
-  initialValues?: NotificationRule;
+  )
 }
-function getRuleDataType(rule?: NotificationRule): 'indicator' | 'range' | undefined {
+interface EditRuleProps {
+  project_id: number | string
+  visible: boolean
+  onCancel: () => void
+  initialValues?: NotificationRule
+}
+function getRuleDataType(
+  rule?: NotificationRule
+): 'indicator' | 'range' | undefined {
   if (rule) {
-    if (rule.data?.hasOwnProperty('interval') && rule.data?.hasOwnProperty('percentage')) {
-      return 'indicator';
+    if (
+      rule.data?.hasOwnProperty('interval') &&
+      rule.data?.hasOwnProperty('percentage')
+    ) {
+      return 'indicator'
     }
     if (
       rule.data?.hasOwnProperty('range1') &&
@@ -49,24 +67,31 @@ function getRuleDataType(rule?: NotificationRule): 'indicator' | 'range' | undef
       rule.data?.hasOwnProperty('range3') &&
       rule.data?.hasOwnProperty('range4')
     ) {
-      return 'range';
+      return 'range'
     }
   }
-  return undefined;
+  return undefined
 }
-const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, initialValues }) => {
-  const dispatch = useDispatch();
-  const [form] = Form.useForm();
+const EditRule: React.FC<EditRuleProps> = ({
+  project_id,
+  visible,
+  onCancel,
+  initialValues,
+}) => {
+  const dispatch = useDispatch()
+  const [form] = Form.useForm()
   const [data, setData] = React.useState<'indicator' | 'range'>(
-    getRuleDataType(initialValues) || 'range',
-  );
-  const [type, setType] = React.useState(() => (initialValues ? 'update' : 'create'));
+    getRuleDataType(initialValues) || 'range'
+  )
+  const [type, setType] = React.useState(() =>
+    initialValues ? 'update' : 'create'
+  )
   const confirmLoading = useSelector<RootState, boolean>(
-    (state) => state.loading.effects[`notification/rules/${type}`]!,
-  );
+    (state) => state.loading.effects[`notification/rules/${type}`]!
+  )
   useUpdateEffect(() => {
-    setData(getRuleDataType(initialValues) || 'range');
-    setType(initialValues ? 'update' : 'create');
+    setData(getRuleDataType(initialValues) || 'range')
+    setType(initialValues ? 'update' : 'create')
 
     if (initialValues) {
       form.setFieldsValue({
@@ -79,33 +104,33 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
         open: initialValues.open,
         recently: initialValues.recently,
         count: initialValues.count,
-      });
+      })
     } else {
-      form.resetFields();
+      form.resetFields()
     }
-  }, [initialValues]);
+  }, [initialValues])
 
   const handleOk = React.useCallback(() => {
-    form.submit();
-  }, []);
+    form.submit()
+  }, [])
   const handleFinish = React.useCallback(
     (value) => {
       const payload = {
         project_id,
         ...value,
-      };
+      }
       if (type === 'update') {
-        payload.rule_id = initialValues?.id;
+        payload.rule_id = initialValues?.id
       }
       dispatch({
         type: `notification/rules/${type}`,
         payload,
-      });
+      })
       // eslint-disable-next-line no-unused-expressions
-      onCancel?.();
+      onCancel?.()
     },
-    [type, initialValues?.id],
-  );
+    [type, initialValues?.id]
+  )
 
   return (
     <Modal
@@ -154,7 +179,11 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
             <div>
               <span>
                 近{' '}
-                <Form.Item name={['data', 'interval']} initialValue={180000} noStyle>
+                <Form.Item
+                  name={['data', 'interval']}
+                  initialValue={180000}
+                  noStyle
+                >
                   <Select disabled style={{ width: 80 }}>
                     <Select.Option value={180000}>3分钟</Select.Option>
                   </Select>
@@ -258,7 +287,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
                       {fields.length > 0 ? (
                         <IconButton
                           onClick={() => {
-                            operation.remove(field.name);
+                            operation.remove(field.name)
                           }}
                           icon="icon-ohbug-indeterminate-circle-line"
                           size="small"
@@ -267,7 +296,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
                       {fields.length < 3 && index === fields.length - 1 && (
                         <IconButton
                           onClick={() => {
-                            operation.add();
+                            operation.add()
                           }}
                           icon="icon-ohbug-add-circle-line"
                           size="small"
@@ -279,7 +308,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
                 {fields.length === 0 && (
                   <IconButton
                     onClick={() => {
-                      operation.add();
+                      operation.add()
                     }}
                     icon="icon-ohbug-add-circle-line"
                     size="small"
@@ -310,7 +339,7 @@ const EditRule: React.FC<EditRuleProps> = ({ project_id, visible, onCancel, init
         </Form.Item>
       </Form>
     </Modal>
-  );
-};
+  )
+}
 
-export default EditRule;
+export default EditRule

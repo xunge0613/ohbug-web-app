@@ -1,18 +1,22 @@
-import React from 'react';
-import { Layout } from 'antd';
-import clsx from 'clsx';
+import React from 'react'
+import { Layout } from 'antd'
+import clsx from 'clsx'
 
-import styles from './Basic.less';
+import styles from './Basic.less'
 
-const { Content } = Layout;
+const { Content } = Layout
 
 interface BasicLayoutProps {
-  className?: string;
-  pageHeader?: React.ReactNode;
+  className?: string
+  pageHeader?: React.ReactNode
 }
 
-const BasicLayout: React.FC<BasicLayoutProps> = ({ children, pageHeader, className }) => {
-  const classes = clsx(styles.content, className);
+const BasicLayout: React.FC<BasicLayoutProps> = ({
+  children,
+  pageHeader,
+  className,
+}) => {
+  const classes = clsx(styles.content, className)
   return (
     <Layout className={styles.root}>
       <Layout className={styles.container}>
@@ -20,7 +24,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children, pageHeader, classNa
         <Content className={classes}>{children}</Content>
       </Layout>
     </Layout>
-  );
-};
+  )
+}
 
-export default BasicLayout;
+export default BasicLayout

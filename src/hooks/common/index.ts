@@ -1,1 +1,1 @@
-export * from './useRect';
+export * from './useRect'

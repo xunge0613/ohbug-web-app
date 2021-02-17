@@ -3,4 +3,4 @@ export default {
     target: 'http://localhost:6666',
     changeOrigin: true,
   },
-};
+}

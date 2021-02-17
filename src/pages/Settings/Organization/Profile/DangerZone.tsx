@@ -1,54 +1,56 @@
-import React from 'react';
-import { Alert, Button, List, Modal, Typography, Form, Input } from 'antd';
-import { useDispatch } from 'umi';
+import React from 'react'
+import { Alert, Button, List, Modal, Typography, Form, Input } from 'antd'
+import { useDispatch } from 'umi'
 
-import type { Organization } from '@/interfaces';
+import type { Organization } from '@/interfaces'
 
-import styles from './Profile.less';
+import styles from './Profile.less'
 
 interface DangerZoneProps {
-  organization?: Organization;
+  organization?: Organization
 }
 const DangerZone: React.FC<DangerZoneProps> = ({ organization }) => {
-  const dispatch = useDispatch();
-  const [form] = Form.useForm();
-  const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
+  const dispatch = useDispatch()
+  const [form] = Form.useForm()
+  const [deleteModalVisible, setDeleteModalVisible] = React.useState(false)
   const handleDeleteClick = React.useCallback(() => {
-    setDeleteModalVisible(true);
-  }, [setDeleteModalVisible]);
+    setDeleteModalVisible(true)
+  }, [setDeleteModalVisible])
   const handleDeleteClose = React.useCallback(() => {
-    setDeleteModalVisible(false);
-  }, [setDeleteModalVisible]);
+    setDeleteModalVisible(false)
+  }, [setDeleteModalVisible])
   const handleFinish = React.useCallback(() => {
     dispatch({
       type: 'organization/delete',
       payload: organization?.id,
-    });
-  }, []);
-  const [verified, setVerified] = React.useState(false);
+    })
+  }, [])
+  const [verified, setVerified] = React.useState(false)
   const handleInputChange = React.useCallback(
     (e) => {
       form.setFieldsValue({
         organization_name: e.target.value,
-      });
+      })
       form
         .validateFields()
         .then(() => {
-          setVerified(true);
+          setVerified(true)
         })
         .catch(() => {
-          setVerified(false);
-        });
+          setVerified(false)
+        })
     },
-    [form],
-  );
+    [form]
+  )
 
   const dataSource = React.useMemo(
     () => [
       {
         title: <Typography.Text strong>删除团队</Typography.Text>,
         description: (
-          <Typography.Text type="secondary">请确定，一旦删除将无法恢复。</Typography.Text>
+          <Typography.Text type="secondary">
+            请确定，一旦删除将无法恢复。
+          </Typography.Text>
         ),
         actions: [
           <Button danger onClick={handleDeleteClick}>
@@ -57,8 +59,8 @@ const DangerZone: React.FC<DangerZoneProps> = ({ organization }) => {
         ],
       },
     ],
-    [handleDeleteClick],
-  );
+    [handleDeleteClick]
+  )
   return (
     <>
       <List
@@ -82,24 +84,30 @@ const DangerZone: React.FC<DangerZoneProps> = ({ organization }) => {
         <Alert
           message={
             <span>
-              删除 <strong>{organization?.name}</strong> 团队将删除其所有项目及相关问题。
+              删除 <strong>{organization?.name}</strong>{' '}
+              团队将删除其所有项目及相关问题。
             </span>
           }
           type="warning"
         />
         <div className={styles.container}>
-          <Form layout="vertical" hideRequiredMark form={form} onFinish={handleFinish}>
+          <Form
+            layout="vertical"
+            hideRequiredMark
+            form={form}
+            onFinish={handleFinish}
+          >
             <Form.Item
               label="输入团队名称以确认"
               name="organization_name"
               rules={[
                 { required: true, message: '请输入组织名称' },
                 {
-                  validator(rule, value) {
+                  validator(_, value) {
                     if (value === organization?.name) {
-                      return Promise.resolve();
+                      return Promise.resolve()
                     }
-                    return Promise.reject(new Error('团队名称输入错误'));
+                    return Promise.reject(new Error('团队名称输入错误'))
                   },
                 },
               ]}
@@ -115,7 +123,7 @@ const DangerZone: React.FC<DangerZoneProps> = ({ organization }) => {
         </div>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default DangerZone;
+export default DangerZone

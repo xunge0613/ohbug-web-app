@@ -1,9 +1,9 @@
-export * from './project';
-export * from './dva';
+export * from './project'
+export * from './dva'
 
-export * from 'umi';
+export * from 'umi'
 
 export interface AuthorizationPayload {
-  id: string;
-  token: string;
+  id: string
+  token: string
 }

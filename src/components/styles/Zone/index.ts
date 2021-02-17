@@ -1,1 +1,1 @@
-export { default } from './Zone';
+export { default } from './Zone'

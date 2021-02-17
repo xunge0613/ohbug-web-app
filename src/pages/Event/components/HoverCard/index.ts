@@ -1,1 +1,1 @@
-export { default } from './HoverCard';
+export { default } from './HoverCard'

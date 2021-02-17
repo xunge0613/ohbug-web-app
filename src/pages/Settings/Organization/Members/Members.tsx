@@ -1,33 +1,36 @@
-import React from 'react';
-import { Table, Button } from 'antd';
-import { useSelector, useParams } from 'umi';
+import React from 'react'
+import { Table, Button } from 'antd'
+import { useSelector, useParams } from 'umi'
 
-import { RootState, Project, User, Organization } from '@/interfaces';
-import { Zone, User as UserComponent, Invite } from '@/components';
-import { useAccess, useBoolean } from '@/hooks';
-import { isAdmin } from '@/utils';
+import { RootState, Project, User, Organization } from '@/interfaces'
+import { Zone, User as UserComponent, Invite } from '@/components'
+import { useAccess, useBoolean } from '@/hooks'
+import { isAdmin } from '@/utils'
 
-import styles from './Members.less';
+import styles from './Members.less'
 
 const Members: React.FC = () => {
   // @ts-ignore
-  const { organization_id } = useParams();
+  const { organization_id } = useParams()
   const organization = useSelector<RootState, Organization>(
     (state) =>
       // eslint-disable-next-line eqeqeq
-      state.organization?.data?.find((org) => org.id == organization_id)!,
-  );
+      state.organization?.data?.find((org) => org.id == organization_id)!
+  )
   const projects = useSelector<RootState, Project[]>(
     // eslint-disable-next-line eqeqeq
-    (state) => state.organization?.data?.find((org) => org.id == organization_id)?.projects!,
-  );
-  const user = useSelector<RootState, User>((state) => state?.user?.current!);
+    (state) =>
+      state.organization?.data?.find((org) => org.id == organization_id)
+        ?.projects!
+  )
+  const user = useSelector<RootState, User>((state) => state?.user?.current!)
 
-  const [inviteVisible, { setTrue: inviteModalShow, setFalse: inviteModalOnCancel }] = useBoolean(
-    false,
-  );
+  const [
+    inviteVisible,
+    { setTrue: inviteModalShow, setFalse: inviteModalOnCancel },
+  ] = useBoolean(false)
 
-  useAccess(isAdmin(organization?.admin?.id, user?.id));
+  useAccess(isAdmin(organization?.admin?.id, user?.id))
 
   return (
     <section className={styles.root}>
@@ -55,18 +58,26 @@ const Members: React.FC = () => {
             title="昵称"
             render={(item) => <UserComponent data={item} hasName />}
           />
-          <Table.Column<User> title="邮箱" render={(item) => <span>{item?.email}</span>} />
-          <Table.Column<User> title="手机号" render={(item) => <span>{item?.mobile}</span>} />
+          <Table.Column<User>
+            title="邮箱"
+            render={(item) => <span>{item?.email}</span>}
+          />
+          <Table.Column<User>
+            title="手机号"
+            render={(item) => <span>{item?.mobile}</span>}
+          />
           <Table.Column<User>
             title="身份"
             render={(item) => (
-              <span>{isAdmin(organization?.admin?.id, item?.id) ? '拥有者' : '成员'}</span>
+              <span>
+                {isAdmin(organization?.admin?.id, item?.id) ? '拥有者' : '成员'}
+              </span>
             )}
           />
         </Table>
       </Zone>
     </section>
-  );
-};
+  )
+}
 
-export default Members;
+export default Members

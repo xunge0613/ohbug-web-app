@@ -1,37 +1,43 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from 'react'
+import clsx from 'clsx'
 
-import { useCreation } from '@/hooks';
+import { useCreation } from '@/hooks'
 
-import styles from './Tree.less';
+import styles from './Tree.less'
 
 interface LineProps {
-  style?: React.CSSProperties;
-  className?: string;
+  style?: React.CSSProperties
+  className?: string
   start: {
-    x?: number;
-    y?: number;
-  };
+    x?: number
+    y?: number
+  }
   end: {
-    x?: number;
-    y?: number;
-  };
+    x?: number
+    y?: number
+  }
 }
 const Line: React.FC<LineProps> = ({ style, className, start, end }) => {
   const left = useCreation(() => {
     if ((start.x || 0) >= (end.x || 0)) {
-      return end.x;
+      return end.x
     }
-    return start.x;
-  }, [start, end]);
+    return start.x
+  }, [start, end])
   const top = useCreation(() => {
     if ((start.y || 0) >= (end.y || 0)) {
-      return end.y;
+      return end.y
     }
-    return start.y;
-  }, [start, end]);
-  const width = useCreation(() => Math.abs((start.x || 0) - (end.x || 0)), [start, end]);
-  const height = useCreation(() => Math.abs((start.y || 0) - (end.y || 0)), [start, end]);
+    return start.y
+  }, [start, end])
+  const width = useCreation(() => Math.abs((start.x || 0) - (end.x || 0)), [
+    start,
+    end,
+  ])
+  const height = useCreation(() => Math.abs((start.y || 0) - (end.y || 0)), [
+    start,
+    end,
+  ])
   const path = useCreation(() => {
     const startCoord =
       (start.x || 0) >= (end.x || 0)
@@ -42,7 +48,7 @@ const Line: React.FC<LineProps> = ({ style, className, start, end }) => {
         : {
             x: 0,
             y: 0,
-          };
+          }
     const endCoord =
       (start.x || 0) >= (end.x || 0)
         ? {
@@ -52,16 +58,16 @@ const Line: React.FC<LineProps> = ({ style, className, start, end }) => {
         : {
             x: width,
             y: height,
-          };
+          }
     return {
       x1: startCoord.x,
       y1: startCoord.y,
       x2: endCoord.x,
       y2: endCoord.y,
-    };
-  }, [start, end, width, height]);
+    }
+  }, [start, end, width, height])
 
-  const classes = useCreation(() => clsx(styles.line, className), [className]);
+  const classes = useCreation(() => clsx(styles.line, className), [className])
 
   return useCreation(
     () =>
@@ -82,8 +88,8 @@ const Line: React.FC<LineProps> = ({ style, className, start, end }) => {
           </svg>
         </div>
       ) : null,
-    [style, path],
-  );
-};
+    [style, path]
+  )
+}
 
-export default Line;
+export default Line

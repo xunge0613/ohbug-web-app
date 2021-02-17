@@ -1,73 +1,76 @@
-import { request } from 'umi';
+import { request } from 'umi'
 import type {
   NotificationRule,
   NotificationSettingWebHook,
   NotificationSettingBrowser,
   NotificationSettingEmails,
   NotificationSettingWebHookType,
-} from 'umi';
-import { NotificationSetting } from '@/models/notification';
+} from 'umi'
+import { NotificationSetting } from '@/models/notification'
 
-type Level = 'serious' | 'warning' | 'default';
+type Level = 'serious' | 'warning' | 'default'
 interface CreateRule {
-  project_id: number;
-  name: string;
-  data: string;
-  whiteList: string;
-  blackList: string;
-  level: Level;
-  interval: number;
-  open: boolean;
+  project_id: number
+  name: string
+  data: string
+  whiteList: string
+  blackList: string
+  level: Level
+  interval: number
+  open: boolean
 }
 interface GetRules {
-  project_id: number;
+  project_id: number
 }
 interface UpdateRule {
-  rule_id: number;
-  name: string;
-  data: string;
-  whiteList: string;
-  blackList: string;
-  level: Level;
-  interval: number;
-  open: boolean;
+  rule_id: number
+  name: string
+  data: string
+  whiteList: string
+  blackList: string
+  level: Level
+  interval: number
+  open: boolean
 }
 interface DeleteRule {
-  rule_id: number;
+  rule_id: number
 }
 interface GetSetting {
-  project_id: number;
+  project_id: number
 }
 interface UpdateSetting {
-  project_id: number;
-  emails: NotificationSettingEmails[];
-  browser: NotificationSettingBrowser;
-  webhooks: NotificationSettingWebHook[];
+  project_id: number
+  emails: NotificationSettingEmails[]
+  browser: NotificationSettingBrowser
+  webhooks: NotificationSettingWebHook[]
 }
 interface CreateSettingWebhook {
-  project_id: number;
-  type: NotificationSettingWebHookType;
-  name: string;
-  link: string;
-  open?: boolean;
-  at?: { value: string }[];
+  project_id: number
+  type: NotificationSettingWebHookType
+  name: string
+  link: string
+  open?: boolean
+  at?: { value: string }[]
 }
 interface UpdateSettingWebhook extends CreateSettingWebhook {
-  id: string;
+  id: string
 }
 interface DeleteSettingWebhook {
-  project_id: number;
-  id: string;
+  project_id: number
+  id: string
 }
 
 const notification = {
   createRule: async (data: CreateRule): Promise<NotificationRule | void> => {
-    const res = await request('/notification/rules', { method: 'post', data });
-    return res;
+    const res = await request('/notification/rules', { method: 'post', data })
+    return res
   },
   getRules: async (data: GetRules): Promise<NotificationRule[] | void> => {
-    const res = await request('/notification/rules', { method: 'get', params: data });
-    return res;
+    const res = await request('/notification/rules', {
+      method: 'get',
+      params: data,
+    })
+    return res
   },
   updateRule: async ({
     rule_id,
@@ -82,16 +85,23 @@ const notification = {
     const res = await request(`/notification/rules/${rule_id}`, {
       method: 'patch',
       data: { name, data, whiteList, blackList, level, interval, open },
-    });
-    return res;
+    })
+    return res
   },
-  deleteRule: async ({ rule_id }: DeleteRule): Promise<NotificationRule | void> => {
-    const res = await request(`/notification/rules/${rule_id}`, { method: 'delete' });
-    return res;
+  deleteRule: async ({
+    rule_id,
+  }: DeleteRule): Promise<NotificationRule | void> => {
+    const res = await request(`/notification/rules/${rule_id}`, {
+      method: 'delete',
+    })
+    return res
   },
   getSetting: async (data: GetSetting): Promise<NotificationSetting | void> => {
-    const res = await request('/notification/setting', { method: 'get', params: data });
-    return res;
+    const res = await request('/notification/setting', {
+      method: 'get',
+      params: data,
+    })
+    return res
   },
   updateSetting: async ({
     project_id,
@@ -107,8 +117,8 @@ const notification = {
         browser,
         webhooks,
       },
-    });
-    return res;
+    })
+    return res
   },
   createSettingWebhook: async ({
     project_id,
@@ -128,8 +138,8 @@ const notification = {
         open,
         at,
       },
-    });
-    return res;
+    })
+    return res
   },
   updateSettingWebhook: async ({
     project_id,
@@ -150,8 +160,8 @@ const notification = {
         open,
         at,
       },
-    });
-    return res;
+    })
+    return res
   },
   deleteSettingWebhook: async ({
     project_id,
@@ -160,9 +170,9 @@ const notification = {
     const res = await request(`/notification/setting/webhooks/${id}`, {
       method: 'delete',
       params: { project_id },
-    });
-    return res;
+    })
+    return res
   },
-};
+}
 
-export default notification;
+export default notification

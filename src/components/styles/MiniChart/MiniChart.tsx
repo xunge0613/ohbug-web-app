@@ -1,24 +1,28 @@
-import React from 'react';
-import { Typography, Badge } from 'antd';
-import ReactEcharts from 'echarts-for-react';
-import type { EChartOption } from 'echarts';
-import dayjs from 'dayjs';
+import React from 'react'
+import { Typography, Badge } from 'antd'
+import ReactEcharts, { EChartsOption } from 'echarts-for-react'
+import dayjs from 'dayjs'
 
-import './MiniChart.less';
+import './MiniChart.less'
 
 type Data = {
-  timestamp: number;
-  count: number;
-};
+  timestamp: number
+  count: number
+}
 interface MiniChartProps {
-  trend: '24h' | '14d';
-  data?: Data[];
-  loading?: boolean;
-  title?: string;
+  trend: '24h' | '14d'
+  data?: Data[]
+  loading?: boolean
+  title?: string
 }
 
-const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) => {
-  const option = React.useMemo<EChartOption>(
+const MiniChart: React.FC<MiniChartProps> = ({
+  trend,
+  data,
+  loading,
+  title,
+}) => {
+  const option = React.useMemo<EChartsOption>(
     () => ({
       dataset: {
         source: data,
@@ -44,17 +48,14 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
         backgroundColor: 'rgba(50, 50, 50, 0.9)',
         transitionDuration: 0,
         appendToBody: true,
+        // @ts-ignore
         position(point, params, dom, rect, size) {
-          // @ts-ignore
-          const { contentSize } = size;
-          // @ts-ignore
-          return [point[0] - contentSize[0] / 2, '120%'];
+          const { contentSize } = size
+          return [point[0] - contentSize[0] / 2, '120%']
         },
-        formatter(params) {
-          // @ts-ignore
-          const [{ value }] = params;
-          // @ts-ignore
-          const { timestamp, count } = value;
+        formatter(params: any) {
+          const [{ value }] = params
+          const { timestamp, count } = value
           if (trend === '24h') {
             return `<div class="tooltip-time">
             ${dayjs(timestamp).format('YYYY-MM-DD')}<br>
@@ -64,17 +65,19 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
             <div class="tooltip-value">${count} events</div>
 
             <span class="tooltip-arrow" />
-            `;
+            `
           }
           if (trend === '14d') {
-            return `<div class="tooltip-time">${dayjs(timestamp).format('YYYY-MM-DD')}</div>
+            return `<div class="tooltip-time">${dayjs(timestamp).format(
+              'YYYY-MM-DD'
+            )}</div>
 
             <div class="tooltip-value">${count} events</div>
 
             <span class="tooltip-arrow" />
-            `;
+            `
           }
-          return '';
+          return ''
         },
         textStyle: {
           fontWeight: 'bolder',
@@ -121,8 +124,8 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
         },
       ],
     }),
-    [data],
-  );
+    [data]
+  )
 
   return data ? (
     <div>
@@ -140,7 +143,7 @@ const MiniChart: React.FC<MiniChartProps> = ({ trend, data, loading, title }) =>
         theme="ohbug"
       />
     </div>
-  ) : null;
-};
+  ) : null
+}
 
-export default MiniChart;
+export default MiniChart

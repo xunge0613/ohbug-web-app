@@ -1,26 +1,26 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from 'react'
+import clsx from 'clsx'
 
-import { expandDataSource, render } from './Tree.core';
-import type { TreeDataSource } from './Tree.interface';
-import { TreeContext } from './Tree.context';
+import { expandDataSource, render } from './Tree.core'
+import type { TreeDataSource } from './Tree.interface'
+import { TreeContext } from './Tree.context'
 
-import styles from './Tree.less';
+import styles from './Tree.less'
 
-export const logPrefix = `Tree`;
+export const logPrefix = `Tree`
 
 export interface TreeProps<T> {
-  className?: string;
-  dataSource?: TreeDataSource<T>;
-  value?: number | string;
-  onChange?: (value: TreeProps<any>['value']) => void;
-  selectedNodeClassName?: string;
-  nodeClassName?: string;
-  selectedLineClassName?: string;
-  lineClassName?: string;
-  nodeWidth?: string;
-  nodeSpace?: string;
-  empty?: React.ReactNode;
+  className?: string
+  dataSource?: TreeDataSource<T>
+  value?: number | string
+  onChange?: (value: TreeProps<any>['value']) => void
+  selectedNodeClassName?: string
+  nodeClassName?: string
+  selectedLineClassName?: string
+  lineClassName?: string
+  nodeWidth?: string
+  nodeSpace?: string
+  empty?: React.ReactNode
 }
 const Tree: React.FC<TreeProps<any>> = ({
   className,
@@ -37,31 +37,35 @@ const Tree: React.FC<TreeProps<any>> = ({
 }) => {
   if (!dataSource) {
     throw new Error(
-      `[${logPrefix}]: Failed to render as expected, please confirm the \`dataSource\` is correct`,
-    );
+      `[${logPrefix}]: Failed to render as expected, please confirm the \`dataSource\` is correct`
+    )
   }
   if (!dataSource.render) {
     throw new Error(
-      `[${logPrefix}]: Failed to render as expected, please confirm the \`dataSource.render\` is correct`,
-    );
+      `[${logPrefix}]: Failed to render as expected, please confirm the \`dataSource.render\` is correct`
+    )
   }
 
   // 控制当前选择的 node
-  const [currentNode, setCurrentNode] = React.useState<number | string>(() => value!);
+  const [currentNode, setCurrentNode] = React.useState<number | string>(
+    () => value!
+  )
   const handleSelectedNodeChange = React.useCallback(
     (key: number | string) => {
-      setCurrentNode(key);
+      setCurrentNode(key)
       if (currentNode !== key) {
         // eslint-disable-next-line no-unused-expressions
-        onChange?.(key);
+        onChange?.(key)
       }
     },
-    [setCurrentNode, onChange],
-  );
+    [setCurrentNode, onChange]
+  )
 
-  const flatDataSource = React.useMemo(() => expandDataSource(dataSource), [dataSource]);
+  const flatDataSource = React.useMemo(() => expandDataSource(dataSource), [
+    dataSource,
+  ])
 
-  const classes = React.useMemo(() => clsx(className, styles.root), [className]);
+  const classes = React.useMemo(() => clsx(className, styles.root), [className])
 
   return React.useMemo(
     () => (
@@ -92,8 +96,8 @@ const Tree: React.FC<TreeProps<any>> = ({
       nodeWidth,
       nodeSpace,
       empty,
-    ],
-  );
-};
+    ]
+  )
+}
 
-export default Tree;
+export default Tree

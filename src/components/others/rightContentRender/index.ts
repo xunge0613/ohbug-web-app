@@ -1,1 +1,1 @@
-export { default } from './rightContentRender';
+export { default } from './rightContentRender'

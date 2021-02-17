@@ -1,9 +1,9 @@
-import { generateFromString } from 'generate-avatar';
+import { generateFromString } from 'generate-avatar'
 
 interface Params {
-  id?: number | string;
-  name?: string;
-  hash?: string;
+  id?: number | string
+  name?: string
+  hash?: string
 }
 
 /**
@@ -16,7 +16,7 @@ interface Params {
  */
 export function getDefaultAvatar({ id, name, hash }: Params) {
   const avatar = `data:image/svg+xml;utf8,${generateFromString(
-    `${id}-${name}-${hash || 'ohbug'}`,
-  )}`;
-  return avatar;
+    `${id}-${name}-${hash || 'ohbug'}`
+  )}`
+  return avatar
 }

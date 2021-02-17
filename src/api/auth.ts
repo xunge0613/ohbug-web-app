@@ -1,53 +1,56 @@
-import { request } from 'umi';
+import { request } from 'umi'
 
 interface Base {
-  email: string;
+  email: string
 }
 interface Signup extends Base {
-  name: string;
-  password: string;
+  name: string
+  password: string
 }
 interface Activate {
-  captcha: string;
+  captcha: string
 }
 interface Login extends Base {
-  password: string;
+  password: string
 }
 interface Captcha extends Base {}
 interface Reset extends Base {
-  password: string;
-  captcha: string;
+  password: string
+  captcha: string
 }
 interface Github {
-  code: string;
+  code: string
 }
 interface BindUser {
-  email: string;
-  captcha: string;
-  oauthType: 'github';
-  oauthUserDetail: any;
+  email: string
+  captcha: string
+  oauthType: 'github'
+  oauthUserDetail: any
 }
 
 const auth = {
   signup: async (data: Signup) => {
-    const res = await request('/auth/signup', { method: 'post', data });
-    return res;
+    const res = await request('/auth/signup', { method: 'post', data })
+    return res
   },
   activate: async (data: Activate) => {
-    const res = await request('/auth/activate', { method: 'post', data });
-    return res;
+    const res = await request('/auth/activate', { method: 'post', data })
+    return res
   },
   sendActivationEmail: async (data: Base) => {
-    const res = await request('/auth/sendActivationEmail', { method: 'post', data });
-    return res;
+    const res = await request('/auth/sendActivationEmail', {
+      method: 'post',
+      data,
+    })
+    return res
   },
   login: async (data: Login) => {
-    const res = await request('/auth/login', { method: 'post', data });
-    return res;
+    const res = await request('/auth/login', { method: 'post', data })
+    return res
   },
   captcha: async (data: Captcha) => {
-    const res = await request('/auth/captcha', { method: 'get', params: data });
-    return res;
+    const res = await request('/auth/captcha', { method: 'get', params: data })
+    return res
   },
   reset: async (data: Reset) => {
     const res = await request('/auth/reset', {
@@ -57,17 +60,17 @@ const auth = {
         password: data.password,
         captcha: data.captcha,
       },
-    });
-    return res;
+    })
+    return res
   },
   github: async (data: Github) => {
-    const res = await request('/auth/github', { method: 'post', data });
-    return res;
+    const res = await request('/auth/github', { method: 'post', data })
+    return res
   },
   bindUser: async (data: BindUser) => {
-    const res = await request('/auth/bindUser', { method: 'post', data });
-    return res;
+    const res = await request('/auth/bindUser', { method: 'post', data })
+    return res
   },
-};
+}
 
-export default auth;
+export default auth
