@@ -25,6 +25,7 @@ const chainWebpack = (memo: any) => {
     .include.add(path.resolve(__dirname, 'src'))
     .end()
     .use('eslint')
+    .loader(require.resolve('eslint-loader'))
 }
 
 // 开启 TypeScript 编译时类型检查

@@ -42,15 +42,17 @@ const LogIn: React.FC<LoginPageProps> = ({ children }) => {
     >
       <LoginForm type="login" />
 
-      <Button
-        type="text"
-        href={oauth2GithubHref}
-        icon={
-          <Icon type="icon-ohbug-github-fill" style={{ color: '#24292e' }} />
-        }
-      >
-        Github 登录
-      </Button>
+      {oauth2GithubHref && (
+        <Button
+          type="text"
+          href={oauth2GithubHref}
+          icon={
+            <Icon type="icon-ohbug-github-fill" style={{ color: '#24292e' }} />
+          }
+        >
+          Github 登录
+        </Button>
+      )}
 
       {children}
     </LoginTemplate>
