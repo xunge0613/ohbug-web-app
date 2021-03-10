@@ -50,6 +50,13 @@ const Cards: React.FC<CardsProps> = ({ event }) => {
           description={deviceInfo?.system}
         />
       )}
+      {/* SDK */}
+      {deviceInfo?.sdk && (
+        <ProgressCard
+          title={deviceInfo?.sdk.platform}
+          description={deviceInfo?.sdk.version}
+        />
+      )}
     </Skeleton>
   )
 }

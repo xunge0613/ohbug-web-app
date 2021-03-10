@@ -3,15 +3,9 @@ import type { OhbugEvent } from '@ohbug/types'
 
 export function getDeviceInfo(event?: OhbugEvent<any>) {
   if (event) {
-    if (event.device && event.sdk.platform === 'ohbug-browser') {
-      const {
-        url,
-        title,
-        version,
-        language,
-        platform,
-        userAgent,
-      } = event.device
+    const { device, sdk } = event
+    if (device && sdk.platform === 'ohbug-browser') {
+      const { url, title, version, language, platform, userAgent } = device
       if (userAgent) {
         const { browser, engine, os, device } = new UA(userAgent)
         return {
@@ -24,11 +18,12 @@ export function getDeviceInfo(event?: OhbugEvent<any>) {
           engine,
           os,
           device,
+          sdk,
         }
       }
     }
 
-    if (event.device && event?.sdk?.platform === 'ohbug-miniapp') {
+    if (device && sdk.platform === 'ohbug-miniapp') {
       const {
         app,
         version,
@@ -44,6 +39,7 @@ export function getDeviceInfo(event?: OhbugEvent<any>) {
         device,
         system,
         SDKVersion,
+        sdk,
       }
     }
   }
