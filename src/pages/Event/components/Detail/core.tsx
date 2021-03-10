@@ -1,5 +1,6 @@
 import React from 'react'
 import type { OhbugAction } from '@ohbug/types'
+import { Typography } from 'antd'
 
 import { Icon } from '@/components'
 
@@ -12,8 +13,19 @@ export function getMessageAndIconByActionType(
   const status = action.data?.res?.status
   switch (action.type) {
     case 'click':
+      if (action.data?.selector) {
+        return {
+          message: action.data?.selector,
+          icon: <Icon type="icon-ohbug-click-line" />,
+        }
+      }
       return {
-        message: action.data?.selector,
+        message: (
+          <Typography>
+            <Typography.Text>{action.message}</Typography.Text>{' '}
+            <Typography.Text type="secondary">{action.data}</Typography.Text>
+          </Typography>
+        ),
         icon: <Icon type="icon-ohbug-click-line" />,
       }
     case 'navigation':
@@ -69,7 +81,12 @@ export function getMessageAndIconByActionType(
       }
     default:
       return {
-        message: '',
+        message: (
+          <Typography>
+            <Typography.Text>{action.message}</Typography.Text>{' '}
+            <Typography.Text type="secondary">{action.data}</Typography.Text>
+          </Typography>
+        ),
         icon: null,
       }
   }
