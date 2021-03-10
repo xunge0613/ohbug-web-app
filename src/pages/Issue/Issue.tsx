@@ -152,7 +152,9 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                         <Typography.Paragraph className={styles.desc} ellipsis>
                           {item.metadata.message && (
                             <Typography.Text>
-                              {item.metadata.message}
+                              {typeof item.metadata.message === 'string'
+                                ? item.metadata.message
+                                : JSON.stringify(item.metadata.message)}
                             </Typography.Text>
                           )}
                           {item.metadata.others && (
@@ -164,7 +166,9 @@ const Issue: React.FC<IssueDashPageProps> = () => {
                             !item.metadata.others &&
                             item.metadata.stack && (
                               <Typography.Text>
-                                {item.metadata.stack}
+                                {typeof item.metadata.stack === 'string'
+                                  ? item.metadata.stack
+                                  : JSON.stringify(item.metadata.stack)}
                               </Typography.Text>
                             )}
                         </Typography.Paragraph>

@@ -66,6 +66,22 @@ const Profile: React.FC<ProfileProps> = ({ event }) => {
         icon: <Icon type="icon-ohbug-global-line" />,
       })
     }
+    if (event?.appVersion) {
+      result.push({
+        key: 'appVersion',
+        title: `AppVersion: ${event.appVersion}`,
+        value: event.appVersion,
+        icon: <Icon type="icon-ohbug-leaf-line" />,
+      })
+    }
+    if (event?.appType) {
+      result.push({
+        key: 'appType',
+        title: `AppType: ${event.appType}`,
+        value: event.appType,
+        icon: <Icon type="icon-ohbug-leaf-line" />,
+      })
+    }
     if (event?.releaseStage) {
       result.push({
         key: 'releaseStage',

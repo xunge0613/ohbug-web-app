@@ -5,8 +5,8 @@ import ReactJson from 'react-json-view'
 
 import BasicLayout from '@/layouts/Basic'
 import type { RootState, EventModelState, IssueModelState } from '@/interfaces'
-
 import { history } from '@/interfaces'
+
 import Title from './components/Title'
 import Profile from './components/Profile'
 import Detail from './components/Detail'

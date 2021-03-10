@@ -30,7 +30,7 @@ const StackInfo: React.FC<StackInfoProps> = ({ stack, source }) => {
   const content = React.useMemo((): React.ReactNode => {
     switch (toggle) {
       case 'raw':
-        return stack
+        return typeof stack === 'string' ? stack : JSON.stringify(stack)
       case 'code':
         return (
           <Collapse

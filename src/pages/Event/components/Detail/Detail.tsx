@@ -25,7 +25,9 @@ const Detail: React.FC<DetailProps> = ({ event }) => {
           title="错误信息"
           loading={loading}
         >
-          {event.detail.message}
+          {typeof event.detail.message === 'string'
+            ? event.detail.message
+            : JSON.stringify(event.detail.message)}
         </Card>
       )}
       {/* unhandledrejectionError */}
@@ -156,7 +158,11 @@ const Detail: React.FC<DetailProps> = ({ event }) => {
             >
               <div className={styles.action}>
                 <div className={styles.type}>exception</div>
-                <div className={styles.data}>{event.detail.message}</div>
+                <div className={styles.data}>
+                  {typeof event.detail.message === 'string'
+                    ? event.detail.message
+                    : JSON.stringify(event.detail.message)}
+                </div>
                 <Tooltip
                   title={dayjs(event.timestamp).format('YYYY-MM-DD HH:mm:ss')}
                 >

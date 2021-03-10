@@ -35,7 +35,9 @@ const Title: React.FC<TitleProps> = ({ event, issue }) => {
             <Typography.Title>{event?.type}</Typography.Title>
             {event?.detail?.message && (
               <Typography.Text ellipsis strong style={{ fontSize: 16 }}>
-                {event.detail.message}
+                {typeof event.detail.message === 'string'
+                  ? event.detail.message
+                  : JSON.stringify(event.detail.message)}
               </Typography.Text>
             )}
             {event?.detail?.filename && (
